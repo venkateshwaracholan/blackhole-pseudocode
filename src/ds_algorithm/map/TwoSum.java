@@ -1,7 +1,7 @@
 /*
   TWO SUM
 */
-package map;
+package ds_algorithm.map;
 
 import java.util.*;
 import com.google.gson.Gson;
