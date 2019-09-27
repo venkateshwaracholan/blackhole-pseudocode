@@ -18,7 +18,7 @@ public class BinarySearchRec {
   public static int binarySearch(int[] arr,int l, int r, int k){
     //System.out.println(l+" : "+r);
     int mid = (l+r)/2;
-    if(r>=l){
+    if(l<=r){
       if(arr[mid]==k){
         return mid;
       }

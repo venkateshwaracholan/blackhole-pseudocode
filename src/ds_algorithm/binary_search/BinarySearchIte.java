@@ -15,7 +15,7 @@ public class BinarySearchIte {
     int l = 0,r = arr.length-1;
     int mid = (l+r)/2;
     
-    while(r>=l){
+    while(l<=r){
       if(arr[mid]==k){
         return mid;
       }
