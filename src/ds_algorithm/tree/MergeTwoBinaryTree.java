@@ -36,14 +36,24 @@ package ds_algorithm.tree;
       / \   \ 
      5   4   7
 
+TRY: try to implement eth same without destroying the input binary trees
+
+            1                         1                             
+           /                           \                            
+          1                             1                        
+                                         \                      
+                                          1  
+
 */
 
 import com.google.gson.Gson;
 import ds_algorithm.tree.BinaryTree;
 import java.util.*;
 
+
+
 public class MergeTwoBinaryTree {
-  public static Node mergeTrees(Node t1, Node t2) {  
+  public static Node mergeTreesRec(Node t1, Node t2) {  
     if(t1==null){
       return t2;
     }
@@ -51,8 +61,35 @@ public class MergeTwoBinaryTree {
       return t1;
     }
     t1.val += t2.val;
-    t1.left = mergeTrees(t1.left,t2.left);
-    t1.right = mergeTrees(t1.right,t2.right);
+    t1.left = mergeTreesRec(t1.left,t2.left);
+    t1.right = mergeTreesRec(t1.right,t2.right);
+    return t1;
+  }
+  
+  public static Node mergeTreesIte(Node t1, Node t2) {  
+    Stack<Node[]> s = new Stack();
+    Node n = t1;
+    Node arr[] = new Node[]{t1,t2};
+    s.add(arr);
+    while(!s.empty()){
+      Node narr[] = s.pop();
+      if(narr[0]==null || narr[1]==null){
+        continue;
+      }
+      narr[0].val += narr[1].val;
+      if(narr[0].left == null){
+        narr[0].left = narr[1].left;
+      }else{
+        s.add(new Node[]{narr[0].left, narr[1].left});
+      }
+      if(narr[0].right == null){
+        narr[0].right = narr[1].right;
+      }else{
+        s.add(new Node[]{narr[0].right, narr[1].right});
+      }
+    }
+      
+      
     return t1;
   }
   
@@ -62,8 +99,18 @@ public class MergeTwoBinaryTree {
 //    BinaryTree t2 = new BinaryTree(new int[]{1,3,2,5});
     BinaryTree t1 = new BinaryTree(Arrays.asList(2, 1, 3, null, 4, null, 7));
     BinaryTree t2 = new BinaryTree(Arrays.asList(1,3,2,5));
-    mergeTrees(t1.root,t2.root);
+    mergeTreesRec(t1.root,t2.root);
     test(t1.breadthFirstSearch(), new int[]{3,4,5,5,4,7});
+    
+//    BinaryTree t3 = new BinaryTree(Arrays.asList(2, 1, 3, null, 4, null, 7));
+//    BinaryTree t4 = new BinaryTree(Arrays.asList(1,3,2,5));
+//    mergeTreesIte(t3.root,t4.root);
+//    test(t3.breadthFirstSearch(), new int[]{3,4,5,5,4,7});
+
+    BinaryTree t3 = new BinaryTree(Arrays.asList(1,1));
+    BinaryTree t4 = new BinaryTree(Arrays.asList(1,null,1,null,null,null,1));
+    mergeTreesIte(t3.root,t4.root);
+    test(t3.breadthFirstSearchWithNull(), new int[]{3,4,5,5,4,7});
   }
 
   public static void test(ArrayList<Integer> got, int exp[]){

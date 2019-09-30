@@ -169,9 +169,9 @@ public class BinaryTree {
       Node n = q.poll();
       if(n!=null){
         list.add(n.val);
-        if(n.left==null && n.right==null){
-          continue;
-        }
+//        if(n.left==null && n.right==null){
+//          continue;
+//        }
         q.add(n.left);
         q.add(n.right);
       }else{
