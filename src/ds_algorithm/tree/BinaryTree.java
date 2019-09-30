@@ -27,6 +27,10 @@ class Node{
 // 0 1 2 3 4 5 6 7 8 
 
 /*
+List to array conversion: return list.stream().mapToInt(i->i).toArray();
+*/
+
+/*
          1
       2     3
     4   5  6  7
@@ -49,9 +53,36 @@ public class BinaryTree {
     this.root = insertRec(arr, null, 0);
   }
   
+  public BinaryTree(List<Integer> arr){
+    if(arr.size() == 0){
+      return;
+    }
+    this.root = insertRec(arr, null, 0);
+  }
+  //2, 1, 3, -1, 4, -1, 7
   public Node insertRec(int[] arr, Node root, int i){
     if(i<arr.length){
-      Node n = new Node(arr[i]);
+      Node n;
+      if(arr[i]!=-1){
+        n= new Node(arr[i]);
+      }else{
+        return root;
+      }
+      root = n;
+      root.left = insertRec(arr, root.left, 2*i +1);
+      root.right = insertRec(arr, root.right, 2*i +2);
+    }
+    return root;
+  }
+  
+  public Node insertRec(List<Integer> arr, Node root, int i){
+    if(i<arr.size()){
+      Node n;
+      if(arr.get(i)!=null){
+        n= new Node(arr.get(i));
+      }else{
+        return root;
+      }
       root = n;
       root.left = insertRec(arr, root.left, 2*i +1);
       root.right = insertRec(arr, root.right, 2*i +2);
@@ -70,10 +101,10 @@ public class BinaryTree {
 //    return root;
 //  }
   
-  public int[] preOrderTraversalRec(){
+  public ArrayList<Integer> preOrderTraversalRec(){
     ArrayList<Integer> list = new ArrayList();
     preOrderTraversalRec(this.root, list);
-    return list.stream().mapToInt(i->i).toArray();
+    return list;
   }
   
   public void preOrderTraversalRec(Node n, ArrayList<Integer> list){
@@ -85,10 +116,10 @@ public class BinaryTree {
     }
   }
   
-  public int[] inOrderTraversalRec(){
+  public ArrayList<Integer> inOrderTraversalRec(){
     ArrayList<Integer> list = new ArrayList();
     inOrderTraversalRec(this.root, list);
-    return list.stream().mapToInt(i->i).toArray();
+    return list;
   }
   
   public void inOrderTraversalRec(Node n, ArrayList<Integer> list){
@@ -99,10 +130,10 @@ public class BinaryTree {
     }
   }
   
-  public int[] postOrderTraversalRec(){
+  public ArrayList<Integer> postOrderTraversalRec(){
     ArrayList<Integer> list = new ArrayList();
     postOrderTraversalRec(this.root, list);
-    return list.stream().mapToInt(i->i).toArray();
+    return list;
   }
   
   public void postOrderTraversalRec(Node n, ArrayList<Integer> list){
@@ -113,23 +144,45 @@ public class BinaryTree {
     }
   }
   
-  public void breadthFirstSearch(){
+  public ArrayList<Integer> breadthFirstSearch(){
     Queue<Node> q= new LinkedList();
+    ArrayList<Integer> list = new ArrayList();
     q.add(this.root);
     while(!q.isEmpty()){
       Node n = q.poll();
-      System.out.println(n.val);
+      list.add(n.val);
       if(n.left!=null){
         q.add(n.left);
       }
       if(n.right!=null){
         q.add(n.right);
       }
-      
     }
+    return list;
   }
   
-  public int[] preOrderTraversalIte(){
+  public ArrayList<Integer> breadthFirstSearchWithNull(){
+    Queue<Node> q= new LinkedList();
+    ArrayList<Integer> list = new ArrayList();
+    q.add(this.root);
+    while(!q.isEmpty()){
+      Node n = q.poll();
+      if(n!=null){
+        list.add(n.val);
+        if(n.left==null && n.right==null){
+          continue;
+        }
+        q.add(n.left);
+        q.add(n.right);
+      }else{
+        list.add(null);
+      }
+      
+    }
+    return list;
+  }
+  
+  public ArrayList<Integer> preOrderTraversalIte(){
     ArrayList<Integer> list = new ArrayList();
     Stack<Node> s = new Stack();
     s.add(this.root);
@@ -143,7 +196,7 @@ public class BinaryTree {
         s.add(n.left);
       }
     }
-    return list.stream().mapToInt(i->i).toArray();
+    return list;
   }
   
 /*
@@ -154,7 +207,7 @@ public class BinaryTree {
 
 */
   
-  public int[] inOrderTraversalIte(){
+  public ArrayList<Integer> inOrderTraversalIte(){
     ArrayList<Integer> list = new ArrayList();
     Stack<Node> s = new Stack();
     Node n = this.root;
@@ -167,7 +220,7 @@ public class BinaryTree {
       list.add(n.val);
       n = n.right;
     };
-    return list.stream().mapToInt(i->i).toArray();
+    return list;
   }
   
   
@@ -177,7 +230,7 @@ public class BinaryTree {
     4   5  6  7
    8 9
   */
-  public int[] postOrderTraversalIte(){
+  public ArrayList<Integer> postOrderTraversalIte(){
     ArrayList<Integer> list = new ArrayList();
     Stack<Node> s = new Stack();
     Node n = this.root;
@@ -195,7 +248,7 @@ public class BinaryTree {
         n=null;
       }
     };
-    return list.stream().mapToInt(i->i).toArray();
+    return list;
   }
   
   public static void main(String[] args){
@@ -211,7 +264,7 @@ public class BinaryTree {
     test(tree.postOrderTraversalIte(), new int[]{8,9,4,5,2,6,7,3,1});
   }
 
-  public static void test(int got[], int exp[]){
+  public static void test(ArrayList<Integer> got, int exp[]){
     Gson gson = new Gson();
     String gotStr = gson.toJson(got);
     String expStr = gson.toJson(exp);
