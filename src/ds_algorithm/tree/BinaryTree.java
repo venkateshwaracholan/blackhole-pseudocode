@@ -170,6 +170,13 @@ public class BinaryTree {
     return list.stream().mapToInt(i->i).toArray();
   }
   
+  
+  /*
+         1
+      2     3
+    4   5  6  7
+   8 9
+  */
   public int[] postOrderTraversalIte(){
     ArrayList<Integer> list = new ArrayList();
     Stack<Node> s = new Stack();
@@ -177,13 +184,16 @@ public class BinaryTree {
     while(n!=null || !s.empty()){
       while(n!=null){
         s.add(n);
-        if(n.right!=null){
-          s.add(n.right);
-        }
+        s.add(n);
         n=n.left;
       }
       n = s.pop();
-      list.add(n.val);
+      if(!s.empty() && s.peek() == n){
+        n = n.right;
+      }else{
+        list.add(n.val);
+        n=null;
+      }
     };
     return list.stream().mapToInt(i->i).toArray();
   }
