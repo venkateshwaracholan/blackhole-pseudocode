@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ds_algorithm.binary_search;
+package ds_algorithm.divide_and_conquer;
 import java.util.*;
 /**
  *
@@ -15,14 +15,16 @@ public class BinarySearchRec {
     return  binarySearch(arr,0,arr.length-1,k);
   }
   
+  //this bound is better than the alternate impl
   public static int binarySearch(int[] arr,int l, int r, int k){
     //System.out.println(l+" : "+r);
     int mid = (l+r)/2;
-    if(l<=r){
-      if(arr[mid]==k){
-        return mid;
-      }
+    if(arr[mid]==k){
+      return mid;
+    }
+    if(l<r){
       if(k<arr[mid]){
+        binarySearch(arr, mid+1, r, k);
         return binarySearch(arr, l, mid-1, k);
       }else{
         return binarySearch(arr, mid+1, r, k);
@@ -31,7 +33,25 @@ public class BinarySearchRec {
     return -1;
   }
   
+  //alternative implementation
+  public static int binarySearchAlt(int[] arr,int l, int r, int k){
+    int mid = (l+r)/2;
+    System.out.println(l+" : "+mid+" : "+r);
+    if(arr[mid]==k){
+      return mid;
+    }
+    if(l==r){
+      return -1;
+    }
+    if(k<arr[mid]){
+      return binarySearch(arr, l, mid-1, k);
+    }else{
+      return binarySearch(arr, mid+1, r, k);
+    }
+  }
+  
   public static void main(String[] args){
+    
       test(binarySearchRec(new int[]{1,2,7,8,9,11,15}, 9), 4);
       test(binarySearchRec(new int[]{1,2,7,8,9,11,15}, 7), 2);
       test(binarySearchRec(new int[]{1,2,7,8,9,11,15}, 1), 0);

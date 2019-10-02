@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ds_algorithm.binary_search;
+package ds_algorithm.divide_and_conquer;
 
 /**
  *

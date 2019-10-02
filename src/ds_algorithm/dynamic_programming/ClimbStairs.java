@@ -5,7 +5,7 @@
  */
 package ds_algorithm.dynamic_programming;
 
-import static ds_algorithm.binary_search.BinarySearchIte.binarySearch;
+import static ds_algorithm.divide_and_conquer.BinarySearchIte.binarySearch;
 
 /**
  *
