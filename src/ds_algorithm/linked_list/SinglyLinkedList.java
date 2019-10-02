@@ -4,6 +4,10 @@
  * and open the template in the editor.
  */
 package ds_algorithm.linked_list;
+
+import com.google.gson.Gson;
+import java.util.*;
+
 class Node{
   int val;
   Node next=null;
@@ -58,6 +62,28 @@ public class SinglyLinkedList {
     System.out.println("Null");
   }
   
+  public ArrayList<Integer> toList(){
+    Node temp = this.head;
+    ArrayList<Integer> list = new ArrayList();
+    while(temp!=null){
+      list.add(temp.val);
+      temp = temp.next;
+    }
+    return list;
+  }
+  
+  public static ArrayList<Integer> toList(Node n){
+    Node temp = n;
+    ArrayList<Integer> list = new ArrayList();
+    while(temp!=null){
+      list.add(temp.val);
+      temp = temp.next;
+    }
+    return list;
+  }
+  
+  
+  
   public Node find(int k){
     Node temp = this.head;
     while(temp!=null){
@@ -91,14 +117,22 @@ public class SinglyLinkedList {
   
   public static void main(String args[]){
     SinglyLinkedList list = new SinglyLinkedList(new int[]{1,2,3,4,5});
-    list.print();
+    test(list.toList(), new int[]{1,2,3,4,5});
     list.remove(1);
-    list.print();
     list.remove(3);
-    list.print();
     list.remove(5);
     list.remove(10);
-    list.print();
+    test(list.toList(), new int[]{2,4});
+
     
+  }
+  
+  public static void test(ArrayList<Integer> got, int exp[]){
+    Gson gson = new Gson();
+    String gotStr = gson.toJson(got);
+    String expStr = gson.toJson(exp);
+    System.out.println(gotStr.equals(expStr));
+    System.out.println("got     : "+gson.toJson(gotStr));
+    System.out.println("expected: "+gson.toJson(expStr));
   }
 }
