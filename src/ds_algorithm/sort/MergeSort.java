@@ -79,4 +79,37 @@ public class MergeSort {
     System.out.println("got     : "+gson.toJson(gotStr));
     System.out.println("expected: "+gson.toJson(expStr));
   }
+  
+  // Alternate implementation for merge method without loops to add pending elements
+  public static void mergeAlternate(int[] arr, int l,int mid, int r){
+    //System.out.println(l+" : "+mid+" : "+r);
+    //System.out.println(arr[l]+" : "+arr[mid]+" : "+arr[r]);
+    int n1 = mid-l+1;
+    int n2 = r-mid;
+    int i,j,k;
+    int L[] = new int[n1];
+    int R[] = new int[n2];
+    
+    for(i=0;i<n1;i++){
+      L[i] = arr[l+i];
+    }
+    for(j=0;j<n2;j++){
+      R[j] = arr[mid+1+j];
+    }
+    i=0;
+    j=0;
+    k=l;
+    while(i<n1 || j<n2){
+      int val1 = i<n1 ? L[i] : Integer.MAX_VALUE;
+      int val2 = j<n2 ? R[j] : Integer.MAX_VALUE;
+      if(val1<val2){
+        arr[k] = L[i];
+        i++;
+      }else{
+        arr[k] = R[j];
+        j++;
+      }
+      k++;
+    }
+  }
 }
