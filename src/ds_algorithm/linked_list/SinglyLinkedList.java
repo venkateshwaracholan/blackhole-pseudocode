@@ -8,11 +8,11 @@ package ds_algorithm.linked_list;
 import com.google.gson.Gson;
 import java.util.*;
 
-class Node{
+class ListNode{
   int val;
-  Node next=null;
+  ListNode next=null;
   
-  public Node(int val){
+  public ListNode(int val){
     this.val= val;
   }
 }
@@ -21,7 +21,7 @@ class Node{
  * @author venkateshwarans
  */
 public class SinglyLinkedList {
-  Node head = null;
+  ListNode head = null;
   
   SinglyLinkedList(){
     
@@ -39,22 +39,22 @@ public class SinglyLinkedList {
   
   public int add(int val){
     if(this.head==null){
-      this.head = new Node(val);
+      this.head = new ListNode(val);
       return 0;
     }else{
-      Node temp = this.head;
+      ListNode temp = this.head;
       int c = 1;
       while(temp.next!=null){
         temp=temp.next;
         c++;
       }
-      temp.next = new Node(val);
+      temp.next = new ListNode(val);
       return c;
     }
   }
   
   public void print(){
-    Node temp = this.head;
+    ListNode temp = this.head;
     while(temp!=null){
       System.out.print(temp.val+"->");
       temp = temp.next;
@@ -63,7 +63,7 @@ public class SinglyLinkedList {
   }
   
   public ArrayList<Integer> toList(){
-    Node temp = this.head;
+    ListNode temp = this.head;
     ArrayList<Integer> list = new ArrayList();
     while(temp!=null){
       list.add(temp.val);
@@ -72,8 +72,8 @@ public class SinglyLinkedList {
     return list;
   }
   
-  public static ArrayList<Integer> toList(Node n){
-    Node temp = n;
+  public static ArrayList<Integer> toList(ListNode n){
+    ListNode temp = n;
     ArrayList<Integer> list = new ArrayList();
     while(temp!=null){
       list.add(temp.val);
@@ -84,8 +84,8 @@ public class SinglyLinkedList {
   
   
   
-  public Node find(int k){
-    Node temp = this.head;
+  public ListNode find(int k){
+    ListNode temp = this.head;
     while(temp!=null){
       if(temp.val == k){
         return temp;
@@ -95,8 +95,8 @@ public class SinglyLinkedList {
     return null;
   }
   
-  public Node remove(int k){
-    Node temp = this.head;
+  public ListNode remove(int k){
+    ListNode temp = this.head;
     if(temp==null){
       return null;
     }else if(temp.val==k){
@@ -105,7 +105,7 @@ public class SinglyLinkedList {
     }else{
       while(temp.next!=null){
         if(temp.next.val == k){
-          Node rem = temp.next;
+          ListNode rem = temp.next;
           temp.next = temp.next.next;
           return rem;
         }

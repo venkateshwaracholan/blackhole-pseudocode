@@ -16,10 +16,10 @@ import ds_algorithm.utils.ArrayUtils;
  */
 public class reverseLinkeList {
   
-  public static Node reverseLinkedList(Node n){
-    Node cur = n, prev = null;
+  public static ListNode reverseLinkedList(ListNode n){
+    ListNode cur = n, prev = null;
     while(cur!=null){
-      Node next = cur.next;
+      ListNode next = cur.next;
       cur.next = prev;
       prev = cur;
       cur = next;
@@ -27,14 +27,27 @@ public class reverseLinkeList {
     return prev;
   }
   // 1,2,3,4,5
-  public static Node reverseLinkedListRec(Node cur){
+  public static ListNode reverseLinkedListRec(ListNode cur){
     if(cur.next==null){
       return cur;
     }
-    Node res = reverseLinkedListRec(cur.next);
+    ListNode res = reverseLinkedListRec(cur.next);
     cur.next.next = cur;
     cur.next = null;
     return res;
+  }
+  
+  public static ListNode reverseLinkedListRec2(ListNode cur){
+    return reverseLinkedListRec2(null, cur);
+  }
+  
+  public static ListNode reverseLinkedListRec2(ListNode prev, ListNode cur){
+    if(cur==null){
+      return prev;
+    }
+    ListNode next = cur.next;
+    cur.next = prev;
+    return reverseLinkedListRec2(cur, next);
   }
   
   public static void main(String args[]){
@@ -48,8 +61,14 @@ public class reverseLinkeList {
     test(SinglyLinkedList.toList(reverseLinkedListRec(list.head)), new int[]{1,2,3,4,5});
     list = new SinglyLinkedList(new int[]{2,4});
     test(SinglyLinkedList.toList(reverseLinkedListRec(list.head)), new int[]{2,4});
-
     
+    
+    list = new SinglyLinkedList(new int[]{1,2,3,4,5});
+    test(SinglyLinkedList.toList(reverseLinkedListRec2(list.head)), new int[]{1,2,3,4,5});
+    list = new SinglyLinkedList(new int[]{2,4});
+    test(SinglyLinkedList.toList(reverseLinkedListRec2(list.head)), new int[]{2,4});
+
+
   }
   
   public static void test(ArrayList<Integer> got, int exp[]){
