@@ -123,6 +123,8 @@ public class SinglyLinkedList {
     list.remove(5);
     list.remove(10);
     test(list.toList(), new int[]{2,4});
+    SinglyLinkedList list2 = new SinglyLinkedList(new int[]{1,2,2,1});
+    test(list2.toList(), new int[]{1,2,2,1});
 
     
   }

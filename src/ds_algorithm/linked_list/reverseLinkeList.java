@@ -67,8 +67,10 @@ public class reverseLinkeList {
     test(SinglyLinkedList.toList(reverseLinkedListRec2(list.head)), new int[]{1,2,3,4,5});
     list = new SinglyLinkedList(new int[]{2,4});
     test(SinglyLinkedList.toList(reverseLinkedListRec2(list.head)), new int[]{2,4});
+    list = new SinglyLinkedList(new int[]{1,2});
+    test(SinglyLinkedList.toList(reverseLinkedListRec2(list.head)), new int[]{1,2});
 
-
+    System.out.println(Integer.MAX_VALUE);
   }
   
   public static void test(ArrayList<Integer> got, int exp[]){

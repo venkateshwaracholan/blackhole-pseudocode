@@ -6,7 +6,7 @@
 package ds_algorithm.linked_list;
 
 import com.google.gson.Gson;
-import static ds_algorithm.linked_list.reverseLinkeList.reverseLinkedListRec2;
+import static ds_algorithm.linked_list.reverseLinkeList.*;
 import ds_algorithm.utils.ArrayUtils;
 import java.util.ArrayList;
 
