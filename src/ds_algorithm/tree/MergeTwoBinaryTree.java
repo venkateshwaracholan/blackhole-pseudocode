@@ -53,7 +53,7 @@ import java.util.*;
 
 
 public class MergeTwoBinaryTree {
-  public static Node mergeTreesRec(Node t1, Node t2) {  
+  public static TreeNode mergeTreesRec(TreeNode t1, TreeNode t2) {  
     if(t1==null){
       return t2;
     }
@@ -66,13 +66,13 @@ public class MergeTwoBinaryTree {
     return t1;
   }
   
-  public static Node mergeTreesIte(Node t1, Node t2) {  
-    Stack<Node[]> s = new Stack();
-    Node n = t1;
-    Node arr[] = new Node[]{t1,t2};
+  public static TreeNode mergeTreesIte(TreeNode t1, TreeNode t2) {  
+    Stack<TreeNode[]> s = new Stack();
+    TreeNode n = t1;
+    TreeNode arr[] = new TreeNode[]{t1,t2};
     s.add(arr);
     while(!s.empty()){
-      Node narr[] = s.pop();
+      TreeNode narr[] = s.pop();
       if(narr[0]==null || narr[1]==null){
         continue;
       }
@@ -80,12 +80,12 @@ public class MergeTwoBinaryTree {
       if(narr[0].left == null){
         narr[0].left = narr[1].left;
       }else{
-        s.add(new Node[]{narr[0].left, narr[1].left});
+        s.add(new TreeNode[]{narr[0].left, narr[1].left});
       }
       if(narr[0].right == null){
         narr[0].right = narr[1].right;
       }else{
-        s.add(new Node[]{narr[0].right, narr[1].right});
+        s.add(new TreeNode[]{narr[0].right, narr[1].right});
       }
     }
       
@@ -110,7 +110,7 @@ public class MergeTwoBinaryTree {
     BinaryTree t3 = new BinaryTree(Arrays.asList(1,1));
     BinaryTree t4 = new BinaryTree(Arrays.asList(1,null,1,null,null,null,1));
     mergeTreesIte(t3.root,t4.root);
-    test(t3.breadthFirstSearchWithNull(), new int[]{3,4,5,5,4,7});
+    test(t3.breadthFirstSearch(), new int[]{2,1,1,1});
   }
 
   public static void test(ArrayList<Integer> got, int exp[]){

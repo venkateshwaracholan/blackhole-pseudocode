@@ -8,12 +8,12 @@ package ds_algorithm.tree;
 import com.google.gson.Gson;
 import java.util.*;
 
-class Node{
+class TreeNode{
   int val;
-  Node left = null;
-  Node right = null;
+  TreeNode left = null;
+  TreeNode right = null;
   
-  public Node(int a){
+  public TreeNode(int a){
     this.val = a;
   }
 }
@@ -39,7 +39,7 @@ List to array conversion: return list.stream().mapToInt(i->i).toArray();
 */
 
 public class BinaryTree {
-  Node root = null;
+  TreeNode root = null;
   
   
   public BinaryTree(){
@@ -60,11 +60,35 @@ public class BinaryTree {
     this.root = insertRec(arr, null, 0);
   }
   //2, 1, 3, -1, 4, -1, 7
-  public Node insertRec(int[] arr, Node root, int i){
+  
+  //BFS insertion of node
+  public void insert(int val){
+    TreeNode n = new TreeNode(val);
+    if(this.root==null){
+      this.root = n;
+      return;
+    }
+    Queue<TreeNode> q  =new LinkedList();
+    q.add(root);
+    while(!q.isEmpty()){
+      TreeNode t = q.poll();
+      if(t.left==null){
+        t.left = n;
+        return;
+      }else if(t.right == null){
+        t.right=n;
+        return;
+      }
+      q.add(t.left);
+      q.add(t.right);
+    }
+  }
+  
+  public TreeNode insertRec(int[] arr, TreeNode root, int i){
     if(i<arr.length){
-      Node n;
+      TreeNode n;
       if(arr[i]!=-1){
-        n= new Node(arr[i]);
+        n= new TreeNode(arr[i]);
       }else{
         return root;
       }
@@ -75,11 +99,11 @@ public class BinaryTree {
     return root;
   }
   
-  public Node insertRec(List<Integer> arr, Node root, int i){
+  public TreeNode insertRec(List<Integer> arr, TreeNode root, int i){
     if(i<arr.size()){
-      Node n;
+      TreeNode n;
       if(arr.get(i)!=null){
-        n= new Node(arr.get(i));
+        n= new TreeNode(arr.get(i));
       }else{
         return root;
       }
@@ -90,10 +114,10 @@ public class BinaryTree {
     return root;
   }
   
-//  public Node insertIte(int[] arr){
+//  public TreeNode insertIte(int[] arr){
 //    int i=0;
 //    while(i<arr.length){
-//      Node n = new Node(arr[i]);
+//      TreeNode n = new TreeNode(arr[i]);
 //      root = n;
 //      root.left = insertRec(arr, root.left, 2*i +1);
 //      root.right = insertRec(arr, root.right, 2*i +2);
@@ -107,7 +131,7 @@ public class BinaryTree {
     return list;
   }
   
-  public void preOrderTraversalRec(Node n, ArrayList<Integer> list){
+  public void preOrderTraversalRec(TreeNode n, ArrayList<Integer> list){
     if(n!=null){
       list.add(n.val);
       preOrderTraversalRec(n.left, list);
@@ -122,7 +146,7 @@ public class BinaryTree {
     return list;
   }
   
-  public void inOrderTraversalRec(Node n, ArrayList<Integer> list){
+  public void inOrderTraversalRec(TreeNode n, ArrayList<Integer> list){
     if(n!=null){
       inOrderTraversalRec(n.left, list);
       list.add(n.val);
@@ -136,7 +160,7 @@ public class BinaryTree {
     return list;
   }
   
-  public void postOrderTraversalRec(Node n, ArrayList<Integer> list){
+  public void postOrderTraversalRec(TreeNode n, ArrayList<Integer> list){
     if(n!=null){
       postOrderTraversalRec(n.left, list);
       postOrderTraversalRec(n.right, list);
@@ -145,11 +169,14 @@ public class BinaryTree {
   }
   
   public ArrayList<Integer> breadthFirstSearch(){
-    Queue<Node> q= new LinkedList();
+    Queue<TreeNode> q= new LinkedList();
     ArrayList<Integer> list = new ArrayList();
+    if(this.root==null){
+      return list;
+    }
     q.add(this.root);
     while(!q.isEmpty()){
-      Node n = q.poll();
+      TreeNode n = q.poll();
       list.add(n.val);
       if(n.left!=null){
         q.add(n.left);
@@ -162,11 +189,11 @@ public class BinaryTree {
   }
   
   public ArrayList<Integer> breadthFirstSearchWithNull(){
-    Queue<Node> q= new LinkedList();
+    Queue<TreeNode> q= new LinkedList();
     ArrayList<Integer> list = new ArrayList();
     q.add(this.root);
     while(!q.isEmpty()){
-      Node n = q.poll();
+      TreeNode n = q.poll();
       if(n!=null){
         list.add(n.val);
 //        if(n.left==null && n.right==null){
@@ -184,10 +211,10 @@ public class BinaryTree {
   
   public ArrayList<Integer> preOrderTraversalIte(){
     ArrayList<Integer> list = new ArrayList();
-    Stack<Node> s = new Stack();
+    Stack<TreeNode> s = new Stack();
     s.add(this.root);
     while(!s.empty()){
-      Node n = s.pop();
+      TreeNode n = s.pop();
       list.add(n.val);
       if(n.right!=null){
         s.add(n.right);
@@ -209,8 +236,8 @@ public class BinaryTree {
   
   public ArrayList<Integer> inOrderTraversalIte(){
     ArrayList<Integer> list = new ArrayList();
-    Stack<Node> s = new Stack();
-    Node n = this.root;
+    Stack<TreeNode> s = new Stack();
+    TreeNode n = this.root;
     while(n!=null || !s.empty()){
       while(n!=null){
         s.add(n);
@@ -232,8 +259,8 @@ public class BinaryTree {
   */
   public ArrayList<Integer> postOrderTraversalIte(){
     ArrayList<Integer> list = new ArrayList();
-    Stack<Node> s = new Stack();
-    Node n = this.root;
+    Stack<TreeNode> s = new Stack();
+    TreeNode n = this.root;
     while(n!=null || !s.empty()){
       while(n!=null){
         s.add(n);
@@ -262,6 +289,11 @@ public class BinaryTree {
     
     test(tree.postOrderTraversalRec(), new int[]{8,9,4,5,2,6,7,3,1});
     test(tree.postOrderTraversalIte(), new int[]{8,9,4,5,2,6,7,3,1});
+    
+    test(tree.breadthFirstSearch(), new int[]{1,2,3,4,5,6,7,8,9});
+    
+    tree.insert(10);
+    test(tree.breadthFirstSearch(), new int[]{1,2,3,4,5,6,7,8,9,10});
   }
 
   public static void test(ArrayList<Integer> got, int exp[]){
