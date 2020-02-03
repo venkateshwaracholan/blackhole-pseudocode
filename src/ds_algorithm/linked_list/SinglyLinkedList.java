@@ -82,6 +82,14 @@ public class SinglyLinkedList {
     return list;
   }
   
+  public static void print(ListNode head){
+    ListNode temp = head;
+    while(temp!=null){
+      System.out.print(temp.val+"->");
+      temp = temp.next;
+    }
+    System.out.println("Null");
+  }
   
   
   public ListNode find(int k){

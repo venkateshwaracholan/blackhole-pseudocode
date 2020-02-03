@@ -8,15 +8,6 @@ package ds_algorithm.tree;
 import com.google.gson.Gson;
 import java.util.*;
 
-class TreeNode{
-  int val;
-  TreeNode left = null;
-  TreeNode right = null;
-  
-  public TreeNode(int a){
-    this.val = a;
-  }
-}
 
 /**
  *

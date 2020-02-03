@@ -34,6 +34,8 @@ https://leetcode.com/problems/maximum-subarray/submissions/
 public class MaximumContiguousSubarray {
   public static boolean show = true;
   
+  
+  // Time: O(n) space: O(1)
   public static int maximumContiguousSubarray(int arr[]){
     int cum_max = 0;
     int max = Integer.MIN_VALUE;

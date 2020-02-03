@@ -11,6 +11,8 @@ package ds_algorithm.divide_and_conquer;
  */
 
 /*
+https://leetcode.com/problems/maximum-subarray/
+
 This is an alternate solution to a problem
 question and Acual O(n) solution available at ds_algorithm/arrays/MaximumContiguousSubarray.java
 */
@@ -18,6 +20,8 @@ public class MaximumContiguousSubarrayDivConquer {
   
   public static boolean show = true;
   
+  
+  // Time: O(nlog(n)) space: O(1)
   public static int maximumContiguousSubarray(int arr[]){
     
     return maximumContiguousSubarrayRec(arr, 0, arr.length-1);

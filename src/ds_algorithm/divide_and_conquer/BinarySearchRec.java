@@ -11,11 +11,14 @@ import java.util.*;
  */
 // 0 1 2 3 4 5 6 7 8
 public class BinarySearchRec {
+  
+  // Time: O(log(n)) space: O(1)
   public static int binarySearchRec(int[] arr, int k){
     return  binarySearch(arr,0,arr.length-1,k);
   }
   
   //this bound is better than the alternate impl
+  // Time: O(log(n)) space: O(1)
   public static int binarySearch(int[] arr,int l, int r, int k){
     //System.out.println(l+" : "+r);
     int mid = (l+r)/2;
@@ -34,6 +37,7 @@ public class BinarySearchRec {
   }
   
   //alternative implementation
+  // Time: O(log(n)) space: O(1)
   public static int binarySearchAlt(int[] arr,int l, int r, int k){
     int mid = (l+r)/2;
     System.out.println(l+" : "+mid+" : "+r);

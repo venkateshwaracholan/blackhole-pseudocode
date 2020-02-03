@@ -10,6 +10,8 @@ package ds_algorithm.divide_and_conquer;
  * @author venkateshwarans
  */
 public class BinarySearchIte {
+  
+  // Time: O(log(n)) space: O(1)
   public static int binarySearch(int[] arr, int k){
     //System.out.println(l+" : "+r);
     int l = 0,r = arr.length-1;

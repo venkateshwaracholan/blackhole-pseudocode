@@ -1,0 +1,268 @@
+Problem solving
+
+
+Sorting
+
+Bubble, Insertion, Quick and merge. Their Big O notations.
+
+
+Arrays - https://leetcode.com/tag/array/
+
+Remove - https://leetcode.com/problems/remove-element/
+
+Search - binary search, linear search and ternary search
+
+Range search in sorted array - https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array
+
+Insert in position in sorted array - https://leetcode.com/problems/search-insert-position
+
+Rotate array - https://leetcode.com/problems/rotate-array/
+
+Search in rotated - https://leetcode.com/problems/search-in-rotated-sorted-array/discuss/14435/Clever-idea-making-it-simple
+
+Max subarray - https://leetcode.com/problems/maximum-subarray
+
+Set matrix to zeroes - https://leetcode.com/problems/set-matrix-zeroes/
+
+Pascal triangle - https://leetcode.com/problems/pascals-triangle/
+
+Two sum - https://leetcode.com/problems/two-sum/
+
+Three sum - https://leetcode.com/problems/3sum/
+
+Single number - https://leetcode.com/problems/single-number/
+
+Intersection - https://leetcode.com/problems/intersection-of-two-arrays/solution/
+
+Majority - https://leetcode.com/problems/majority-element/
+
+Duplicates from sorted array - https://leetcode.com/problems/remove-duplicates-from-sorted-array/
+
+Missing - https://leetcode.com/problems/missing-number/
+
+Consecutive sequence - https://leetcode.com/problems/longest-consecutive-sequence/
+
+Valid sudoku - https://leetcode.com/problems/valid-sudoku/
+
+Plus one - https://leetcode.com/problems/plus-one/
+
+Kth largest element in a array - https://leetcode.com/problems/kth-largest-element-in-an-array/discuss/60294/Solution-explained 
+
+Pythagorean triplet - https://www.geeksforgeeks.org/find-pythagorean-triplet-in-an-unsorted-array/ 
+
+Rotate matrix by 90 degree - https://leetcode.com/problems/rotate-image/ 
+
+Stock spanner - https://leetcode.com/problems/online-stock-span/ 
+
+Next greater element - https://www.geeksforgeeks.org/next-greater-element/ 
+
+https://www.geeksforgeeks.org/maximum-sum-iarri-among-rotations-given-array/ 
+
+Spiral - https://www.geeksforgeeks.org/print-a-given-matrix-in-spiral-form/ 
+
+https://www.geeksforgeeks.org/find-the-smallest-window-in-a-string-containing-all-characters-of-another-string/ 
+
+https://www.geeksforgeeks.org/kth-smallest-element-in-a-row-wise-and-column-wise-sorted-2d-array-set-1/ 
+
+https://www.geeksforgeeks.org/sliding-window-maximum-maximum-of-all-subarrays-of-size-k/ 
+
+https://www.geeksforgeeks.org/minimum-number-of-swaps-required-for-arranging-pairs-adjacent-to-each-other/ 
+
+https://www.geeksforgeeks.org/count-possible-decodings-given-digit-sequence/ 
+
+
+Strings - https://leetcode.com/tag/string/ 
+
+
+Reverse 
+
+First unique char - https://leetcode.com/problems/first-unique-character-in-a-string/
+
+Anagram, Palindrome.
+
+Last word - https://leetcode.com/problems/length-of-last-word/
+
+Common prefix - https://leetcode.com/problems/longest-common-prefix/
+
+Substring without repeating chars - https://leetcode.com/problems/longest-substring-without-repeating-characters/
+
+String printing all combinations kinda 
+
+https://www.geeksforgeeks.org/print-all-interleavings-of-given-two-strings/ 
+
+
+Numbers - https://leetcode.com/tag/math/ 
+
+
+Palindrome - https://leetcode.com/problems/valid-palindrome/
+
+Palindrome partitioning - https://leetcode.com/problems/palindrome-partitioning/
+
+Power - https://leetcode.com/problems/powx-n/
+
+Square root - https://leetcode.com/problems/sqrtx/
+
+Reverse - https://leetcode.com/problems/reverse-integer/
+
+Happy number - https://leetcode.com/problems/happy-number/
+
+Guess number - https://leetcode.com/problems/guess-number-higher-or-lower/
+
+Next permutation - https://leetcode.com/problems/next-permutation/
+
+Single - https://leetcode.com/problems/single-number/
+
+
+
+
+Linked List - https://leetcode.com/tag/linked-list/ 
+
+
+Reverse - https://leetcode.com/problems/reverse-linked-list/
+
+Reverse range - https://leetcode.com/problems/reverse-linked-list-ii/ 
+
+Delete - https://leetcode.com/problems/delete-node-in-a-linked-list/
+
+Cycle - https://leetcode.com/problems/linked-list-cycle/ 
+
+Remove - https://leetcode.com/problems/remove-linked-list-elements/
+
+Partition - https://leetcode.com/problems/partition-list/
+
+Rotate - https://leetcode.com/problems/rotate-list/
+
+Merge - https://leetcode.com/problems/merge-two-sorted-lists/
+
+Merge k list - https://leetcode.com/problems/merge-k-sorted-lists/ 
+
+Swap - https://leetcode.com/problems/swap-nodes-in-pairs/
+
+Add - https://leetcode.com/problems/add-two-numbers/
+
+Remove duplicates - https://leetcode.com/problems/remove-duplicates-from-sorted-list/
+
+https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/ 
+
+Palindrome - https://leetcode.com/problems/palindrome-linked-list/
+
+Odd even - https://leetcode.com/problems/odd-even-linked-list/
+
+Intersection - https://leetcode.com/problems/intersection-of-two-linked-lists/ 
+
+Swap the kth element from starting and from the end position  https://www.geeksforgeeks.org/swap-kth-node-from-beginning-with-kth-node-from-end-in-a-linked-list/ 
+
+
+Binary Trees - https://leetcode.com/tag/tree/ https://leetcode.com/tag/binary-indexed-tree/ https://leetcode.com/tag/binary-search-tree/ 
+
+
+Max Depth - https://leetcode.com/problems/maximum-depth-of-binary-tree
+
+Min Depth - https://leetcode.com/problems/minimum-depth-of-binary-tree
+
+Invert - https://leetcode.com/problems/invert-binary-tree/
+
+LCA - https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree
+
+Level order - https://leetcode.com/problems/binary-tree-level-order-traversal/
+
+Zigzag level order - https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/
+
+Inorder, preorder, postorder - https://leetcode.com/problems/binary-tree-preorder-traversal/
+
+Left view, right view, topview and bottom view.  https://leetcode.com/problems/binary-tree-right-side-view/solution/ 
+
+Balanced BT - https://leetcode.com/problems/balanced-binary-tree/
+
+isSymmetric - https://leetcode.com/problems/symmetric-tree/
+
+validate BST - https://leetcode.com/problems/validate-binary-search-tree/
+
+BT Paths - https://leetcode.com/problems/binary-tree-paths
+
+BT Path sum - https://leetcode.com/problems/binary-tree-maximum-path-sum/
+
+Recover BT - https://leetcode.com/problems/recover-binary-search-tree/
+
+Flatten BT to Linked list - https://leetcode.com/problems/flatten-binary-tree-to-linked-list/
+
+Right side view - https://leetcode.com/problems/binary-tree-right-side-view/
+
+Next right - https://leetcode.com/problems/populating-next-right-pointers-in-each-node
+
+Kth smallest - https://leetcode.com/problems/kth-smallest-element-in-a-bst/ 
+
+Unique BST - https://leetcode.com/problems/unique-binary-search-trees/ 
+
+Binary tree to DLL - https://www.geeksforgeeks.org/convert-given-binary-tree-doubly-linked-list-set-3/ 
+
+Serialize and deserialize BT - https://www.geeksforgeeks.org/serialize-deserialize-binary-tree/ 
+
+Print binary tree in vertical order - https://www.geeksforgeeks.org/print-binary-tree-vertical-order/ 
+
+BT to BST - https://www.geeksforgeeks.org/binary-tree-to-binary-search-tree-conversion/ 
+
+
+
+Graphs - https://leetcode.com/tag/graph/
+
+https://leetcode.com/problems/number-of-islands/
+
+https://leetcode.com/problems/max-area-of-island/
+
+https://leetcode.com/problems/making-a-large-island/
+
+Shortest path with alternating colours - https://leetcode.com/problems/shortest-path-with-alternating-colors/
+
+https://www.geeksforgeeks.org/the-celebrity-problem/ 
+
+
+DP - https://leetcode.com/tag/dynamic-programming/
+
+Climbing stairs - https://leetcode.com/problems/climbing-stairs
+
+House robber - https://leetcode.com/problems/house-robber 
+
+https://leetcode.com/problems/house-robber-ii
+
+Combination sum - https://leetcode.com/problems/combination-sum-iv/
+
+Palindromic substring - https://leetcode.com/problems/palindromic-substrings 
+
+Max product subarray - https://leetcode.com/problems/maximum-product-subarray/ 
+
+Frog jump - https://leetcode.com/problems/frog-jump
+
+Coin change - https://leetcode.com/problems/coin-change 
+
+Unique path - https://leetcode.com/problems/unique-paths https://leetcode.com/problems/unique-paths-ii 
+
+Longest increasing subsequence - https://leetcode.com/problems/longest-increasing-subsequence/ 
+
+Minimum path sum - https://leetcode.com/problems/minimum-path-sum 
+
+Max sum no two elements are adjacent - https://www.geeksforgeeks.org/maximum-sum-such-that-no-two-elements-are-adjacent/ 
+
+Edit distance - https://leetcode.com/problems/edit-distance/ 
+
+Assembly line scheduling - https://www.geeksforgeeks.org/assembly-line-scheduling-dp-34/ 
+
+https://www.geeksforgeeks.org/min-cost-path-dp-6/ 
+
+https://www.geeksforgeeks.org/maximum-difference-between-node-and-its-ancestor-in-binary-tree/ 
+
+https://www.geeksforgeeks.org/find-distance-between-two-nodes-of-a-binary-tree/ 
+
+https://www.geeksforgeeks.org/find-number-of-islands/ 
+
+https://www.geeksforgeeks.org/topological-sorting/ 
+
+https://www.geeksforgeeks.org/count-ways-reach-nth-stair/ 
+
+https://www.geeksforgeeks.org/lru-cache-implementation/ 
+
+https://www.geeksforgeeks.org/given-an-array-arr-find-the-maximum-j-i-such-that-arrj-arri/ 
+
+https://www.geeksforgeeks.org/given-an-array-of-numbers-arrange-the-numbers-to-form-the-biggest-number/ 
+
+https://www.geeksforgeeks.org/diameter-of-a-binary-tree/ 

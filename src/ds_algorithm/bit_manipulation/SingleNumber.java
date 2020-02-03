@@ -31,8 +31,12 @@ package ds_algorithm.bit_manipulation;
   Input: [4,1,2,1,2]
   Output: 4
 */
+
+
 public class SingleNumber {
   static boolean show = true;
+  
+  // Time: O(n) space: O(1)
   public static int singleNumber(int[] nums) {
     int xor = 0;
     for(int i=0;i<nums.length;i++){

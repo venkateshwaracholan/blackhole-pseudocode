@@ -14,7 +14,7 @@ import ds_algorithm.utils.ArrayUtils;
  *
  * @author venkateshwarans
  */
-public class reverseLinkeList {
+public class ReverseLinkedList {
   
   public static ListNode reverseLinkedList(ListNode n){
     ListNode cur = n, prev = null;
@@ -28,7 +28,7 @@ public class reverseLinkeList {
   }
   // 1,2,3,4,5
   public static ListNode reverseLinkedListRec(ListNode cur){
-    if(cur.next==null){
+    if(cur==null || cur.next==null){
       return cur;
     }
     ListNode res = reverseLinkedListRec(cur.next);
@@ -56,21 +56,32 @@ public class reverseLinkeList {
     test(SinglyLinkedList.toList(reverseLinkedList(list.head)), new int[]{1,2,3,4,5});
     list = new SinglyLinkedList(new int[]{2,4});
     test(SinglyLinkedList.toList(reverseLinkedList(list.head)), new int[]{2,4});
+    list = new SinglyLinkedList();
+    test(SinglyLinkedList.toList(reverseLinkedListRec2(list.head)), new int[]{});
     
     list = new SinglyLinkedList(new int[]{1,2,3,4,5});
     test(SinglyLinkedList.toList(reverseLinkedListRec(list.head)), new int[]{1,2,3,4,5});
     list = new SinglyLinkedList(new int[]{2,4});
     test(SinglyLinkedList.toList(reverseLinkedListRec(list.head)), new int[]{2,4});
+    list = new SinglyLinkedList();
+    test(SinglyLinkedList.toList(reverseLinkedListRec2(list.head)), new int[]{});
     
     
     list = new SinglyLinkedList(new int[]{1,2,3,4,5});
     test(SinglyLinkedList.toList(reverseLinkedListRec2(list.head)), new int[]{1,2,3,4,5});
     list = new SinglyLinkedList(new int[]{2,4});
     test(SinglyLinkedList.toList(reverseLinkedListRec2(list.head)), new int[]{2,4});
-    list = new SinglyLinkedList(new int[]{1,2});
-    test(SinglyLinkedList.toList(reverseLinkedListRec2(list.head)), new int[]{1,2});
+    list = new SinglyLinkedList();
+    test(SinglyLinkedList.toList(reverseLinkedListRec2(list.head)), new int[]{});
+    
+    
+//    list = new SinglyLinkedList(new int[]{1,2,3,4,5});
+//    test(SinglyLinkedList.toList(reverseLinkedListTest(list.head)), new int[]{1,2,3,4,5});
+//    list = new SinglyLinkedList(new int[]{2,4});
+//    test(SinglyLinkedList.toList(reverseLinkedListTest(list.head)), new int[]{2,4});
+//    list = new SinglyLinkedList();
+//    test(SinglyLinkedList.toList(reverseLinkedListTest(list.head)), new int[]{});
 
-    System.out.println(Integer.MAX_VALUE);
   }
   
   public static void test(ArrayList<Integer> got, int exp[]){
@@ -78,8 +89,13 @@ public class reverseLinkeList {
     String gotStr = gson.toJson(got);
     String expStr = gson.toJson(ArrayUtils.reverse(exp));
     System.out.println(gotStr.equals(expStr));
-    System.out.println("got     : "+gson.toJson(gotStr));
-    System.out.println("expected: "+gson.toJson(expStr));
+//    System.out.println("got     : "+gson.toJson(gotStr));
+//    System.out.println("expected: "+gson.toJson(expStr));
   }
   
 }
+
+
+
+// please check what you are passing through the recursion.
+// you solved iterative easily, but took time to solve with both the recursiev methods, use example to derive.
