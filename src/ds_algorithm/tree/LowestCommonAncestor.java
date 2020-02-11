@@ -27,6 +27,7 @@ public class LowestCommonAncestor {
   
   static boolean show = true;
   
+  // Time: O(n) space: O(n)
   public static TreeNode lowestCommonAncestor(TreeNode root, TreeNode a, TreeNode b){
     if(root == null || b.val == root.val || a.val == root.val) {
         return root;

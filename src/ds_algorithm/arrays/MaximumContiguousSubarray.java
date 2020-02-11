@@ -11,7 +11,7 @@ package ds_algorithm.arrays;
  */
 
 /*
-https://leetcode.com/problems/maximum-subarray/submissions/
+https://leetcode.com/problems/maximum-subarray/
 
 53. Maximum Subarray - Kadane's algorithm
 

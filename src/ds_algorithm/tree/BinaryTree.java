@@ -116,48 +116,6 @@ public class BinaryTree {
 //    return root;
 //  }
   
-  public ArrayList<Integer> preOrderTraversalRec(){
-    ArrayList<Integer> list = new ArrayList();
-    preOrderTraversalRec(this.root, list);
-    return list;
-  }
-  
-  public void preOrderTraversalRec(TreeNode n, ArrayList<Integer> list){
-    if(n!=null){
-      list.add(n.val);
-      preOrderTraversalRec(n.left, list);
-      preOrderTraversalRec(n.right,list);
-      
-    }
-  }
-  
-  public ArrayList<Integer> inOrderTraversalRec(){
-    ArrayList<Integer> list = new ArrayList();
-    inOrderTraversalRec(this.root, list);
-    return list;
-  }
-  
-  public void inOrderTraversalRec(TreeNode n, ArrayList<Integer> list){
-    if(n!=null){
-      inOrderTraversalRec(n.left, list);
-      list.add(n.val);
-      inOrderTraversalRec(n.right, list);
-    }
-  }
-  
-  public ArrayList<Integer> postOrderTraversalRec(){
-    ArrayList<Integer> list = new ArrayList();
-    postOrderTraversalRec(this.root, list);
-    return list;
-  }
-  
-  public void postOrderTraversalRec(TreeNode n, ArrayList<Integer> list){
-    if(n!=null){
-      postOrderTraversalRec(n.left, list);
-      postOrderTraversalRec(n.right, list);
-      list.add(n.val);
-    }
-  }
   
   public ArrayList<Integer> breadthFirstSearch(){
     Queue<TreeNode> q= new LinkedList();
@@ -200,86 +158,9 @@ public class BinaryTree {
     return list;
   }
   
-  public ArrayList<Integer> preOrderTraversalIte(){
-    ArrayList<Integer> list = new ArrayList();
-    Stack<TreeNode> s = new Stack();
-    s.add(this.root);
-    while(!s.empty()){
-      TreeNode n = s.pop();
-      list.add(n.val);
-      if(n.right!=null){
-        s.add(n.right);
-      }
-      if(n.left!=null){
-        s.add(n.left);
-      }
-    }
-    return list;
-  }
-  
-/*
-         1
-      2     3
-    4   5  6  7
-   8 9
-
-*/
-  
-  public ArrayList<Integer> inOrderTraversalIte(){
-    ArrayList<Integer> list = new ArrayList();
-    Stack<TreeNode> s = new Stack();
-    TreeNode n = this.root;
-    while(n!=null || !s.empty()){
-      while(n!=null){
-        s.add(n);
-        n=n.left;
-      }
-      n = s.pop();
-      list.add(n.val);
-      n = n.right;
-    };
-    return list;
-  }
-  
-  
-  /*
-         1
-      2     3
-    4   5  6  7
-   8 9
-  */
-  public ArrayList<Integer> postOrderTraversalIte(){
-    ArrayList<Integer> list = new ArrayList();
-    Stack<TreeNode> s = new Stack();
-    TreeNode n = this.root;
-    while(n!=null || !s.empty()){
-      while(n!=null){
-        s.add(n);
-        s.add(n);
-        n=n.left;
-      }
-      n = s.pop();
-      if(!s.empty() && s.peek() == n){
-        n = n.right;
-      }else{
-        list.add(n.val);
-        n=null;
-      }
-    };
-    return list;
-  }
-  
   public static void main(String[] args){
     int arr[] = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9};
     BinaryTree tree = new BinaryTree(arr);
-    test(tree.preOrderTraversalRec(), new int[]{1,2,4,8,9,5,3,6,7});
-    test(tree.preOrderTraversalIte(), new int[]{1,2,4,8,9,5,3,6,7});
-    
-    test(tree.inOrderTraversalRec(), new int[]{8,4,9,2,5,1,6,3,7});
-    test(tree.inOrderTraversalIte(), new int[]{8,4,9,2,5,1,6,3,7});
-    
-    test(tree.postOrderTraversalRec(), new int[]{8,9,4,5,2,6,7,3,1});
-    test(tree.postOrderTraversalIte(), new int[]{8,9,4,5,2,6,7,3,1});
     
     test(tree.breadthFirstSearch(), new int[]{1,2,3,4,5,6,7,8,9});
     

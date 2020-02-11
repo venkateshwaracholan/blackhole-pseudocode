@@ -89,8 +89,8 @@ public class ReverseLinkedList {
     String gotStr = gson.toJson(got);
     String expStr = gson.toJson(ArrayUtils.reverse(exp));
     System.out.println(gotStr.equals(expStr));
-//    System.out.println("got     : "+gson.toJson(gotStr));
-//    System.out.println("expected: "+gson.toJson(expStr));
+    System.out.println("got     : "+gson.toJson(gotStr));
+    System.out.println("expected: "+gson.toJson(expStr));
   }
   
 }

@@ -183,7 +183,7 @@ public class BinarySearchTree extends BinaryTree{
     bst.insertIte(15);
     bst.insertIte(6);
     bst.insertIte(13);
-    test(bst.inOrderTraversalIte(), new int[]{5,6,10,13,15});
+    test(InOrderTraversal.inOrderTraversalIte(bst.root), new int[]{5,6,10,13,15});
     
     bst = new BinarySearchTree();
     
@@ -195,10 +195,10 @@ public class BinarySearchTree extends BinaryTree{
     bst.insertRec(15);
     bst.insertRec(6);
     bst.insertRec(13);
-    test(bst.inOrderTraversalIte(), new int[]{5,6,10,13,15});
+    test(InOrderTraversal.inOrderTraversalIte(bst.root), new int[]{5,6,10,13,15});
     
     bst = new BinarySearchTree(new int[]{2,5,7,1,3,5});
-    test(bst.inOrderTraversalIte(), new int[]{1,2,3,5,5,7});
+    test(InOrderTraversal.inOrderTraversalIte(bst.root), new int[]{1,2,3,5,5,7});
     System.out.println(bst.SearchRec(3).val);
     
     
@@ -208,9 +208,9 @@ public class BinarySearchTree extends BinaryTree{
     bst.insertRec(10);
     bst.insertRec(4);
     bst.insertRec(3);
-    test(bst.breadthFirstSearch(), new int[]{5,3,10});
+    test(bst.breadthFirstSearch(), new int[]{5,2,10,4,3});
     bst.delete(5);
-    test(bst.breadthFirstSearch(), new int[]{5,3,10});
+    test(bst.breadthFirstSearch(), new int[]{4,2,10, 3});
     
     
   }
