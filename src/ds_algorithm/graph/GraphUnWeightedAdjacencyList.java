@@ -7,28 +7,6 @@ package ds_algorithm.graph;
 
 import java.util.*;
 
-class GraphNode{
-  int val;
-  Set<GraphNode> neighbours = new HashSet();
-  
-  GraphNode(int val){
-    this.val = val;
-  }
-
-  @Override
-  public int hashCode() {
-    int hash = 3;
-    hash = 67 * hash + this.val;
-    return hash;
-  }
-  @Override
-  public boolean equals(Object o){
-    if(this==o) return true;
-    if(!(o instanceof GraphNode)) return false;
-    GraphNode g = (GraphNode) o;
-    return this.val==g.val;
-  }
-}
 /**
  *
  * @author venkateshwarans
@@ -45,14 +23,18 @@ public class GraphUnWeightedAdjacencyList {
   }
   
   public void addEdge(int src, int dest){
+    addEdge(src,dest,0);
+  }
+  
+  public void addEdge(int src, int dest, int cost){
     if(!(nodeMap.containsKey(src) && nodeMap.containsKey(dest))){
       System.out.println("Node not present");
       return;
     }
     GraphNode srcNode = nodeMap.get(src);
     GraphNode destNode = nodeMap.get(dest);
-    srcNode.neighbours.add(destNode);
-    destNode.neighbours.add(srcNode);
+    srcNode.neighbours.put(destNode,cost);
+    destNode.neighbours.put(srcNode,cost);
   }
   
   public void breadthFirstSearch(int src){
@@ -71,8 +53,8 @@ public class GraphUnWeightedAdjacencyList {
     while(!q.isEmpty()){
       GraphNode cur = q.poll();
       
-      System.out.println(cur.val);
-      for(GraphNode n: cur.neighbours){
+      //System.out.println(cur.val);
+      for(GraphNode n: cur.neighbours.keySet()){
         //System.out.println("AAA:"+n.val);
         if(!visited.contains(n)){
           visited.add(n);
@@ -99,8 +81,8 @@ public class GraphUnWeightedAdjacencyList {
     while(!s.isEmpty()){
       GraphNode cur = s.pop();
       
-      System.out.println(cur.val);
-      for(GraphNode n: cur.neighbours){
+      //System.out.println(cur.val);
+      for(GraphNode n: cur.neighbours.keySet()){
         //System.out.println("AAA:"+n.val);
         if(!visited.contains(n)){
           visited.add(n);
@@ -121,7 +103,7 @@ public class GraphUnWeightedAdjacencyList {
   public void depthFirstSearchRec(GraphNode node, Set<GraphNode> visited){
     visited.add(node);
     System.out.println(node.val);
-    for(GraphNode n: node.neighbours){
+    for(GraphNode n: node.neighbours.keySet()){
       if(!visited.contains(n)){
         depthFirstSearchRec(n, visited);
       }
@@ -142,7 +124,7 @@ public class GraphUnWeightedAdjacencyList {
       if(n.val==dest){
         return true;
       }
-      for(GraphNode node: n.neighbours){
+      for(GraphNode node: n.neighbours.keySet()){
         if(!visited.contains(node)){
           q.add(node);
           visited.add(node);
@@ -179,7 +161,7 @@ public class GraphUnWeightedAdjacencyList {
         System.out.println(path);
         return true;
       }
-      for(GraphNode node: n.neighbours){
+      for(GraphNode node: n.neighbours.keySet()){
         if(!visited.contains(node)){
           m.put(node, n);
           q.add(node);
