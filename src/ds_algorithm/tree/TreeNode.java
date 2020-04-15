@@ -10,9 +10,10 @@ package ds_algorithm.tree;
  * @author venkateshwarans
  */
 public class TreeNode{
-  int val;
-  TreeNode left = null;
-  TreeNode right = null;
+  public int val;
+  public TreeNode left = null;
+  public TreeNode right = null;
+  public TreeNode next = null;
   
   public TreeNode(int a){
     this.val = a;

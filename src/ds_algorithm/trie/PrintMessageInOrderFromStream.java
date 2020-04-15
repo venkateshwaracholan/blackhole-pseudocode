@@ -1,0 +1,17 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ds_algorithm.trie;
+
+/**
+ *
+ * @author vshanmugham
+ */
+
+// https://leetcode.com/discuss/interview-question/314733/Bloomberg-or-Output-data-from-a-stream-in-order
+
+public class PrintMessageInOrderFromStream {
+  
+}

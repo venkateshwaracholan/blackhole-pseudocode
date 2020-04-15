@@ -16,7 +16,7 @@ https://leetcode.com/problems/maximum-subarray/
 This is an alternate solution to a problem
 question and Acual O(n) solution available at ds_algorithm/arrays/MaximumContiguousSubarray.java
 */
-public class MaximumContiguousSubarrayDivConquer {
+public class MaximumSumSubarrayDivConquer {
   
   public static boolean show = true;
   

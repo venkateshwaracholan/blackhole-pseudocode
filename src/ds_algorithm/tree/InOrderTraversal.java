@@ -7,6 +7,7 @@ package ds_algorithm.tree;
 
 import com.google.gson.Gson;
 import java.util.*;
+import ds_algorithm.Test;
 
 /**
  *
@@ -67,20 +68,13 @@ public class InOrderTraversal {
   
   
   public static void main(String[] args){
-    int arr[] = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9};
+    int arr[] = new int[]{1,2,3,4,5,6,7};
     BinaryTree tree = new BinaryTree(arr);
-    test(inOrderTraversalRec(tree.root), new int[]{8,4,9,2,5,1,6,3,7});
-    test(inOrderTraversalIte(tree.root), new int[]{8,4,9,2,5,1,6,3,7});
+    Test.test(inOrderTraversalRec(tree.root), new int[]{4,2,5,1,6,3,7});
+    Test.test(inOrderTraversalIte(tree.root), new int[]{4,2,5,1,6,3,7});
     
   }
   
-  public static void test(ArrayList<Integer> got, int exp[]){
-    Gson gson = new Gson();
-    String gotStr = gson.toJson(got);
-    String expStr = gson.toJson(exp);
-    System.out.println(gotStr.equals(expStr));
-    System.out.println("got     : "+gson.toJson(gotStr));
-    System.out.println("expected: "+gson.toJson(expStr));
-  }
+  
   
 }

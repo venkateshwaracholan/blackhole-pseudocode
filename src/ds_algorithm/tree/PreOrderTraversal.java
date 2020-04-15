@@ -58,6 +58,11 @@ public class PreOrderTraversal {
     test(preOrderTraversalRec(tree.root), new int[]{1,2,4,8,9,5,3,6,7});
     test(preOrderTraversalIte(tree.root), new int[]{1,2,4,8,9,5,3,6,7});
     
+    
+    tree = new BinaryTree(new int[]{1, 2, 3, 4, 5, 6, 7});
+    test(preOrderTraversalIte(tree.root), new int[]{1,2,4,5,3,6,7});
+    
+    
   }
   
   public static void test(ArrayList<Integer> got, int exp[]){

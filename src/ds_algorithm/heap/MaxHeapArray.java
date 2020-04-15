@@ -47,6 +47,17 @@ public class MaxHeapArray {
     } 
   }
   
+  
+  // Time: O(nlog(n)) space: O(n)
+  // NOTE: root starts from left
+  // calling maxheapify n/2 times to build the heap
+  // we could also call it n times from the leaf to root(which is why revese to 0),
+  // but anyway leafs dont have children to compare to,
+  // so we have to start from the level just above the leaf so n/2 
+  // because mre than half nodes lie as the leaf in trees.
+  // we heapify bottum up and as it reaches above, the comparison recusrion 
+  // will happen upto leaf if a data is swapped to make sure whole tree is follwing heap property
+  
   public static int[] buildMaxheap (int arr[ ])
   {
       for(int i = arr.length/2-1;i >= 0;i--)
@@ -72,9 +83,10 @@ public class MaxHeapArray {
   }
   
   public static void main(String args[]){
+    test(heapSort(new int[]{3,2,1,6,5,4,9,8,7,3}), new int[]{1,2,3,3,4,5,6,7,8,9});
     test(heapSort(new int[]{1,2,3,4,5,6,7,8,9}), new int[]{1,2,3,4,5,6,7,8,9});
     test(heapSort(new int[]{1,4,2,5,3,6,8,7,9,1}), new int[]{1,1,2,3,4,5,6,7,8,9});
-    test(heapSort(new int[]{3,2,1,6,5,4,9,8,7,3}), new int[]{1,2,3,3,4,5,6,7,8,9});
+    
   }
   
   public static void test(int got[], int exp[]){

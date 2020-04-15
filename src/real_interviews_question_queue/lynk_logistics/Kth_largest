@@ -1,0 +1,42 @@
+Question
+2
+Max. Marks 20.00
+Find the K-th element
+You are given an array containing N distinct integers. You perform the following operations on this array:
+
+For each pair of integers, you find the absolute difference D between those integers and insert D into the array (if it was not already present in the array).
+You repeat task 1 until the array becomes constant. This implies that the absolute difference between any two elements in the array is also an element present in the array.
+Write a program to find the Kth largest element of the array after all the operations have been performed. If there is no such element, print -1.
+
+Input format
+
+First line: T (Number of test cases)
+First line in each test case: N
+Second line in each test case: N space-separated integer (denoting the elements of the array)
+Third line in each test case: K
+Output format
+
+For each test case, print the Kth largest element of the array. If there is no such element print -1.
+
+Constraints
+
+1≤T≤100
+1≤N,K≤10000
+1≤ Element of the array ≤100000
+
+Sample Input
+2
+5
+1 3 5 6 7
+2
+1
+1
+2
+Sample Output
+6
+-1
+Explanation
+Elements of the array after performing the above operation {1,2,3,4,5,6,7} . Hence 2nd largest element will be 6.
+
+
+1 3 5 6 7 2 1

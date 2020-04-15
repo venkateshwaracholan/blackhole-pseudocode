@@ -79,6 +79,9 @@ public class PostOrderTraversal {
     BinaryTree tree = new BinaryTree(arr);
     test(postOrderTraversalRec(tree.root), new int[]{8,9,4,5,2,6,7,3,1});
     test(postOrderTraversalIte(tree.root), new int[]{8,9,4,5,2,6,7,3,1});
+    
+    tree = new BinaryTree(new int[]{1, 2, 3, 4, 5, 6, 7});
+    test(postOrderTraversalIte(tree.root), new int[]{4,5,2,6,7,3,1});
   }
   
   public static void test(ArrayList<Integer> got, int exp[]){

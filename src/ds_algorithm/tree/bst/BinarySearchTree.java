@@ -3,10 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ds_algorithm.tree;
+package ds_algorithm.tree.bst;
 
 import com.google.gson.Gson;
 import ds_algorithm.tree.BinaryTree;
+import ds_algorithm.tree.BinaryTree;
+import ds_algorithm.tree.InOrderTraversal;
+import ds_algorithm.tree.TreeNode;
 import ds_algorithm.tree.TreeNode;
 import java.util.ArrayList;
 

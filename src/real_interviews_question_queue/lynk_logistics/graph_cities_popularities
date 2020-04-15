@@ -1,0 +1,150 @@
+Question
+3
+Max. Marks 100.00
+Jack vs Aku
+Given N cities connected by N−1 bidirectional roads i.e they form a graph. Cities with odd number are cities of Jack and even number cities belong to Aku. Each city has some initial popularity given by array Popularity. Now there are Q tours taken by some tourists from city u to v taking simple path.
+
+As they travel from city u to v, popularity of cities in between increases by x units.
+
+Let P1, P2 be popularity of cities of Jack and Aku after Q tours. You need to print absolute difference of P1 and P2.
+
+Note: It is guaranteed that given graph is a tree there is always one answer.
+
+Input
+
+First line of input contains N, denoting no of cities.
+
+Second line of input contains N integers defining array Popularity i.e initial popularity of cities.
+
+Next N−1 lines contain two integers u, v which denotes a road joining cities u and v
+Next line contain Q i.e no of tours taken by tourists
+
+Each of Q tour is defined by three integers a, b and x i.e tourists travels from city a to b and every city in path gains x popularity.
+
+Output 
+
+Absolute difference of their popularities after Q tours.
+
+Constraints
+
+1≤N,Q≤105
+1≤Pi,X≤109
+
+ 
+
+Sample Input
+6
+1 2 3 4 4 2
+1 2
+1 3
+3 4
+3 5
+2 6
+3
+5 4 1
+1 6 2
+2 3 3
+Sample Output
+2
+Explanation
+After all tours, cities of Jack will  have 18 popularity and Aku will have 16. So, abs(18-16) = 2.
+
+
+import java.io.*;
+import java.util.*;
+
+
+public class TestClass {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        PrintWriter wr = new PrintWriter(System.out);
+         int N = Integer.parseInt(br.readLine().trim());
+         String[] arr_Popularity = br.readLine().split(" ");
+         int[] Popularity = new int[N];
+         for(int i_Popularity=0; i_Popularity<arr_Popularity.length; i_Popularity++)
+         {
+          Popularity[i_Popularity] = Integer.parseInt(arr_Popularity[i_Popularity]);
+         }
+         int[] u = new int[N-1];
+         int[] v = new int[N-1];
+         
+         for(int i=0; i<N-1; i++)
+         {
+            String[] s = br.readLine().split(" ");
+          u[i] = Integer.parseInt(s[0]);
+          v[i] = Integer.parseInt(s[1]);
+         }
+         int Q = Integer.parseInt(br.readLine().trim());
+         int[] a = new int[Q];
+         int[] b = new int[Q];
+         int[] x = new int[Q]; 
+         for(int i=0; i< Q;++i)
+         {
+            String[] s = br.readLine().split(" ");
+          a[i] = Integer.parseInt(s[0]);
+          b[i] = Integer.parseInt(s[1]);
+          x[i] = Integer.parseInt(s[2]);
+         }
+         long out_ = popularity(a, b, Popularity, u, v, x);
+         System.out.println(out_);
+         wr.close();
+         br.close();
+    }
+    static long popularity(int[] a, int[] b, int[] c, int[] u, int[] v, int[] x){
+        // Write your code here
+        Map<Integer,Set<Integer>> map = new HashMap();
+        for(int i=0;i<u.length;i++){
+            if(map.containsKey(u[i])){
+                Set<Integer> s = map.get(u[i]);
+                s.add(v[i]);
+            }else{
+                Set<Integer> s = new HashSet();
+                s.add(v[i]);
+                map.put(u[i],s);
+            }
+            if(map.containsKey(v[i])){
+                Set<Integer> s = map.get(u[i]);
+                s.add(u[i]);
+            }else{
+                Set<Integer> s = new HashSet();
+                s.add(u[i]);
+                map.put(v[i],s);
+            }
+        }
+
+        for(int i =0;i<a.length;i++){
+            int src = a[i];
+            int des = b[i];
+            int pl = x[i];
+            Queue<Integer> q = new LinkedList();
+            q.add(src);
+            boolean found = false;
+            Set<Integer> visited = new HashSet();
+            while(!found && !q.isEmpty()){
+                int n = q.poll();
+                
+                c[n-1] = c[n-1]+pl;
+                Set<Integer> con = map.get(n);
+                for(int ch: con){
+                    if(des==ch){
+                        found = true;
+                    }
+                    //if(!visited.contains(n))
+                        q.add(ch);
+                }
+                //visited.add(n);
+            }
+
+        }
+        int odd = 0,even=0;
+        for(int i=0;i<c.length;i++){
+            if(i%2==0){
+                odd+=c[i];
+            }else{
+                even+=c[i];
+            }
+        }
+
+        return Math.abs(odd-even);
+    }
+}

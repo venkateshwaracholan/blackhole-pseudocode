@@ -15,8 +15,14 @@ import java.util.Queue;
  *
  * @author venkateshwarans
  */
+
+// https://leetcode.com/problems/sum-of-left-leaves/
+
 public class SumOfLeftLeaves {
   static boolean show = false;
+  
+  // Time: O(n) space: O(n)
+  // solved with left boolean
   public static int sumOfLeftLeavesRec(TreeNode root) {
       return sumOfLeftLeavesRec(root, false, new int[]{0});
   }
@@ -33,6 +39,9 @@ public class SumOfLeftLeaves {
       return sum[0];
   }
   
+  
+  // Time: O(n) space: O(n)
+  // solved with simple if checks
   public static int sumOfLeftLeavesIte(TreeNode node)
   {
       int sum =0;

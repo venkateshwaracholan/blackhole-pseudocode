@@ -7,6 +7,7 @@ package ds_algorithm.tree;
 
 import com.google.gson.Gson;
 import java.util.*;
+import ds_algorithm.Test;
 
 
 /**
@@ -29,8 +30,42 @@ List to array conversion: return list.stream().mapToInt(i->i).toArray();
 
 */
 
+/*
+Traversal confusions
+
+    1
+  2   3
+ 4 5 6 7
+
+Inorder - left - root - right
+
+root comes in the middle.
+values starts from left most node of the tree
+
+
+4,2,5,1,6,3,7
+
+
+
+preOrder
+  root - left - rightx
+  
+value starts from root value of the tree
+
+1,2,4,5,3,6,7
+
+postorder
+
+left - right - root
+
+root value comes at the last
+
+4,5,2,6,7,3,1
+
+*/
+
 public class BinaryTree {
-  TreeNode root = null;
+  public TreeNode root = null;
   
   
   public BinaryTree(){
@@ -94,7 +129,7 @@ public class BinaryTree {
     if(i<arr.size()){
       TreeNode n;
       if(arr.get(i)!=null){
-        n= new TreeNode(arr.get(i));
+        n = new TreeNode(arr.get(i));
       }else{
         return root;
       }
@@ -116,14 +151,17 @@ public class BinaryTree {
 //    return root;
 //  }
   
-  
   public ArrayList<Integer> breadthFirstSearch(){
+    return breadthFirstSearch(this.root);
+  }
+  
+  public static ArrayList<Integer> breadthFirstSearch(TreeNode root){
     Queue<TreeNode> q= new LinkedList();
     ArrayList<Integer> list = new ArrayList();
-    if(this.root==null){
+    if(root==null){
       return list;
     }
-    q.add(this.root);
+    q.add(root);
     while(!q.isEmpty()){
       TreeNode n = q.poll();
       list.add(n.val);
@@ -138,42 +176,55 @@ public class BinaryTree {
   }
   
   public ArrayList<Integer> breadthFirstSearchWithNull(){
+    
     Queue<TreeNode> q= new LinkedList();
     ArrayList<Integer> list = new ArrayList();
+    if(this.root==null) return list;
     q.add(this.root);
     while(!q.isEmpty()){
-      TreeNode n = q.poll();
-      if(n!=null){
-        list.add(n.val);
-//        if(n.left==null && n.right==null){
-//          continue;
-//        }
-        q.add(n.left);
-        q.add(n.right);
-      }else{
-        list.add(null);
+      int siz = q.size();
+      TreeNode n = q.peek();
+      Boolean allNull = true;
+      while(siz>0){
+        n = q.poll();
+        list.add(n!=null ? n.val : null);
+        if(n!=null) {
+          if(n.left!=null) allNull = false;
+          if(n.right!=null) allNull = false;
+          q.add(n.left);
+          q.add(n.right);
+        }else{
+          q.add(null);
+          q.add(null);
+        }
+        siz--;
       }
-      
+      if(allNull) break;
     }
     return list;
   }
   
   public static void main(String[] args){
-    int arr[] = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9};
-    BinaryTree tree = new BinaryTree(arr);
+    int arr[] = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9}; 
+    ArrayList<Integer> list = new ArrayList(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
     
-    test(tree.breadthFirstSearch(), new int[]{1,2,3,4,5,6,7,8,9});
+    BinaryTree tree = new BinaryTree(arr);
+    BinaryTree tree2 = new BinaryTree(list);
+    
+    Test.test(tree.breadthFirstSearch(), new int[]{1,2,3,4,5,6,7,8,9});
+    Test.test(tree2.breadthFirstSearch(), new int[]{1,2,3,4,5,6,7,8,9});
     
     tree.insert(10);
-    test(tree.breadthFirstSearch(), new int[]{1,2,3,4,5,6,7,8,9,10});
+    tree2.insert(10);
+    Test.test(tree.breadthFirstSearch(), new int[]{1,2,3,4,5,6,7,8,9,10});
+    Test.test(breadthFirstSearch(tree.root), new int[]{1,2,3,4,5,6,7,8,9,10});
+    Test.test(tree2.breadthFirstSearch(), new int[]{1,2,3,4,5,6,7,8,9,10});
+    
+    
+    list = new ArrayList(Arrays.asList(1, null, 2, null, null, null, 3));
+    tree = new BinaryTree(list);
+    Test.test(tree.breadthFirstSearchWithNull(), new ArrayList(Arrays.asList(1,null,2,null,null,null,3)));
+    
   }
 
-  public static void test(ArrayList<Integer> got, int exp[]){
-    Gson gson = new Gson();
-    String gotStr = gson.toJson(got);
-    String expStr = gson.toJson(exp);
-    System.out.println(gotStr.equals(expStr));
-    System.out.println("got     : "+gson.toJson(gotStr));
-    System.out.println("expected: "+gson.toJson(expStr));
-  }
 }

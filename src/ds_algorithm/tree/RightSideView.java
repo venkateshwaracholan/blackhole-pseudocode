@@ -17,6 +17,10 @@ import java.util.*;
 
 // bfs with adding right node first and therefore adding first val from queue to answer.
 // Time: O(n) space: O(n)
+// core idea, add right nodes firsts will let them stay in the front when level ends
+// in level order traversal with two loops, we have to go level by level
+// and print first node
+
 public class RightSideView {
   public static ArrayList<Integer> rightSideViewBfs(TreeNode root){
     ArrayList<Integer> list = new ArrayList();
@@ -25,9 +29,7 @@ public class RightSideView {
     q.add(root);
     while(!q.isEmpty()){
         int n = q.size();
-        if(!q.isEmpty()){
-            list.add(q.peek().val);
-        }
+        list.add(q.peek().val);
         while(n>0){
             TreeNode node = q.poll();
             if(node.right!=null) q.add(node.right);
@@ -49,6 +51,10 @@ public class RightSideView {
     return rightSideViewDfsRecAlt(root, 0, new ArrayList());
   }
   
+  // Time: O(n) space: O(n)
+  // Core idea, adding right first and left second
+  // if first time depth is equal to list size we add them to list.
+  // since list size is increasing there is no way nodes at the same level will match the same condition again
   public static ArrayList<Integer> rightSideViewDfsRecAlt(TreeNode root, int d, ArrayList<Integer> list){
     if(root==null) return list;
     if(d==list.size()){
@@ -69,6 +75,9 @@ public class RightSideView {
     return list;
   }
   
+  // Time: O(n) space: O(n)
+  // Core idea - over write the depth to node map by traversing from left to right
+  // and then we can iterate depth and fetch value node from map which is done in ablove code 
   public static int rightSideViewDfsRec(TreeNode root, HashMap<Integer, Integer> map, int d){
     if(root==null) return d;
     map.put(d,root.val);

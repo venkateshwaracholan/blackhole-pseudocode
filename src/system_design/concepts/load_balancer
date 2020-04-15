@@ -1,0 +1,14 @@
+https://www.routeralley.com/guides/redundancy_load_balancing.pdf
+
+Redundancy protocol:
+
+Hot Standby Router Protocol (HSRP) 
+Virtual Router Redundancy Protocol (VRRP) - elections for master with polling
+Gateway Load Balancing Protocol (GLBP) 
+
+
+
+
+Service discovery: What backends are available in the system? What are their addresses (i.e., how should the load balancer talk to them)?
+Health checking: What backends are currently healthy and available to accept requests?
+Load balancing: What algorithm should be used to balance individual requests across the healthy backends?

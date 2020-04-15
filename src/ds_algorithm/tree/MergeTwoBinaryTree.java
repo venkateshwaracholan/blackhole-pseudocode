@@ -51,8 +51,13 @@ import ds_algorithm.tree.BinaryTree;
 import java.util.*;
 
 
-
 public class MergeTwoBinaryTree {
+  
+  // Time: O(n) space: O(n)
+  // DFS rec
+  // core Idea - merge second binary tree into first
+  // if nodes are present add value to t1
+  // or return t1 or t2whichever is present so that it can be assigned to parent t1 
   public static TreeNode mergeTreesRec(TreeNode t1, TreeNode t2) {  
     if(t1==null){
       return t2;
@@ -66,9 +71,19 @@ public class MergeTwoBinaryTree {
     return t1;
   }
   
-  public static TreeNode mergeTreesIte(TreeNode t1, TreeNode t2) {  
+  // Time: O(n) space: O(n)
+  // DFS Ite
+  // core Idea - merge second binary tree into first
+  // if t1 is null return t2 is mandatory
+  // use stack to do iterative dfs
+  // use an array to wrap t1 and t2
+  // if either is null continue becoz u cant add t2 to t if any one is null
+  // if t1s children are null just assign t2s children
+  // if not then add t1 and t2 to stack so that they can traverse further
+  public static TreeNode mergeTreesIte(TreeNode t1, TreeNode t2) { 
+    if(t1 == null)
+      return t2;
     Stack<TreeNode[]> s = new Stack();
-    TreeNode n = t1;
     TreeNode arr[] = new TreeNode[]{t1,t2};
     s.add(arr);
     while(!s.empty()){

@@ -19,8 +19,12 @@ import java.util.*;
 
 public class SerializeAndDeserializeBinaryTree {
   
+  
+  // Time: O(n) space: O(n)
+  // wrapper class to create string using sb
+  // can remove trailing null in this impl, please do that
+  // once the above step is done, it is space efficient
   public static String serializeDfs(TreeNode root){
-    
     ArrayList<Integer> list = serializeDfs(root,new ArrayList());
     StringBuilder sb = new StringBuilder();
     for(int i=0;i<list.size();i++){
@@ -35,14 +39,9 @@ public class SerializeAndDeserializeBinaryTree {
     return sb.toString();
   }
   
-  /*
-         1
-      2     3
-    4   5  6  7
-   8 9
-
-*/
-  
+  // Time: O(n) space: O(n)
+  // dfs serialize inorder traversal
+  // the actual recursive list constructor for seriliazation
   public static ArrayList<Integer> serializeDfs(TreeNode root, ArrayList<Integer> ans){
     if(root==null){
       ans.add(null);
@@ -54,6 +53,8 @@ public class SerializeAndDeserializeBinaryTree {
     return ans;
   }
   
+  // serialize directly with strings, but removing triling nulls are hedious
+  // Time: O(n) space: O(n)
   public static String serializeDfsString(TreeNode root, String ans){
     if(root==null){
       ans+="null,";
@@ -64,13 +65,23 @@ public class SerializeAndDeserializeBinaryTree {
     return root.val+"," + left+ right;
   }
   
+  
+  // deserialize 
+  // Time: O(n) space: O(n)
+  // wrapper for splitting and creating list
   public static TreeNode deSerializeDfs(String str){
     String arr[] = str.split(",");
     ArrayList<String> list = new ArrayList(Arrays.asList(arr));
     return deSerializeDfs(list);
   }
   
+  // Time: O(n) space: O(n)
+  // actual code which uses dfs to recusrsively remove and assign to left and right
+  // it works because it was serialized with inorder traversal
+  // the check for size to be empty is necessary
   public static TreeNode deSerializeDfs(ArrayList<String> list){
+    if(list.size()==0)
+      return null;
     if(list.get(0).equals("null")){
       list.remove(0);
       return null;
@@ -90,39 +101,131 @@ public class SerializeAndDeserializeBinaryTree {
    8 9
 
   */
-  
-  public static String serializeBfs(TreeNode node){
-    String ans = "";
-    if(node==null){
-      return ans;
+  // Leetcode serialize space efficient
+  // Time: O(n) space: O(n)
+  // append null for children, remove trailing nulls(avlodhan) and construct string out of it.
+  public static String serializeBfs(TreeNode root){
+    StringBuilder ans = new StringBuilder();
+    if(root==null){
+      return "";
     }
+    ArrayList<Integer> list = new ArrayList();
     Queue<TreeNode> q = new LinkedList();
-    q.add(node);
-    ans+=node.val+",";
+    q.add(root);
+    list.add(root.val);
     while(!q.isEmpty()){
       TreeNode n = q.poll();
-      ans += (n.left==null ? "null" : n.left.val)+",";
-      ans += (n.right==null ? "null" : n.right.val)+",";
-      if(n.left!=null) q.add(n.left);
-      if(n.right!=null) q.add(n.right);
+      if(n.left==null)
+        list.add(null);
+      else{
+        list.add(n.left.val);
+        q.add(n.left);
+      }
+      if(n.right==null)
+        list.add(null);
+      else{
+        list.add(n.right.val);
+        q.add(n.right);
+      }
     }
-    return ans;
+    for(int i = list.size()-1;i>0;i--){
+      if(list.get(i)==null){
+        list.remove(i);
+      }else{
+        break;
+      }
+    }
+    for(int i = 0;i<list.size();i++){
+      ans.append(list.get(i));
+      ans.append(",");
+    }
+    
+    return ans.toString();
+  }
+  
+  // Leetcode deserialize for above serialized structure
+  // Time: O(n) space: O(n)
+  // split string to form list
+  // use a queue to assign children, remove and assign 2 elements for each node in queue
+  // check list size before removing second time.
+  public static TreeNode deSerializeBfs(String str){
+    if(str.length()==0)
+      return null;
+    ArrayList<Integer> list = new ArrayList();
+    String[] strArr = str.split(",");
+    for(int i=0;i<strArr.length;i++){
+      if(strArr[i].equals("null")){
+        list.add(null);
+      }else{
+        list.add(Integer.valueOf(strArr[i]));
+      }
+    }
+    if(list.size()==0 || list.get(0)==null)
+      return null;
+    TreeNode root = new TreeNode(list.remove(0));
+    Queue<TreeNode> q = new LinkedList();
+    q.add(root);
+    while(!q.isEmpty() && list.size()>0){
+      TreeNode n = q.poll();
+      //System.out.println(n.val);
+      if(list.get(0)!=null){
+        n.left = new TreeNode(list.remove(0));
+        q.add(n.left);
+      }else{
+        list.remove(0);
+      }
+      if(list.size()>0){
+        if(list.get(0)!=null){
+          n.right = new TreeNode(list.remove(0));
+          q.add(n.right);
+        }else{
+          list.remove(0);
+        }
+      }
+    }
+    return root;
   }
   
   public static void main(String[] args){
     int arr[] = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9};
     BinaryTree tree = new BinaryTree(arr);
     
-    test(serializeDfsString(tree.root,""), "1,2,4,8,null,null,9,null,null,5,null,null,3,6,null,null,7,null,null,");
+//    test(serializeDfsString(tree.root,""), "1,2,4,8,null,null,9,null,null,5,null,null,3,6,null,null,7,null,null,");
+//    
+//    test(serializeDfs(tree.root,new ArrayList()), new ArrayList<>(Arrays.asList(1,2,4,8,null,null,9,null,null,5,null,null,3,6,null,null,7,null,null)));
+//    test(serializeDfs(tree.root), "1,2,4,8,null,null,9,null,null,5,null,null,3,6,null,null,7,null,null");
+//    
+//    test(preOrderTraversalRec(deSerializeDfs("1,2,4,8,null,null,9,null,null,5,null,null,3,6,null,null,7,null,null,")), new int[]{1,2,4,8,9,5,3,6,7}); 
+//    
+
+    tree = new BinaryTree(new int[]{1, -1, 2, -1,-1,-1, 3});    
+    test(serializeDfs(tree.root), "1,null,2,null,3,");
+    tree = new BinaryTree(new int[]{1, 2, 3, -1,-1,-1, 4});
+    test(serializeDfs(tree.root), "1,2,null,null,3,null,4,");
+    tree = new BinaryTree(new int[]{1, 2});
+    test(serializeDfs(tree.root), "1,2,");
     
-    test(serializeDfs(tree.root,new ArrayList()), new ArrayList<>(Arrays.asList(1,2,4,8,null,null,9,null,null,5,null,null,3,6,null,null,7,null,null)));
-    test(serializeDfs(tree.root), "1,2,4,8,null,null,9,null,null,5,null,null,3,6,null,null,7,null,null");
+    tree.root = deSerializeDfs("1,2,null,null,3,null,4,");
+    test(serializeDfs(tree.root), "1,2,null,null,3,null,4,");
     
-    test(preOrderTraversalRec(deSerializeDfs("1,2,4,8,null,null,9,null,null,5,null,null,3,6,null,null,7,null,null,")), new int[]{1,2,4,8,9,5,3,6,7}); 
+    tree.root = deSerializeDfs("1,2,");
+    test(serializeDfs(tree.root), "1,2,");
     
-    tree = new BinaryTree(new int[]{1, 2, 3, 4, -1,-1,7, 8, 9});
+
+    tree = new BinaryTree(new int[]{1, -1, 2, -1,-1,-1, 3});    
+    test(serializeBfs(tree.root), "1,null,2,null,3,");
+    tree = new BinaryTree(new int[]{1, 2, 3, -1,-1,-1, 4});
+    test(serializeBfs(tree.root), "1,2,3,null,null,null,4,");
+    tree = new BinaryTree(new int[]{1, 2});
+    test(serializeBfs(tree.root), "1,2,");
     
-    test(serializeBfs(tree.root), "1,2,4,8,null,null,9,null,null,5,null,null,3,6,null,null,7,null,null,");
+    tree.root = deSerializeBfs("1,2,3,null,null,null,4,");
+    test(serializeBfs(tree.root), "1,2,3,null,null,null,4,");
+    
+    tree.root = deSerializeBfs("1,2,");
+    test(serializeBfs(tree.root), "1,2,");
+
+      
   }
   
   public static void test(String gotStr, String expStr){

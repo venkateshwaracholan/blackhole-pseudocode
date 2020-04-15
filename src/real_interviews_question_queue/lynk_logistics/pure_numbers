@@ -1,0 +1,91 @@
+Question
+1
+Max. Marks 50.00
+Pure numbers
+You are given a special set of pure numbers.
+
+ A pure number has the following properties:
+
+It comprises only 4 and 5.
+It is a palindrome number.
+The number of digits in a pure number is even.
+For example, 4444,5445,44 are the pure numbers while 12,444,4545 are not. You have to generate a list of pure numbers in an ascending order. So, purenumber[1] < purenumber[2].
+
+The first few elements in the list are as follows: 44,55,4444,....
+
+You will be given an integer N and you have to find Nth pure number from the generated list.
+
+Input format
+
+First line: T denoting the number of test cases
+Next T  lines: A number N 
+
+Output format
+
+Print the Nth pure number.
+
+Constraints
+1≤T≤106
+1≤N≤106
+
+Sample Input
+3
+1
+2
+3
+Sample Output
+44
+55
+4444
+Explanation
+Here, T=3 that means there are 3 test cases
+In the 1st test case N=1, so we have to print the 1st pure number that is 44
+Similarly, in 2nd and 3rd Test cases, we have to print the 2nd and 3rd pure number in the series. Hence, we have to print 55 and 4444 respectively.
+
+
+44,55     4,5
+4444,4554,5445,5555    44,45,54,55
+
+444,454,455
+
+
+
+
+
+public static void main(String args[] ) throws Exception {
+
+        //BufferedReader
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String name = br.readLine();                // Reading input from STDIN
+            // Writing output to STDOUT
+
+        //Scanner
+        // Scanner s = new Scanner(System.in);
+        // String name = s.nextLine();                 // Reading input from STDIN
+        // System.out.println("Hi, " + name + ".");    // Writing output to STDOUT
+
+
+        // Write your code here
+        int n = Integer.valueOf(name);
+        for(int i=0;i<n;i++){
+            int val = Integer.valueOf(br.readLine());
+            List<Integer> list = new ArrayList();
+            StringBuilder s = new StringBuilder();
+            val = val+1;
+            while(val>1){
+                int b = val%2;
+                if(b==0)
+                    list.add(4);
+                else
+                    list.add(5);
+                val = val/2;
+            }
+            for(int k=0;k<list.size();k++){
+                s.append(list.get(list.size()-1-k));
+            }
+            for(int k=0;k<list.size();k++){
+                s.append(list.get(k));
+            }
+            System.out.println(s.toString());
+        }
+    }

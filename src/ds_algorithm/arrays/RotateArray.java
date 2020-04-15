@@ -6,6 +6,7 @@
 package ds_algorithm.arrays;
 
 import com.google.gson.Gson;
+import ds_algorithm.Test;
 import java.util.Arrays;
 
 /**
@@ -156,45 +157,35 @@ public class RotateArray {
 //    test(reverseEasy(new int[]{1,2,3,4,5,6,7},1,-1), new int[]{1,2,3,4,5,6,7});
 //    test(reverseEasy(new int[]{1,2,3,4,5,6,7},8,3), new int[]{1,2,3,4,5,6,7});
     
-    test(lameRotateLeft(new int[]{1,2,3,4,5,6,7},3), new int[]{4,5,6,7,1,2,3});
-    test(lameRotateLeft(new int[]{},3), new int[]{});
-    test(lameRotateLeft(new int[]{1},3), new int[]{1});
-    test(lameRotateLeft(new int[]{1,2},3), new int[]{2,1});
+    Test.test(lameRotateLeft(new int[]{1,2,3,4,5,6,7},3), new int[]{4,5,6,7,1,2,3});
+    Test.test(lameRotateLeft(new int[]{},3), new int[]{});
+    Test.test(lameRotateLeft(new int[]{1},3), new int[]{1});
+    Test.test(lameRotateLeft(new int[]{1,2},3), new int[]{2,1});
     
-    test(lameRotateRight(new int[]{1,2,3,4,5,6,7},3), new int[]{5,6,7,1,2,3,4});
-    test(lameRotateRight(new int[]{},3), new int[]{});
-    test(lameRotateRight(new int[]{1},3), new int[]{1});
-    test(lameRotateRight(new int[]{1,2},3), new int[]{2,1});
+    Test.test(lameRotateRight(new int[]{1,2,3,4,5,6,7},3), new int[]{5,6,7,1,2,3,4});
+    Test.test(lameRotateRight(new int[]{},3), new int[]{});
+    Test.test(lameRotateRight(new int[]{1},3), new int[]{1});
+    Test.test(lameRotateRight(new int[]{1,2},3), new int[]{2,1});
     
-    test(rotateArrayleft(new int[]{1,2,3,4,5,6,7},3), new int[]{4,5,6,7,1,2,3});
-    test(rotateArrayleft(new int[]{},3), new int[]{});
-    test(rotateArrayleft(new int[]{1},3), new int[]{1});
-    test(rotateArrayleft(new int[]{1,2},3), new int[]{2,1});
+    Test.test(rotateArrayleft(new int[]{1,2,3,4,5,6,7},3), new int[]{4,5,6,7,1,2,3});
+    Test.test(rotateArrayleft(new int[]{},3), new int[]{});
+    Test.test(rotateArrayleft(new int[]{1},3), new int[]{1});
+    Test.test(rotateArrayleft(new int[]{1,2},3), new int[]{2,1});
     
-    test(rotateArrayright(new int[]{1,2,3,4,5,6,7},3), new int[]{5,6,7,1,2,3,4});
-    test(rotateArrayright(new int[]{},3), new int[]{});
-    test(rotateArrayright(new int[]{1},3), new int[]{1});
-    test(rotateArrayright(new int[]{1,2},3), new int[]{2,1});
+    Test.test(rotateArrayright(new int[]{1,2,3,4,5,6,7},3), new int[]{5,6,7,1,2,3,4});
+    Test.test(rotateArrayright(new int[]{},3), new int[]{});
+    Test.test(rotateArrayright(new int[]{1},3), new int[]{1});
+    Test.test(rotateArrayright(new int[]{1,2},3), new int[]{2,1});
     
-    test(bubbleRotateLeft(new int[]{1,2,3,4,5,6,7},3), new int[]{4,5,6,7,1,2,3});
-    test(bubbleRotateLeft(new int[]{},3), new int[]{});
-    test(bubbleRotateLeft(new int[]{1},3), new int[]{1});
-    test(bubbleRotateLeft(new int[]{1,2},3), new int[]{2,1});
+    Test.test(bubbleRotateLeft(new int[]{1,2,3,4,5,6,7},3), new int[]{4,5,6,7,1,2,3});
+    Test.test(bubbleRotateLeft(new int[]{},3), new int[]{});
+    Test.test(bubbleRotateLeft(new int[]{1},3), new int[]{1});
+    Test.test(bubbleRotateLeft(new int[]{1,2},3), new int[]{2,1});
     
-    test(bubbleRotateright(new int[]{1,2,3,4,5,6,7},3), new int[]{5,6,7,1,2,3,4});
-    test(bubbleRotateright(new int[]{},3), new int[]{});
-    test(bubbleRotateright(new int[]{1},3), new int[]{1});
-    test(bubbleRotateright(new int[]{1,2},3), new int[]{2,1});
+    Test.test(bubbleRotateright(new int[]{1,2,3,4,5,6,7},3), new int[]{5,6,7,1,2,3,4});
+    Test.test(bubbleRotateright(new int[]{},3), new int[]{});
+    Test.test(bubbleRotateright(new int[]{1},3), new int[]{1});
+    Test.test(bubbleRotateright(new int[]{1,2},3), new int[]{2,1});
   
-  }
-  public static void test(int[] got, int exp[]){
-    Gson gson = new Gson();
-    String gotStr = gson.toJson(got);
-    String expStr = gson.toJson(exp);
-    System.out.println(gotStr.equals(expStr));
-    if(show || !gotStr.equals(expStr)){
-      System.out.println("got     : "+gson.toJson(gotStr));
-      System.out.println("expected: "+gson.toJson(expStr));
-    }
   }
 }

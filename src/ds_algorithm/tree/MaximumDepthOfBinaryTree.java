@@ -29,11 +29,18 @@ class StackElem
 public class MaximumDepthOfBinaryTree {
   static boolean show = true;
   
+  
+  // Time: O(n) space: O(n)
+  // DFS rec
+  // simple recursion to return max of left and right
   public static int maximumDepthRec(TreeNode node){
     if(node==null)return 0;
     return Math.max(maximumDepthRec(node.left)+1, maximumDepthRec(node.right)+1);
   }
   
+  // Time: O(n) space: O(n)
+  // DFS rec
+  // simple recursion to return max of left and right by passing depth
   public static int maximumDepthRec2(TreeNode node){
     return maximumDepthRec2(node, 0);
   }
@@ -45,6 +52,9 @@ public class MaximumDepthOfBinaryTree {
     return Math.max(maximumDepthRec2(node.left, d+1), maximumDepthRec2(node.right, d+1));
   }
   
+  // Time: O(n) space: O(n)
+  // BFS Ite
+  // double loop bfs for identifying levels
   public static int maximumDepthBFSIte(TreeNode node){
     int height = 0;
     Queue<TreeNode> q = new LinkedList();
@@ -66,6 +76,9 @@ public class MaximumDepthOfBinaryTree {
     return height;
   }
   
+  // Time: O(n) space: O(n)
+  // Dfs Ite
+  // double stacks to maintain nodes and depths
   public static int maximumDepthDFSIte(TreeNode node){
     int maxHeight = 0;
     Stack<TreeNode> s = new Stack();
@@ -90,6 +103,10 @@ public class MaximumDepthOfBinaryTree {
     return maxHeight;
   }
   
+  
+  // Time: O(n) space: O(n)
+  // Dfs Ite
+  // i dono what purpose it serves, inspired from abhai
   public static int maximumDepthDFSIte2(TreeNode node){
     int maxHeight = 0;
     Stack<TreeNode> s = new Stack();
@@ -128,7 +145,7 @@ public class MaximumDepthOfBinaryTree {
 //     1   3
 //   4
 //  7      
-  
+// abhais inspiration
 //  public static int maxDepth(TreeNode root) {
 //    if(root == null)
 //    return 0;
@@ -182,47 +199,47 @@ public class MaximumDepthOfBinaryTree {
   public  static void main(String[] args){
     BinaryTree t1;
       
-//    t1 = new BinaryTree(Arrays.asList(2, 1, 3, 4, null, null, null, 7));
-//    test(maximumDepthRec(t1.root), 4);
-//    t1 = new BinaryTree(Arrays.asList(3,9,20));
-//    test(maximumDepthRec(t1.root), 2);
-//    t1 = new BinaryTree(Arrays.asList(3,9));
-//    test(maximumDepthRec(t1.root), 2);
-//    t1 = new BinaryTree(Arrays.asList(3,null,9));
-//    test(maximumDepthRec(t1.root), 2);
-//    t1 = new BinaryTree(Arrays.asList(3));
-//    test(maximumDepthRec(t1.root), 1);
-//    t1 = new BinaryTree(Arrays.asList());
-//    test(maximumDepthRec(t1.root), 0);
-//    
-//    
-//    
-//    t1 = new BinaryTree(Arrays.asList(2, 1, 3, 4, null, null, null, 7));
-//    test(maximumDepthRec2(t1.root), 4);
-//    t1 = new BinaryTree(Arrays.asList(3,9,20));
-//    test(maximumDepthRec2(t1.root), 2);
-//    t1 = new BinaryTree(Arrays.asList(3,9));
-//    test(maximumDepthRec2(t1.root), 2);
-//    t1 = new BinaryTree(Arrays.asList(3,null,9));
-//    test(maximumDepthRec2(t1.root), 2);
-//    t1 = new BinaryTree(Arrays.asList(3));
-//    test(maximumDepthRec2(t1.root), 1);
-//    t1 = new BinaryTree(Arrays.asList());
-//    test(maximumDepthRec2(t1.root), 0);
+    t1 = new BinaryTree(Arrays.asList(2, 1, 3, 4, null, null, null, 7));
+    test(maximumDepthRec(t1.root), 4);
+    t1 = new BinaryTree(Arrays.asList(3,9,20));
+    test(maximumDepthRec(t1.root), 2);
+    t1 = new BinaryTree(Arrays.asList(3,9));
+    test(maximumDepthRec(t1.root), 2);
+    t1 = new BinaryTree(Arrays.asList(3,null,9));
+    test(maximumDepthRec(t1.root), 2);
+    t1 = new BinaryTree(Arrays.asList(3));
+    test(maximumDepthRec(t1.root), 1);
+    t1 = new BinaryTree(Arrays.asList());
+    test(maximumDepthRec(t1.root), 0);
     
     
-//    t1 = new BinaryTree(Arrays.asList(2, 1, 3, 4, null, null, null, 7));
-//    test(maximumDepthBFSIte(t1.root), 4);
-//    t1 = new BinaryTree(Arrays.asList(3,9,20));
-//    test(maximumDepthBFSIte(t1.root), 2);
-//    t1 = new BinaryTree(Arrays.asList(3,9));
-//    test(maximumDepthBFSIte(t1.root), 2);
-//    t1 = new BinaryTree(Arrays.asList(3,null,9));
-//    test(maximumDepthBFSIte(t1.root), 2);
-//    t1 = new BinaryTree(Arrays.asList(3));
-//    test(maximumDepthBFSIte(t1.root), 1);
-//    t1 = new BinaryTree(Arrays.asList());
-//    test(maximumDepthBFSIte(t1.root), 0);
+    
+    t1 = new BinaryTree(Arrays.asList(2, 1, 3, 4, null, null, null, 7));
+    test(maximumDepthRec2(t1.root), 4);
+    t1 = new BinaryTree(Arrays.asList(3,9,20));
+    test(maximumDepthRec2(t1.root), 2);
+    t1 = new BinaryTree(Arrays.asList(3,9));
+    test(maximumDepthRec2(t1.root), 2);
+    t1 = new BinaryTree(Arrays.asList(3,null,9));
+    test(maximumDepthRec2(t1.root), 2);
+    t1 = new BinaryTree(Arrays.asList(3));
+    test(maximumDepthRec2(t1.root), 1);
+    t1 = new BinaryTree(Arrays.asList());
+    test(maximumDepthRec2(t1.root), 0);
+    
+    
+    t1 = new BinaryTree(Arrays.asList(2, 1, 3, 4, null, null, null, 7));
+    test(maximumDepthBFSIte(t1.root), 4);
+    t1 = new BinaryTree(Arrays.asList(3,9,20));
+    test(maximumDepthBFSIte(t1.root), 2);
+    t1 = new BinaryTree(Arrays.asList(3,9));
+    test(maximumDepthBFSIte(t1.root), 2);
+    t1 = new BinaryTree(Arrays.asList(3,null,9));
+    test(maximumDepthBFSIte(t1.root), 2);
+    t1 = new BinaryTree(Arrays.asList(3));
+    test(maximumDepthBFSIte(t1.root), 1);
+    t1 = new BinaryTree(Arrays.asList());
+    test(maximumDepthBFSIte(t1.root), 0);
 
     t1 = new BinaryTree(Arrays.asList(2, 1, 3, 4, null, null, null, 7));
     test(maximumDepthDFSIte(t1.root), 4);

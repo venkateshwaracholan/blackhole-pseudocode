@@ -1,0 +1,65 @@
+<div ng-style="{'max-height': ''+'582'+'px'}" class="col-md-5 col-sm-5 question-body _question-body" style="max-height: 582px;">
+            <!-- ngInclude: 'question-header-template' --><div ng-include="'question-header-template'" class="ng-scope">
+    <div class=" breadcrumb">
+        <span class="filter-flag attempted-flag"></span>
+        <strong class="font-bold ng-binding"><span i18-text="" i18-tag="TEST_QUESTION" class="ng-isolate-scope">Question</span> # 1</strong>
+        <!-- ngIf: !testWindow.IsPracticeTest --><a ng-if="!testWindow.IsPracticeTest" class="pull-right muted control-right" ng-click="flagForReview(item)">
+            <span class="icon-revisit ng-isolate-scope" ng-class="{'flagged': item.IsFlagged}" i18-text="" i18-title="TEST_MCQ_REVIEW_MSG" i18-tag="TEST_MCQ_REVIEW" title="Click if you wish to review this question later. This will have no implication on your score">Revisit</span><!-- ngIf: item.IsFlagged -->
+        </a><!-- end ngIf: !testWindow.IsPracticeTest -->
+         <!-- ngIf: !item.twoColumnLayout && testWindow.Assessment.UiSettings.ShowScientificCalculator -->
+    </div>
+</div>
+            <div class="control-left">
+                <div class="font-bold"><a class="_howToAttempt codelysis-questionArea ng-isolate-scope" ng-click="startCodeWalkThrough(true)" i18-text="" i18-tag="TEST_CODE_TEXT_1">How to attempt?</a></div>
+                <p><strong i18-text="" i18-tag="TEST_QUESTION" class="ng-isolate-scope">Question</strong> :</p>
+                <div class="text-only _questionArea codelysis-questionArea" question-text=""><div class="text-tags  ng-scope"><div>  Bonus Question: </div>
+
+ <div>  &nbsp; </div>
+
+ <div>  NUMBER CHAIN - </div>
+
+ <div>  A number chain is created by continuously adding the square of the digits in a number to form a new number until it has been seen before.  <span style="color: rgb(0, 0, 0); font-family: &quot;Courier New&quot;, &quot;Courier New_MSFontService&quot;, monospace; font-size: 11pt;">&nbsp;</span> </div>
+
+ <div>  &nbsp; </div>
+
+ <div>  For example, for a number 44: </div>
+
+ <div>  44 → 32 → 13 → 10 → 1 → 1 </div>
+
+ <div>  <span class="TextRun SCXW83724839 BCX5" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; color: rgb(0, 0, 0); font-style: italic; font-size: 12pt; font-family: &quot;Times New Roman&quot;, &quot;Times New Roman_MSFontService&quot;, serif; line-height: 19px; font-variant-ligatures: none !important;"><span class="NormalTextRun SCXW83724839 BCX5" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; background-color: inherit;">(4&nbsp;</span></span>  <span class="TextRun SCXW83724839 BCX5" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; color: rgb(0, 0, 0); font-style: italic; font-size: 12pt; font-family: &quot;Times New Roman&quot;, &quot;Times New Roman_MSFontService&quot;, serif; line-height: 19px; font-variant-ligatures: none !important;"><span class="ContextualSpellingAndGrammarError SCXW83724839 BCX5" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; background-repeat: repeat-x; background-position: left bottom; background-image: url(&quot;data:image/gif;base64,R0lGODlhBQAEAPEDAABVzDNVzDNV/wAAACH5BAUAAAMALAAAAAAFAAQAAAIInC2QchYKQgEAOw==&quot;); border-bottom: 1px solid transparent; background-color: inherit;">square</span></span>  <span class="TextRun SCXW83724839 BCX5" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; color: rgb(0, 0, 0); font-style: italic; font-size: 12pt; font-family: &quot;Times New Roman&quot;, &quot;Times New Roman_MSFontService&quot;, serif; line-height: 19px; font-variant-ligatures: none !important;"><span class="NormalTextRun SCXW83724839 BCX5" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; background-color: inherit;">+4square = 16+16 gives next number 32. Then 3 square + 2&nbsp;</span></span>  <span class="TextRun SCXW83724839 BCX5" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; color: rgb(0, 0, 0); font-style: italic; font-size: 12pt; font-family: &quot;Times New Roman&quot;, &quot;Times New Roman_MSFontService&quot;, serif; line-height: 19px; font-variant-ligatures: none !important;"><span class="ContextualSpellingAndGrammarError SCXW83724839 BCX5" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; background-repeat: repeat-x; background-position: left bottom; background-image: url(&quot;data:image/gif;base64,R0lGODlhBQAEAPEDAABVzDNVzDNV/wAAACH5BAUAAAMALAAAAAAFAAQAAAIInC2QchYKQgEAOw==&quot;); border-bottom: 1px solid transparent; background-color: inherit;">square</span></span>  <span class="TextRun SCXW83724839 BCX5" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; color: rgb(0, 0, 0); font-style: italic; font-size: 12pt; font-family: &quot;Times New Roman&quot;, &quot;Times New Roman_MSFontService&quot;, serif; line-height: 19px; font-variant-ligatures: none !important;"><span class="NormalTextRun SCXW83724839 BCX5" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; background-color: inherit;">&nbsp;= 9 + 4 gives 13 and so on until 1 or 89)</span></span>  <span class="EOP SCXW83724839 BCX5" style="margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; color: rgb(0, 0, 0); font-size: 12pt; line-height: 19px; font-family: &quot;Times New Roman&quot;, &quot;Times New Roman_MSFontService&quot;, serif;">&nbsp;</span> </div>
+
+ <div>  &nbsp; </div>
+
+ <div>  Another Example: </div>
+
+ <div>  85 → 89 → 145 → 42 → 20 → 4 → 16 → 37 → 58 → 89 </div>
+
+ <div>  &nbsp; </div>
+
+ <div>  EVERY starting number will eventually arrive at 1 or 89  <em>(and then keep repeating to 1 or 89)</em> </div>
+
+ <div>  &nbsp; </div>
+
+ <div>  So given a number N, find out how many numbers starting from 1 to N as start numbers will arrive at 89 (and return as INTEGER)? Where N can be any Natural Number. </div>
+
+ <div>  &nbsp; </div>
+
+ <div>  Example: If N = 5, Expected Output (count of 89’s) = 4 </div>
+
+ <div>  &nbsp; </div>
+
+ <div>  How: </div>
+
+ <div>  Since N = 5, FOR 1 to 5: </div>
+
+ <div>  1 → 1 (So not 89, so not counted) </div>
+
+ <div>  2 → 4 → 16 → 37 → 58 → 89 (Encountered 89, so count of 89’s = 1) </div>
+
+ <div>  3 → 9 → 81 → 65 → 61 → 37 → 58 → 89 (so count of 89’s = 2) </div>
+
+ <div>  4 → 16 → 37 → 58 → 89 (so count of 89’s = 3) </div>
+
+ <div>  5 → 25 → 29 → 85 → 89 (so count of 89’s = 4) </div></div></div>
+            </div>
+        </div>

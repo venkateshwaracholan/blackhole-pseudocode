@@ -31,13 +31,28 @@ https://leetcode.com/problems/maximum-subarray/
 */
 
 //-2,1,-3,4,-1,2,1,-5,4
-public class MaximumContiguousSubarray {
+public class MaximumSumSubarray {
   public static boolean show = true;
   
+  // Time: O(n) space: O(1)
+  // kadane - max andn sofar
+  // code idea, compare sofar with num and assign if num is greater
+  public int maxSubArray(int[] nums) {
+        int max = Integer.MIN_VALUE;;
+        int sofar = 0;
+        for(int i=0;i<nums.length;i++){
+            sofar = sofar+ nums[i];
+            if(sofar<nums[i])
+                sofar = nums[i];
+            if(sofar>max)
+                max = sofar;
+        }
+        return max;
+    }
   
   // Time: O(n) space: O(1)
   public static int maximumContiguousSubarray(int arr[]){
-    int cum_max = 0;
+    int sofar = 0;
     int max = Integer.MIN_VALUE;
     int temp = 0;
     int start =0;int end = 0;
@@ -45,13 +60,13 @@ public class MaximumContiguousSubarray {
       return 0;
     }
     for(int i=0;i<arr.length;i++){
-      cum_max+=arr[i];
-      if(arr[i]>cum_max){
-        cum_max=arr[i];
+      sofar+=arr[i];
+      if(arr[i]>sofar){
+        sofar=arr[i];
         temp = i;
       }
-      if(cum_max>max){
-        max = cum_max;
+      if(sofar>max){
+        max = sofar;
         start = temp;
         end = i;
       }
