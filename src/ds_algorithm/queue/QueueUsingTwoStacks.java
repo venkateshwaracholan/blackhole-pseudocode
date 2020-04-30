@@ -19,30 +19,30 @@ public class QueueUsingTwoStacks {
 }
 
 
-ArrayList<String> ans = new ArrayList<>();
-        Set<String> set = new HashSet<>();
-        for(String s: possibleFeatures)
-            set.add(s);
-        Map<String, Integer> map = new HashMap<>();
-        for(String featureReq : featureRequests){
-            String words[] = featureReq.split("\\W");
-            Set<String> added = new HashSet<>();
-            for(String word : words){
-                word = word.toLowerCase();
-                if(set.contains(word)  && !added.contains(word)){
-                    map.put(word, map.getOrDefault(word,0)+1);
-                    added.add(word);
-                }
-            }
-        }
-        Queue<Map.Entry<String,Integer>> maxHeap = new PriorityQueue<>((a,b) -> a.getValue() == b.getValue() ? a.getKey().compareTo(b.getKey()) : b.getValue() - a.getValue() );
-        for(Map.Entry<String,Integer> entry: map.entrySet())
-            maxHeap.add(entry);
-        while(!maxHeap.isEmpty() && topFeatures>0){
-            ans.add(maxHeap.poll().getKey());
-            topFeatures--;
-        }
-        return ans;
+//ArrayList<String> ans = new ArrayList<>();
+//        Set<String> set = new HashSet<>();
+//        for(String s: possibleFeatures)
+//            set.add(s);
+//        Map<String, Integer> map = new HashMap<>();
+//        for(String featureReq : featureRequests){
+//            String words[] = featureReq.split("\\W");
+//            Set<String> added = new HashSet<>();
+//            for(String word : words){
+//                word = word.toLowerCase();
+//                if(set.contains(word)  && !added.contains(word)){
+//                    map.put(word, map.getOrDefault(word,0)+1);
+//                    added.add(word);
+//                }
+//            }
+//        }
+//        Queue<Map.Entry<String,Integer>> maxHeap = new PriorityQueue<>((a,b) -> a.getValue() == b.getValue() ? a.getKey().compareTo(b.getKey()) : b.getValue() - a.getValue() );
+//        for(Map.Entry<String,Integer> entry: map.entrySet())
+//            maxHeap.add(entry);
+//        while(!maxHeap.isEmpty() && topFeatures>0){
+//            ans.add(maxHeap.poll().getKey());
+//            topFeatures--;
+//        }
+//        return ans;
 
 
 /*

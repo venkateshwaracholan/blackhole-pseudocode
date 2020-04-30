@@ -33,6 +33,9 @@ List to array conversion: return list.stream().mapToInt(i->i).toArray();
 /*
 Traversal confusions
 
+preorder and postorder are reverse to each other(reverse and swap left and rights)
+
+
     1
   2   3
  4 5 6 7

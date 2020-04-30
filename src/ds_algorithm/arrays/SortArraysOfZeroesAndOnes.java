@@ -26,6 +26,7 @@ import java.util.*;
 //1 0 - swap,i++,j--
 
 
+// approach: two pointers
 
 public class SortArraysOfZeroesAndOnes {
   public void sort_ones_zeroes(int nums[]){

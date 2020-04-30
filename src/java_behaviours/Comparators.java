@@ -50,6 +50,21 @@ This logic implemented under sorting algorithm, So, just think if a and b are al
 
 
 */
+import java.util.*;
+
 public class Comparators {
   
+  // there is no way to sort primitives like int array
+  public static void main(String args[]){
+    int arr[] = new int[]{7,2,6,3,6,8,6};
+    Integer[] input = Arrays.stream(arr).boxed().toArray(Integer[]::new);
+    Arrays.sort(input, Collections.reverseOrder());
+    System.out.println(input[0]);
+  }
 }
+
+class IntegerComparator implements Comparator<Integer>{ 
+    public int compare(Integer a, Integer b){ 
+        return a - b;
+    } 
+} 

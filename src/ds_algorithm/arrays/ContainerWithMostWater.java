@@ -14,10 +14,11 @@ package ds_algorithm.arrays;
 
 public class ContainerWithMostWater {
   
-  // Time: O(n) space: O(1)
-  // core idea: start two pointers with both ends
-  // its is of no use to move longer line inwards, so do the opposite
-  // stor in max and return
+// approach: two pointers, max
+// Time: O(n) space: O(1)
+// core idea: start two pointers with both ends
+// its is of no use to move longer line inwards, so do the opposite
+// stor in max and return
   public int maxArea(int[] height) {
     int i=0, j=height.length-1;
     int max = 0;

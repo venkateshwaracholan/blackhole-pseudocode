@@ -16,10 +16,9 @@ import ds_algorithm.Test;
 
 public class FirstMissingPositiveInteger {
   
-  // with space
-  // using arra as a hashmap with storing nums[i] in nums[i]-1 index 
-  // in map if value in range [1,n]
-  // Time: O(n) space O(n)
+// using array as a hashmap with storing nums[i] in nums[i]-1 index 
+// in map if value in range [1,n]
+// Time: O(n) space O(n)
   public static int firstMissingPositiveSpace(int[] nums) {
     int n = nums.length;
     int map[] = new int[n];
@@ -36,13 +35,12 @@ public class FirstMissingPositiveInteger {
     return i==n ? n+1 : 1;
   }
   
-  // without auxiliary space
-  // tring to use the same array for the map
-  // idea is to move number to the proper index nums[i] to nums[i]-1 index 
-  // but while moving we have to inturn move that is present at nums[i]-1 index to its proper place
-  // so loop cur, copy value at nums[nums[i]-1] to next, assign to index and set next to cur 
-  // until cur is already in the right place
-  // Time: O(n) space O(1)
+// tring to use the same array for the map
+// idea is to move number to the proper index nums[i] to nums[i]-1 index 
+// but while moving we have to inturn move that is present at nums[i]-1 index to its proper place
+// so loop cur, copy value at nums[nums[i]-1] to next, assign to index and set next to cur 
+// until cur is already in the right place
+// Time: O(n) space O(1)
   public static int firstMissingPositiveChain(int[] nums) {
     int n = nums.length;
     for(int i=0;i<n;i++){
@@ -60,6 +58,8 @@ public class FirstMissingPositiveInteger {
     return n+1;
   }
   
+  
+//  
   public static int firstMissingPositiveNegative(int[] nums) {
     int n = nums.length;
     for(int i=0;i<n;i++){

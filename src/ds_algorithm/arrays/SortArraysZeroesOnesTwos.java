@@ -32,7 +32,7 @@ import java.io.*;
 public class SortArraysZeroesOnesTwos {
   
   
-  // 4 pointer approach
+  // approach: 4 pointers
   // core idea:
   
   // TODO: have to optimize this
@@ -75,6 +75,7 @@ public class SortArraysZeroesOnesTwos {
   // 2
   // 2
   
+  // approach: counting, reassigning
   // Time: O(n) space: O(1)
   // coreidea: use count of all digits
   // 0's index zerocount

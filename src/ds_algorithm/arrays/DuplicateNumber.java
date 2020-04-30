@@ -31,6 +31,9 @@ package ds_algorithm.arrays;
 // since D is unknown we start a pointer from start and move tortoise and new pointer 1 node each
 // and if they become equal tehn we covered D distance.
 
+
+// approach: floyds hare toroise
+// Time: O(n) space: O(1)
 public class DuplicateNumber {
   public int findDuplicate(int[] nums) {
       int fast,slow;

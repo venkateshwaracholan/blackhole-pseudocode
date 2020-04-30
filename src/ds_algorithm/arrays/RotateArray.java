@@ -59,6 +59,7 @@ public class RotateArray {
     return arr;
   }
   
+  // approach: reversal
   // Time: O(n) space: O(1)
   public static int[] rotateArrayleft(int[] arr, int k){
     if(arr.length == 0) return arr;

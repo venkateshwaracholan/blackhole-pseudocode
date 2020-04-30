@@ -10,6 +10,7 @@ package ds_algorithm.arrays;
  * @author vshanmugham
  */
 
+// approach: comparator
 // https://leetcode.com/problems/largest-number/
 // use bubble sort to demonstrate this algorithm and then try with comparator.
 

@@ -11,7 +11,7 @@ import java.util.*;
  *
  * @author venkateshwarans
  */
-public class GraphUnWeightedAdjacencyList {
+public class GraphUndirectredUnWeightedAdjacencyList {
   Map<Integer, GraphNode> nodeMap= new HashMap();
   
   public void addNode(int val){
@@ -70,17 +70,16 @@ public class GraphUnWeightedAdjacencyList {
       System.out.println("Node not present");
       return;
     }
-    depthFirstSearch(nodeMap.get(src));
+    depthFirstSearchIte(nodeMap.get(src));
   }
   
-  public void depthFirstSearch(GraphNode src){
+  public void depthFirstSearchIte(GraphNode src){
     Stack<GraphNode> s = new Stack();
     Set<GraphNode> visited = new HashSet();
     s.add(src);
     visited.add(src);
     while(!s.isEmpty()){
       GraphNode cur = s.pop();
-      
       //System.out.println(cur.val);
       for(GraphNode n: cur.neighbours.keySet()){
         //System.out.println("AAA:"+n.val);
@@ -181,7 +180,7 @@ public class GraphUnWeightedAdjacencyList {
   */
   
   public static void main(String args[]){
-    GraphUnWeightedAdjacencyList g = new GraphUnWeightedAdjacencyList();
+    GraphUndirectredUnWeightedAdjacencyList g = new GraphUndirectredUnWeightedAdjacencyList();
     g.addNode(1);
     g.addNode(2);
     g.addNode(3);

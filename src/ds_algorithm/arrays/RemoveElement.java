@@ -59,6 +59,12 @@ public class RemoveElement {
     return newArr;
   }
   
+  
+  
+  
+  
+  
+  
   public static void main(String[] args){
     
     int a[] = new int[]{1,1,1,1,1};

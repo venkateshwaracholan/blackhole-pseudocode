@@ -25,7 +25,7 @@ public class DiameterOfBinaryTree {
       return 0;
     int ans[] = new int[1];
     DiameterOfBinaryTree(root, ans);
-    return ans[0] - 1;
+    return ans[0];
   }
   
   // core idea is to start counting from below using dfs,
@@ -37,7 +37,7 @@ public class DiameterOfBinaryTree {
       return 0;
     int l = DiameterOfBinaryTree(root.left, ans);
     int r = DiameterOfBinaryTree(root.right, ans);
-    ans[0] = Math.max(ans[0], l+r+1);
+    ans[0] = Math.max(ans[0], l+r);
     return Math.max(l,r)+1;
   }
   

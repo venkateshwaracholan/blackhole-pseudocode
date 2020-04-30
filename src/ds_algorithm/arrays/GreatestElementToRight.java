@@ -9,6 +9,9 @@ package ds_algorithm.arrays;
  *
  * @author vshanmugham
  */
+
+// approach: reverse iteartion
+
 public class GreatestElementToRight {
   
 }

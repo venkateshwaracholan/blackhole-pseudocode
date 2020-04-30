@@ -10,7 +10,7 @@ package ds_algorithm.graph;
  * @author vshanmugham
  */
 
-public class DijkstrasAdjacencyList extends GraphUnWeightedAdjacencyList{
+public class DijkstrasAdjacencyList extends GraphUndirectredUnWeightedAdjacencyList{
   
   
   

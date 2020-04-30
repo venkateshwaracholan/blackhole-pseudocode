@@ -7,7 +7,9 @@ design review
 delegation
 influence/motivate
 all communications are well documented
-shield, thirtpary 
+all work has to be documented
+training
+shield, thirdparty 
 
 
 
