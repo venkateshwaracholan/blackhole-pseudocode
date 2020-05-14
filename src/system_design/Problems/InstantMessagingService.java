@@ -9,8 +9,10 @@ package system_design.Problems;
  *
  * @author vshanmugham
  */
+// whatsapp, slack, facebok messenger, hangouts, any chat app
 
 /*
+
 
 channels,
 users,
@@ -35,9 +37,9 @@ many app servers
 
 global database as a routing table
 
-
 */
 
-public class Slack {
+
+public class InstantMessagingService {
   
 }

@@ -38,7 +38,7 @@ public class KtopFrequentElements {
   
   
 // Time O(nlogk) space O(K) n - number of element initailly, k - for kth largest
-  public int[] topKFrequentSlow(int[] nums, int k) {
+  public int[] topKFrequnetSlow(int[] nums, int k) {
     Map<Integer, Integer> map = new HashMap();
     for(int n:nums)
       map.put(n, map.getOrDefault(n,0)+1);

@@ -13,6 +13,9 @@ import ds_algorithm.Test;
  */
 
 // https://www.geeksforgeeks.org/the-celebrity-problem/
+// https://leetcode.com/articles/find-the-celebrity/
+// https://leetcode.com/problems/find-the-celebrity/
+
 
 public class CelebrityFinding {
   

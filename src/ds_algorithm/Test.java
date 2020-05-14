@@ -67,4 +67,8 @@ public class Test {
 //    System.out.println("got     : "+got);
 //    System.out.println("expected: "+exp);
   }
+  
+  public static void main(String arg[]){
+    
+  }
 }

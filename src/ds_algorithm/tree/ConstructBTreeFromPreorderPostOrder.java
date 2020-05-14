@@ -54,6 +54,8 @@ public class ConstructBTreeFromPreorderPostOrder {
       return constructFromPrePostMagicRec(pre,post, new int[]{0},new int[]{0});
   }                                      
 
+//  constructFromPrePostItertive(new int[]{1,2,4,5,3,6,7}, new int[]{4,5,2,6,7,3,1});
+  
   public static TreeNode constructFromPrePostMagicRec(int[] pre, int[] post, int i[], int j[]) {
       TreeNode node = new TreeNode(pre[i[0]++]);
       if (node.val != post[j[0]])

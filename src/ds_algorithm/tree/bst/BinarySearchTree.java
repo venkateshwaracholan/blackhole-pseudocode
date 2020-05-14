@@ -145,6 +145,52 @@ public class BinarySearchTree extends BinaryTree{
     return new TreeNode[]{root, node};
   }
   
+  public void deleteNode(int val){
+    deleteNode(this.root, val);
+  }
+  
+  /*
+          5
+      2      10
+        4
+       3
+  
+  */
+  
+  public void deleteNode(TreeNode root, int key) {
+    TreeNode node = root;
+    boolean left = false;
+    TreeNode prev = null;
+    while(node!=null){
+        if(node.val==key){
+            TreeNode temp = node;
+            if(node.left==null && node.right==null){
+                if(node==root) root=null;
+                else if(left) prev.left = null;
+                else prev.right = null;
+            }else if(node.left==null || node.right==null){
+                TreeNode child = node.left!=null ? node.left : node.right;
+                if(node==root) root = child;
+                else if(left) prev.left = child;
+                else prev.right = child;
+            }else{
+                int x = node.left.val;
+                deleteNode(node, node.left.val);
+                node.val = x;
+            }
+            return;
+        }else if(key<node.val){
+            prev = node;
+            node = node.left;
+            left = true;
+        }else{
+            prev = node;
+            node = node.right;
+            left = false;
+        }
+    }
+  }
+  
   public TreeNode SearchIte(TreeNode node, int val){
     if(node==null){
       return new TreeNode(val);
@@ -212,7 +258,8 @@ public class BinarySearchTree extends BinaryTree{
     bst.insertRec(4);
     bst.insertRec(3);
     test(bst.breadthFirstSearch(), new int[]{5,2,10,4,3});
-    bst.delete(5);
+    //System.out.println(bst.delete(5).val);
+    bst.deleteNode(5);
     test(bst.breadthFirstSearch(), new int[]{4,2,10, 3});
     
     
