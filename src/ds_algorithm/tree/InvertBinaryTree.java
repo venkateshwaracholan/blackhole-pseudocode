@@ -34,23 +34,72 @@ import java.util.Arrays;
 9   6 3   1
 */
 
+import java.util.*;
 
 public class InvertBinaryTree {
   
   
-  public static TreeNode invertTree(TreeNode root) {
+//  Time: O(n) space:O(n) D tends to n recursion
+//  core idea: top down, swap before calling recursion
+  public TreeNode invertTree(TreeNode root) {
+      if(root==null) return null;
+      TreeNode left = root.left;
+      root.left = root.right;
+      root.right = left;
+      invertTree(root.left);
+      invertTree(root.right);
+      return root;
+  }
+  
+//  Time: O(n) space:O(n) D tends to n recursion
+//  core idea: recusrion assigning, bottom up, swap/assign after recursion
+//  return root so that assigning is possible
+//  take a copy of left, so that we still keep it after overwrite
+//  pass rright node an assign to left node
+//  pass the temp left and assign to right
+  public TreeNode invertTreeDfsBetter(TreeNode root) {
+      if(root==null) return null;
+      TreeNode left = root.left;
+      root.left = invertTreeDfsBetter(root.right);
+      root.right = invertTreeDfsBetter(left);
+      return root;
+  }
+
+// same as above, using 2 temporary varables
+  
+  public static TreeNode invertTreeDfs(TreeNode root) {
     if(root==null){
       return null;
     }
-    TreeNode right = invertTree(root.right);
-    TreeNode left = invertTree(root.left);
+    TreeNode right = invertTreeDfs(root.right);
+    TreeNode left = invertTreeDfs(root.left);
     root.left = right;
     root.right = left;
     return root;
   }
   
+  
+// Time: O(n) space: O(n) max n/2 but still order of n
+// we are swapping in bfs, as it will also work
+// core idea: top down, iterative bfs (bfs is not possible throug recursion)
+  
+  public TreeNode invertTreeBfs(TreeNode root) {
+        if(root==null) return null;
+        Queue<TreeNode> q = new LinkedList();
+        q.add(root);
+        while(!q.isEmpty()){
+            TreeNode x = q.poll();
+            TreeNode left = x.left;
+            x.left = x.right;
+            x.right = left;
+            if(x.left!=null) q.add(x.left);
+            if(x.right!=null) q.add(x.right);
+        }
+        return root;
+    }
+  
   public static void main(String args[]){
-    Test.test(breadthFirstSearch(invertTree(deSerializeBfs("4,2,7,1,3,6,9"))), new ArrayList(Arrays.asList(4,7,2,9,6,3,1)));
+    //Test.test(breadthFirstSearch(invertTree(deSerializeBfs("4,2,7,1,3,6,9"))), new ArrayList(Arrays.asList(4,7,2,9,6,3,1)));
     
   }
 }

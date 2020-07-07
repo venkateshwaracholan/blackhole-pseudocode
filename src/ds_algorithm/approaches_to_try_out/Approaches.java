@@ -26,6 +26,9 @@ floyds cycle detection
 stack
 two stacks
 queues
+dequeu
+map+heap - expiries,or order based popping
+map+arraylist - random playlist,with swap to end to optimize removal 
 heaps
 sorting
 kadane
@@ -37,10 +40,11 @@ backtracking
 leverage Prev Diag elem in 2d matrices
 dp, leverage prev diag, max(prev row, prev col)
 compound keys for hashmaps
-Top Down - Inorder
+Top Down - preorder
 top dowwn assignment strategy
-Bottom up - preorder, postorder
+Bottom up - inorder, postorder
 bottom up assignment strategy
+greedy
 
 
 

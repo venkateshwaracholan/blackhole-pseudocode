@@ -11,6 +11,10 @@ package ds_algorithm.graph;
  */
 import java.util.*;
 
+// Note: we cannot use union find (disjoint set) in an undirected graph,
+// it is only for a directed graph, as the core idea is that if nodes of an edge is aready connected
+// the new connection would be redundant causing a cycle in undirected graph
+
 public class DetectCycleDirectedGraph {
   Map<Integer,GraphNode> nodeMap = new HashMap();
   

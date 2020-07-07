@@ -15,11 +15,13 @@ import java.util.PriorityQueue;
   a   b
   5  10
 
+comparator usage
+
 a-b   asc
   
 -1 0 1
 
-b-a
+b-a   desc
 1 0 -1
 
 
@@ -50,10 +52,18 @@ This logic implemented under sorting algorithm, So, just think if a and b are al
 
 */
 
+// Time complexities:
+//add(logn)
+// addAll(nlogn)
+// new PriorityQueue<>(collection)  n
+// but since java doesnt have an option to accept comparator in its constructor for accepting collection
+// the O(n) tim complexity cannot be used effectively except for natural ordering based on keys
+
+
 // priority queue
-// while creating from a collection, time complexity is O(n) uses siftdown idea on half the nodes
+// while creating from a collection alone, time complexity is O(n) uses siftdown idea on half the nodes
 // https://stackoverflow.com/questions/9755721/how-can-building-a-heap-be-on-time-complexity
-// sift down hast to be from n/2 node up to root(not from root to n/2)
+// sift down has to be from n/2 node up to root(not from root to n/2)
 
 // while adding an element, it uses insert in last and siftup
 // fo if we iterate and add it O(nlogn) and pass a collection its O(n)

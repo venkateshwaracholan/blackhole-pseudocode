@@ -105,5 +105,12 @@ public class TopKFrequentWords {
     //topKFrequentSiftDown(new String[]{"a","aa","aaa"},3);
     //topKFrequentSiftDown(new String[]{"the", "day", "is", "sunny", "the", "the", "the", "sunny", "is", "is"},4);
     //topKFrequentSiftDown(new String[]{"i", "love", "leetcode", "i", "love", "coding"},2);
+    Map<Integer,Integer> map = new HashMap();
+    map.put(1, 1);
+    map.put(3, 2);
+    map.put(2, 3);
+    Queue<Integer> heap = new PriorityQueue<>( map.keySet()); 
+    System.out.print("otha");
+    
   }
 }

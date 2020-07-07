@@ -19,7 +19,8 @@ public class constructBSTfromPreorder {
 //  Time O(n) space: O(N)
 //  Core idea: range
 //  pass range to recursion and insert only if range is satisfied
-//  assign from recursion and return
+//  assign from recursion return is the only way
+//  assigning and calling recursion will cause a lot of trouble
   public TreeNode recursion(int preorder[], int lower, int upper, int idx[]){
       if(idx[0]==preorder.length) return null;
       int val = preorder[idx[0]];
@@ -111,6 +112,12 @@ public class constructBSTfromPreorder {
         s.add(n);
     }
     return root;
+  }
+  
+  
+  
+  public static void main(String args[]){
+    //bstFromPreorderTest(new int[]{8,5,1,7,10,12});
   }
     
 }

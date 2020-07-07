@@ -146,7 +146,7 @@ few of them are - cs teacher in school, internet community, leaders, peers in wo
 
 4. Tell me about a time when you motivated a team to go above and beyond.
 i was leading the feature custom status, and the whole team and myself felt so motivated to stretch work on it, as i have made few thing clear.
-we will tretch for this work,  but the next work item should not be stretching aswell
+we will stretch for this work,  but the next work item should not be stretching aswell
 this extra efforts put in are rewarding as well
 i stated the problem and solution approached clearly after discussing along with senior architects
 so it was great to see things working in action as a team.
@@ -257,7 +257,7 @@ ambiguity an assumption is a problem, i use data to arrive at a decision.
 
 4. What do you do to gain the trust of your teammates?
 
-i just tell the truth always,even if it is negative, i do it respectfully, o people naturally trust me.
+i just tell the truth always,even if it is negative, i do it respectfully, so people naturally trust me.
 i spend time on improving their lives, gains me additional trust.
 i help them whenever they need something, or respectfully say no,  if i am busy with other tasks.
 i empathize - get into others perscepctive to see how they would think and act accordingly

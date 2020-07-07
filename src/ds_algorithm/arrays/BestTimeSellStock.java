@@ -15,7 +15,7 @@ package ds_algorithm.arrays;
 public class BestTimeSellStock {
 //  approach: iteration, min accumulation and subtraction
 //  Time: O(n) space: O(1)
-//  update min peice as loop goes and update max by subtracting current price with min, simple
+//  update min price as loop goes and update max by subtracting current price with min, simple
   public static int maxProfit(int[] nums) {
     int low = Integer.MAX_VALUE;
     int max = 0;

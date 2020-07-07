@@ -37,19 +37,12 @@ class Car{
     
   }
   
-  Car(){
-    
-  }
   
   public boolean compareCars(){
     return false;
   }
   
   //methods functions
-  public static void func(){
-    System.out.println("Car class method");
-  }
-  
   public static void func(){
     System.out.println("Car class method");
   }

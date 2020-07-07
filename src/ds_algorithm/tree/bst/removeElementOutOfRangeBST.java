@@ -70,12 +70,13 @@ public class removeElementOutOfRangeBST {
 //  if root is < min move to right side recursively and find an inrange node to assign
 //  if root is > max move to left side recursively to find an inrange node to assign
 //  simple
-  public TreeNode trimBST(TreeNode root, int L, int R) {
+//  thsi is faster for thsi problem as it avoids traversing unwanted nodes which bottom up does.
+  public TreeNode trimBSTTopDown(TreeNode root, int L, int R) {
     if(root==null) return null;
-    if(root.val<L) return trimBST(root.right,L,R);
-    if(root.val>R) return trimBST(root.left,L,R);
-    root.left = trimBST(root.left,L,R);
-    root.right = trimBST(root.right,L,R);
+    if(root.val<L) return trimBSTTopDown(root.right,L,R);
+    if(root.val>R) return trimBSTTopDown(root.left,L,R);
+    root.left = trimBSTTopDown(root.left,L,R);
+    root.right = trimBSTTopDown(root.right,L,R);
     return root;
   }
   
@@ -87,8 +88,8 @@ public class removeElementOutOfRangeBST {
 //  note nulls will be assigned to left and right if out of range and it propogates upwards
   public TreeNode trimBSTBottomUp(TreeNode root, int L, int R) {
         if(root == null) return null; 
-        root.left = trimBST(root.left, L, R); 
-        root.right = trimBST(root.right,L, R); 
+        root.left = trimBSTBottomUp(root.left, L, R); 
+        root.right = trimBSTBottomUp(root.right,L, R); 
         if(root.val < L) return root.right; 
         if(root.val > R) return root.left; 
         return root;

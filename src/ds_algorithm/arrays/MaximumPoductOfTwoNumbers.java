@@ -12,6 +12,7 @@ package ds_algorithm.arrays;
 /*
 
 https://www.geeksforgeeks.org/return-a-pair-with-maximum-product-in-array-of-integers/
+https://leetcode.com/problems/maximum-product-of-two-elements-in-an-array/
 
 // [4,3,1,-8]
 

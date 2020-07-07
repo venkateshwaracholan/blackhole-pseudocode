@@ -15,7 +15,7 @@ public class KthLargestDistinctElement {
   
 //  Time:O(nlogk) space O(k)
 //  core idea: set + min heap
-// avoid addig if it is already present in set
+//  avoid adding if it is already present in set
 //  just like how we  remove from heap, remove from set also
   
   public int thirdMax(int[] nums) {

@@ -9,6 +9,11 @@ package ds_algorithm.arrays_2d;
  *
  * @author vshanmugham
  */
+
+// https://leetcode.com/problems/maximal-square/
+// MaximalSquare
+
+
 public class LargestSubMatrixWithAllOnes {
   
 }

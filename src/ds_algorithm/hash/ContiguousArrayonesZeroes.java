@@ -34,7 +34,7 @@ public class ContiguousArrayonesZeroes {
   
 //  Time O(n) Space:O(n) 
 //  core idea:  hashing
-//  we use a count whihc increases on 1 and decreases on 0
+//  we use a count which increases on 1 and decreases on 0
 //  when the count value is not in map we put it(whatever the value and its index)
 //  when the same value comes again there are equal numbers on 0s and 1s between 2 points
 //  so we subtract i and whats in map and assignto max if possible.
