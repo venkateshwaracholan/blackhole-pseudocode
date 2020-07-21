@@ -14,12 +14,21 @@ package ds_algorithm.dynamic_programming.array_string_dp;
 // https://leetcode.com/problems/jump-game
 import java.util.*;
 public class JumpGame {
-  
+
+// tree recursion for the problem
+
+//                 0
+//            1             2  3  4  5 
+//     2      3   4   5    ...  ...  ...
+//  3  4  5  45   5
+// 45  5
+// 5
+
 //  Time: O(n!) space O(n)
-//  why n factorial is becasue, take the worst cae example
+//  why n factorial is becasue, take the worst case example
 //  [ 5	4	3	2	1	0	0]
 //  for every iteration, n, n-1, n-2,n-3 etc which is n!
-//  approach : back tracking, recursion
+//  approach : back tracking, recursion, top down, brute
 //  for every node we make all the possible jumps and if we find solution we stop.
 //  so time complexity becomes n! instead of n**n, in worst case, for every node there is one less node to jump to,as jumping behind is prohibited
   
@@ -37,7 +46,7 @@ public class JumpGame {
   
 // Memo for ablove recursion
 // Time: O(n**2) space O(n) 
-//  approach: top down recursion, dp
+//  approach: top down, recursion, memoization, dp
   
   public boolean canJumpMemo(int[] nums) {
     return recursionMemo(nums, 0, new int[nums.length]);
@@ -71,8 +80,10 @@ public class JumpGame {
   }
   
 //  memo for reverse iteration in rec
-// Time: O(n**2) space O(n) 
-//  approach: bottom up recursion, dp
+//  Time: O(n**2) space O(n) 
+//  approach: top down recursion, dp memoization
+//  jumping farthest first doesnt mean that its bottom up,  only we are stopping porgram if we find solution fast
+//  jumping is still capped by i+nums[i], so top down only
   public boolean canJumpFartherstMemo(int[] nums) {
       return recursionFartherstMemo(nums, 0, new int[nums.length]);
   }
@@ -93,7 +104,7 @@ public class JumpGame {
 
   
 // Time: O(n**2) space O(n) 
-// approach: bottom up iteration, dp
+// approach: bottom up iteration, dp tabulation
 // we traverse from reverse, and assign last pos dp as ans
 // [2,3,1,1,4]
 //  every node iterates nodes on its right so n**2
@@ -115,7 +126,10 @@ public class JumpGame {
   }  
 
   
-//  
+//  Iterative reperesentation of the top down recursion
+//  never try this, this is very risky.
+//  recursion and return value, the state of the stack memory everything helps a lot is several problems
+  
   
   public boolean canJumpIteTopDown(int[] nums) {
       if (nums.length == 1) return true;

@@ -65,12 +65,12 @@ import ds_algorithm.tree.TreeNode;
 public class removeElementOutOfRangeBST {
   
 //  Time: O(n) space: O(n)
-//  approach: Top Down approach
+//  approach: tail recursion approach
 //  assign root's left and right recursively
 //  if root is < min move to right side recursively and find an inrange node to assign
 //  if root is > max move to left side recursively to find an inrange node to assign
 //  simple
-//  thsi is faster for thsi problem as it avoids traversing unwanted nodes which bottom up does.
+//  this is faster for this problem as it avoids traversing unwanted nodes which head recursion does.
   public TreeNode trimBSTTopDown(TreeNode root, int L, int R) {
     if(root==null) return null;
     if(root.val<L) return trimBSTTopDown(root.right,L,R);
@@ -81,7 +81,7 @@ public class removeElementOutOfRangeBST {
   }
   
 //  Time: O(n) space:O(n)
-//  bottom up approach, go to bottom most node first with recursive assigning
+//  head recursion approach, go to bottom most node first with recursive assigning
 //  and if node is in range return itself
 //  if node if bigger than max return left child
 //  if node is smaller than min return right child

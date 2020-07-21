@@ -40,7 +40,7 @@ public class InvertBinaryTree {
   
   
 //  Time: O(n) space:O(n) D tends to n recursion
-//  core idea: top down, swap before calling recursion
+//  core idea: tail recursion, swap before calling tail recursion
   public TreeNode invertTree(TreeNode root) {
       if(root==null) return null;
       TreeNode left = root.left;
@@ -51,11 +51,11 @@ public class InvertBinaryTree {
       return root;
   }
   
-//  Time: O(n) space:O(n) D tends to n recursion
-//  core idea: recusrion assigning, bottom up, swap/assign after recursion
+//  Time: O(n) space:O(n) D tends to n in linear tree
+//  core idea: head recursion, recursion assigning, swap/assign after recursion
 //  return root so that assigning is possible
 //  take a copy of left, so that we still keep it after overwrite
-//  pass rright node an assign to left node
+//  pass right node an assign to left node
 //  pass the temp left and assign to right
   public TreeNode invertTreeDfsBetter(TreeNode root) {
       if(root==null) return null;
@@ -81,7 +81,7 @@ public class InvertBinaryTree {
   
 // Time: O(n) space: O(n) max n/2 but still order of n
 // we are swapping in bfs, as it will also work
-// core idea: top down, iterative bfs (bfs is not possible throug recursion)
+// core idea: iterative bfs (bfs is not possible throug recursion)
   
   public TreeNode invertTreeBfs(TreeNode root) {
         if(root==null) return null;

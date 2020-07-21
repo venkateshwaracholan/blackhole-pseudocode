@@ -34,8 +34,25 @@ You may assume that you have an infinite number of each kind of coin.
 public class CoinChange {
   
   public static boolean show = false;
-  public static int coinChangeBrute(int n){
-    return 0;
+  
+  
+  
+  
+//  Time; O(s**n) Space: O(n) s - amount, n - coins
+  public int coinChangeBruteRec(int[] coins, int amount) {
+      int min[] = new int[]{Integer.MAX_VALUE};
+      recursionBrute(0, coins, amount, min);
+      return min[0]==Integer.MAX_VALUE ? -1 : min[0];
+  }
+
+  public void recursionBrute(int count, int coins[], int amount, int min[]){
+      if(amount<0) return; 
+      if(amount==0){
+          min[0] = Math.min(min[0], count); 
+      }
+      for(int j = 0;j<coins.length;j++){
+          recursionBrute(count+1, coins, amount-coins[j], min);
+      }
   }
   
   public static int coinChangerecursive(int coins[], int amount){
@@ -74,12 +91,12 @@ public class CoinChange {
   }
 
   public static void main(String[] args){
-    test(coinChangeIterative(new int[]{1,2,3},4), 2);
-    test(coinChangeIterative(new int[]{2,4},5), -1);
-    
-    test(coinChangerecursive(new int[]{1,2,3},4), 2);
-    test(coinChangerecursive(new int[]{2,4},5), -1);
-    
+//    test(coinChangeIterative(new int[]{1,2,3},4), 2);
+//    test(coinChangeIterative(new int[]{2,4},5), -1);
+//    
+//    test(coinChangerecursive(new int[]{1,2,3},4), 2);
+//    test(coinChangerecursive(new int[]{2,4},5), -1);
+    test(coinChangerecursive(new int[]{2,1},4), 2);
   }
   
   public static void test(int got, int exp){

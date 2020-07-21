@@ -1,3 +1,5 @@
+package ds_algorithm.sort;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -56,21 +58,21 @@ public class MergeIntervals {
 //  if we cannot merge, add the new interval
   
   public int[][] merge(int[][] intervals) {
-      Arrays.sort(intervals, (a,b) -> a[0]-b[0]);
-      List<int[]> list = new ArrayList();
-      if(intervals.length<=1) return intervals;
-      list.add(intervals[0]);
-      for(int i=1; i<intervals.length;i++){
-          int[] last = list.get(list.size()-1);
-          if(intervals[i][0]<=last[1])
-              last[1] = Math.max(last[1], intervals[i][1]);
-          else
-              list.add(intervals[i]);
-      }
-      return list.toArray(new int[list.size()][2]);
+    Arrays.sort(intervals, (a,b) -> a[0]-b[0]);
+    List<int[]> list = new ArrayList();
+    if(intervals.length<=1) return intervals;
+    list.add(intervals[0]);
+    for(int i=1; i<intervals.length;i++){
+        int[] last = list.get(list.size()-1);
+        if(intervals[i][0]<=last[1])
+            last[1] = Math.max(last[1], intervals[i][1]);
+        else
+            list.add(intervals[i]);
+    }
+    return list.toArray(new int[list.size()][2]);
   }
   
-//  same as above ading firt entry to list inside the loop
+//  same as above using  liskedlist and list.getLast 
   public int[][] mergeAlt(int[][] intervals) {
     Arrays.sort(intervals, (a,b) -> a[0]-b[0]);
     LinkedList<int[]> list = new LinkedList();
@@ -78,10 +80,10 @@ public class MergeIntervals {
     list.add(intervals[0]);
     for(int i=1; i<intervals.length;i++){
         int[] last = list.getLast();
-        if(list.isEmpty() || last[1]<intervals[i][0])
-            list.add(intervals[i]);
-        else
+        if(intervals[i][0]<=last[1])
             last[1] = Math.max(last[1], intervals[i][1]);
+        else
+            list.add(intervals[i]);
     }
     return list.toArray(new int[list.size()][2]);
   }

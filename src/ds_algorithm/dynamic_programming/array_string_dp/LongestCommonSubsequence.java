@@ -17,7 +17,7 @@ public class LongestCommonSubsequence {
   
 //  Brute recursion
 //  Time: O(2**(m+n)) space: O(m+n)
-//  core idea: recursion
+//  core idea: top down, tree recursion, tail recursion, brute
 //  if same then move pointers for both, or find max of 
 //  calling recusrion with moving 1 poiter forwards for each.
   public int longestCommonSubsequenceRecBrute(String text1, String text2) {
@@ -33,9 +33,9 @@ public class LongestCommonSubsequence {
   
 //  Brute optimised DP
 //  Time: O(mn) space: O(mn)
+//  approach: top down, memoization 2D, tree recrusion, tail recursion
 //  memoizing in 2D array to avoid duplicate work
 //  Using Integer to avoid assigning -1 to dp array
-//  since both recare in if else case type, its neither top down nor bottom up, its just recursion
   public int longestCommonSubsequenceRecDp(String text1, String text2) {
       Integer dp[][] = new Integer[text1.length()][text2.length()];
       return recursionDP(text1, text2, 0, 0, dp);
@@ -51,7 +51,7 @@ public class LongestCommonSubsequence {
   
 //  2d DP
 //  Time: O(mn) space O(mn)
-//  approach: dp
+//  approach: bottom up, dp tabulation 2d, forward
 //  we choose m+1,n+1 array for dp, so that prev row and col have zeroes by default
 //  iterate m x n
 //  if the characters match, then add 1 + previouly matched character number
@@ -80,10 +80,14 @@ public class LongestCommonSubsequence {
     }
     return dp[text2.length()][text1.length()];
   }
+
+
+// since dp on strings are symmetrical, bottom up can be don ein forward and reverse directions
+// symmetrical dp 
   
 // 1D DP
 //  Time: O(mn) space O(min(m,n))
-//  approach top down approach
+//  approach: bottom up, dp tabulation 2d, forward
 //  i swappedd i and j, so now i is for col and j is for row...
 //  in the above dp array, we only used current row and previoud row's info and not anything else;
 //  so just 2 arrays of length col are enough, cur and prev
@@ -115,6 +119,7 @@ public class LongestCommonSubsequence {
   
   
 //  Time: O(mn) space O(min(m,n))
+//  approach: bottom up, dp tabulation 2d, reverse  
 //  same above 1d dp approach iterating from reverse
 //  approach bottom up approach
   public int longestCommonSubsequenceReverse(String text1, String text2) {

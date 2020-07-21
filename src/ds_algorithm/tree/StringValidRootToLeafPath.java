@@ -14,8 +14,8 @@ package ds_algorithm.tree;
 
 public class StringValidRootToLeafPath {
   
-//  Time: O(n) space: O(d)
-//  Appraoch: recursion, top down
+//  Time: O(n) space: O(n)
+//  Appraoch: tail recursion
 //  we use or to traverse into both sides and then come out if its not possible
 //  if index becomes last, we check if its a leaf and return
   public boolean dfs(TreeNode root, int [] arr, int pos){
@@ -33,13 +33,13 @@ public class StringValidRootToLeafPath {
   }
   
   
-//  Time: O(d) space: O(d)
-//  Appraoch: recursion, top down
+//  Time: O(d) space: O(n)
+//  Approach: tail recursion
 //  since pos can never reach last as if it reaches last we will check if leaf and return
 //  so i can always peek pos+1 safely in the below code
-//  so i will check if ledt is equal to pos+1 and then go inside, vce versa for right
+//  so i will check if ledt is equal to pos+1 and then go inside, vice versa for right
 //  and return false if none matches.
-//  so that i only visit D times 
+//  so that i only visit D times, but d becomes n if tree is linear
   public boolean dfsAlt(TreeNode root, int [] arr, int pos){
     if(root==null)return false;
     if(root.val!=arr[pos]) return false;

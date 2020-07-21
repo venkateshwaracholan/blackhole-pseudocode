@@ -28,20 +28,31 @@ class Node{
 public class TopKFrequentWords {
   
 //  Time: O(nlogk) space O(n)
-//  
+//  Core Idea: minheap, HashMap for frequency
+//  we fist compute a frequency of every word in a HashMap
+//  then we use min heap for a n max values
+//  The core idea is that, we insert only upto K+1 entries inside the map
+//  and if size > k then we can poll an entry from minheap which will be the mininmum(unwanted) value
+//  and if a max value is inserted it will sit in the back of the heap leaving min entires in front in min heap
+//  which can be polled
+//  the answer has to be reverse because we are using a min heap,
+//  Note: we are using b.compareTo(a) for the same reversing reason. normally to sort asc it a.compareTo(b)
   public List<String> topKFrequent(String[] words, int k) {
-    Map<String, Integer> map = new HashMap();
-    for(String s: words)
-      map.put(s,map.getOrDefault(s,0)+1);
-    Queue<String> heap = new PriorityQueue<>((a,b)-> map.get(a).equals(map.get(b)) ? b.compareTo(a) : map.get(a)-map.get(b));
-    for(String s: map.keySet()){
-      heap.add(s);
-      if(heap.size()>k)
-        heap.poll();
+    Map<String, Integer> frequencyMap = new HashMap();
+    for(String word: words){
+      frequencyMap.put(word,frequencyMap.getOrDefault(word,0)+1);
+    }
+    Queue<String> minHeap = new PriorityQueue<>((a,b)-> frequencyMap.get(a).equals(frequencyMap.get(b)) ? b.compareTo(a) : frequencyMap.get(a)-frequencyMap.get(b));
+    for(String word: frequencyMap.keySet()){
+      minHeap.add(word);
+      if(minHeap.size()>k){
+        minHeap.poll();
+      }
     }
     ArrayList<String> ans = new ArrayList<String>();
-    while(!heap.isEmpty())
-      ans.add(heap.poll());
+    while(!minHeap.isEmpty()){
+      ans.add(minHeap.poll());
+    }
     Collections.reverse(ans);
     return ans;
   }
@@ -110,7 +121,20 @@ public class TopKFrequentWords {
     map.put(3, 2);
     map.put(2, 3);
     Queue<Integer> heap = new PriorityQueue<>( map.keySet()); 
-    System.out.print("otha");
+    System.out.println("otha");
     
+//    
+//    String test[] = new String[]{"a","b"};
+//    Arrays.sort(test, (a,b)-> a.compareTo(b));
+//    for(String s: test){
+//      System.out.println(s);
+//    }
+//    
+//    PriorityQueue<String> minHeap = new PriorityQueue<>((a,b)-> a.compareTo(b));
+//    minHeap.add("a");
+//    minHeap.add("b");
+//    while(!minHeap.isEmpty()){
+//      System.out.println(minHeap.poll());
+//    }
   }
 }

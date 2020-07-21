@@ -27,8 +27,9 @@ public class CousinsInBinaryTree {
       return false;
   }
 
-//  approach: top down
+//  approach: tail recursion
 //  pass depth and parent to recursion
+//  populating depth only for x and y 
 //  and if x or y, put them in map
   
   public void constructDepthMap(TreeNode root, int x, int y, int d, int p,Map<Integer,Integer> parent , Map<Integer,Integer> map) {
@@ -44,8 +45,11 @@ public class CousinsInBinaryTree {
   
   
 //  Time O(n) space: (n)
-//  approach: top down, hashing parent and depth
+
+// core idea: using depth from parent 
+// populting depth for all nodes
 // put 0 as depth fro root node
+
   
   public boolean isCousinsFullDepthMap(TreeNode root, int x, int y) {
       Map<Integer, Integer> parent = new HashMap(), depth = new HashMap();
@@ -57,9 +61,10 @@ public class CousinsInBinaryTree {
       return false;
   }
 
+// approach: tail recurion, hashing parent and depth
 // if left present, put root as parent in map for left in parent map
 // get depth of root and assign +1 for left in depth map
-//  cvice vera for right
+// vice vera for right
   public boolean isCousinsFullDepthMap(TreeNode root, int x, int y, Map<Integer, Integer> parent, Map<Integer, Integer> depth){
     if(root.left!=null){
         parent.put(root.left.val, root.val);
@@ -76,12 +81,12 @@ public class CousinsInBinaryTree {
   }
   
 //  Time(n) space O(n)
-//  approach: bfs, top down in levels
+//  approach: bfs, level order traversal
 //  use two loops to iterate levels in groups
 //  and have a f(found) variable outside veel grp loop, and increment f is node matches x or y
 //  if not null add lefta nd right to queue
 //  now special case of avoiding siblings, if both are not null and x and y are found in left and right return fasle, becoz they are sibling, so once we finng probable siblings we quit pre emptively
-//  cousings will be found in the next leevl grp from n.val
+//  cousings will be found in the next level grp from n.val
 //  if 2 are presetin that level grp return true
 //  if only one is present return fasle and stop preemptively instead of proceeding further
   

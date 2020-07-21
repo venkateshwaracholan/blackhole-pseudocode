@@ -15,6 +15,7 @@ public class google_banglore_may_2020 {
 
 
 
+
 /*
 
 Please use this Google doc during your interview (your interviewer will see what you write here). To free your hands for typing, we recommend using a headset or speakerphone.
@@ -176,7 +177,30 @@ so that removal latency is distributed across.
 
 
 // Ambigram
+
 /*
+
+// mistakes:
+  1. 2 variables in one line
+  2. bad naming
+  3. assigning or modifying char array, dont use char[]
+  4. written more code than required, last if should be inside contains
+  5. Not using helper method is taken as negative
+  6. not reading the question properly, and thus u missed that input is a list of words
+  7. 
+  8. always use objects if possible
+  9. changes in code/approach should be notified.
+  
+  // positives:
+  1. tested written code
+  2. used proper data structures
+  3. finished fast
+  4. used string builder
+*/
+
+/*
+
+
 
 Please use this Google doc during your interview (your interviewer will see what you write here). To free your hands for typing, we recommend using a headset or speakerphone.
 

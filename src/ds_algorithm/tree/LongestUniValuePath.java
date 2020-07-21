@@ -18,8 +18,8 @@ public class LongestUniValuePath {
   
   
 // Time: O(n) space: O(n)
-//  core idea: recursion, bottom up
-//  if root has left adn matches we inrement, other wise make 0
+//  core idea: recursion, head recursion
+//  if root has left and matches we increment, other wise make 0
 //  to specifically avoid its propogation to the top
 //  same for right
 //  ans  = max of ans and left + right
@@ -44,7 +44,7 @@ public class LongestUniValuePath {
 
 
 // Time: O(n) space: O(n)
-//  core idea: recursion, bottom up
+//  core idea: recursion, head recursion
 //  we use two extra variables aleft and aright which are initialized to 0
 //  if root has left and matches we inrement, we aleft = left+1, 
 //  so that if it doesnt match its 0 and avoid propogation from below

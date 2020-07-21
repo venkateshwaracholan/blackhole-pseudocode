@@ -60,11 +60,29 @@ public class Comparators {
     Integer[] input = Arrays.stream(arr).boxed().toArray(Integer[]::new);
     Arrays.sort(input, Collections.reverseOrder());
     System.out.println(input[0]);
+    
+    String test[] = new String[]{"a","b"};
+    Arrays.sort(test, (a,b)-> a.compareTo(b));
+    for(String s: test){
+      System.out.println(s);
+    }
+
+    PriorityQueue<String> minHeap = new PriorityQueue<>((a,b)-> a.compareTo(b));
+      minHeap.add("a");
+      minHeap.add("b");
+      while(!minHeap.isEmpty()){
+        System.out.println(minHeap.poll());
+    }
   }
+  
+  
+  
 }
 
 class IntegerComparator implements Comparator<Integer>{ 
     public int compare(Integer a, Integer b){ 
         return a - b;
     } 
+    
+    
 } 

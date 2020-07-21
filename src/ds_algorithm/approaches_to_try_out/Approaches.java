@@ -27,24 +27,24 @@ stack
 two stacks
 queues
 dequeu
+compound keys for hashmaps
+map+queue - lru, 
 map+heap - expiries,or order based popping
 map+arraylist - random playlist,with swap to end to optimize removal 
 heaps
-sorting
 kadane
 bfs
 bfs level by level
 dfs
-memoization
-backtracking
+Tail recursion - preorder
+head recursion - inorder, postorder
+head recursion assignment strategy
+memoization - top down - backtracking - (only recursion)
+tabulation - bottom up - (only iteration)
 leverage Prev Diag elem in 2d matrices
-dp, leverage prev diag, max(prev row, prev col)
-compound keys for hashmaps
-Top Down - preorder
-top dowwn assignment strategy
-Bottom up - inorder, postorder
-bottom up assignment strategy
-greedy
+dp on string, leverage prev diag, max(prev row, prev col)
+sorting
+greedy, usually sort because of some ordering involved to differentiate local solution
 
 
 

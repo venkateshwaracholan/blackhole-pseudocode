@@ -16,7 +16,7 @@ package ds_algorithm.dynamic_programming.array_string_dp;
 public class EditDistance {
 
 // Time: O(3**(m+n)) space: O(m+n)  
-// Cored Idea: String DP
+//  core idea: top down, tree recursion, tail recursion, brute
 //  we use 2 pointers i and j
 // if one of the words reaches beyond boundaries, then return other's length - pointer index
 // becoz that many insertions or deletes need to happen

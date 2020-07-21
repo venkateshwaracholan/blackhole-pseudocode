@@ -11,13 +11,13 @@ package ds_algorithm.dynamic_programming.array_string_dp;
  */
 
 // https://leetcode.com/problems/uncrossed-lines
-
+// symmetrical DP
 
 public class UncrossedLines {
   
 //  Brute recursion
 //  Time: O(2**(m+n)) space: O(m+n)
-//  core idea: recursion
+//  core idea: top down, recursion, brute
 //  if same then move pointers for both, or find max of 
 //  calling recusrion with moving 1 poiter forwards for each.
   public int maxUncrossedLinesRecBrute(int[] A, int[] B) {
@@ -33,9 +33,9 @@ public class UncrossedLines {
   
 //  Brute optimised DP
 //  Time: O(mn) space: O(mn)
+//  core idea: top down, recursion, memoization 
 //  memoizing in 2D array to avoid duplicate work
 //  Using Integer to avoid assigning -1 to dp array
-//  since both recare in if else case type, its neither top down nor bottom up, its just recursion
   public int maxUncrossedLinesRecDP(int[] A, int[] B) {
       Integer dp[][] = new Integer[A.length][B.length];
       return recursionDp(A, B, 0 , 0, dp);
@@ -51,7 +51,7 @@ public class UncrossedLines {
   
 //  2d DP
 //  Time: O(mn) space O(mn)
-//  approach: dp
+//  approach: bottom up dp, tabulation 2d
 //  we choose m+1,n+1 array for dp, so that prev row and col have zeroes by default
 //  iterate m x n
 //  if the characters match, then add 1 + previouly matched character number
@@ -66,7 +66,7 @@ public class UncrossedLines {
 //c 0 1 1 2 2 2   
 //e 0 1 1 2 2 3
 //b 0 1 2 2 2 2  // previous column contibuted to matching b as we already had a matching 'a' before
-  public int maxUncrossedLines2DTopDown(int[] A, int[] B) {
+  public int maxUncrossedLines2DForward(int[] A, int[] B) {
       int dp[][] = new int[A.length+1][B.length+1];
       for(int i=0;i<A.length;i++){
           for(int j=0;j<B.length;j++){
@@ -79,9 +79,9 @@ public class UncrossedLines {
       return dp[A.length][B.length];
   }
   
-// same as above but bottom up, staring from below
+// same as above but reverse as it is a symmertical dp problem, staring from reverse
   
-  public int maxUncrossedLines2DBottomUp(int[] A, int[] B) {
+  public int maxUncrossedLines2DReverse(int[] A, int[] B) {
       int dp[][] = new int[A.length+1][B.length+1];
       for(int i=A.length-1;i>=0;i--){
           for(int j=B.length-1;j>=0;j--){
@@ -97,7 +97,7 @@ public class UncrossedLines {
   
 // 1D DP
 //  Time: O(mn) space O(min(m,n))
-//  approach top down approach
+//  approach: bottom up dp, tabulation 1d
 //  in the above dp array, we only used current row and previoud row's info and not anything else;
 //  so just 2 arrays of length col are enough, cur and prev
 //  and if we want to reduce space, we have to create space for min length string
@@ -107,7 +107,7 @@ public class UncrossedLines {
 //  create cur everytime and use prev to update this curr
 //  and then prev = cur;
   
-  public int maxUncrossedLines1DTopDown(int[] A, int[] B) {
+  public int maxUncrossedLines1DForward(int[] A, int[] B) {
       if(B.length>A.length){
           int[] temp = A;
           A = B;
@@ -127,7 +127,7 @@ public class UncrossedLines {
       return prev[B.length];
   }
 
-  public int maxUncrossedLines1DBottomUp(int[] A, int[] B) {
+  public int maxUncrossedLines1DReverse(int[] A, int[] B) {
     if(B.length>A.length){
         int[] temp = A;
         A = B;

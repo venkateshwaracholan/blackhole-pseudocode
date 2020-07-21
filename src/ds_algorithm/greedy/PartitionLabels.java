@@ -1,4 +1,4 @@
-package ds_algorithm.arrays;
+package ds_algorithm.greedy;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -17,12 +17,13 @@ import java.util.*;
 public class PartitionLabels {
   
 // Time: O(n) space: O(n)
-// approach: greedy, two pointers
+// approach: greedy, two pointers, Hashing
 // we use a map to store last index last index, by overwriting index as we go right
 // two pointers i and j
 // j will store the max that any of the chacaters index could reach until i comes there
 // if i==j, we have k to keep tack of the groups start
 // add i-k+1 to ans and reassing k to i-1;
+//  Note: alternatively we can also use k=-1 and avoid +1 near usages of k
   public List<Integer> partitionLabels(String S) {
     char arr[] = S.toCharArray();
     Map<Character,Integer> lastIndex = new HashMap();
@@ -48,12 +49,12 @@ public class PartitionLabels {
     int lastIndex[] = new int[26];
     for(int i=0;i<arr.length;i++) lastIndex[arr[i]-'a']=i;
     List<Integer> ans = new ArrayList();
-    int k = 0;
+    int k = -1;
     for(int i=0, j=0;i<arr.length;i++){
         j = Math.max(j, lastIndex[arr[i]-'a']);
         if(i==j){
-            ans.add(i-k+1);
-            k=i+1;
+            ans.add(i-k);
+            k=i;
         }
     }
     return ans;

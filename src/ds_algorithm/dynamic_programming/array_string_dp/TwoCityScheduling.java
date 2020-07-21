@@ -17,7 +17,7 @@ import java.util.*;
 public class TwoCityScheduling {
   
 // Time: O(2**(n/2)) space: O(2n) 2n recursion depth
-// core idea: dp, array string dp pattern, bottom up becoz sum is only known after bottom up
+// core idea: top down, recursion, brute, tail recursion
 // base condition is if reaches 2n
 // x: overall counter, i: A city counter, j:Bcity counter
 // initially, try min of both combinations
@@ -37,7 +37,7 @@ public class TwoCityScheduling {
   
   
   
-// same as above, using a 2d DP table to avoid duplicate work
+// same as above, using a 2d DP table to avoid duplicate work, memoization
 //  Time: O(n*n)) space: O(n*n)
   public int twoCitySchedCostMemoDfs(int[][] costs) {
     int n = costs.length/2;
@@ -57,6 +57,7 @@ public class TwoCityScheduling {
   
   
 // Time: O(n*n) space O(n*n)
+//  approach: bottom up, dp tabulation 2d
 // populate row and col with respective sums
 // bound are upto n for botha nd not 2n
 //  min of the following 2

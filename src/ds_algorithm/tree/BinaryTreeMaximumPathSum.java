@@ -16,7 +16,7 @@ package ds_algorithm.tree;
 public class BinaryTreeMaximumPathSum {
   
 // Time: O(n) space: O(d)
-// approach: recursion, bottom up
+// approach: recursion, head recursion
 // we are making sure max gain is postive or zero
 // and adding all three to get max value makes sense becozz of the above statement(there is no negative gain and we reduce a lot of checks)
 // when returning back we can choose and return the max path
@@ -37,7 +37,7 @@ public class BinaryTreeMaximumPathSum {
   
   
 // Time: O(n) space: O(d)
-// approach: recursion, bottom up  
+// approach: recursion, head recursion 
 // now if both l and r are positive add them and acc in max
 //  or find max between, val, val+l, val+r
 //  and return that
