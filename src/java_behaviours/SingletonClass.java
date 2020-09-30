@@ -16,19 +16,20 @@ package java_behaviours;
 
 
 public class SingletonClass {
-  private volatile SingletonClass obj;
+  private static SingletonClass obj;
+  // making private so taht no one can call
   private SingletonClass(){
     
   }
   
-  public SingletonClass getInstance(){
+  public static SingletonClass getInstance(){
     if(obj==null){
       obj = new SingletonClass();
     }
     return obj;
   }
   
-  public SingletonClass getInstanceThreadSafe(){
+  public static SingletonClass getInstanceThreadSafe(){
     if(obj==null){ // this helps increase perfomance one object is initialized.
       
       synchronized(obj){

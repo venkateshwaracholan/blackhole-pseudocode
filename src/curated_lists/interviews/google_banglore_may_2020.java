@@ -316,3 +316,187 @@ push val at i to queue and poll first value in queue and replace in i;
 
 
 */
+
+
+
+/*
+
+Please use this Google doc during your interview (your interviewer will see what you write here). To free your hands for typing, we recommend using a headset or speakerphone.
+
+this is rotten oranges problem
+find the time to rot first orange
+
+
+Given a 2D grid of characters, find the shortest Manhattan (L1) distance between an X and a Y. 
+ 
+Example Input: 
+XOOO 
+XOOO 
+OOYY 
+ 
+Output: 3 (The X in the 2nd row and the Y in the 3rd column form the closest XY pair) 
+
+O((mn)*2**(m+n))
+
+x - 1,0
+y - 2,1
+
+2-0 + 2-1
+
+
+O((m*n)*(m*n))
+
+
+O((m*n)* (m*n) )
+
+
+XOOOOOOOOOO
+OOOOOOOOOOY
+
+
+X123
+123
+X3
+
+ 
+YOOOO
+OOOOO
+OOXOO
+OOXOO
+OOYOO
+ 
+OO2OO
+O212O
+21O12
+O212O
+OO2OO
+ 
+ 
+public static void manahttanDistance(char a[][]){
+	int m = a.length, n = m==0 ? 0 : a[0].length;
+Queue<Integer[]> q = new LinkedList();
+for(int i=0;i<m;i++){
+	for(int j=0;j<n;j++){
+	if(a[i][j]=='x'){
+		q.add(new Integer[]{i,j});
+}
+}
+}
+int minDist = Integer.MAX_VALUE;
+int dir[][] = new int[][]{{0,1},{0,-1},{1,0},{-1,0}}; 
+while(!q.isEmpty()){
+		int pos[] = q.poll();
+	a[pos[0]][pos[1]] = 'O';
+	for(int k = 0;k<dir.length;k++){
+		
+		int r = pos[0]+dir[k][0];
+		int c = pos[1]+dir[k][1];
+		if(r>=0 && r< m && c>=0 &c<n){
+			q.add(new Integer[]{r,c});
+			if(a[r][c]=='Y'){
+					int d = computeDistance(pos, new Integer[]{r,c});
+				minDist = Math.min(d,minDist);
+}
+		}
+}
+}
+}
+ 
+public static void bfs(){
+	
+}
+ 
+public static int computeDIstance(int src[], int dest[]){
+ 
+}
+
+
+
+*/
+
+
+
+/*
+
+Please use this Google doc during your interview (your interviewer will see what you write here). To free your hands for typing, we recommend using a headset or speakerphone.
+
+
+Can you see me typing?
+
+Given an arbitrary string like "helloooworld", find the longest substring whose alphabet consists of no more than 2 characters.
+
+A string's alphabet is the set of distinct characters it consists of.  For example,
+
+  "he" → {'h', 'e'} (alphabet of size 2)
+  "hel" → {'h', 'e', 'l'} (alphabet of size 3)
+  "llooo" → {'l', 'o'} (alphabet of size 2)
+
+For "helloooworld", either of the following two answers is acceptable: "llooo" or "ooowo".
+
+
+//hellooowworld
+
+ 
+map:
+h - 0
+e - 0
+l - 0
+oooo - 4
+w - 1
+
+
+maxs = 1
+maxe = 4
+start - 9
+end - 9
+
+k = 3
+
+1 < k 
+hellooowworld
+
+public static String substringTwoChar(String s, int k){
+	Map<Character, Integer> charMap = new HashMap();
+int maxStart= 0, maxEnd = 0;
+	int start = 0, end = 0;
+	while(end<s.length()){
+		if(!charMap.containsKey(s.charAt(end)) && charMap.size()>=k){
+			char startChar = s.charAt(start);
+if(charMap.get(startChar)==0){
+charMap.remove(startChar);
+}else{
+	charMap.put(startChar, charMap.get(startChar)-1);
+}
+			start+=charMap.get(s.charAt(start));
+		}
+charMap.put(s.charAt(end), charMap.getOrDefault(s.charAt(end),0)+1);
+		end++;
+if(end-start>maxStart-maxEnd){
+	maxStart = start;
+	maxEnd = end;
+}
+}
+return s.substring(maxStart, maxEnd);
+}
+
+hehelloooworld
+
+Time Comeplxity: O(n)
+Space complexity: O(n)
+
+
+Test cases:
+null
+""
+"a"
+"aaaaaaa"
+"aaaabbbb"
+"helloooworld"
+
+k:
+1
+k<s.length
+k>s.length
+
+
+*/

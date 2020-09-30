@@ -175,3 +175,79 @@ first leet matches and then rec starts from c and then there is nothing to match
 
 // "applepenapple", wordDict = ["apple", "pen"]
 //  tfffftfftfffft
+
+
+
+
+
+
+
+
+
+
+
+//wordbreak test success alla approaches
+// 01/AUG/2020
+/*
+//     public boolean wordBreak(String s, List<String> wordDict) {
+//         return dfs(0, s, new HashSet(wordDict), new Boolean[s.length()]);
+//     }
+    
+//     public boolean dfs(int start, String s, Set<String> wordSet, Boolean dp[]){
+//         if(start==s.length()){
+//             return true;
+//         }
+//         if(dp[start]!= null){
+//             return dp[start];
+//         }
+//         for(int end = start+1; end<=s.length();end++){
+//             if(wordSet.contains(s.substring(start,end)) && dfs(end, s, wordSet, dp)){
+//                 return true;
+//             }
+//         }
+//         dp[start] = false;
+//         return false;
+//     }
+    
+    // public boolean wordBreak(String s, List<String> wordDict) {
+    //     Set<String> wordSet = new HashSet(wordDict);
+    //     Queue<Integer> q = new LinkedList();
+    //     boolean visited[] = new boolean[s.length()];
+    //     q.add(0);
+    //     while(!q.isEmpty()){
+    //         int start = q.poll();
+    //         if(!visited[start]){
+    //             for(int end = start+1; end<=s.length();end++){
+    //                 if(wordSet.contains(s.substring(start,end))){
+    //                     if(end==s.length()){
+    //                         return true;
+    //                     }
+    //                     q.add(end);
+    //                 }
+    //             }
+    //         }
+    //         visited[start] = true;
+    //     }
+    //     return false;
+    // }
+    
+    // public boolean wordBreak(String s, List<String> wordDict) {
+    //     Set<String> wordSet = new HashSet(wordDict);
+    //     boolean dp[] = new boolean[s.length()+1];
+    //     dp[0] = true;
+    //     for(int i=0;i<=s.length();i++){
+    //         for(int j=i+1;j<=s.length();j++){
+    //             if(dp[i] && wordSet.contains(s.substring(i,j))){
+    //                 dp[j] = true;
+    //             }
+    //         }
+    //     }
+    //     return dp[s.length()];
+    // }   
+
+
+*/
+
+
+
+

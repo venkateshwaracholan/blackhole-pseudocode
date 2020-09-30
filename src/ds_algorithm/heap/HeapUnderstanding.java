@@ -18,5 +18,18 @@ package ds_algorithm.heap;
 
 
 public class HeapUnderstanding {
-  
+  public static void main(String args[]){
+    System.out.println(7>>>1);
+    System.out.println(0<<1);
+  }
 }
+
+
+/*
+
+          10
+       6      4
+     3  1   0   2
+
+
+*/

@@ -27,7 +27,6 @@ public class BinarySearchRec {
     }
     if(l<r){
       if(k<arr[mid]){
-        binarySearch(arr, mid+1, r, k);
         return binarySearch(arr, l, mid-1, k);
       }else{
         return binarySearch(arr, mid+1, r, k);

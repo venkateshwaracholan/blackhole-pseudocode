@@ -73,6 +73,8 @@ public class Comparators {
       while(!minHeap.isEmpty()){
         System.out.println(minHeap.poll());
     }
+    IntegerComparator com = new IntegerComparator();
+    System.out.println(com.compare(2,1));
   }
   
   

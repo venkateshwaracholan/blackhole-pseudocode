@@ -31,6 +31,9 @@ You may assume that you have an infinite number of each kind of coin.
 */
 
 // [1,2,3] 4
+
+import java.util.*;
+
 public class CoinChange {
   
   public static boolean show = false;
@@ -39,64 +42,139 @@ public class CoinChange {
   
   
 //  Time; O(s**n) Space: O(n) s - amount, n - coins
-  public int coinChangeBruteRec(int[] coins, int amount) {
-      int min[] = new int[]{Integer.MAX_VALUE};
-      recursionBrute(0, coins, amount, min);
-      return min[0]==Integer.MAX_VALUE ? -1 : min[0];
+//  Core idea: top down, tree recursion, tail recursion, brute force
+//  reduce capacity and break into smaller sub problems
+//  base case: amount<0 return -1
+//  amount ==0 return 0;
+//  have a local min variable which we can use to store min of all coin combos in stack memory
+//  init min to int max
+//  try all combinations in recursion as we can use any number of coins repeatedly(knapsack with inifite items)
+//  if c>=0 meaning it was possible to dispense and comparing it with min and c<min
+//  assign c to min
+//  if min was never assigned, return -1 or min
+  
+  public int coinChange(int[] coins, int amount) {
+      return recursion(coins, amount);
   }
 
-  public void recursionBrute(int count, int coins[], int amount, int min[]){
-      if(amount<0) return; 
-      if(amount==0){
-          min[0] = Math.min(min[0], count); 
+  public int recursion(int coins[], int amount){
+      if(amount<0) return -1;
+      if(amount==0) return 0;
+      int min = Integer.MAX_VALUE;
+      for(int coin: coins){
+          int c = recursion(coins, amount-coin);
+          if(c>=0 && c< min){
+              min = c+1;
+          }
       }
-      for(int j = 0;j<coins.length;j++){
-          recursionBrute(count+1, coins, amount-coins[j], min);
-      }
+      return min == Integer.MAX_VALUE ? -1 : min;
   }
   
-  public static int coinChangerecursive(int coins[], int amount){
-    return coinChangerec(coins, amount, new int[amount+1]);
+// same as above, using a dp memoization table to avoid duplicate work
+// duplicate work is computing for same amount repeatedly
+// if an amout is being assigned to dp , all combinations are already compared and min is found
+  public int coinChangeMemo(int[] coins, int amount) {
+      return recursion(coins, amount, new int[amount+1]);
   }
-  //[2,4] 5
-  
-  //we can use integre.maxvalue or amount+1 as the initial for min
-  public static int coinChangerec(int coins[], int amount, int[] dp){
-    if(amount<0)return -1;
-    if(amount==0) return 0;
-    if(dp[amount]!=0)return dp[amount];
-    int min = Integer.MAX_VALUE;
-    for(int i=0;i<coins.length;i++){
-      int res = coinChangerec(coins,amount-coins[i],dp);
-      if(res>=0 && res<min){
-        min = res+1;
+
+  public int recursion(int coins[], int amount, int dp[]){
+      if(amount<0) return -1;
+      if(amount==0) return 0;
+      if(dp[amount]!=0) return dp[amount];
+      int min = Integer.MAX_VALUE;
+      for(int coin: coins){
+          int c = recursion(coins, amount-coin, dp);
+          if(c>=0 && c< min){
+              min = c+1;
+          }
       }
-    }
-    dp[amount] = min==Integer.MAX_VALUE ? -1 : min;
-    return dp[amount]; 
+      dp[amount] = min == Integer.MAX_VALUE ? -1 : min;
+      return dp[amount];
   }
   
-  public static int coinChangeIterative(int coins[], int amount){
-    int dp[] = new int[amount +1];
+  
+//  Time: O(s*n) space: O(s)
+//  Core Idea: DP, Bottom up, tabulation
+//  we initialize ever amount with amount+1 so that min works well
+//  starting from small amout, we try every coin
+//  coin <= i then compute do min from dp[i] and dp[i-coin]+1
+//  dp[i-coin]+1 because if the same amount was dispensable with a different coin in less number of coins
+//  check dp[amount] has assigned value and then return -1 if not or the value
+  
+  public int coinChangeBottomUp(int[] coins, int amount) {
+      int dp[] = new int[amount+1];
+      for(int i=1;i<=amount;i++){
+          dp[i] = amount+1;
+          for(int coin: coins){
+              if(coin<=i){
+                  dp[i] = Math.min(dp[i], dp[i-coin]+1);
+              }
+          }
+      }
+      return dp[amount]==amount+1 ? -1: dp[amount];
+  }
+  
+//  Time: O(s*n) space: O(s)  
+//  same as above, but to avoid a check, for every coin , we are starting from coin to amount in inner loop 
+  
+  public static int coinChangeBottomupAlt(int[] coins, int amount) {
+    int dp[] = new int[amount+1];
+    Arrays.fill(dp, amount+1);
     dp[0] = 0;
-    for(int i=1;i<=amount;i++){
-      dp[i] = Integer.MAX_VALUE;
-      for(int j=0;j<coins.length;j++){
-        if(i>=coins[j] && dp[i-coins[j]]!=Integer.MAX_VALUE){
-          dp[i] = Math.min(dp[i], dp[i-coins[j]]+1);
+    for(int coin:coins){
+        for(int i=coin;i<=amount;i++){
+            dp[i] = Math.min(dp[i-coin]+1, dp[i]);
         }
-      }
     }
-    return dp[amount] > amount ? -1 : dp[amount];
+    return dp[amount]==amount+1 ? -1 : dp[amount];
   }
 
+/*
+  
+   0 1 2 3 4 5 6 7 8 9 10 11
+1 0 1 2 3 4 
+2 0 1 1 
+3 0
+5 0
+
+   0 1 2 3 4 5 6 7 8 9 10 11
+5 0  n n n n n n n n 1 n  n          2
+2 0    1    2 1  3    4    2 
+1 0 1 1 2 2 1  
+  
+*/  
+  
+//  Time: O(s*n) space: O(s)  
+//  core idea: similar to knapsack but there are differences
+//  in knapsack we always consider prev row for subtracting weight in index, here it is current
+//  dp[i+1][j] = dp[i][j]; is critical because we are not filling teh whole matrix with max value
+//  assign the prev rows value first and then only
+//  check if current row has better and apply min function
+//  we need to check if it max value before adding 1 and skip min becoz pev row is already assigned
+  
+  public static int coinChangeBottomUp2D(int[] coins, int amount) {
+      int dp[][]  = new int[coins.length+1][amount+1];
+      Arrays.fill(dp[0], Integer.MAX_VALUE);
+      dp[0][0] = 0;
+      for(int i=0;i<coins.length;i++){
+          for(int j=1;j<=amount;j++){
+              dp[i+1][j] = dp[i][j];
+              if(j>=coins[i] && dp[i+1][j-coins[i]]!=Integer.MAX_VALUE){
+                  dp[i+1][j] = Math.min(dp[i+1][j], dp[i+1][j-coins[i]]+1);
+              }
+          }
+      }
+      return dp[coins.length][amount]==Integer.MAX_VALUE ? -1 : dp[coins.length][amount];
+  }
+  
+  
   public static void main(String[] args){
 //    test(coinChangeIterative(new int[]{1,2,3},4), 2);
 //    test(coinChangeIterative(new int[]{2,4},5), -1);
 //    
 //    test(coinChangerecursive(new int[]{1,2,3},4), 2);
 //    test(coinChangerecursive(new int[]{2,4},5), -1);
-    test(coinChangerecursive(new int[]{2,1},4), 2);
+    test(coinChangeBottomUp2D(new int[]{1,2,5},11), 3);
   }
   
   public static void test(int got, int exp){

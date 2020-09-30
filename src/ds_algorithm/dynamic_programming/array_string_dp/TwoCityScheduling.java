@@ -19,7 +19,7 @@ public class TwoCityScheduling {
 // Time: O(2**(n/2)) space: O(2n) 2n recursion depth
 // core idea: top down, recursion, brute, tail recursion
 // base condition is if reaches 2n
-// x: overall counter, i: A city counter, j:Bcity counter
+// x: overall counter, i: A city counter, j:B city counter
 // initially, try min of both combinations
 //  if i or j reached n, then use only other combination
   public int twoCitySchedCostBruteDfs(int[][] costs) {
