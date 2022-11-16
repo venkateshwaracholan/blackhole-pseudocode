@@ -6,7 +6,7 @@
 package ds_algorithm.queue;
 
 import java.util.*;
-import javafx.util.Pair; 
+import ds_algorithm.Pair;
 
 /**
  *
@@ -59,8 +59,8 @@ public class WordLadder {
     wordQ.add(new Pair(start,1));
     while(!wordQ.isEmpty()){
       Pair p = wordQ.poll();
-      String s = (String)p.getKey();
-      int l = (int)p.getValue();;
+      String s = (String)p.getFirst();
+      int l = (int)p.getSecond();;
       for(int i=0;i<L;i++){
         char c[] = s.toCharArray();
         for(char j='a'; j<'z';j++){

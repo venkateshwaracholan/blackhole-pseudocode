@@ -12,7 +12,7 @@ package ds_algorithm.tree;
 
 // https://leetcode.com/problems/binary-tree-paths/
 import java.util.*;
-import javafx. util. Pair;
+import ds_algorithm.Pair;
 
 public class BinaryTreePaths {
   
@@ -82,8 +82,8 @@ public class BinaryTreePaths {
       List<String> res = new ArrayList();
       while(!s.isEmpty()){
           Pair<TreeNode,String> x = s.pop();
-          TreeNode n = x.getKey();
-          String path = x.getValue();
+          TreeNode n = x.getFirst();
+          String path = x.getSecond();
           if(n!=null){
               if(n.left==null&&n.right==null)
                   res.add(path+n.val);
@@ -103,8 +103,8 @@ public class BinaryTreePaths {
     List<String> res = new ArrayList();
     while(!q.isEmpty()){
         Pair<TreeNode,String> x = q.poll();
-        TreeNode n = x.getKey();
-        String path = x.getValue();
+        TreeNode n = x.getFirst();
+        String path = x.getSecond();
         if(n!=null){
             if(n.left==null&&n.right==null)
                 res.add(path+n.val);

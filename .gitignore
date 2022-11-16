@@ -3,3 +3,9 @@ manifest.mf
 /nbproject
 /build/
 .DS_Store
+/dist/
+/blackhole/nbproject/private/
+/blackhole2/nbproject/private/
+/blackhole/build/
+/blackhole-pseudocode/nbproject/private/
+/blackhole-pseudocode/build/
