@@ -1,7 +1,7 @@
 # blackhole-pseudocode
 
 
-
+#starting again on 10-12-2022
 
 
 Must do brushup lists:
