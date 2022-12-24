@@ -109,6 +109,39 @@ public class MinimumDepthOfBinaryTree {
   }
   
   
+  // approach:recursion, dfs, send dept inside and acc min depth only if leaf node
+  
+  public int minDepth(TreeNode root) {
+        if(root==null)return 0;
+        int[] min = new int[]{Integer.MAX_VALUE};
+        minDepth(root, 1, min);
+        return min[0];
+    }
+
+    public int minDepth(TreeNode node, int d, int[] min) {
+        if(node==null)return 0;
+        if(node.left==null&&node.right==null)
+            min[0] = Math.min(min[0], d);
+        minDepth(node.left, d+1, min);
+        minDepth(node.right, d+1, min);
+        return d;
+    }
+    
+    public int minDepth2(TreeNode root) {
+        if(root==null)return 0;
+        return minDepth2(root, 1);
+    }
+    
+    // uniq appoach i created, return valid depth only for leaf nodes and return min of left and right
+    // corner case: root null[] if(root==null)return 0;
+
+    public int minDepth2(TreeNode node, int d) {
+        if(node==null)return Integer.MAX_VALUE;
+        if(node.left==null&&node.right==null) return d;
+        return Math.min(minDepth2(node.left, d+1),minDepth2(node.right, d+1));
+    }
+  
+  
   public  static void main(String[] args){
     BinaryTree t1;
 

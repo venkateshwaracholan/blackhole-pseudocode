@@ -20,36 +20,50 @@ import java.util.Arrays;
 
 public class RemoveElement {
   
-  // Time: O(n) space: O(1) 
-  // copying val to right
-  public static int removeElement(int[] nums, int val){
-    int i = 0;
-    int n = nums.length;
-    while (i < n) {
-        if (nums[i] == val) {
-            nums[i] = nums[n - 1];
-            // reduce array size by one
-            n--;
-        } else {
-            i++;
-        }
+    // Time: O(n) space: O(1) 
+    // copying val to right
+    public static int removeElement(int[] nums, int val){
+      int i = 0;
+      int n = nums.length;
+      while (i < n) {
+          if (nums[i] == val) {
+              nums[i] = nums[n - 1];
+              // reduce array size by one
+              n--;
+          } else {
+              i++;
+          }
+      }
+      return n;
     }
-    return n;
-  }
+  
+    // same as above, with for loop
+    public int removeElement(int[] nums, int val) {
+        int n = nums.length;
+        for (int j = 0; j < n;) {
+            if (nums[j] == val) {
+                nums[j] = nums[n-1];
+                n--;
+            }
+            else j++;
+        }
+        return n;
+    }
+
   
   
-  // Time: O(n) space: O(1) 
-  // copying number to left
-  public static int removeElement2(int[] nums, int val){
-    int i = 0;
-    for (int j = 0; j < nums.length; j++) {
-        if (nums[j] != val) {
-            nums[i] = nums[j];
-            i++;
-        }
+    // Time: O(n) space: O(1) 
+    // copying other numbers to left
+    public static int removeElement2(int[] nums, int val){
+      int i = 0;
+      for (int j = 0; j < nums.length; j++) {
+          if (nums[j] != val) {
+              nums[i] = nums[j];
+              i++;
+          }
+      }
+      return i;
     }
-    return i;
-  }
   
   public static int[] newArr(int[] nums, int index){
     int newArr[] = new int[index];

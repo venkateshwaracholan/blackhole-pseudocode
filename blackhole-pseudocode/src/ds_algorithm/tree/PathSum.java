@@ -7,6 +7,8 @@ package ds_algorithm.tree;
 
 import ds_algorithm.Test;
 import static ds_algorithm.tree.SerializeAndDeserializeBinaryTree.deSerializeBfs;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  *
@@ -39,6 +41,18 @@ public class PathSum {
       return right;
     return false;
   }
+   // better version of above code
+    public boolean hasPathSumAlt(TreeNode root, int targetSum) {
+        return hasPathSum(root, targetSum, 0);
+    }
+
+    public boolean hasPathSumAlt(TreeNode node, int targetSum, int sum) {
+        if(node==null)return false;
+        if(node.left==null && node.right==null && sum+node.val==targetSum)
+            return true;
+        return hasPathSum(node.left, targetSum, sum+node.val) ||
+        hasPathSum(node.right, targetSum, sum+node.val);
+    }
   
   // Time: O(n) space: O(n)
   // core idea DFS
@@ -59,6 +73,32 @@ public class PathSum {
   public static boolean hasPathSumSingleLine(TreeNode root, int sum) {
     return root!=null && ((root.left==null && root.right==null && root.val==sum) || hasPathSumSingleLine(root.left,sum-root.val) || hasPathSumSingleLine(root.right,sum-root.val));
   }
+  
+  
+  // Time: O(n) space: O(n)
+  // core idea BFS Ite, using second queue to accumulate sum,check leaft node sum equals target
+  public boolean hasPathSum(TreeNode root, int targetSum) {
+        if(root==null)return false;
+        Queue<TreeNode> q = new LinkedList();
+        Queue<Integer> s = new LinkedList();
+        q.add(root);
+        s.add(root.val);
+        while(!q.isEmpty()){
+            TreeNode t = q.poll();
+            int v = s.poll();
+            if(t.left!=null){
+                q.add(t.left);
+                s.add(v+t.left.val);
+            }
+            if(t.right!=null){
+                q.add(t.right);
+                s.add(v+t.right.val);
+            }
+            if(t.left==null&&t.right==null&&v==targetSum) return true;
+        }
+        return false;
+    }
+  
   
   public static void main(String args[]){
     Test.test(hasPathSum(deSerializeBfs("5,4,8,11,null,13,4,7,2,null,null,null,1"),22), true);

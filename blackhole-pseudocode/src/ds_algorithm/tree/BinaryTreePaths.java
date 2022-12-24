@@ -48,8 +48,8 @@ public class BinaryTreePaths {
       s.append(root.val);
       if(root.left==null && root.right==null) list.add(s.toString());
       else s.append("->");
-      binaryTreePathsStringbuilder(root.left, list, s);
-      binaryTreePathsStringbuilder(root.right, list, s);
+      binaryTreePathsStringbuilder(root.left, list, new StringBuilder(s));
+      binaryTreePathsStringbuilder(root.right, list, new StringBuilder(s));
       return list;
   }
   
@@ -93,6 +93,30 @@ public class BinaryTreePaths {
       }
       return res;
   }
+  // same as above with map instead of a pair
+    public List<String> binaryTreePathsMap(TreeNode root) {
+      Stack<TreeNode> s = new Stack();
+      List<String> res = new ArrayList();
+      Map<TreeNode, String> map = new HashMap();
+      map.put(root, "");
+      s.add(root);
+      while(!s.isEmpty()){
+            TreeNode t = s.pop();
+            String a = map.get(t);
+            if(t.left==null && t.right==null)
+                res.add(a+t.val);
+            if(t.left!=null){
+                s.add(t.left);
+                map.put(t.left, a+ t.val+"->");
+            }
+            if(t.right!=null){
+                s.add(t.right);
+                map.put(t.right, a+ t.val+"->");
+            }
+      }
+      return res;
+    }
+  
   
 //  Time O(n) space O(n)
 //  Iterative bfs using queue
@@ -115,5 +139,52 @@ public class BinaryTreePaths {
     return res;
   }
   
+  // same as above with map instead of a pair
+  public List<String> binaryTreePathsMapIte(TreeNode root) {
+        List<String> ans = new ArrayList();
+        Queue<TreeNode> q = new LinkedList();
+        Map<TreeNode, String> map = new HashMap();
+        q.add(root);
+        map.put(root, "");
+        while(!q.isEmpty()){
+            TreeNode n = q.poll();
+            String s = map.get(n);
+            if(n.left==null && n.right==null)
+                ans.add(s+n.val);
+            if(n.left!=null){
+                q.add(n.left);
+                map.put(n.left, s+n.val+"->");
+            } 
+            if(n.right!=null){
+                q.add(n.right);
+                map.put(n.right, s+n.val+"->");
+            }
+        }
+        return ans;
+    }
+  
+  
+    // using 2 queues instead of a map
+    public List<String> binaryTreePaths(TreeNode root) {
+        List<String> ans = new ArrayList();
+        Queue<TreeNode> q = new LinkedList();
+        Queue<String> qs = new LinkedList();
+        q.add(root);
+        qs.add(root.val+"");
+        while(!q.isEmpty()){
+            TreeNode t = q.poll();
+            String s = qs.poll();
+            if(t.left==null&&t.right==null) ans.add(s);
+            if(t.left!=null){
+                q.add(t.left);
+                qs.add(s+"->"+t.left.val);
+            }
+            if(t.right!=null){
+                q.add(t.right);
+                qs.add(s+"->"+t.right.val);
+            }
+        }
+        return ans;
+    }
   
 }

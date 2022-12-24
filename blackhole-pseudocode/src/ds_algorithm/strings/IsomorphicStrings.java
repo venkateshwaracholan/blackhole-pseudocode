@@ -12,27 +12,62 @@ import java.util.*;
  */
 public class IsomorphicStrings {
     public static boolean show = false;
-    public static boolean isIsomorphic(String s, String t) {
-        if(s.length()!=t.length()){
-            return false;
-        }
-        return check(s,t) && check(t,s);
+    
+    //Time O(n) space: O(1) as chars are limited to ascii
+    // approach: map first occ of chracters in s to chars in t
+    // and check if they are not equal to current char
+    //do the check both ways, s,t and t,s
+    public boolean isIsomorphic(String s, String t) {
+        return check(s,t)&&check(t,s);
     }
 
-    public static boolean check(String s,String t){
-        Map<Character,Character> m = new HashMap();
+    public boolean check(String s, String t) {
+        Map<Character, Character> map = new HashMap();
         for(int i=0;i<s.length();i++){
-            Character s1 = s.charAt(i);
-            Character t1 = t.charAt(i);
-            if(m.containsKey(s1)){
-                if(t1 != m.get(s1))
-                    return false;
-            }else{
-                m.put(s1, t1);   
-            }
-
+            char sc = s.charAt(i);
+            char tc = t.charAt(i);
+            if(!map.containsKey(sc)) map.put(sc,tc);
+            if(map.get(sc)!=tc) return false;
         }
         return true;
+    }
+    
+    //Time O(n) space: O(1) as chars are limited to ascii
+    // approach: map first occ of chracters in s to chars in t in 2 int maps for both strings 
+    // check if char at s,t maps as well as t,s maps if not return false 
+    public boolean isIsomorphicIntMaps(String s, String t) {
+        int[] smap = new int[256];
+        int[] tmap = new int[256];
+        Arrays.fill(smap,-1);
+        Arrays.fill(tmap,-1);
+        for(int i=0;i<s.length();i++){
+            char sc = s.charAt(i);
+            char tc = t.charAt(i); 
+            if(smap[sc]==-1)smap[sc] = tc;
+            if(tmap[tc]==-1)tmap[tc] = sc;
+            if(smap[sc]!=tc || tmap[tc]!=sc) return false;
+        }
+        return true;
+    }
+    
+    
+    // Time O(n) space: O(1) as chars are limited to ascii
+    // approach: transform string to its first occurance index values
+    // apple 0#1#1#2#3
+    //trnasform both string and check if theya re equal
+    public String transform(String s) {
+        Map<Character,Integer> map = new HashMap();
+        StringBuilder sb = new StringBuilder();
+        for(int i=0;i<s.length();i++){
+            char sc = s.charAt(i);
+            if(!map.containsKey(sc))  map.put(sc,i);
+            sb.append(map.get(sc)).append("#");
+        }
+        return sb.toString();
+    }
+
+    public boolean isIsomorphicTransform(String s, String t) {
+        return transform(s).equals(transform(t));
     }
     
     public static void main(String[] args){

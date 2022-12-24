@@ -60,7 +60,7 @@ public class BinaryTreeMaximumPathSum {
       int r = maxPathSumAlt(root.right,max);
       if(l>0 && r>0)
           max[0] = Math.max(max[0], root.val+l+r);
-      int x = Math.max(root.val, Math.max(root.val+l, root.val+r));;
+      int x = Math.max(root.val, Math.max(root.val+l, root.val+r));
       max[0] = Math.max(max[0], x);
       return x;
   }
