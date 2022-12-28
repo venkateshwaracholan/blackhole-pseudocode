@@ -61,7 +61,8 @@ public class ProductOfArraysExceptSelf {
   
   // to every node accumulate of product of values upto its previous index from left to right.
   // do the same from right to left to get the result.
-  
+  // 1,2,3,4
+  // 1 2 6,24
   public int[] productExceptSelf(int[] nums) {
     int[] ans = new int[nums.length];
     ans[0]=1;
@@ -85,55 +86,38 @@ public class ProductOfArraysExceptSelf {
   
   
   
-  // calculate overall product and then divide with self.
-  // this problem has 2 edge cases
-  // 1. with 1 zero which can be solved with prodWithoutZero.
-  // 2. two more zeroes - in this case output is always a zero array.
-  // Time: O(n) space: O(1) using division.
-  public int[] productExceptSelfDivision(int[] nums) {
-    int prod = 1, prodwz = 1, zc=0;
-    for(int i=0;i<nums.length;i++){
-      prod*= nums[i];
-      if(nums[i]==0)
-        zc++;
-      else
-        prodwz*= nums[i];
+    // calculate overall product and then divide with self.
+    // this problem has 2 edge cases
+    // 1. with 1 zero which can be solved with prodWithoutZero.
+    // 2. two more zeroes - in this case output is always a zero array.
+    // Time: O(n) space: O(1) using division.
+    public int[] productExceptSelf1(int[] nums) {
+        int p = 1, pwz = 1,zc=0, x=0;
+        for(int n:nums){
+            if(n==0) zc++;
+            else pwz*=n;
+            p*=n;
+        }
+        if(zc>1)return new int[nums.length];
+        for(int n:nums) 
+            nums[x++] = n==0 ? pwz : p/n;
+        return nums;
     }
-    if(zc>1)
-      return new int[nums.length];
-    for(int i=0;i<nums.length;i++){
-      nums[i] = nums[i]==0 ? prodwz : prod/nums[i];
+  
+  public int[] productExceptSelf2(int[] nums) {
+        int pwz = 1,zc=0, x=0, ans[] = new int[nums.length];
+        for(int n:nums) 
+            if(n==0) zc++;
+            else pwz*=n;
+        if(zc>1)return new int[nums.length];
+        for(int n:nums) 
+            if(zc==1) ans[x++] = n==0 ? pwz : 0;
+            else ans[x++] = pwz/n;
+        return ans;
     }
-    return nums;
-  }
   
   
-  // older longer solution
-  
-  public int[] productOfArrayExceptSelfDivision2(int[] arr) {
-    int prod = 1;
-        int prodWithoutZero = 1;
-        int zeroCount = 0;
-        boolean allZero = true;
-        for(int i=0;i<arr.length;i++){
-            prod*=arr[i];
-            if(arr[i]!=0) {
-                prodWithoutZero*=arr[i];
-                allZero = false;
-            }else{
-                zeroCount++;
-            }
-        }
-        if(zeroCount>1) {
-            prodWithoutZero = 0;
-            prod = 0;
-        }
-        if(allZero) prodWithoutZero = 0;
-        for(int i=0;i<arr.length;i++){
-            arr[i] = arr[i]==0 ? prodWithoutZero : prod/arr[i];
-        }
-        return arr;
-  }
+
   
   public static void main(String[] args){
     test(productOfArrayExceptSelf(new int[]{2, 3, 4, 5}), new int[]{2,2,6,24});

@@ -14,65 +14,84 @@ import ds_algorithm.utils.ArrayUtils;
  *
  * @author venkateshwarans
  */
+
+
+// https://leetcode.com/problems/reverse-linked-list/description/
+
 public class ReverseLinkedList {
   
-  public static ListNode reverseLinkedList(ListNode n){
-    ListNode cur = n, prev = null;
-    while(cur!=null){
-      ListNode next = cur.next;
-      cur.next = prev;
-      prev = cur;
-      cur = next;
+    
+    // Time O(n) space: O(1)
+    // iterte with prev and cur
+    // take next, remap cur.next to prev 
+    // move prev and cur acc 
+    public ListNode reverseListIte(ListNode head) {
+        ListNode prev = null, cur = head;
+        while(cur!=null){
+            ListNode next = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = next;
+        }
+        return prev;
     }
-    return prev;
-  }
+    
+    // Time O(n) space: O(n) n in call stack
+    // same aas above, just recursive
+    public ListNode reverseList(ListNode head) {
+        return reverseList(null, head);
+    }
+
+    public ListNode reverseList(ListNode prev, ListNode cur) {
+        if(cur==null) return prev;
+        ListNode next = cur.next;
+        cur.next = prev;
+        return reverseList(cur, next);
+    }
+    
+    
+    
   // 1,2,3,4,5
-  public static ListNode reverseLinkedListRec(ListNode cur){
-    if(cur==null || cur.next==null){
-      return cur;
+    // Time O(n) space: O(n) n in call stack
+    // base case cur==null or nu.next==null means last node or head is null
+    // keep last node in x to return that
+    // to rechain cur.next.next = cur meaning remapping cur's next to point to cur itself
+    // cur.next = null, useful for removing the chain at 1st node
+    public ListNode reverseListRec(ListNode cur) {
+        if(cur==null || cur.next==null) return cur;
+        ListNode x =  reverseList(cur.next);
+        cur.next.next = cur;
+        cur.next = null;
+        return x;
     }
-    ListNode res = reverseLinkedListRec(cur.next);
-    cur.next.next = cur;
-    cur.next = null;
-    return res;
-  }
+    
   
-  public static ListNode reverseLinkedListRec2(ListNode cur){
-    return reverseLinkedListRec2(null, cur);
-  }
-  
-  public static ListNode reverseLinkedListRec2(ListNode prev, ListNode cur){
-    if(cur==null){
-      return prev;
-    }
-    ListNode next = cur.next;
-    cur.next = prev;
-    return reverseLinkedListRec2(cur, next);
-  }
+    
   
   public static void main(String args[]){
     SinglyLinkedList list;
+    ReverseLinkedList r = new ReverseLinkedList();
     list = new SinglyLinkedList(new int[]{1,2,3,4,5});
-    test(SinglyLinkedList.toList(reverseLinkedList(list.head)), new int[]{1,2,3,4,5});
+    test(SinglyLinkedList.toList(r.reverseListIte(list.head)), new int[]{1,2,3,4,5});
     list = new SinglyLinkedList(new int[]{2,4});
-    test(SinglyLinkedList.toList(reverseLinkedList(list.head)), new int[]{2,4});
+    test(SinglyLinkedList.toList(r.reverseListIte(list.head)), new int[]{2,4});
     list = new SinglyLinkedList();
-    test(SinglyLinkedList.toList(reverseLinkedListRec2(list.head)), new int[]{});
+    test(SinglyLinkedList.toList(r.reverseListIte(list.head)), new int[]{});
     
     list = new SinglyLinkedList(new int[]{1,2,3,4,5});
-    test(SinglyLinkedList.toList(reverseLinkedListRec(list.head)), new int[]{1,2,3,4,5});
+    test(SinglyLinkedList.toList(r.reverseListRec(list.head)), new int[]{1,2,3,4,5});
     list = new SinglyLinkedList(new int[]{2,4});
-    test(SinglyLinkedList.toList(reverseLinkedListRec(list.head)), new int[]{2,4});
+    test(SinglyLinkedList.toList(r.reverseListRec(list.head)), new int[]{2,4});
     list = new SinglyLinkedList();
-    test(SinglyLinkedList.toList(reverseLinkedListRec2(list.head)), new int[]{});
+    test(SinglyLinkedList.toList(r.reverseListRec(list.head)), new int[]{});
     
     
     list = new SinglyLinkedList(new int[]{1,2,3,4,5});
-    test(SinglyLinkedList.toList(reverseLinkedListRec2(list.head)), new int[]{1,2,3,4,5});
+    test(SinglyLinkedList.toList(r.reverseList(list.head)), new int[]{1,2,3,4,5});
     list = new SinglyLinkedList(new int[]{2,4});
-    test(SinglyLinkedList.toList(reverseLinkedListRec2(list.head)), new int[]{2,4});
+    test(SinglyLinkedList.toList(r.reverseList(list.head)), new int[]{2,4});
     list = new SinglyLinkedList();
-    test(SinglyLinkedList.toList(reverseLinkedListRec2(list.head)), new int[]{});
+    test(SinglyLinkedList.toList(r.reverseList(list.head)), new int[]{});
     
     
 //    list = new SinglyLinkedList(new int[]{1,2,3,4,5});

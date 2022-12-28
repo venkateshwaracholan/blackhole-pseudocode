@@ -54,7 +54,7 @@ public class IsomorphicStrings {
     // Time O(n) space: O(1) as chars are limited to ascii
     // approach: transform string to its first occurance index values
     // apple 0#1#1#2#3
-    //trnasform both string and check if theya re equal
+    //trnasform both string and check if they are equal
     public String transform(String s) {
         Map<Character,Integer> map = new HashMap();
         StringBuilder sb = new StringBuilder();

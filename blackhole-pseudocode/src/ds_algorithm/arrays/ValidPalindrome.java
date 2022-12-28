@@ -52,28 +52,20 @@ public class ValidPalindrome {
     
   }
   
-  // this actually consumes more space than required by prev solution
-  public boolean isPalindromespace(String s) {
-    int[] charMap = new int[256];
-    for (int i = 0; i < 10; i++) {
-        charMap['0' + i] = 1; 
-    }
-    for (int i = 0; i < 26; i++) {
-        charMap['a' + i] = 1;
-        charMap['A' + i] = 1;
-    }
-    int start = 0, stop = s.length() - 1;
-    while (start < stop) {
-        if (charMap[s.charAt(start)] == 0) {
-            start++;
+  // this actually consumes more space than required by prev solution but its O(1)
+    public boolean isPalindrome3(String s) {
+        int cmap[] = new int[256];
+        for(int i=0;i<10;i++) cmap['0'+i] = 1;
+        for(int i=0;i<26;i++){
+            cmap['a'+i] = 1;
+            cmap['A'+i] = 1;
         }
-        else if (charMap[s.charAt(stop)] == 0) {
-            stop--;
+        for(int i=0,j=s.length()-1;i<j;){
+            if(cmap[s.charAt(i)]==0) i++;
+            else if(cmap[s.charAt(j)]==0) j--;
+            else if(Character.toLowerCase(s.charAt(i++))!=Character.toLowerCase(s.charAt(j--))) 
+                return false;
         }
-        else if (Character.toLowerCase(s.charAt(start++)) != Character.toLowerCase(s.charAt(stop--))) {
-            return false;
-        }
+        return true;
     }
-    return true;
-}
 }
