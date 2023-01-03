@@ -19,7 +19,94 @@ import java.util.*;
 
 public class SerializeAndDeserializeBinaryTree {
   
-  
+    // dfs
+    // Encodes a tree to a single string.
+    public String serialize(TreeNode root) {
+        return serialize(root, new StringBuilder()).toString();
+    }
+
+    public StringBuilder serialize(TreeNode root, StringBuilder sb) {
+        if(root==null){
+            sb.append("#,");
+            return sb;
+        }
+        sb.append(root.val).append(',');
+        serialize(root.left, sb);
+        serialize(root.right,sb);
+        return sb;
+    }
+
+    // Decodes your encoded data to tree.
+    public TreeNode deserialize(String data) {
+        String[] nodes = data.split(",");
+        return deserialize(nodes, new int[1]);
+    }
+    public TreeNode deserialize(String[] nodes, int[] i) {
+        if(nodes[i[0]].equals("#")) {
+            i[0]++;
+            return null;
+        }
+        TreeNode root = new TreeNode(Integer.valueOf(nodes[i[0]++]));
+        root.left = deserialize(nodes,i);
+        root.right = deserialize(nodes,i);
+        return root;
+    }
+    
+    
+    
+    
+    //bfs
+    // Encodes a tree to a single string.
+    public String serialize(TreeNode root) {
+        Queue<TreeNode> q = new LinkedList();
+        StringBuilder sb = new StringBuilder();
+        if(root!=null) q.add(root);
+        while(!q.isEmpty()){
+            TreeNode n = q.poll();
+            if(n==null) {
+                sb.append("#,");
+                continue;
+            }
+            else sb.append(n.val).append(",");
+            q.add(n.left);
+            q.add(n.right);
+        }
+        return sb.toString();
+    }
+
+    // Decodes your encoded data to tree.
+    public TreeNode deserialize(String data) {
+        Queue<TreeNode> q = new LinkedList();
+        String[] nodes = data.split(",");
+        if(nodes.length==0 || nodes[0].equals(""))  return null;
+        int i=1;
+        TreeNode root = new TreeNode(Integer.valueOf(nodes[0]));
+        q.add(root);
+        while(!q.isEmpty()){
+            TreeNode n = q.poll();
+            n.left = create(nodes[i++]);
+            n.right = create(nodes[i++]);
+            if(n.left!=null)q.add(n.left);
+            if(n.right!=null)q.add(n.right);
+        }
+        return root;
+    }
+
+    public TreeNode create(String val){
+        if(val.equals("#")) return null;
+        else return new TreeNode(Integer.valueOf(val));
+    }
+    
+    
+    
+    
+    //the below solutions are worse
+    
+    
+    
+    
+    
+    
   // Time: O(n) space: O(n)
   // wrapper class to create string using sb
   // can remove trailing null in this impl, please do that

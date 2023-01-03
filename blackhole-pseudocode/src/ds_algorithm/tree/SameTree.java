@@ -8,6 +8,7 @@ package ds_algorithm.tree;
  *
  * @author venka
  */
+import java.util.*;
 
 // https://leetcode.com/problems/same-tree/description/
 
@@ -22,25 +23,25 @@ public class SameTree {
         return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
     }
     
-    public boolean isSameTree(TreeNode p, TreeNode q) {
+    public boolean isSameTree2(TreeNode p, TreeNode q) {
         if(p==null&&q==null) return true;
         else if(p==null||q==null || p.val!=q.val) return false;
         return isSameTree(p.left,q.left) && isSameTree(p.right,q.right);
     }
     
-    public boolean isSameTree(TreeNode p, TreeNode q) {
+    public boolean isSameTree3(TreeNode p, TreeNode q) {
         if (p == null && q == null) return true;
         return p != null && q != null && p.val == q.val && isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
     }   
     
-    public boolean isSameTree(TreeNode p, TreeNode q) {
+    public boolean isSameTree4(TreeNode p, TreeNode q) {
         return p == null || q == null ? p == q : p.val == q.val && isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
     } 
     
     
     
     //
-    public boolean isSameTree(TreeNode p, TreeNode q) {
+    public boolean isSameTree5(TreeNode p, TreeNode q) {
         Queue<TreeNode> x= new LinkedList();
         x.add(p);
         x.add(q);
@@ -64,7 +65,7 @@ public class SameTree {
     
     
     //
-    public boolean isSameTree(TreeNode p, TreeNode q) {
+    public boolean isSameTree6(TreeNode p, TreeNode q) {
         Queue<TreeNode> x= new LinkedList();
         Queue<TreeNode> y= new LinkedList();
         if(p==null&&q==null) return true;
