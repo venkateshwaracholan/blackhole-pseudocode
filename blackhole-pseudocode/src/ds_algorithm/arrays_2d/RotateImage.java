@@ -65,7 +65,7 @@ public class RotateImage {
         }    
     }
     //same as above easier to understand
-    public void rotate(int[][] matrix) {
+    public void rotateAlt(int[][] matrix) {
         int r = matrix.length, c = r==0 ? 0 : matrix[0].length;
         for(int i=0;i<r;i++){
             for(int j=i+1;j<c;j++){
@@ -115,7 +115,7 @@ public class RotateImage {
     // bounds is a important we run only 5,1,9,4 
     // thats why j i to n-1-i(5,1,9) and i o to n/2 thats y2 rows executed
     // 
-    public void rotate(int[][] matrix) {
+    public void rotate2(int[][] matrix) {
         int n = matrix.length;
         for(int i=0;i<n/2;i++){
             for(int j=i;j<n-1-i;j++){
