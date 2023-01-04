@@ -26,7 +26,7 @@ public class ReverseBits {
     }
     
     // instead of modifying n in above, we are right shifting n -> i times
-    public int reverseBits(int n) {
+    public int reverseBits2(int n) {
         int x = 0;
         for(int i=0;i<32;i++){
             x = x<<1 | (n>>i&1);
@@ -35,7 +35,7 @@ public class ReverseBits {
     }
     
     // left shift sep and add right bit
-    public int reverseBits(int n) {
+    public int reverseBits3(int n) {
         int x = 0;
         for(int i=0;i<32;i++){
             x = x<<1;
@@ -46,7 +46,7 @@ public class ReverseBits {
     }
     
     // placing lsb starting from last position of x
-    public int reverseBits(int n) {
+    public int reverseBits4(int n) {
         int x = 0;
         for(int i=0;i<32;i++){
             int lsb = n>>i&1;
@@ -56,7 +56,7 @@ public class ReverseBits {
     }
     
     // same as above, instead of shifting lsb, we are mulplying 2**n-i
-    public int reverseBits(int n) {
+    public int reverseBits5(int n) {
         long x = 0;
         for(int i=0;i<32;i++){
             x+=  Math.pow(2,31-i)*(n>>i&1);
@@ -65,7 +65,7 @@ public class ReverseBits {
     }
     
     
-    public int reverseBits(int n) {
+    public int reverseBits6(int n) {
         return Integer.reverse(n);  
     }
 }

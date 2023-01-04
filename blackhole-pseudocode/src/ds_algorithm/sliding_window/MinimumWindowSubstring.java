@@ -8,6 +8,8 @@ package ds_algorithm.sliding_window;
  *
  * @author venka
  */
+import java.util.*;
+import ds_algorithm.Pair;
 
 // https://leetcode.com/problems/minimum-window-substring/description/
 
@@ -59,7 +61,7 @@ public class MinimumWindowSubstring {
     // while(i<=j and formed==tmap size) fill ans array if ans not set or incoming ans in new min, fill ans with index in filtered
     // decrease i char from smap and check if freq of i char decreased if so, formed--; and then move i->i++;
     // while returning asn, if ans not set, retrun "" or build min window from ans
-    public String minWindow(String s, String t) {
+    public String minWindow2(String s, String t) {
         if(s.length()==0||t.length()==0) return "";
         Map<Character,Integer> smap = new HashMap();
         Map<Character,Integer> tmap = new HashMap();

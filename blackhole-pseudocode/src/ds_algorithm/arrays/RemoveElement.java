@@ -38,7 +38,7 @@ public class RemoveElement {
     }
   
     // same as above, with for loop
-    public int removeElement(int[] nums, int val) {
+    public int removeElement2(int[] nums, int val) {
         int n = nums.length;
         for (int j = 0; j < n;) {
             if (nums[j] == val) {
@@ -54,7 +54,7 @@ public class RemoveElement {
   
     // Time: O(n) space: O(1) 
     // copying other numbers to left
-    public static int removeElement2(int[] nums, int val){
+    public static int removeElement3(int[] nums, int val){
       int i = 0;
       for (int j = 0; j < nums.length; j++) {
           if (nums[j] != val) {
@@ -102,22 +102,22 @@ public class RemoveElement {
     
     
     a = new int[]{1,1,1,1,1};
-    Test.test(newArr(a, removeElement2(a, 1)), new int[]{});
+    Test.test(newArr(a, removeElement3(a, 1)), new int[]{});
     
     a = new int[]{0,1,2,2,3,0,4,2};
-    Test.test(newArr(a, removeElement2(a, 2)), new int[]{0,1,3,0,4});
+    Test.test(newArr(a, removeElement3(a, 2)), new int[]{0,1,3,0,4});
     
     a = new int[]{3,2,2,3};
-    Test.test(newArr(a, removeElement2(a, 3)), new int[]{2,2});
+    Test.test(newArr(a, removeElement3(a, 3)), new int[]{2,2});
     
     a = new int[]{};
-    Test.test(newArr(a, removeElement2(a, 2)), new int[]{});
+    Test.test(newArr(a, removeElement3(a, 2)), new int[]{});
     
     a = new int[]{1,1,1,1,1};
-    Test.test(newArr(a, removeElement2(a, 2)), new int[]{1,1,1,1,1});
+    Test.test(newArr(a, removeElement3(a, 2)), new int[]{1,1,1,1,1});
     
     a = new int[]{1};
-    Test.test(newArr(a, removeElement2(a, 1)), new int[]{});
+    Test.test(newArr(a, removeElement3(a, 1)), new int[]{});
     
     
   }

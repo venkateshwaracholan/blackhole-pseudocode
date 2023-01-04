@@ -8,6 +8,7 @@ package ds_algorithm.bit_manipulation;
  *
  * @author venka
  */
+import java.util.*;
 
 // https://leetcode.com/problems/missing-number/description/
 
@@ -33,14 +34,14 @@ public class MissingNumber {
     // Time O(n) space: O(1)
     // finding total sumof n numbers, n*(n+1)/2
     // iterting and subtracting all available umbers to get missing number
-    public int missingNumber(int[] nums) {
+    public int missingNumber2(int[] nums) {
         int x = nums.length*(nums.length+1)/2; //sum of n numbers
         for(int i=0;i<nums.length;i++)
             x-= nums[i];
         return x;
     }
     
-    public int missingNumber(int[] nums) {
+    public int missingNumber3(int[] nums) {
         return nums.length * (nums.length + 1) / 2 - Arrays.stream(nums).sum();
     }
     
@@ -48,7 +49,7 @@ public class MissingNumber {
     // sorting and binaary search
     // comparing mid and nums[mid] gives the answer
     // be careful with the bounds
-    public int missingNumber(int[] nums) {
+    public int missingNumber4(int[] nums) {
         Arrays.sort(nums);
         int l=0,r= nums.length;
         while(l<r){
@@ -62,7 +63,7 @@ public class MissingNumber {
     // cyclic sorting
     //moving all numbers nums[i] to its position i
     // then iterating and finding who is not in their place
-    public int missingNumber(int[] nums) {
+    public int missingNumber5(int[] nums) {
         int i=0,n=nums.length;
         while(i<n){
             if(nums[i]!=n && nums[i]!=i){
@@ -84,7 +85,7 @@ public class MissingNumber {
     // 3 checks for handling 0
     // 0 cannot be negated, so if nums[j] is 0 then lets sub n+1
     // if n becomes n+1 then it means its zero
-    public int missingNumber(int[] nums) {
+    public int missingNumber6(int[] nums) {
         int n = nums.length;
         for (int i = 0 ; i < n ; i++) {
             int j = Math.abs(nums[i]);

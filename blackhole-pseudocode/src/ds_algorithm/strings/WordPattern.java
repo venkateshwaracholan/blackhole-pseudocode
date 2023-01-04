@@ -8,6 +8,7 @@ package ds_algorithm.strings;
  *
  * @author venka
  */
+import java.util.*;
 
 // https://leetcode.com/problems/word-pattern/description/
 
@@ -37,7 +38,7 @@ public class WordPattern {
     // approach: using return of put to check if they are matching the same index
     // Note: using Object,Integer object for diff between char and String in key
     // also, i has to be Integer or it wont work
-    public boolean wordPattern(String pattern, String str) {
+    public boolean wordPattern2(String pattern, String str) {
         String[] words = str.split(" ");
         if (words.length != pattern.length())
             return false;
@@ -52,7 +53,7 @@ public class WordPattern {
     //Time O(n) space: (n)
     // approach: using indexOf from string and list
     //
-    public boolean wordPattern(String pattern, String str) {
+    public boolean wordPattern3(String pattern, String str) {
         List<String> words = Arrays.asList(str.split(" "));
         if (words.size() != pattern.length()) return false;
         for (int i=0; i<words.size(); ++i){
@@ -66,7 +67,7 @@ public class WordPattern {
     // Solution inspired from isomorphic strings
     // approach: transform pattern and words to first occurance index
     // apple 0#1#1#2#3 but changing pattern to String[] was hard
-    public boolean wordPattern(String pattern, String str) {
+    public boolean wordPattern4(String pattern, String str) {
         String[] pat = new String[pattern.length()], words = str.split(" ");
         if (words.length != pattern.length()) return false;
         for(int i=0;i<pattern.length();i++) pat[i] = String.valueOf(pattern.charAt(i));

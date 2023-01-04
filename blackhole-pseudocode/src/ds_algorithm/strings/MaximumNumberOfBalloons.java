@@ -8,6 +8,7 @@ package ds_algorithm.strings;
  *
  * @author venka
  */
+import java.util.*;
 
 // https://leetcode.com/problems/maximum-number-of-balloons/description/
 
@@ -60,7 +61,7 @@ public class MaximumNumberOfBalloons {
     //ideally 'l','o'=>0.5 'b','a','n'=>1 
     //scaling twice to fit into int[] res
     //divide min of res by 2 while returning
-    public int maxNumberOfBalloons(String text) {
+    public int maxNumberOfBalloons2(String text) {
         int [] res = new int[5]; 
         int min = Integer.MAX_VALUE;
         for(int i=0;i<text.length();i++){

@@ -26,11 +26,11 @@ public class Pair<F,S> {
         this.second = second;
     }
 
-    public F getFirst() {
+    public F getKey() {
         return first;
     }
 
-    public S getSecond() {
+    public S getValue() {
         return second;
     }
 }

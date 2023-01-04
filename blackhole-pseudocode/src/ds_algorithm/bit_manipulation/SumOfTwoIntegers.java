@@ -36,14 +36,14 @@ public class SumOfTwoIntegers {
     
     
     //recursive of the above approach
-    public int getSum(int a, int b) {
+    public int getSum2(int a, int b) {
         if(b==0) return a;
         int temp = a^b;
         b = (a&b)<<1;
         return getSum(temp,b);
     }
     
-    public int getSum(int a, int b) {
+    public int getSum3(int a, int b) {
         return (b==0) ? a : getSum(a^b,(a&b)<<1);
     }
     

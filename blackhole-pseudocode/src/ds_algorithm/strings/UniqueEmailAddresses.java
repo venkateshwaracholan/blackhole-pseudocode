@@ -8,6 +8,8 @@ package ds_algorithm.strings;
  *
  * @author venka
  */
+import java.util.*;
+import java.util.stream.Collectors;
 
 // https://leetcode.com/problems/unique-email-addresses/description/
 

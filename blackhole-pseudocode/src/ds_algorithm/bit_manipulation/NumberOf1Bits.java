@@ -41,7 +41,7 @@ public class NumberOf1Bits {
     // n&1 will give us if last bit is set
     // we have to right shift, but this time no bounds like 32
     // so, negatives can also come in like -3 stored in 2's comp  1111...1101 (1's comp+1)-> 111...1100+1 ->111...1101 
-    public int hammingWeight(int n) {
+    public int hammingWeight3(int n) {
         int c = 0;
         while(n>0){
             c += n&1;
@@ -50,12 +50,12 @@ public class NumberOf1Bits {
         return c;
     }
     
-    public int hammingWeight(int n) {
+    public int hammingWeight4(int n) {
         return Integer.bitCount(n);
     }
     
     
-    public int hammingWeight(int n) {
+    public int hammingWeight5(int n) {
         String num = Integer.toBinaryString(n); //build in function in java to convert Integer to Binary String 
         int count=0;
         for(char ch:num.toCharArray()){
@@ -65,7 +65,7 @@ public class NumberOf1Bits {
         return count;
     }
     
-    public int hammingWeight(int n) {
+    public int hammingWeight6(int n) {
         return n == 0 ? 0 : 1 + hammingWeight(n & (n - 1));
     }
     

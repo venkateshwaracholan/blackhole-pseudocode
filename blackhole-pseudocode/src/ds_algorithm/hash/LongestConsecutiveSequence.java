@@ -9,6 +9,8 @@ package ds_algorithm.hash;
  * @author venka
  */
 
+import java.util.*;
+
 // https://leetcode.com/problems/longest-consecutive-sequence/description/
 
 public class LongestConsecutiveSequence {

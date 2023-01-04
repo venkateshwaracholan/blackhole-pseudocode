@@ -9,6 +9,8 @@ package ds_algorithm.sliding_window;
  * @author venka
  */
 
+import java.util.*;
+
 // https://leetcode.com/problems/longest-repeating-character-replacement/description/
 
 public class LongestRepeatingCharReplacement {
@@ -77,7 +79,7 @@ public class LongestRepeatingCharReplacement {
     // valid window is j-i+1=window, valid wndow = window - maxf <=k
     // if window becomes invalid, reduce window size and corresponding cahr from map, i++
     // accumulate longest
-    public int characterReplacement(String s, int k) {
+    public int characterReplacement3(String s, int k) {
         int longest = 0,maxf = 0;
         int freq[] = new int[26];
         for(int i=0,j=0;j<s.length();j++){

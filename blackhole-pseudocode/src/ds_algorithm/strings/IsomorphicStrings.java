@@ -71,13 +71,14 @@ public class IsomorphicStrings {
     }
     
     public static void main(String[] args){
-      test(isIsomorphic("egg","add"), true);
-      test(isIsomorphic("foo","bar"), false);
-      test(isIsomorphic("paper","title"), true);
-      test(isIsomorphic("aa","ab"), false);
-      test(isIsomorphic("ab","aa"), false);
-      test(isIsomorphic("aa","aa"), true);
-      test(isIsomorphic("aa","aaa"), false);
+      IsomorphicStrings s = new IsomorphicStrings();
+      test(s.isIsomorphic("egg","add"), true);
+      test(s.isIsomorphic("foo","bar"), false);
+      test(s.isIsomorphic("paper","title"), true);
+      test(s.isIsomorphic("aa","ab"), false);
+      test(s.isIsomorphic("ab","aa"), false);
+      test(s.isIsomorphic("aa","aa"), true);
+      test(s.isIsomorphic("aa","aaa"), false);
 
     }
     

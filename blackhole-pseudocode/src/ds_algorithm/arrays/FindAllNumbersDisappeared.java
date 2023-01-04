@@ -8,6 +8,7 @@ package ds_algorithm.arrays;
  *
  * @author venka
  */
+import java.util.*;
 
 // https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/description/
 
@@ -33,7 +34,7 @@ public class FindAllNumbersDisappeared {
     // approach: adding n to index at value
     // while accessing index just doing a mod n to get original index
     // values that are untouched will be less than or equal to n
-    public List<Integer> findDisappearedNumbers(int[] nums) {
+    public List<Integer> findDisappearedNumbers2(int[] nums) {
         int n = nums.length;
         for(int i=0;i<n;i++) nums[(nums[i]-1)%n]+=n;
         List<Integer> ans = new ArrayList();
@@ -47,7 +48,7 @@ public class FindAllNumbersDisappeared {
     // swap to proper index conditinally
     // if num is already in right pos or num's pos already has proper value skip the swap
     // be careful with indices while swapping
-    public List<Integer> findDisappearedNumbers(int[] nums) {
+    public List<Integer> findDisappearedNumbers3(int[] nums) {
         for(int i=0;i<nums.length;i++){
             while(nums[i]!=i+1 && nums[i]!=nums[nums[i]-1]){
                 int temp = nums[nums[i]-1];

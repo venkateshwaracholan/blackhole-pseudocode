@@ -8,6 +8,7 @@ package ds_algorithm.stack;
  *
  * @author venka
  */
+import java.util.*;
 
 // https://leetcode.com/problems/next-greater-element-i/description/
 
@@ -73,7 +74,7 @@ public class NextGreaterElement1 {
     
     
     // alt solution using stack from right to left
-    public int[] nextGreaterElement(int[] nums1, int[] nums2) {
+    public int[] nextGreaterElement2(int[] nums1, int[] nums2) {
         Map<Integer, Integer> map = new HashMap();
         Stack<Integer> s = new Stack();
         for(int i=nums2.length-1;i>=0;i--){

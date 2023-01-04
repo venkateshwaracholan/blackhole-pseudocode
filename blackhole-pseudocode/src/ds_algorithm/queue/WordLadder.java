@@ -59,8 +59,8 @@ public class WordLadder {
     wordQ.add(new Pair(start,1));
     while(!wordQ.isEmpty()){
       Pair p = wordQ.poll();
-      String s = (String)p.getFirst();
-      int l = (int)p.getSecond();;
+      String s = (String)p.getKey();
+      int l = (int)p.getValue();;
       for(int i=0;i<L;i++){
         char c[] = s.toCharArray();
         for(char j='a'; j<'z';j++){

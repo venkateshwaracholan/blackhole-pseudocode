@@ -2,12 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package ds_algorithm.hash;
+package ds_algorithm.two_pointers;
 
 /**
  *
  * @author venka
  */
+import java.util.*;
+
+// https://leetcode.com/problems/3sum/description/
+
 public class ThreeSum {
     
     // Time O(n^3logk+nlogn) SC: O(K) - k is the number of unique triplets
@@ -30,7 +34,7 @@ public class ThreeSum {
     // TC: O(n * logn) + O(n^2 * logk) => O(n^2 * logk)
     // SC: O(K) - k is the number of unique triplets
     // Optimizing to the brute force (using HashSet) - TLE:
-    public List<List<Integer>> threeSum(int[] nums) {
+    public List<List<Integer>> threeSum2(int[] nums) {
         Set<List<Integer>> ans = new HashSet();
         Arrays.sort(nums);
         for(int i=0;i<nums.length;i++){
@@ -51,7 +55,7 @@ public class ThreeSum {
     // to move lo and hi if next/prev value is same,we refer with whats in triplet to avoid temp variables
     // if totl sum<0 move lo to right else move hi to left
     // loop stopped with len -2 coz u cant make a tripletwith 2 nums
-    public List<List<Integer>> threeSum(int[] nums) {
+    public List<List<Integer>> threeSum3(int[] nums) {
         List<List<Integer>> ans = new ArrayList();
         Arrays.sort(nums);
         for(int i=0;i<nums.length-2;i++){
