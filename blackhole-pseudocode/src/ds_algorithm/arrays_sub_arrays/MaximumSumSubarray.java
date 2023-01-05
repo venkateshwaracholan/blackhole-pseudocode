@@ -34,45 +34,58 @@ https://leetcode.com/problems/maximum-subarray/
 public class MaximumSumSubarray {
   public static boolean show = true;
   
-  // Time: O(n) space: O(1)
-  // kadane - max andn sofar
-  // code idea, compare sofar with num and assign if num is greater
-  public int maxSubArray(int[] nums) {
-    int max = Integer.MIN_VALUE;;
-    int sofar = 0;
-    for(int i=0;i<nums.length;i++){
-      sofar = sofar+ nums[i];
-      if(sofar<nums[i])
-          sofar = nums[i];
-      if(sofar>max)
-          max = sofar;
+    // Time: O(n) space: O(1)
+    // kadane - max andn sofar
+    // code idea, compare sofar with num and assign if num is greater
+    public int maxSubArray(int[] nums) {
+        int max = Integer.MIN_VALUE;;
+        int sofar = 0;
+        for(int i=0;i<nums.length;i++){
+            sofar = sofar+ nums[i];
+            if(sofar<nums[i])
+                sofar = nums[i];
+            if(sofar>max)
+                max = sofar;
+        }
+        return max;
     }
-    return max;
-  }
   
-  //kadane
-  public static int maxSubArray2(int[] nums) {
-    int max = Integer.MIN_VALUE;
-    int so_far = 0;
-    for(int i=0;i<nums.length;i++){
-        so_far+=nums[i];
-        so_far = Math.max(so_far,nums[i]);
-        max = Math.max(max, so_far);
+    //kadane
+    public static int maxSubArray2(int[] nums) {
+        int max = Integer.MIN_VALUE;
+        int so_far = 0;
+        for(int i=0;i<nums.length;i++){
+            so_far+=nums[i];
+            so_far = Math.max(so_far,nums[i]);
+            max = Math.max(max, so_far);
+        }
+        return max;
     }
-    return max;
-  }
     
-  //kadane
-  public static int maxSubArrayElegant(int[] nums) {
-    int max = nums[0],so_far = nums[0];
-    for(int i=1;i<nums.length;i++){
-        so_far = Math.max(so_far+nums[i],nums[i]);
-        max = Math.max(max, so_far);
+    //kadane
+    public static int maxSubArrayElegant(int[] nums) {
+        int max = nums[0],so_far = nums[0];
+        for(int i=1;i<nums.length;i++){
+            so_far = Math.max(so_far+nums[i],nums[i]);
+            max = Math.max(max, so_far);
+        }
+        return max;
     }
-    return max;
-  }
     
- 
+    //
+    public int maxSubArray3(int[] nums) {
+        int max = Integer.MIN_VALUE, sum = 0;
+        for(int i=0;i<nums.length;i++){
+            sum += nums[i];
+            max = Math.max(sum,max);
+            if(sum<0) sum = 0;
+        }
+        return max;
+    }
+  
+  
+  
+  
   
   // Time: O(n) space: O(1)
   public static int maximumContiguousSubarray(int arr[]){
