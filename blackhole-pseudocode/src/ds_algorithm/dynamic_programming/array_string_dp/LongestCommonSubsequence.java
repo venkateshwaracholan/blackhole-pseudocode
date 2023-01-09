@@ -68,18 +68,33 @@ public class LongestCommonSubsequence {
 //b 0 1 2 2 2 2  // previous column contibuted to matching b as we already had a matching 'a' before
   
 //  this is why max(prev row, previous column)
-  public int longestCommonSubsequence(String text1, String text2) {
-    int dp[][] = new int[text2.length()+1][text1.length()+1];
-    for(int j=0; j<text2.length();j++){
-        for(int i=0;i<text1.length();i++){
-            if(text2.charAt(j)==text1.charAt(i))
-                dp[j+1][i+1] = dp[j][i]+1;
-            else
-                dp[j+1][i+1] = Math.max(dp[j+1][i], dp[j][i+1]);
+    public int longestCommonSubsequence(String text1, String text2) {
+        int m=text1.length(),n=text2.length();
+        int[][] dp = new int[m+1][n+1];
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(text1.charAt(i)==text2.charAt(j))
+                    dp[i+1][j+1] =1+dp[i][j];
+                else 
+                    dp[i+1][j+1] = Math.max(dp[i][j+1],dp[i+1][j]);
+            }
         }
+        return dp[m][n];
     }
-    return dp[text2.length()][text1.length()];
-  }
+    //
+    public int longestCommonSubsequenceRev(String text1, String text2) {
+        int m=text1.length(),n=text2.length();
+        int[][] dp = new int[m+1][n+1];
+        for(int i=m-1;i>=0;i--){
+            for(int j=n-1;j>=0;j--){
+                if(text1.charAt(i)==text2.charAt(j))
+                    dp[i][j] =1+dp[i+1][j+1];
+                else 
+                    dp[i][j] = Math.max(dp[i][j+1],dp[i+1][j]);
+            }
+        }
+        return dp[0][0];
+    }
 
 
 // since dp on strings are symmetrical, bottom up can be don ein forward and reverse directions
