@@ -58,7 +58,7 @@ public class MaximumProductSubarray {
     
     
     //
-    public int maxProduct(int[] nums) {
+    public int maxProduct3(int[] nums) {
         int n = nums.length;
         int l=1,r=1;
         int ans=nums[0];
@@ -76,7 +76,7 @@ public class MaximumProductSubarray {
     }
     
     //
-    public int maxProduct(int[] nums) {
+    public int maxProduct4(int[] nums) {
         int n = nums.length;
         int l=1,r=1;
         int ans=nums[0];
@@ -92,8 +92,8 @@ public class MaximumProductSubarray {
   
   
   public static void main(String args[]){
-    System.out.println(maxProductKadane(new int[]{2,3,-2,4}));
-    System.out.println(maxProductKadane(new int[]{4,-2,-2,2,3,-10}));
+//    System.out.println(maxProductKadane(new int[]{2,3,-2,4}));
+//    System.out.println(maxProductKadane(new int[]{4,-2,-2,2,3,-10}));
   }
   
 }

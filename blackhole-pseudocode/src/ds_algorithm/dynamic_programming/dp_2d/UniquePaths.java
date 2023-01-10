@@ -40,7 +40,7 @@ public class UniquePaths {
     
     //
     public int uniquePaths3(int m, int n) {
-        return uniquePaths(m-1,n-1,new int[m][n]);
+        return uniquePaths3(m-1,n-1,new int[m][n]);
     }
 
     public int uniquePaths3(int m, int n, int[][] dp) {
