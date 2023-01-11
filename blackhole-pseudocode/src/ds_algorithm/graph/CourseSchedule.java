@@ -93,7 +93,7 @@ public class CourseSchedule {
             graph.put(i,new ArrayList());
         for(int edge[]: prerequisites){
             graph.get(edge[0]).add(edge[1]);
-            if(!global.contains(edge[1])&&canConnect(edge[1],edge[0],graph, new HashSet())) return false;
+            if(canConnect(edge[1],edge[0],graph, new HashSet())) return false;
         }
         return true;
     }
@@ -103,6 +103,30 @@ public class CourseSchedule {
             if(x==d || (!global.contains(s) && canConnect(x,d,graph,global))) return true;
         }
         global.add(s);
+        return false;
+    }
+    //
+    public boolean canFinish4_2(int numCourses, int[][] prerequisites) {
+        Map<Integer, List<Integer>> graph = new HashMap();
+        int[] visited= new int[numCourses];
+        for(int i=0;i<numCourses;i++)
+            graph.put(i,new ArrayList());
+        for(int edge[]: prerequisites)
+            graph.get(edge[0]).add(edge[1]);
+        for(int edge[]: prerequisites){
+            if(canConnect(edge[1],edge[0],graph, visited)) return false;
+        }
+        return true;
+    }
+    //
+    public boolean canConnect(int s, int d, Map<Integer, List<Integer>> graph, int[] visited){
+        if(visited[s]==1) return true;
+        if(visited[s]==2) return false;
+        visited[s]=1;
+        for(int x: graph.get(s)){
+            if(canConnect(x,d,graph,visited)) return true;
+        }
+        visited[s]=2;
         return false;
     }
 
@@ -165,6 +189,28 @@ public class CourseSchedule {
         global.add(i);
         return false;
     }
+    //
+    public boolean canFinish7(int numCourses, int[][] prerequisites) {
+        Map<Integer,List<Integer>> graph = new HashMap(0);
+        int[] visited= new int[numCourses];
+        for(int i=0;i<numCourses;i++)
+            graph.put(i,new ArrayList());
+        for(int[] edge:prerequisites)
+            graph.get(edge[0]).add(edge[1]);
+        for(int i=0;i<numCourses;i++)
+            if(cycle(i,graph,visited)) return false;
+        return true;
+    }
+
+    public boolean cycle(int i, Map<Integer,List<Integer>> graph, int[] visited) {
+        if(visited[i]==1) return true;
+        if(visited[i]==2) return false;
+        visited[i]=1;
+        for(int x: graph.get(i))
+            if(cycle(x,graph,visited)) return true;
+        visited[i]=2;
+        return false;
+    }
   
   
     //  Time: O(N+E) Space: O(N+E)
@@ -176,7 +222,7 @@ public class CourseSchedule {
     //  increment count while processing nodes in queue
     //  match count with number of nodes
   
-    public boolean canFinish7(int numCourses, int[][] prerequisites) {
+    public boolean canFinish8(int numCourses, int[][] prerequisites) {
         Map<Integer,List<Integer>> graph = new HashMap();
         Map<Integer,Integer> indegrees = new HashMap();
         Queue<Integer> q = new LinkedList();
@@ -204,7 +250,7 @@ public class CourseSchedule {
     //  same as above, used array of list for map<int,list<int>>
     //  used array for indegrees inread of map<int, int>
   
-    public boolean canFinish8(int numCourses, int[][] prerequisites) {
+    public boolean canFinish9(int numCourses, int[][] prerequisites) {
         List<Integer>[] graph = new List[numCourses];
         int[] indegrees = new int[numCourses];
         Queue<Integer> q = new LinkedList();
@@ -225,4 +271,38 @@ public class CourseSchedule {
         return count==numCourses;
     }
   
+    
+    
+    //
+    static class Course {
+        private int vis=0;
+        private ArrayList<Course> pre = new ArrayList<Course>();
+        void addPre(Course preCourse){
+            pre.add(preCourse);
+        }
+        
+        boolean isCyclic() {
+            if(vis==1) return true;
+            if(vis==2) return false;
+            vis = 1;
+            for(Course preCourse: pre )
+                if(preCourse.isCyclic())  return true;
+            vis = 2;
+            return false;
+        }
+    }
+        
+    public boolean canFinish10(int numCourses, int[][] prerequisites) {
+        Course clist[] = new Course[numCourses];
+        for(int i=0; i<numCourses; i++)
+            clist[i] = new Course();
+        for(int[] couple: prerequisites ) {
+            Course c1 = clist[couple[0]];
+            Course c2 = clist[couple[1]];
+            c1.addPre(c2);
+        }
+        for(int i=0; i<numCourses; i++) 
+            if(clist[i].isCyclic()) return false;
+        return true;
+    }
 }
