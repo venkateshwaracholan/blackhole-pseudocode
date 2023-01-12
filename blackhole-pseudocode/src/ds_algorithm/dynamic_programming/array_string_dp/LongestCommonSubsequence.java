@@ -76,7 +76,7 @@ public class LongestCommonSubsequence {
                 if(text1.charAt(i)==text2.charAt(j))
                     dp[i+1][j+1] =1+dp[i][j];
                 else 
-                    dp[i+1][j+1] = Math.max(dp[i][j+1],dp[i+1][j]);
+                    dp[i+1][j+1] = Math.max(dp[i][j+1],dp[i+1][j]); 
             }
         }
         return dp[m][n];

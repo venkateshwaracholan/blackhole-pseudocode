@@ -43,18 +43,18 @@ public class LongestSubstringWithoutRepeatingChar {
     
     
     // Time  O(2n) space O(n)
-    // approach: 2 pointers, freq map, increase and decrease freq based on incoming char
-    // while right char is present remove all chars until its freq becomes 1, 
-    // meaning moving i to right until freq of right char becomes 1
+    // approach: 2 pointers, using set
+    // while right char is present remove all chars until its nor present in set, 
+    // meaning moving i to right until j char is not present
+    // axybcba
+    // when 2nd b hits, remove axyb using while, thats y 2n
     public int lengthOfLongestSubstring2(String s) {
-        Map<Character, Integer> map = new HashMap();
         int max = 0;
+        Set<Character> set = new HashSet();
         for(int i=0,j=0;j<s.length();j++){
-            map.put(s.charAt(j), map.getOrDefault(s.charAt(j),0)+1);
-            while(map.get(s.charAt(j))>1){
-                map.put(s.charAt(i),map.get(s.charAt(i))-1);
-                i++;
-            }
+            while(set.contains(s.charAt(j)))
+                set.remove(s.charAt(i++));
+            set.add(s.charAt(j));
             max = Math.max(max, j-i+1);
         }
         return max;
@@ -62,16 +62,20 @@ public class LongestSubstringWithoutRepeatingChar {
     
     // Time complexity : O(n). Index j will iterate n times.
     // Space complexity : O(min(m,n)). Same as the previous approach.
-    // approach: put index of char into map
+    // approach: put next index of char into map
     // if map contains key, move i to right max of i or index presnt in map
+    //abcba
+    // when b hits, bs idx in map is 2,  i=max(0,2)=2
+    // when a hits as idx in map is 1    i=max(2,1)=2
     public int lengthOfLongestSubstring3(String s) {
         Map<Character, Integer> map = new HashMap();
         int max = 0;
         for(int i=0,j=0;j<s.length();j++){
-            if (map.containsKey(s.charAt(j)))
-                i = Math.max(map.get(s.charAt(j)),i);
+            char c = s.charAt(j);
+            if (map.containsKey(c))
+                i = Math.max(map.get(c),i);
             max = Math.max(max, j-i+1);
-            map.put(s.charAt(j), j+1);
+            map.put(c, j+1);
         }
         return max;
     }
@@ -82,13 +86,14 @@ public class LongestSubstringWithoutRepeatingChar {
     // using Integer so that we can use null checks as contains
     // if char present, move i to right if is less that new index
     public int lengthOfLongestSubstring4(String s) {
-        Integer map[] = new Integer[128];
         int max = 0;
+        Integer[] map = new Integer[128];
         for(int i=0,j=0;j<s.length();j++){
-            if(map[s.charAt(j)]!=null && i<map[s.charAt(j)])
-                i=map[s.charAt(j)];
-            max = Math.max(max,j-i+1);
-            map[s.charAt(j)] = j+1;
+            char c = s.charAt(j);
+            if(map[c]!=null)
+                i = Math.max(i,map[c]);
+            map[c]=j+1;
+            max = Math.max(max, j-i+1);
         }
         return max;
     }

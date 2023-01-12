@@ -16,7 +16,7 @@ public class ThreeSum {
     
     // Time O(n^3logk+nlogn) SC: O(K) - k is the number of unique triplets
     // brute force
-    // even brute force requires set as we need only uniq triplets
+    // even brute force requires set ans sort as we need only uniq triplets
     public List<List<Integer>> threeSum(int[] nums) {
         Set<List<Integer>> set = new HashSet();
         Arrays.sort(nums);
@@ -51,25 +51,53 @@ public class ThreeSum {
     
     // TC: O(n ^ 2), SC: O(k) - k is the number of unique triplets
     // Auxiliary space: O(1)
-    // approach: two pointer with skips for equal values, skipping at 3 places, i ,lo, hi
-    // to move lo and hi if next/prev value is same,we refer with whats in triplet to avoid temp variables
+    // approach: two pointer with skips for equal values, skipping at 3 places, i ,lo, hi 
     // if totl sum<0 move lo to right else move hi to left
+    // and if sum is zero store tiplet in var ans add to ans
+    // we can use value in triplet to skip same values for l and r refering to triplet 
+    // -6,1,1,1,1,5,5,5,5
+    // -6,1,5  we have to skip all 1s and all 5s so we need to compare l and r from triplet, and move until new value is found, also array is sorted
     // loop stopped with len -2 coz u cant make a tripletwith 2 nums
     public List<List<Integer>> threeSum3(int[] nums) {
-        List<List<Integer>> ans = new ArrayList();
+        Set<List<Integer>> ans = new HashSet();
         Arrays.sort(nums);
         for(int i=0;i<nums.length-2;i++){
-            if(i==0 || nums[i]!=nums[i-1]){
-                int lo = i+1,hi = nums.length-1;
-                while(lo<hi){
-                    if((nums[i]+nums[lo]+nums[hi])==0){
-                        List<Integer> triplet = Arrays.asList(nums[i],nums[lo],nums[hi]);
-                        ans.add(triplet);
-                        while(lo<hi && nums[lo]==triplet.get(1))lo++;
-                        while(lo<hi && nums[hi]==triplet.get(2))hi--;
+            if(i==0||nums[i]!=nums[i-1]){
+                int l=i+1,r=nums.length-1;
+                while(l<r){
+                    int sum  = nums[i]+nums[l]+nums[r];
+                    if(sum<0) l++;
+                    else if (sum>0) r--;
+                    else {
+                        List<Integer> trip = Arrays.asList(nums[i],nums[l++],nums[r--]);
+                        ans.add(trip);
+                        while(l<r&&nums[l]==trip.get(1)) l++;
+                        while(l<r&&nums[r]==trip.get(2)) r--;
                     }
-                    else if(nums[i]+nums[lo]+nums[hi]<0)lo++;
-                    else hi--;
+                }
+            }
+        }
+        return new ArrayList(ans);
+    }
+    
+    // approach: two pointer with skips for equal values, skipping at 3 places, i ,lo, hi 
+    // if totl sum<0 move lo to right else move hi to left
+    // and if sum is zero add to and and move both l anr r as we dont want that combo again
+    // but both next values can be same but set takes care of it
+    // loop stopped with len -2 coz u cant make a tripletwith 2 nums
+    // -6,1,1,1,1,5,5,5,5
+    // -6,1,5, we just do l++ and r--, so -6,1,5 comes again and again and set takes care
+    public List<List<Integer>> threeSum4(int[] nums) {
+        Set<List<Integer>> ans = new HashSet();
+        Arrays.sort(nums);
+        for(int i=0;i<nums.length-2;i++){
+            if(i==0||nums[i]!=nums[i-1]){
+                int l=i+1,r=nums.length-1;
+                while(l<r){
+                    int sum  = nums[i]+nums[l]+nums[r];
+                    if(sum<0) l++;
+                    else if (sum>0) r--;
+                    else ans.add(Arrays.asList(nums[i],nums[l++],nums[r--]));
                 }
             }
         }
