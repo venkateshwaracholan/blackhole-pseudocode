@@ -23,18 +23,28 @@ public class LongestConsecutiveSequence {
         int max = 0;
         for(int n:nums){
             int c = 1, cur = n+1;
-            while(contains(nums,cur++)){
-                c++;
-            }
+            while(contains(nums,cur++)) c++;
             max = Math.max(max, c);
         }
         return max;
     }
-
     public boolean contains(int nums[], int n){
         for(int i:nums)
             if(n==i) return true;
         return false;
+    }
+    // optimising above with set
+    // Time O(n^2) space: O(n)
+    public int longestConsecutive2(int[] nums) {
+        int max = 0;
+        Set<Integer> set = new HashSet();
+        for(int n: nums) set.add(n);
+        for(int n:nums){
+            int c = 1, next = n+1;
+            while(set.contains(next++)) c++;
+            max = Math.max(max,c);
+        }
+        return max;
     }
     
     

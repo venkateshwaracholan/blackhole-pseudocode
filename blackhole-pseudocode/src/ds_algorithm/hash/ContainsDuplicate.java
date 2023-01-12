@@ -16,6 +16,14 @@ import java.util.stream.IntStream;
 
 public class ContainsDuplicate {
     
+    //TLE
+    // Time O(n*n) space O(1)
+    public boolean containsDuplicateBrute(int[] nums) {
+        for(int i=0;i<nums.length;i++)
+            for(int j=i+1;j<nums.length;j++)
+                if(nums[i]==nums[j]) return true;
+        return false;
+    }
     
     // Time O(n) space O(n)
     //approach: hashset, check if present an add into set
