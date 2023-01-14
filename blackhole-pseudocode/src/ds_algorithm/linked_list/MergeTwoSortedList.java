@@ -8,6 +8,7 @@ package ds_algorithm.linked_list;
  *
  * @author venka
  */
+import java.util.*;
 
 // https://leetcode.com/problems/merge-two-sorted-lists/description/
 
@@ -55,7 +56,7 @@ public class MergeTwoSortedList {
     
     
     //
-    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+    public ListNode mergeTwoLists3(ListNode l1, ListNode l2) {
         ListNode w = new ListNode();
         ListNode cur = w;
         while(l1!=null && l2!=null){
@@ -72,9 +73,28 @@ public class MergeTwoSortedList {
         return w.next;
     }
     
+    //
+    public ListNode mergeTwoLists4(ListNode list1, ListNode list2) {
+        ListNode dummy = new ListNode();
+        ListNode cur = dummy;
+        while(list1!=null||list2!=null){
+            int v1 = list1!=null?list1.val:Integer.MAX_VALUE;
+            int v2 = list2!=null?list2.val:Integer.MAX_VALUE;
+            if(v1<v2){
+                cur.next= list1;
+                list1=list1!=null?list1.next:list1;
+            }else{
+                cur.next= list2;
+                list2=list2!=null?list2.next:list2;
+            }
+            cur = cur.next;
+        }
+        return dummy.next;
+    }
+    
     
     //
-    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+    public ListNode mergeTwoLists5(ListNode l1, ListNode l2) {
         ListNode root = null, cur = null;
         while(l1!=null || l2!=null){
             int v1 = l1!=null ? l1.val : Integer.MAX_VALUE;

@@ -38,6 +38,7 @@ public class ReverseLinkedList {
     
     // Time O(n) space: O(n) n in call stack
     // same aas above, just recursive
+    // top down
     public ListNode reverseList(ListNode head) {
         return reverseList(null, head);
     }
@@ -47,6 +48,17 @@ public class ReverseLinkedList {
         ListNode next = cur.next;
         cur.next = prev;
         return reverseList(cur, next);
+    }
+    
+    // bottom up
+    public ListNode reverseList2(ListNode head) {
+        return reverseList2(head,null);
+    }
+    public ListNode reverseList2(ListNode head, ListNode prev) {
+        if(head==null) return null;
+        ListNode x = reverseList2(head.next,head);
+        head.next = prev;
+        return x==null?head:x;
     }
     
     

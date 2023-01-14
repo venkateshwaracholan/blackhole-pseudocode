@@ -74,27 +74,20 @@ public class ValidParantheses {
         return st.isEmpty();
     }
   
-    // lamer version of above
+    // 
     public boolean isValid3(String s) {
-          Stack<Character> st = new Stack();
-          Map<Character,Character> m = new HashMap<>();
-          m.put(')', '(');
-          m.put('}', '{');
-          m.put(']', '[');
-          for(int i=0;i<s.length();i++){
-              char c = s.charAt(i);
-              if(c == '{' || c == '[' || c == '('){
-                  st.add(c);
-              }else{
-                  if(st.isEmpty())
-                      return false;
-                  char top = st.peek();
-                  if(top!=m.get(c))
-                      return false;
-                  st.pop();
-              }
-          }
-          return st.isEmpty();
-      }
+        if(s.length()%2!=0) return false;
+        Map<Character,Character> map = new HashMap();
+        map.put(')','(');
+        map.put(']','[');
+        map.put('}','{');
+        Stack<Character> st = new Stack();
+        for(int i=0;i<s.length();i++){
+            char c = s.charAt(i);
+            if(!map.containsKey(c)) st.add(c);
+            else if(st.isEmpty()||st.pop()!=map.get(c)) return false;
+        }
+        return st.isEmpty();
+    }
   
 }
