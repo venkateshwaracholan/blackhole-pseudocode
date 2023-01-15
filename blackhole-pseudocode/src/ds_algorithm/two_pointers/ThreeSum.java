@@ -17,6 +17,7 @@ public class ThreeSum {
     // Time O(n^3logk+nlogn) SC: O(K) - k is the number of unique triplets
     // brute force
     // even brute force requires set ans sort as we need only uniq triplets
+    // TLE
     public List<List<Integer>> threeSum(int[] nums) {
         Set<List<Integer>> set = new HashSet();
         Arrays.sort(nums);
@@ -33,7 +34,7 @@ public class ThreeSum {
     
     // TC: O(n * logn) + O(n^2 * logk) => O(n^2 * logk)
     // SC: O(K) - k is the number of unique triplets
-    // Optimizing to the brute force (using HashSet) - TLE:
+    // Optimizing to the brute force (using HashSet):
     public List<List<Integer>> threeSum2(int[] nums) {
         Set<List<Integer>> ans = new HashSet();
         Arrays.sort(nums);

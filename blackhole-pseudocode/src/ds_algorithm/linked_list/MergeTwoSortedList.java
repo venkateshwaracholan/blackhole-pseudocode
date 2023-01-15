@@ -11,7 +11,6 @@ package ds_algorithm.linked_list;
 import java.util.*;
 
 // https://leetcode.com/problems/merge-two-sorted-lists/description/
-
 public class MergeTwoSortedList {
     
     
@@ -92,8 +91,7 @@ public class MergeTwoSortedList {
         return dummy.next;
     }
     
-    
-    //
+    // without dummy head node
     public ListNode mergeTwoLists5(ListNode l1, ListNode l2) {
         ListNode root = null, cur = null;
         while(l1!=null || l2!=null){
@@ -112,5 +110,40 @@ public class MergeTwoSortedList {
             }   
         }
         return root;
+    }
+    
+    //if u dont understand above, read this, dont waste time
+    // 
+    public ListNode mergeTwoLists6(ListNode list1, ListNode list2) {
+        ListNode dummy = null;
+        ListNode cur = null;
+        while(list1!=null||list2!=null){
+            int v1 = list1!=null?list1.val:Integer.MAX_VALUE;
+            int v2 = list2!=null?list2.val:Integer.MAX_VALUE;
+            if(v1<v2){
+                if(dummy==null) dummy=cur=list1; 
+                else {
+                    cur.next= list1;
+                    cur=cur.next;
+                }
+                list1=list1!=null?list1.next:list1;
+            }else{
+                if(dummy==null) dummy=cur=list2; 
+                else {
+                    cur.next= list2;
+                    cur=cur.next;
+                }
+                cur=list2;
+                list2=list2!=null?list2.next:list2;
+            }
+        }
+        return dummy;
+    }
+    
+    
+    public static void main(String[] args){
+        System.out.println("HAHAH");
+        ListNode l= new ListNode(0);
+        System.out.println(l.val);
     }
 }

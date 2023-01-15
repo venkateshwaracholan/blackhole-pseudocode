@@ -8,7 +8,7 @@ package ds_algorithm.linked_list;
  *
  * @author venka
  */
-public class ListNode {
+public class ListNode{
     int val;
     ListNode next;
     ListNode() {}

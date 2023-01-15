@@ -44,25 +44,24 @@ public class ReorderList {
     // using ListNode[] to safely take head inside
     // remapping
     // exit condition lef[0].next==right make left[0].next as null, for odd the nodes match, for even it will point to self
+    // thats y we have a if(left[0].next!=null) for exit
     public void reorderList(ListNode head) {
-        ListNode left[] = new ListNode[1];
-        left[0]=head;
-        reorder(left,head);
+        reorderList(head, new ListNode[]{head});
     }
-    public void reorder(ListNode left[], ListNode right){
-        if(right==null) return;
-        reorder(left, right.next);
+    public void reorderList(ListNode right, ListNode left[]) {
+        if(right==null)return;
+        reorderList(right.next, left);
         if(left[0].next!=null){
             ListNode next = left[0].next;
             left[0].next = right;
             right.next = next;
-            left[0] = next;
+            left[0]=next;
         }
-        if(left[0].next==right) left[0].next=null;
+        if(left[0].next==right) left[0].next = null;
     }
     
     
-    //  Time O(n) space: o(1)
+    //  Time O(n) space: o(1) Iterative
     //first find mid using slw and fast pointers
     // the reverse from mid to n, get midnext, make mid.next to null
     // then merge two lists head, midnext
@@ -97,13 +96,6 @@ public class ReorderList {
     // 5 4 n
     
     //same as above alternate merge strategy
-    public ListNode reverse(ListNode cur){
-        if(cur==null || cur.next==null) return cur;
-        ListNode h = reverse(cur.next);
-        cur.next.next = cur;
-        cur.next = null;
-        return h;
-    }
     public void reorderList(ListNode head) {
         ListNode cur=head,slow=head,fast=head;
         while(fast.next!=null && fast.next.next!=null){
@@ -119,5 +111,12 @@ public class ReorderList {
             cur= midnext;
             midnext = cnext;
         }
+    }
+    public ListNode reverse(ListNode cur){
+        if(cur==null || cur.next==null) return cur;
+        ListNode h = reverse(cur.next);
+        cur.next.next = cur;
+        cur.next = null;
+        return h;
     }
 }

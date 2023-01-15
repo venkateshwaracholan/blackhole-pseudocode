@@ -23,7 +23,7 @@ public class MergeKSortedLinkedList {
     // if its null rmove from l,else set next to min pos in l
     public ListNode mergeKLists(ListNode[] lists) {
         ListNode dummy = new ListNode(1);
-        ListNode ans = dummy;
+        ListNode cur = dummy;
         List<ListNode> l = new ArrayList();
         for(int i=0;i<lists.length;i++)
             if(lists[i]!=null) 
@@ -32,14 +32,12 @@ public class MergeKSortedLinkedList {
             int mi = 0;
             for(int i=0;i<l.size();i++)
                 if(l.get(i).val<l.get(mi).val) mi = i;
-            ListNode ch = l.get(mi); 
-            dummy.next = ch;
-            dummy = ch;
-            ch = ch.next;
-            if(ch==null) l.remove(mi);
-            else l.set(mi, ch);
+            cur.next = l.get(mi);
+            cur=cur.next;
+            l.set(mi,l.get(mi).next);
+            if(l.get(mi)==null) l.remove(mi);
         }
-        return ans.next;
+        return dummy.next;
     }
     
     // Time O(nk) space: O(k)
@@ -47,22 +45,20 @@ public class MergeKSortedLinkedList {
     // using null counts for exit
     // so starting loop made infinite
     public ListNode mergeKLists(ListNode[] lists) {
-        ListNode dummy = new ListNode(1);
-        ListNode ans = dummy;
+        ListNode dummy = new ListNode();
+        ListNode cur = dummy;
         while(true){
-            int mi = 0, nc = 0;
+            int mi=0, nc=0;
             for(int i=0;i<lists.length;i++){
                 if(lists[i]==null) {
-                    nc++; continue;
+                    nc++;continue;
                 }
-                if(lists[mi]==null || lists[i].val<lists[mi].val) mi = i;
+                if(lists[mi]==null||lists[i].val<lists[mi].val) mi=i;
             }
-            if(nc==lists.length) return ans.next;
-            ListNode ch = lists[mi]; 
-            dummy.next = ch;
-            dummy = ch;
-            ch = ch.next;
-            lists[mi] = ch;
+            if(nc==lists.length) return dummy.next;
+            cur.next = lists[mi];
+            cur = cur.next;
+            lists[mi] = lists[mi].next;
         }
     }
     
@@ -74,17 +70,16 @@ public class MergeKSortedLinkedList {
     // add in minheap if min's next is not null
     public ListNode mergeKLists(ListNode[] lists) {
         ListNode dummy = new ListNode(1);
-        ListNode ans = dummy;
-        Queue<ListNode> minHeap = new PriorityQueue<>((a,b) -> a.val-b.val);
-        for(ListNode n:lists) 
-            if(n!=null) minHeap.add(n);
-        while(minHeap.size()>0){
-            ListNode min = minHeap.poll();
-            dummy.next = min;
-            dummy = min;
-            if(min.next!=null) minHeap.add(min.next);
+        ListNode cur = dummy;
+        Queue<ListNode> minheap = new PriorityQueue<>((a,b)->a.val-b.val);
+        for(int i=0;i<lists.length;i++)
+            if(lists[i]!=null) minheap.add(lists[i]);
+        while(minheap.size()>0){
+            cur.next = minheap.poll();
+            cur=cur.next;
+            if(cur.next!=null) minheap.add(cur.next);
         }
-        return ans.next;
+        return dummy.next;
     }
     
     

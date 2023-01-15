@@ -58,7 +58,6 @@ public class SearchRotatedSortedArray {
     public int search2(int[] nums, int target) {
         int l = 0, r = nums.length-1;
         int k = rot(nums, l, r);
-        System.out.println(k);
         if(k==0) return binarySearch(nums, l ,r, target);
         else if(target>=nums[l]) return binarySearch(nums, l, k-1, target);
         else return binarySearch(nums, k, r, target);

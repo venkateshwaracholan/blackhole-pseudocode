@@ -40,7 +40,7 @@ public class SameTree {
     
     
     
-    //
+    // critical, allowe nulls to pass on to queue to solve this easily
     public boolean isSameTree5(TreeNode p, TreeNode q) {
         Queue<TreeNode> x= new LinkedList();
         x.add(p);
@@ -64,7 +64,7 @@ public class SameTree {
     
     
     
-    //
+    // this is worst way of doing this prob, too many checks, dont learn this, learn the above and move on
     public boolean isSameTree6(TreeNode p, TreeNode q) {
         Queue<TreeNode> x= new LinkedList();
         Queue<TreeNode> y= new LinkedList();
