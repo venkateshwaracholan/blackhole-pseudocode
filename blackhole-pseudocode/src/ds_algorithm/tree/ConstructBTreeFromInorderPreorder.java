@@ -29,7 +29,7 @@ public class ConstructBTreeFromInorderPreorder {
 
     // Time: O(n) space O(n)
     //Core Idea: recursion and use inorder's index as a map for order
-    // skip placing if its idex is not in the range
+    // skip placing if its index is not in the range
     // use idx[] to keep track of the cur el index in rec
     // readjust range in every recursion just like the preorder bst problem
     public TreeNode buildTree(int[] preorder, int[] inorder) {
@@ -37,7 +37,6 @@ public class ConstructBTreeFromInorderPreorder {
         for(int i=0;i<inorder.length;i++) m.put(inorder[i],i);
         return buildTree(preorder,m, 0, preorder.length-1,new int[1]);
     }
-
     public TreeNode buildTree(int[] p, Map<Integer, Integer> m, int l, int r, int[] i) {
         if(l>r) return null;
         int idx = m.get(p[i[0]]);
@@ -47,24 +46,17 @@ public class ConstructBTreeFromInorderPreorder {
         n.right=buildTree(p,m,idx+1,r,i);
         return n;
     }
-    
-
-    // this, on the other hand, is the exact code we wrote for construct bst from preorder, 
-    //  and instead of the val itself I use the index to decide the order  
-    public static TreeNode recursionBstWay(int preorder[], Map<Integer, Integer> map, int lower, int upper, int idx[]){
-        if(idx[0]==preorder.length) return null;
-        int val = preorder[idx[0]];
-        int index = map.get(val);
-        if(index < lower || index>upper) return null;  
-        TreeNode n = new TreeNode(val);
-        idx[0]++;
-        n.left = recursionBstWay(preorder, map, lower, index-1, idx);
-        n.right = recursionBstWay(preorder, map,index+1, upper, idx);
+    // same as above, just checks change
+    public static TreeNode recursionBstWay(int p[], Map<Integer, Integer> m, int l, int r, int i[]){
+        if(i[0]==p.length) return null;
+        int idx = m.get(p[i[0]]);
+        if(idx < l || idx>r) return null;  
+        TreeNode n = new TreeNode(p[i[0]++];);
+        n.left = recursionBstWay(p, m, l, idx-1, i);
+        n.right = recursionBstWay(p, m,idx+1, r, i);
         return n;
     }
-
     public static TreeNode buildTreeBstWay(int[] preorder,int inorder[]){
-      if(preorder.length == 0 || preorder.length!=inorder.length) return null;
       Map<Integer, Integer> map = new HashMap();
       for(int i=0;i<inorder.length;i++) map.put(inorder[i], i);
       return recursionBstWay(preorder, map, 0, preorder.length-1, new int[]{0});
@@ -76,6 +68,9 @@ public class ConstructBTreeFromInorderPreorder {
     //  first craete node from 1sst el in pr
     // craete val to index map using inroder
     // the iterate rest and call buildtree passing root, val and map
+    // if pos of p < pos of n val then check if left is null and place there
+    // else pass left to rec with p again to find a suitable place
+    // vice versa
     public TreeNode buildTree(int[] preorder, int[] inorder) {
         Map<Integer, Integer> m = new HashMap(0);
         for(int i=0;i<inorder.length;i++) m.put(inorder[i],i);
@@ -84,32 +79,27 @@ public class ConstructBTreeFromInorderPreorder {
             buildTree(n,preorder[i],m);
         return n;
     }
-    // if pos of p < pos of n val then check if left is null and place there
-    // else pass left to rec with p again to find a suitable place
-    // vice versa
-    public TreeNode buildTree(TreeNode n, int p, Map<Integer, Integer> m) {
+    public void buildTree(int p, Map<Integer,Integer> m, TreeNode n) {
         if(m.get(p)<m.get(n.val)){
-            if(n.left==null) n.left= new TreeNode(p);
-            else n.left=buildTree(n.left,p,m);
+            if(n.left==null) n.left = new TreeNode(p);
+            else buildTree(p,m,n.left);
         }else{
-            if(n.right==null) n.right= new TreeNode(p);
-            else n.right=buildTree(n.right,p,m);
+            if(n.right==null) n.right = new TreeNode(p);
+            else buildTree(p,m,n.right);
         }
-        return n;
     }
   
     
     
-    // using inorder traversal
+    // using inorder traversal -> left root right
     // we use a boundary
     // for left we pass val as boundary
-    // for right we pass parent val as boundary
+    // for right we pass inf as boundary
     // when left most val matches int[0] return null;
     // increment i in the inroder block
     public TreeNode buildTree(int[] preorder, int[] inorder) {
         return buildTree(preorder,inorder, new int[1], new int[1],Integer.MAX_VALUE);
     }
-
     public TreeNode buildTree(int[] pr, int[] in, int[] p, int[] i, int b) {
         if(p[0]==pr.length || b==in[i[0]]) return null;
         TreeNode n = new TreeNode(pr[p[0]++]);

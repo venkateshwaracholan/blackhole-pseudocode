@@ -17,98 +17,74 @@ public class FindMedianFromDataStream {
     //    Time Complexity: O(nlogn)
     //    Space Complexity: O(n)
     class MedianFinder {
-        PriorityQueue<Integer> left,right;
-        public MedianFinder() {
-            left = new PriorityQueue<Integer>((a,b)->b-a);
-            right = new PriorityQueue<Integer>((a,b)->a-b);
-        }
+        Queue<Integer> right = new PriorityQueue<>((a,b)->a-b);
+        Queue<Integer> left = new PriorityQueue<>((a,b)->b-a);
         public void addNum(int num) {
-            if(left.isEmpty()||num<left.peek())  
-                left.add(num);
-            else 
-                right.add(num);
-            if(right.size()>left.size())
-                left.add(right.poll());
-            else if(left.size()>right.size()+1)
-                right.add(left.poll());
+            if(left.size()==0||num<left.peek()) left.add(num);
+            else right.add(num);
+            if(right.size()>left.size()) left.add(right.poll());
+            else if(left.size()>right.size()+1) right.add(left.poll());
         }
         public double findMedian() {
-            if(left.size()==right.size())
-                return (left.peek()+right.peek())/2.0;
-            else
-                return (double)left.peek();
+            if((left.size()+right.size())%2==1) return (double)left.peek();
+            else return (left.peek()+right.peek())/2.0;
         }
     }
     // same as above, diff logics, 3 checks in findMedian is due to resizing logics like right.size()-left.size()==2 etc
-    class MedianFinder2 {
-        PriorityQueue<Integer> left,right;
-        public MedianFinder2() {
-            left = new PriorityQueue<Integer>((a,b)->b-a);
-            right = new PriorityQueue<Integer>((a,b)->a-b);
-        }
+    class MedianFinder2{
+        Queue<Integer> right = new PriorityQueue<>((a,b)->a-b);
+        Queue<Integer> left = new PriorityQueue<>((a,b)->b-a);
         public void addNum(int num) {
-            if(left.size()>0&&num<left.peek())  
-                left.add(num);
-            else 
-                right.add(num);
-            if(right.size()-left.size()==2)
-                left.add(right.poll());
-            else if(left.size()-right.size()==2)
-                right.add(left.poll());
+            if(left.size()==0||num<left.peek()) left.add(num);
+            else right.add(num);
+            if(right.size()-left.size()==2) left.add(right.poll());
+            else if(left.size()-right.size()==2) right.add(left.poll());
         }
         public double findMedian() {
-            if(left.size()==right.size())
-                return (left.peek()+right.peek())/2.0;
-            else if(left.size()>right.size())
-                return (double)left.peek();
-            else 
-                return (double)right.peek();
+            if(left.size()>right.size()) return (double)left.peek();
+            else if(right.size()>left.size()) return (double)right.peek();
+            else return (left.peek()+right.peek())/2.0;
         }
     }
     
-    //
+    // using size to check if its odd or even
+    // for even, put an right and move to left
+    // for odd put in left and move to right
     class MedianFinder3 {
-        PriorityQueue<Integer> left,right;
-        public MedianFinder3() {
-            left = new PriorityQueue<Integer>((a,b)->b-a);
-            right = new PriorityQueue<Integer>((a,b)->a-b);
-        }
+        Queue<Integer> right = new PriorityQueue<>((a,b)->a-b);
+        Queue<Integer> left = new PriorityQueue<>((a,b)->b-a);
         public void addNum(int num) {
-            if((left.size()+right.size())%2==0){
+            if(left.size()==right.size()) {
                 right.add(num);
                 left.add(right.poll());
-            }
-            else{
+            }else{
                 left.add(num);
-                right.add(left.poll()); 
+                right.add(left.poll());
             }
         }
         public double findMedian() {
-            if(left.size()==right.size())
-                return (left.peek()+right.peek())/2.0;
-            else
-                return (double)left.peek();
+            if(left.size()==right.size()) return (left.peek()+right.peek())/2.0;
+            else return (double)left.peek();
         }
     }
     
     
-    //
+    // takes double memory
+    // for 1,2,3 input
+    // left  1,1,2   max heap so head is end 2
+    // right 2,3,3   min heap so head is start 2
     class MedianFinder4 {
-        PriorityQueue<Integer> left = new PriorityQueue<Integer>((a,b)->b-a);
-        PriorityQueue<Integer> right = new PriorityQueue<Integer>((a,b)->a-b);
+        Queue<Integer> left = new PriorityQueue<Integer>((a,b)->b-a);
+        Queue<Integer> right = new PriorityQueue<Integer>((a,b)->a-b);
         public void addNum(int num) {
             left.add(num);
             right.add(left.poll()); 
-            if(right.size()>left.size()){
-                right.add(num);
-                left.add(right.poll());
-            }
+            right.add(num);
+            left.add(right.poll());
         }
         public double findMedian() {
-            if(left.size()==right.size())
-                return (left.peek()+right.peek())/2.0;
-            else
-                return (double)left.peek();
+            if(left.size()==right.size()) return (left.peek()+right.peek())/2.0;
+            else return (double)left.peek();
         }
     }
     
@@ -128,14 +104,15 @@ public class FindMedianFromDataStream {
     
     //
     class MedianFinder6 {
-        Queue[] q = {new PriorityQueue(), new PriorityQueue(Collections.reverseOrder())};
-        int i = 0;
+        //Queue[] q = {new PriorityQueue(), new PriorityQueue(Collections.reverseOrder())};
+        Queue<Integer>[] q = new Queue[]{new PriorityQueue<Integer>((a,b)->b-a),new PriorityQueue<Integer>((a,b)->a-b)};
+        int i=0;
         public void addNum(int num) {
             q[i].add(num);
             q[i^=1].add(q[i^1].poll());
         }
-        public double findMedian() {
-            return ((int)(q[1].peek()) + (int)(q[i].peek())) / 2.0;
+        public double findMedian(){
+            return (q[i].peek()+q[1].peek())/2.0;
         }
     }
     
@@ -165,38 +142,32 @@ public class FindMedianFromDataStream {
         }
     }
     
-    //
+    // using treeset keys to sort
+    // and maintain l and r pointers
+    // 2 cases 
+    // l==r (odd) if new val is placed left, move l to left, vice versa
+    // l!=r (even) if val placed left, r=l, val plcaed right, l=r, else l=r=n
     class MedianFinder8 {
         Comparator<int[]> comp = ((a,b) -> a[0]==b[0] ? a[1]-b[1]:a[0]-b[0]);
-        TreeSet<int[]> treeset= new TreeSet(comp);
-        int[] lower = null, upper=null;
+        TreeSet<int[]> ts = new TreeSet(comp);
+        int[] l=null, r=null;
         int i=0;
         public void addNum(int num) {
-            int[] t = new int[]{num,i++}; 
-            treeset.add(t);
-            if(treeset.size()==1)
-                lower = upper = t;
-            else if(lower==upper){
-                if(comp.compare(t,lower)<0){
-                    upper=lower;
-                    lower=treeset.lower(lower);
-                }else{
-                    lower=upper;
-                    upper= treeset.higher(upper);
-                }
+            int[] n = new int[]{num,i++};
+            ts.add(n);
+            if(ts.size()==1) l=r=n;
+            else if(l==r){
+                if(comp.compare(n,l)<0) l=ts.lower(l);
+                else r=ts.higher(r);
             }else{
-                if(comp.compare(t,lower)<0)
-                    upper=lower;
-                else if(comp.compare(t,upper)>0)
-                    lower=upper;
-                else{
-                    lower=upper=t;
-                }
+                if(comp.compare(n,l)<0) r=l;
+                else if(comp.compare(n,r)>0) l=r;
+                else l=r=n;
             }
         }
         public double findMedian() {
-            if(lower==null) return 0;
-            return (lower[0]+upper[0])/2.0;
+            if(l==null) return 0;
+            return (l[0]+r[0])/2.0;
         }
     }
 
@@ -243,7 +214,6 @@ public class FindMedianFromDataStream {
                 c+=count[idx];
                 if(m<=c) break;
             }
-            System.out.println(idx);
             if(size%2==1) return idx;
             if(m<c) return idx;
             for(int i=idx+1;i<101;i++)
@@ -264,8 +234,8 @@ public class FindMedianFromDataStream {
             size++;
         }
         public double findMedian() {
-            int m = size/2, idx = 0,first=0;
-            for(int i=lz;i<101;i++){
+            int m = size/2, idx = lz,first=0;
+            for(int i=0;i<101;i++){
                 for(int j=0;j<count[i];j++){
                     if(idx==m-1) first = i;
                     else if(idx==m){

@@ -46,36 +46,34 @@ public class DesignAddAndSearchWordsDataStructure {
     // DFS REC
     class WordDictionary {
         class TrieNode{
-            Map<Character,TrieNode> ch = new HashMap();
+            Map<Character,TrieNode> ch= new HashMap();
             boolean end = false;
         }
         TrieNode root = new TrieNode();
         public void addWord(String word) {
             addWord(word,0,root);
         }
-        public boolean addWord(String word, int i, TrieNode node) {
-            if(i==word.length())return node.end=true;;
+        public boolean addWord(String word, int i, TrieNode n) {
+            if(i==word.length()) return n.end = true;
             char c = word.charAt(i);
-            if(!node.ch.containsKey(c))
-                node.ch.put(c,new TrieNode());
-            return addWord(word,i+1,node.ch.get(c));
+            if(n.ch.get(c)==null)
+                n.ch.put(c,new TrieNode());
+            return addWord(word, i+1, n.ch.get(c));
         }
         public boolean search(String word) {
             return search(word,0,root);
         }
-        public boolean search(String word,int i,TrieNode node) {
-            if(i==word.length()) return node.end;
+        public boolean search(String word, int i, TrieNode n) {
+            if(i==word.length()) return n.end;
             char c = word.charAt(i);
-            if(c=='.'){
-                for(char x: node.ch.keySet())
-                    if(search(word,i+1,node.ch.get(x))) return true;
-            }else{
-                if(!node.ch.containsKey(c)) return false;
-                return node.ch.get(c)!=null && search(word,i+1,node.ch.get(c));
-            }
-            return false;
+            if(c=='.')
+                for(TrieNode x: n.ch.values())
+                    if(search(word,i+1,x)) return true; 
+            if(n.ch.get(c)==null) return false;
+            return search(word,i+1,n.ch.get(c));
         }
     }
+
     
     
     

@@ -8,30 +8,6 @@ package ds_algorithm.trie;
 // https://leetcode.com/problems/implement-trie-prefix-tree/
 import java.util.*;
 
-/*  printing Ternary search trie TST
-    public void print(){
-        Queue<TrieNode> q = new LinkedList();
-        q.add(root);
-        while(!q.isEmpty()){
-            int siz = q.size();
-            while(siz-->0){
-                TrieNode n = q.poll();
-                if(n==null){
-                    System.out.print("0 ");
-                    continue;
-                }
-                System.out.print(n.val+" ");
-                q.add(n.left);
-                q.add(n.mid);
-                q.add(n.right);
-            }
-            System.out.println("");
-        }
-    }
-
-
-*/
-
 public class ImplementTriePrefixTree {
     class Trie {
         class TrieNode{
@@ -172,6 +148,30 @@ public class ImplementTriePrefixTree {
             else return searchTrie(word,i,node.right,sw);
         }
     }
+    
+    /*  printing Ternary search trie TST
+    public void print(){
+        Queue<TrieNode> q = new LinkedList();
+        q.add(root);
+        while(!q.isEmpty()){
+            int siz = q.size();
+            while(siz-->0){
+                TrieNode n = q.poll();
+                if(n==null){
+                    System.out.print("0 ");
+                    continue;
+                }
+                System.out.print(n.val+" ");
+                q.add(n.left);
+                q.add(n.mid);
+                q.add(n.right);
+            }
+            System.out.println("");
+        }
+    }
+
+
+*/
 
 }
 

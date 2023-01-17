@@ -55,16 +55,16 @@ public class ReverseLinkedList {
         return reverseList2(head,null);
     }
     public ListNode reverseList2(ListNode head, ListNode prev) {
-        if(head==null) return null;
+        if(head==null) return prev;
         ListNode x = reverseList2(head.next,head);
         head.next = prev;
-        return x==null?head:x;
+        return x;
     }
     
     
     
   // 1,2,3,4,5
-    // Time O(n) space: O(n) n in call stack
+    // Time O(n) space: O(n) n in call stack, bottom up
     // base case cur==null or nu.next==null means last node or head is null
     // keep last node in x to return that
     // to rechain cur.next.next = cur meaning remapping cur's next to point to cur itself

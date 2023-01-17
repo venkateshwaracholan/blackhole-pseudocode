@@ -50,28 +50,40 @@ public class LowestCommonAncestor {
     // then while set not contains q, move queue up using map
     // return q
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        Map<TreeNode,TreeNode> map = new HashMap();
+        Set<TreeNode> pset = new HashSet();
+        paths(root,map,p,q);
+        map.put(root,null);
+        for(TreeNode t = p;t!=null;t=map.get(t))
+            pset.add(t);
+        while(!pset.contains(q)) q = map.get(q);
+        return q;
+    }
+    public void paths(TreeNode root, Map<TreeNode,TreeNode> map, TreeNode p, TreeNode q) {
+        if(root==null||map.containsKey(p)&&map.containsKey(q)) return;
+        map.put(root.left,root);
+        map.put(root.right,root);
+        paths(root.left,map,p,q);
+        paths(root.right,map,p,q);
+    }
+    
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         Queue<TreeNode> qu = new LinkedList();
         Map<TreeNode, TreeNode> map= new HashMap();
         qu.add(root);
         map.put(root,null);
         while(!map.containsKey(p) || !map.containsKey(q)){
             TreeNode n= qu.poll();
-            if(n.left!=null) {
-                qu.add(n.left);
-                map.put(n.left, n);
-            }
-            if(n.right!=null) {
-                qu.add(n.right);
-                map.put(n.right, n);
-            }
+            if(n==null) continue;
+            if(n.left!=null) map.put(n.left, n);
+            if(n.right!=null) map.put(n.right, n);
+            qu.add(n.left);
+            qu.add(n.right);
         }
         Set<TreeNode> set = new HashSet();
-        while(p!=null){
+        for(;p!=null;p=map.get(p))
             set.add(p);
-            p=map.get(p);
-        }
-        while(!set.contains(q))
-            q=map.get(q);
+        while(!set.contains(q)) q=map.get(q);
         return q;
     }
     
@@ -79,8 +91,10 @@ public class LowestCommonAncestor {
     
     // finding root to leaf paths and storing in arraylist
     // then iterate the paths to find common ancestor
+    // NOTE: if we try doing this iterative, we need more space to create the root to leaf path for p and q
+    // n arraylists with all parents or n stringbuilder with all parents is required
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        List<TreeNode> x=new ArrayList(),y=new ArrayList();
+       
         path(root,x,p);
         path(root,y,q);
         int i=0;
@@ -99,33 +113,32 @@ public class LowestCommonAncestor {
     
   
     //
-    //  using inorder traversal
+    //  using inorder traversal -> left root right
     //  if found assign to ancestor, and set ans level
     //  if found within subtree return ancetor;
     // else if node returns and moves up stack, set ans and ans levels accordingly
-    public static TreeNode lowestCommonAncestorIteDFS(TreeNode root, TreeNode a, TreeNode b){
-        Stack<TreeNode> stack = new Stack<>();
-        TreeNode ancestor = null;
-        int ancestorLevel = -1;
-        TreeNode node = root;
-        while (node != null || !stack.isEmpty()) {
-            while (node != null) {
-                stack.push(node);
-                node = node.left;
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        Stack<TreeNode> st = new Stack();
+        TreeNode n = root, anc =null;
+        int anclev = -1;
+        while(n!=null||!st.isEmpty()){
+            while(n!=null){
+                st.add(n);
+                n=n.left;
             }
-            root = stack.pop();
-            if (stack.size() < ancestorLevel) {
-                ancestor = root;
-                ancestorLevel = stack.size();
+            n = st.pop();
+            if(st.size()<anclev) {
+                anc = n;
+                anclev = st.size();
             }
-            if (root.val == a.val || root.val == b.val) {
-                if (ancestor != null) break;
-                ancestor = root;
-                ancestorLevel = stack.size();
+            if(p==n||q==n){
+                if(anc!=null) return anc;
+                anc = n;
+                anclev = st.size();
             }
-            node = root.right;
+            n=n.right;
         }
-        return ancestor;
+        return anc;
     }
   
   public  static void main(String[] args){

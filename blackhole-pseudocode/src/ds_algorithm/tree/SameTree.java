@@ -58,6 +58,22 @@ public class SameTree {
         }
         return true;
     }
+    // preorder -> root left right
+    // Building Preorder sequence, u can build pre or post with # and N 
+    // NOTE: inorder wont work
+    // TIme O(2n) space: O(2n)
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+        String ps = pre(p,new StringBuilder()).toString();
+        String qs = pre(q,new StringBuilder()).toString();
+        return ps.equals(qs);
+    }
+    public StringBuilder pre(TreeNode n, StringBuilder sb){
+        if(n==null) return sb.append("N");
+        sb.append('#').append(n.val);
+        pre(n.left,sb);
+        pre(n.right,sb);
+        return sb;
+    }
     
     
     

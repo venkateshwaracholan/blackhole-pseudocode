@@ -15,7 +15,13 @@ import ds_algorithm.Test;
  */
 // left root right
 // traversal is always relative to the root.
+ /*
+         1
+      2     3
+    4   5  6  7
 
+    4,2,5,1,6,3,7
+*/
 
 public class InOrderTraversal {
   
@@ -34,13 +40,6 @@ public class InOrderTraversal {
     return list;
   }
   
-  /*
-         1
-      2     3
-    4   5  6  7
-   8 9
-
-*/
 
   // The ides is to move to left most node upfront putting values in stack 
   // and placing the right node(even if it is null) in the n so that if it has a node will repeatedlytravel left

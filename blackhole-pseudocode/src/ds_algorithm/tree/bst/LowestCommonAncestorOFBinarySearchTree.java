@@ -29,14 +29,12 @@ public class LowestCommonAncestorOFBinarySearchTree {
     // Time O(logn) space:O(logn)
     // same above approadh in BFS
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        Queue<TreeNode> x=new LinkedList();
-        x.add(root);
-        while(!x.isEmpty()){
-            TreeNode n=x.poll();
-            if(p.val<n.val&&q.val<n.val)
-                x.add(n.left);
-            else if (p.val>n.val&&q.val>n.val)
-                x.add(n.right);
+        Queue<TreeNode> qu = new LinkedList();
+        qu.add(root);
+        while(!qu.isEmpty()){
+            TreeNode n = qu.poll();
+            if(n.val>p.val&&n.val>q.val) qu.add(n.left);
+            else if(n.val<p.val&&n.val<q.val) qu.add(n.right);
             else return n;
         }
         return root;

@@ -15,7 +15,7 @@ import java.util.*;
 public class WordSearch {
     
 
-    //
+    // tyhe below solution is better than this
     public boolean exist(char[][] board, String word) {
         for(int i=0;i<board.length;i++)
             for(int j=0;j<board[0].length;j++)
@@ -42,6 +42,7 @@ public class WordSearch {
     // To avoid confusion, T: O(r * c * (4 ^ w)), where r x c are the dimensions of the board.
     // optimised code and used board space instead of extra
     public boolean exist2(char[][] board, String word) {
+        if(!wordPresent(board,word)) return false;
         for(int i=0;i<board.length;i++)
             for(int j=0;j<board[0].length;j++)
                 if(exist2(board,word,i,j,0))
@@ -60,22 +61,56 @@ public class WordSearch {
         board[m][n] = c;
         return x;
     }
-    
-    
+    //NOTE: this is just a precheker and not the solution
     //to optimise further we can run a prechecker to see if all chars in word
-    // is present in matrix but too costly n*n*n
-    // i can do this better with frequency maps
-    public boolean checkWordCharactersInBoard(char[][] board, int rows, int cols, String word){              //   This method helped reducing Runtime further to only 55ms
-        List<Character> wordList = new LinkedList<Character>();
-        for(char ch : word.toCharArray()){ wordList.add(ch); }
-        for(int r = 0; r < rows; r++){
-            for(int c = 0; c < cols; c++){
-                char ch = board[r][c];
-                if(wordList.size() == 0){ return true; }
-                if(wordList.contains(ch) ){ wordList.remove((Character)ch); }                
+    // this check made it run Beats
+    //    98.64% time
+    //    98.5% memory
+    public boolean wordPresent(char[][] board, String word){
+        Map<Character,Integer> map = new HashMap();
+        for(int i=0;i<word.length();i++)
+            map.put(word.charAt(i),map.getOrDefault(word.charAt(i),0)+1);
+        for(int i=0;i<board.length;i++)
+            for(int j=0;j<board[0].length;j++)
+                if(map.containsKey(board[i][j])){
+                    if(map.get(board[i][j])>1) map.put(board[i][j],map.get(board[i][j])-1);
+                    else map.remove(board[i][j]);
+                }
+        return map.size()==0;
+    }
+    
+    
+    // TLE 
+    // word search in BFS, so memory heavy coz of nature of problem
+    public boolean exist(char[][] board, String word) {
+        if(!wordPresent(board,word)) return false;
+        int[][] dir = new int[][]{{-1,0},{1,0},{0,-1},{0,1}}; 
+        for(int i=0;i<board.length;i++)
+            for(int j=0;j<board[0].length;j++)
+                if(exist(board,word,i,j,dir)) return true;
+        return false;
+    }
+
+    public boolean exist(char[][] board, String word, int i, int j, int[][]dir) {
+        Queue<int[]> q = new LinkedList();
+        Queue<Set<Integer>> vis = new LinkedList();
+        q.add(new int[]{i,j,0});
+        vis.add(new HashSet());
+        while(!q.isEmpty()){
+            int[] x = q.poll();
+            Set<Integer> v = vis.poll();
+            int a=x[0],b=x[1],c=x[2];
+            if(c==word.length()) return true;
+            if(a==-1||a==board.length||b==-1||b==board[0].length) continue;
+            int rc = a*board[0].length+b;
+            if(v.contains(rc)) continue;
+            v.add(rc);
+            if(word.charAt(c)!=board[a][b]) continue;
+            for(int z=0;z<dir.length;z++){
+                q.add(new int[]{a+dir[z][0],b+dir[z][1],c+1});
+                vis.add(new HashSet(v));
             }
         }
-        if(wordList.size() == 0){ return true; }
         return false;
     }
 }

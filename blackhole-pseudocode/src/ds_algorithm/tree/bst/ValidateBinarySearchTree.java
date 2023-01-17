@@ -26,7 +26,33 @@ public class ValidateBinarySearchTree {
     }
     
     // Time O(n) space:O(n)
+    // BFS, and one more queue for storing limits for each node
+    // check if nodes are in rage else false
+    // we have to use long becoz of ques range, req some casting too
+    public boolean isValidBST(TreeNode root) {
+        Queue<TreeNode> q = new LinkedList();
+        Queue<Long[]> lim = new LinkedList();
+        q.add(root);
+        lim.add(new Long[]{Long.MIN_VALUE,Long.MAX_VALUE});
+        while(!q.isEmpty()){
+            TreeNode n = q.poll();
+            Long[] l = lim.poll();
+            if(n.val<=l[0]||n.val>=l[1]) return false;
+            if(n.left!=null){
+                q.add(n.left);
+                lim.add(new Long[]{l[0],(long)n.val});
+            }
+            if(n.right!=null){
+                q.add(n.right);
+                lim.add(new Long[]{(long)n.val,l[1]});
+            }
+        }
+        return true;
+    }
+    
+    // Time O(n) space:O(n)
     // approach: inorder traversal iterative
+    // using inorder traversal -> left root right
     // use a prev and check if cur val < prev val, then its not a bst
     public boolean isValidBST(TreeNode root) {
         Stack<TreeNode> s = new Stack();
@@ -62,29 +88,5 @@ public class ValidateBinarySearchTree {
     }
     
     
-    // Time O(n) space:O(n)
-    // BFS, and one more queue for storing limits for each node
-    // check if nodes are in rage else false
-    // we have to use long becoz of ques range, req some casting too
-    public boolean isValidBST(TreeNode root) {
-        Queue<TreeNode> q = new LinkedList();
-        Queue<Long[]> lim = new LinkedList();
-        q.add(root);
-        lim.add(new Long[]{Long.MIN_VALUE,Long.MAX_VALUE});
-        while(!q.isEmpty()){
-            TreeNode n = q.poll();
-            Long[] l = lim.poll();
-            if(n.val<=l[0]||n.val>=l[1]) return false;
-            if(n.left!=null){
-                q.add(n.left);
-                lim.add(new Long[]{l[0],(long)n.val});
-            }
-            if(n.right!=null){
-                q.add(n.right);
-                lim.add(new Long[]{(long)n.val,l[1]});
-            }
-        }
-        return true;
-    }
 
 }

@@ -25,7 +25,6 @@ public class BinaryTreeMaximumPathSum {
         maxPathSum(root, max);
         return max[0];
     }
-
     public int maxPathSum(TreeNode root, int[] max) {
         if(root==null) return 0;
         int l = Math.max(maxPathSum(root.left,max),0);
@@ -47,20 +46,17 @@ public class BinaryTreeMaximumPathSum {
     //   if we merge the statements above, it will chose to add everything rther than a path.
     //  local max x shount contain only val, val+l, val+r and not val + l + r to return back.
 
-    public int maxPathSumAlt(TreeNode root) {
-        int max[] = new int[]{Integer.MIN_VALUE};
-        maxPathSumAlt(root, max);
+    public int maxPathSum(TreeNode root) {
+        int[] max = new int[]{Integer.MIN_VALUE};
+        maxPathSum(root,max);
         return max[0];
     }
-
-    public int maxPathSumAlt(TreeNode root, int max[]) {
-        if(root == null) return 0;
-        int l = maxPathSumAlt(root.left,max);
-        int r = maxPathSumAlt(root.right,max);
-        if(l>0 && r>0)
-            max[0] = Math.max(max[0], root.val+l+r);
-        int x = Math.max(root.val, Math.max(root.val+l, root.val+r));
-        max[0] = Math.max(max[0], x);
+    public int maxPathSum(TreeNode root, int[] max) {
+        if(root==null) return 0;
+        int l = maxPathSum(root.left,max);
+        int r = maxPathSum(root.right,max);
+        int x = Math.max(root.val,Math.max(l+root.val,r+root.val));
+        max[0] = Math.max(max[0],Math.max(l+r+root.val,x));
         return x;
     }
   
@@ -68,7 +64,8 @@ public class BinaryTreeMaximumPathSum {
   
     // iterative approach
     //idea is to get the leaf nodes process first
-    // so putting in stack
+    // so putting in stack, we can also use arraylist and traverse in reverse order
+    // reversing can be done with both bfs and dfs, your choice
     // map.put(null,0) solves lot of null checks
     public int maxPathSum(TreeNode root) {
         Map<TreeNode,Integer> map = new HashMap();
@@ -77,7 +74,6 @@ public class BinaryTreeMaximumPathSum {
         Stack<TreeNode> s = topsort(root);
         while(!s.isEmpty()){
             TreeNode n = s.pop();
-            System.out.println(n.val);
             int l = Math.max(map.get(n.left),0);
             int r = Math.max(map.get(n.right),0);
             max = Math.max(max, n.val+l+r);
@@ -85,7 +81,6 @@ public class BinaryTreeMaximumPathSum {
         }
         return max;
     }
-
     public Stack<TreeNode> topsort(TreeNode root){
         Stack<TreeNode> ans = new Stack();
         Stack<TreeNode> s = new Stack();

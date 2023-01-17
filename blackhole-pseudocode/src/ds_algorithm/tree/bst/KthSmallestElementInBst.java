@@ -16,20 +16,6 @@ import java.util.*;
 
 public class KthSmallestElementInBst {
   
-
-  
-    // same as above with alt impl
-      public int kthSmallest(TreeNode root, int k) {
-        return kthSmallest(root, k, new int[1]);
-    }
-
-    public int kthSmallest(TreeNode root, int k, int[] i) {
-        if(root==null) return -1;
-        int x = kthSmallest(root.left,k,i);
-        if(x>-1) return x;
-        if(++i[0]==k) return root.val;
-        return kthSmallest(root.right,k,i);
-    }
     
     //  Time: O(n) space: O(n) rec - tree might not be balanced
     // using inorder traversal in bst will always return a sorted array
@@ -38,15 +24,24 @@ public class KthSmallestElementInBst {
     public int kthSmallest(TreeNode root, int k) {
         return kthSmallest(root,new int[]{0},k);
     }
-
     // alternatively we can also change i to k[] and decrement that and check k[0]==0 
     public Integer kthSmallest(TreeNode root, int i[], int k) {
         if(root==null) return null;
         Integer l = kthSmallest(root.left, i, k);
         if(l!=null)return l;
-        i[0]++;
-        if(k==i[0]) return root.val;
+        if(k==i[0]++) return root.val;
         return kthSmallest(root.right, i, k);
+    }
+    // same as above with alt impl
+    public int kthSmallest(TreeNode root, int k) {
+        return kthSmallest(root,new int[]{k});
+    }
+    public int kthSmallest(TreeNode root, int[] k) {
+        if(root==null) return -1;
+        int a = kthSmallest(root.left,k);
+        if(a!=-1) return a;
+        if(--k[0]==0) return root.val;
+        return kthSmallest(root.right,k);
     }
     
   

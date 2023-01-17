@@ -19,24 +19,23 @@ public class WordSearch2 {
     // T/S: O( n * RC * (4 ^ w))/O(n), where RC is number of cells and w is max word length, n is number of words
     class Solution {
         public List<String> findWords(char[][] board, String[] words) {
-            int m= board.length,n=board[0].length;
-            Set<String> res = new HashSet();
+            Set<String> ans = new HashSet();
             for(String word: words)
-                for(int i=0;i<m;i++)
-                    for(int j=0;j<n;j++)
-                        if(dfs(board,word,0,i,j))
-                            res.add(word);
-            return new ArrayList(res);
+                for(int i=0;i<board.length;i++)
+                    for(int j=0;j<board[0].length;j++)
+                        if(exist(board,word,i,j,0))
+                            ans.add(word);
+            return new ArrayList(ans);
         }
-        public boolean dfs(char[][] board,String word, int k, int i, int j){
-            if(k==word.length())  return true;
-            if(i==-1||i==board.length||j==-1||j==board[0].length||word.charAt(k)!=board[i][j]) return false;
+        public boolean exist(char[][] board, String word,int i, int j, int k) {
+            if(k==word.length()) return true;
+            if(i==-1||i==board.length||j==-1||j==board[0].length||board[i][j]=='#'||word.charAt(k)!=board[i][j]) return false;
             char c = board[i][j];
             board[i][j] = '#';
-            boolean x = dfs(board,word,k+1,i-1,j)||
-            dfs(board,word,k+1,i+1,j)||
-            dfs(board,word,k+1,i,j-1)||
-            dfs(board,word,k+1,i,j+1);
+            boolean x = exist(board,word,i-1,j,k+1)||
+                        exist(board,word,i+1,j,k+1)||
+                        exist(board,word,i,j-1,k+1)||
+                        exist(board,word,i,j+1,k+1);                  
             board[i][j] = c;
             return x;
         }
@@ -94,43 +93,40 @@ public class WordSearch2 {
     */
     class Solution3 {
         class TrieNode{
-            Map<Character,TrieNode> ch=new HashMap();
-            String word;
+            Map<Character,TrieNode> ch = new HashMap();
+            boolean end;
         }
+        TrieNode root= new TrieNode();
         public List<String> findWords(char[][] board, String[] words) {
-            int m= board.length,n=board[0].length;
-            List<String> res = new ArrayList();
-            TrieNode root = new TrieNode();
+            Set<String> ans = new HashSet();
             for(String word: words){
-                TrieNode node = root;
+                TrieNode n = root;
                 for(int i=0;i<word.length();i++){
                     char c = word.charAt(i);
-                    if(!node.ch.containsKey(c))
-                        node.ch.put(c,new TrieNode());
-                    node=node.ch.get(c);
+                    if(!n.ch.containsKey(c)) n.ch.put(c,new TrieNode());
+                    n=n.ch.get(c);
                 }
-                node.word = word;
+                n.end = true;
             }
-            for(int i=0;i<m;i++)
-                for(int j=0;j<n;j++)
-                    dfs(board,root,i,j,res);
-            return res;
+            for(int i=0;i<board.length;i++)
+                for(int j=0;j<board[0].length;j++)
+                    dfs(board,root,ans,i,j,new StringBuilder());
+            return new ArrayList(ans);
         }
-        public void dfs(char[][] board, TrieNode node, int i, int j, List<String> res){
-            if(i==-1||i==board.length||j==-1||j==board[0].length) return;
+        public void dfs(char[][] board, TrieNode n, Set<String> ans,int i, int j,StringBuilder sb) {
+            if(i==-1||i==board.length||j==-1||j==board[0].length||board[i][j]=='#') return;
             char c = board[i][j];
-            if(!node.ch.containsKey(c)) return;
-            node=node.ch.get(c);
-            if(node.word!=null){
-                res.add(node.word);
-                node.word = null;
-            }
+            if(!n.ch.containsKey(c)) return;
+            n=n.ch.get(c);
+            sb.append(c);
+            if(n.end) ans.add(sb.toString());
             board[i][j] = '#';
-            dfs(board,node,i-1,j,res);
-            dfs(board,node,i+1,j,res);
-            dfs(board,node,i,j-1,res);
-            dfs(board,node,i,j+1,res);
+            dfs(board,n,ans,i-1,j,sb);
+            dfs(board,n,ans,i+1,j,sb);
+            dfs(board,n,ans,i,j-1,sb);
+            dfs(board,n,ans,i,j+1,sb);                  
             board[i][j] = c;
+            sb.deleteCharAt(sb.length()-1);
         }
     }
     
@@ -138,41 +134,40 @@ public class WordSearch2 {
     //
     class Solution4 {
         class TrieNode{
-            TrieNode[] ch=new TrieNode[26];
-            boolean end;
+            TrieNode[] ch = new TrieNode[26];
+            String word;
         }
+        TrieNode root= new TrieNode();
         public List<String> findWords(char[][] board, String[] words) {
-            int m= board.length,n=board[0].length;
-            Set<String> res = new HashSet();
-            TrieNode root = new TrieNode();
+            List<String> ans = new ArrayList();
             for(String word: words){
-                TrieNode node = root;
+                TrieNode n = root;
                 for(int i=0;i<word.length();i++){
                     char c = word.charAt(i);
-                    if(node.ch[c-'a']==null)
-                        node.ch[c-'a']=new TrieNode();
-                    node=node.ch[c-'a'];
+                    if(n.ch[c-'a']==null) n.ch[c-'a']=new TrieNode();
+                    n=n.ch[c-'a'];
                 }
-                node.end = true;
+                n.word = word;
             }
-            for(int i=0;i<m;i++)
-                for(int j=0;j<n;j++)
-                    dfs(board,root,new StringBuilder(),i,j,res);
-            return new ArrayList(res);
+            for(int i=0;i<board.length;i++)
+                for(int j=0;j<board[0].length;j++)
+                    dfs(board,root,ans,i,j);
+            return ans;
         }
-        public void dfs(char[][] board, TrieNode node, StringBuilder sb, int i, int j, Set<String> res){
-            if(i==-1||i==board.length||j==-1||j==board[0].length) return;
+        public void dfs(char[][] board, TrieNode n, List<String> ans,int i, int j) {
+            if(i==-1||i==board.length||j==-1||j==board[0].length||board[i][j]=='#') return;
             char c = board[i][j];
-            if(c=='#'||node.ch[c-'a']==null) return;
-            sb.append(c);
-            node=node.ch[c-'a'];
-            if(node.end) res.add(sb.toString());
+            if(n.ch[c-'a']==null) return;
+            n=n.ch[c-'a'];
+            if(n.word!=null) {
+                ans.add(n.word);
+                n.word=null;
+            }
             board[i][j] = '#';
-            dfs(board,node,sb,i-1,j,res);
-            dfs(board,node,sb,i+1,j,res);
-            dfs(board,node,sb,i,j-1,res);
-            dfs(board,node,sb,i,j+1,res);
-            sb.deleteCharAt(sb.length()-1);
+            dfs(board,n,ans,i-1,j);
+            dfs(board,n,ans,i+1,j);
+            dfs(board,n,ans,i,j-1);
+            dfs(board,n,ans,i,j+1);                  
             board[i][j] = c;
         }
     }
