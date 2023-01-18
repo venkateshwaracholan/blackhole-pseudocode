@@ -14,6 +14,7 @@ package ds_algorithm.tree.bst;
 public class ValidateBinarySearchTree {
     
     
+    //APPROACH
     // Time O(n) space:O(logn)
     public boolean isValidBST(TreeNode root,long lo, long hi) {
         if(root==null) return true;
@@ -50,6 +51,8 @@ public class ValidateBinarySearchTree {
         return true;
     }
     
+    
+    //APPROACH
     // Time O(n) space:O(n)
     // approach: inorder traversal iterative
     // using inorder traversal -> left root right
@@ -78,7 +81,6 @@ public class ValidateBinarySearchTree {
     public boolean isValidBST(TreeNode root) {
         return inOrder(root, new TreeNode[1]);
     }
-
     public boolean inOrder(TreeNode root, TreeNode[] prev) {
         if(root==null) return true;
         boolean x = inOrder(root.left,prev);

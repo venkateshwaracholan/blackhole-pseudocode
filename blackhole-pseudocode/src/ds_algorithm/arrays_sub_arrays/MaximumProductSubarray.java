@@ -17,6 +17,7 @@ https://leetcode.com/problems/maximum-product-subarray/
 
 public class MaximumProductSubarray {
 
+    //APPROACH
     // Time: O(n) space: O(1) 
     // Kadane
     // Core Idea: have a min and max
@@ -37,7 +38,6 @@ public class MaximumProductSubarray {
         }
         return ans;
     }
-    
     //Approach 2: Just the slight modification of previous approach. As we know that on 
     //multiplying with negative number max will become min and min will become max, 
     //so why not as soon as we encounter negative element, we swap the max and min already.
@@ -57,6 +57,7 @@ public class MaximumProductSubarray {
     }
     
     
+    //APPROACH
     //
     public int maxProduct3(int[] nums) {
         int n = nums.length;

@@ -13,7 +13,7 @@ package ds_algorithm.bit_manipulation;
 
 public class ReverseBits {
     
-    
+    //APPROACH
     // right shift n and add it to left shift x
     // x<<1 shift x to left by 1, and add the last bit
     public int reverseBits(int n) {
@@ -24,7 +24,6 @@ public class ReverseBits {
         }
         return x;
     }
-    
     // instead of modifying n in above, we are right shifting n -> i times
     public int reverseBits2(int n) {
         int x = 0;
@@ -33,7 +32,6 @@ public class ReverseBits {
         }
         return x;
     }
-    
     // left shift sep and add right bit
     public int reverseBits3(int n) {
         int x = 0;
@@ -45,6 +43,7 @@ public class ReverseBits {
         return x;
     }
     
+    //APPROACH
     // placing lsb starting from last position of x
     public int reverseBits4(int n) {
         int x = 0;
@@ -54,7 +53,6 @@ public class ReverseBits {
         }
         return x;
     }
-    
     // same as above, instead of shifting lsb, we are mulplying 2**n-i
     public int reverseBits5(int n) {
         long x = 0;
@@ -64,7 +62,7 @@ public class ReverseBits {
         return (int)x;
     }
     
-    
+    //APPROACH
     public int reverseBits6(int n) {
         return Integer.reverse(n);  
     }

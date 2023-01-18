@@ -15,6 +15,7 @@ import java.util.*;
 
 public class NumberOfIslands {
   
+    //APPROACH
     //  Time: O(mn) space:(min(m,n))
     //  code idea BFS,
     //  for each entry in the matrix, we expaand as bfs to asjacent and add them to queue
@@ -35,8 +36,8 @@ public class NumberOfIslands {
 
       */
 
-    //  Note: we should have made 0 the lands when adding to queue in first place, 
-    //  but its handled when its treated as adjacent's adjacent, haha
+    //  Note: we should make grid[nr][nc]=0 while adding to q so that it avoid duplicates in the queue
+    //  otherwise 2 paths will add common nodes again and again in queue
     public int numIslands(char[][] grid) {
         int c=0, m= grid.length,n=grid[0].length;
         int[][] dir = new int[][]{{-1,0},{1,0},{0,-1},{0,1}};
@@ -87,6 +88,7 @@ public class NumberOfIslands {
     }
   
   
+    //APPROACH
     //  Time(mn) space(mn)recursion space
     //  core idea DFS, same approach as above, but traverse the depth first,
     //  we can also write the same solution in a stack iterative DFS.
@@ -118,22 +120,21 @@ public class NumberOfIslands {
   
     public int numIslands4(char[][] grid) {
         int c=0;
-        for(int i=0;i<grid.length;i++){
-            for(int j=0;j<grid[0].length;j++){
-                if(grid[i][j]=='1') c++;
-                numIslands4(grid,i,j);
-            }
-        }
+        for(int i=0;i<grid.length;i++)
+            for(int j=0;j<grid[0].length;j++)
+                if(grid[i][j]=='1'){
+                    dfs(grid,i,j);
+                    c++;
+                }
         return c;
     }
-
-    public void numIslands4(char[][] grid, int i, int j) {
-        if(i==-1||i==grid.length||j==-1||j==grid[0].length||grid[i][j]!='1') return;
-        grid[i][j] = 0;
-        numIslands4(grid,i-1,j);
-        numIslands4(grid,i+1,j);
-        numIslands4(grid,i,j-1);
-        numIslands4(grid,i,j+1);
+    public void dfs(char[][] grid, int i, int j) {
+        if(i==-1||i==grid.length||j==-1||j==grid[0].length||grid[i][j]=='0') return;
+        grid[i][j]='0';
+        dfs(grid,i-1,j);
+        dfs(grid,i+1,j);
+        dfs(grid,i,j-1);
+        dfs(grid,i,j+1);
     }
   
 }

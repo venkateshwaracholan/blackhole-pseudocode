@@ -40,7 +40,7 @@ public class CoinChange {
   
   
   
-  
+    //APPROACH
     //  Time; O(s**n) Space: O(n) s - amount, n - coins
     //  Core idea: top down, tree recursion, tail recursion, brute force
     //  reduce capacity and break into smaller sub problems
@@ -63,14 +63,12 @@ public class CoinChange {
         }
         return min==Integer.MAX_VALUE ? -1 : min;
     }
-  
     // same as above, using a dp memoization table to avoid duplicate work
     // duplicate work is computing for same amount repeatedly
     // if an amout is being assigned to dp , all combinations are already compared and min is found
     public int coinChangeMemo(int[] coins, int amount) {
         return recursion(coins, amount, new int[amount+1]);
     }
-
     public int recursion(int coins[], int amount, int dp[]){
         if(amount<0) return -1;
         if(amount==0) return 0;
@@ -78,15 +76,14 @@ public class CoinChange {
         int min = Integer.MAX_VALUE;
         for(int coin: coins){
             int c = recursion(coins, amount-coin, dp);
-            if(c>=0 && c< min){
-                min = c+1;
-            }
+            if(c>=0 && c< min) min = c+1;
         }
         dp[amount] = min == Integer.MAX_VALUE ? -1 : min;
         return dp[amount];
     }
   
   
+     //APPROACH
     //  Time: O(s*n) space: O(s)
     //  Core Idea: DP, Bottom up, tabulation
     //  we initialize ever amount with amount+1 so that min works well
@@ -110,7 +107,6 @@ public class CoinChange {
   
     //  Time: O(s*n) space: O(s)  
     //  same as above, but to avoid a check, for every coin , we are starting from coin to amount in inner loop 
-  
     public static int coinChangeBottomupAlt(int[] coins, int amount) {
         int dp[] = new int[amount+1];
         Arrays.fill(dp, amount+1);
@@ -124,7 +120,7 @@ public class CoinChange {
     }
     
     
-    
+     //APPROACH
     // we are doing a bfs
     //     0
     //    125
@@ -149,7 +145,6 @@ public class CoinChange {
         }
         return -1;
     }
-    
     // same starting from 11 to 0
     public int coinChangebfs2(int[] coins, int amount) {
         Queue<Integer> q = new LinkedList();

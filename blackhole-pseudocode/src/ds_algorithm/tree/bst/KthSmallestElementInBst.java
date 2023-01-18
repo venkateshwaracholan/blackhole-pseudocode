@@ -16,7 +16,7 @@ import java.util.*;
 
 public class KthSmallestElementInBst {
   
-    
+    //APPROACH
     //  Time: O(n) space: O(n) rec - tree might not be balanced
     // using inorder traversal in bst will always return a sorted array
     // using a counter[] to return
@@ -45,7 +45,7 @@ public class KthSmallestElementInBst {
     }
     
   
-  
+    //APPROACH
     // Iterative inorder traversal using stack
     // Time: O(n) space: O(n) stack - tree might not be balanced
     // root!=null || !s.empty() is very important

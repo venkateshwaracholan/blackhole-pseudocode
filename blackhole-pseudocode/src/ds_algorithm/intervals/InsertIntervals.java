@@ -14,7 +14,7 @@ import java.util.*;
 
 public class InsertIntervals {
     
-    
+    //APPROACH
     // Time O(n) space: O(n)
     // iterate intervals
     // if new interval falls right side, add in
@@ -38,8 +38,6 @@ public class InsertIntervals {
         ans.add(n);
         return ans.toArray(new int[ans.size()][2]);
     }
-    
-    
     // same as above, doing them in separate loops
     public int[][] insert2(int[][] in, int[] nu) {
         int i=0,n=in.length;
@@ -55,6 +53,7 @@ public class InsertIntervals {
     }
     
     
+    //APPROACH
     // Time O(n) space:  O(n)   
     //binary search helps in finding the postion to place
     // butconverting array to arrayList spoils everything

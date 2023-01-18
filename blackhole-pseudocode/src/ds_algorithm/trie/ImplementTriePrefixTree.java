@@ -42,41 +42,6 @@ public class ImplementTriePrefixTree {
     //
     class Trie {
         class TrieNode{
-            Map<Character, TrieNode> ch= new HashMap();
-            boolean end = false;
-        }
-        TrieNode root= new TrieNode();    
-        public void insert(String word) {
-            TrieNode x = root;
-            for(int i=0;i<word.length();i++){
-                char c = word.charAt(i);
-                if(!x.ch.containsKey(c))
-                     x.ch.put(c,new TrieNode());
-                x = x.ch.get(c);
-            }
-            x.end=true;
-        }
-        public boolean search(String word, boolean sw) {
-            TrieNode x = root;
-            for(int i=0;i<word.length();i++){
-                char c = word.charAt(i);
-                if(!x.ch.containsKey(c)) return false;
-                x = x.ch.get(c);
-            }
-            return x.end || sw;
-        }
-        public boolean search(String word) {
-            return search(word,false);
-        }
-        public boolean startsWith(String prefix) {
-            return search(prefix,true);
-        }
-    }
-    
-    
-    //
-    class Trie {
-        class TrieNode{
             TrieNode[] ch = new TrieNode[26];
             boolean end = false;
         }

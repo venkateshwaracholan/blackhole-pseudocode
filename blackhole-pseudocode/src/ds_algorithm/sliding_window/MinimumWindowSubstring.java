@@ -50,31 +50,6 @@ public class MinimumWindowSubstring {
         return ans[0]==-1 ? "" : s.substring(ans[1],ans[2]+1);
     }
     
-    //same as above usng int[] intead of map
-    public String minWindow2(String s, String t) {
-        int[] smap = new int[64],tmap = new int[64];
-        for(int i=0;i<t.length();i++) tmap[t.charAt(i)-'A']++;
-        int uniqt = 0;
-        for(int i=0;i<64;i++) if(tmap[i]!=0) uniqt++;
-        int formed=0, max=0;
-        int[] ans = new int[]{-1,0,0};
-        for(int i=0,j=0;j<s.length();j++){
-            char c = s.charAt(j);
-            smap[c-'A']++;
-            if(tmap[c-'A']!=0 && tmap[c-'A']==smap[c-'A']) formed++;
-            while(formed==uniqt){
-                if(ans[0]==-1||j-i+1<ans[0]){
-                    ans[0] = j-i+1;
-                    ans[1] = i;
-                    ans[2] = j;
-                }
-                char d = s.charAt(i++);
-                if(smap[d-'A']!=0)smap[d-'A']--;
-                if(tmap[d-'A']!=0&&smap[d-'A']<tmap[d-'A']) formed--;
-            }
-        }
-        return ans[0]==-1 ? "": s.substring(ans[1],ans[2]+1);
-    }
     
     
     //Time Complexity: O(∣S∣+∣T∣)
@@ -118,6 +93,45 @@ public class MinimumWindowSubstring {
             }
         }
         return ans[0]==-1 ? "" : s.substring(ans[1],ans[2]+1);
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    
+    
+    // we can use int[] instead of map with above 2 approaches
+    //same as above usng int[] intead of map
+    public String minWindow2(String s, String t) {
+        int[] smap = new int[64],tmap = new int[64];
+        for(int i=0;i<t.length();i++) tmap[t.charAt(i)-'A']++;
+        int uniqt = 0;
+        for(int i=0;i<64;i++) if(tmap[i]!=0) uniqt++;
+        int formed=0, max=0;
+        int[] ans = new int[]{-1,0,0};
+        for(int i=0,j=0;j<s.length();j++){
+            char c = s.charAt(j);
+            smap[c-'A']++;
+            if(tmap[c-'A']!=0 && tmap[c-'A']==smap[c-'A']) formed++;
+            while(formed==uniqt){
+                if(ans[0]==-1||j-i+1<ans[0]){
+                    ans[0] = j-i+1;
+                    ans[1] = i;
+                    ans[2] = j;
+                }
+                char d = s.charAt(i++);
+                if(smap[d-'A']!=0)smap[d-'A']--;
+                if(tmap[d-'A']!=0&&smap[d-'A']<tmap[d-'A']) formed--;
+            }
+        }
+        return ans[0]==-1 ? "": s.substring(ans[1],ans[2]+1);
     }
     
     //

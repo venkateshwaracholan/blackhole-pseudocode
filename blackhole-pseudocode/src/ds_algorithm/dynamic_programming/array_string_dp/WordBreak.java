@@ -16,7 +16,7 @@ import java.util.*;
 
 public class WordBreak {
   
-  
+    //APPROACH
     //  Time: O(n(2**n)) space(n)
     //  core idea: Dfs DP brute
     //  convert word dict to set
@@ -39,10 +39,15 @@ public class WordBreak {
       which return true, and thus true
 
     */
+          /*
+       "leetcod" ["leet", "code", "leetcod"] 
+       "T   F  "  
+       "paypalcode" ["pay", "paypal", "code"]
+       "T  F  T   "
+      */
     public boolean wordBreak(String s, List<String> wordDict) {
         return wordBreak(s,new HashSet(wordDict),0);
     }
-
     public boolean wordBreak(String s, Set<String> set,int start) {
         if(start==s.length()) return true;
         for(int end =start+1;end<=s.length();end++)
@@ -50,23 +55,13 @@ public class WordBreak {
                 return true;
         return false;
     }
-  
-  
     //  Time: O(n*n*n) space: O(n)  substring: O(n)
     //  same as above, but memoizing using a dp array
     //  Note: we are only memoizing start indices of recursion for which answer is not possible
     //  start index meaning, a word was found before it and end was passed to recursion as start
-    // 
-      /*
-       "leetcod" ["leet", "code", "leetcod"] 
-       "T   F  "  
-       "paypalcode" ["pay", "paypal", "code"]
-       "T  F  T   "
-      */
     public boolean wordBreak2(String s, List<String> wordDict) {
         return wordBreak(s,new HashSet(wordDict),0,new Boolean[s.length()]);
     }
-
     public boolean wordBreak(String s, Set<String> set,int start, Boolean[] dp) {
         if(start==s.length()) return true;
         if(dp[start]!=null) return dp[start];
@@ -76,6 +71,9 @@ public class WordBreak {
         return dp[start] =  false;
     }
   
+    
+    
+    //APPROACH
     //  Time: O(n*n*n) space: O(n)  substring: O(n)
     //  Core Idea: bfs, visited set
     //  initially add 0 in queue
@@ -86,7 +84,6 @@ public class WordBreak {
     //  or else make start visited
     //  return fals eat the end;
       /*
-
       "paypalcode" ["pay", "paypal", "pal", "code"]
        0123456789
 
@@ -94,8 +91,6 @@ public class WordBreak {
       q: 3,6
       q: 6,6  -> to avoid recomputing this we use the visited  
       */
-  
-  
     public boolean wordBreakbfs(String s, List<String> wordDict) {
         Set<String> set = new HashSet(wordDict);
         Boolean[] vis = new Boolean[s.length()];
@@ -114,6 +109,8 @@ public class WordBreak {
     }
   
   
+    
+    //APPROACH
     //  Time: O(n*n*n) space: O(n)  substring: O(n)
     //  core idea: iterative dfs, memo, to to mark index with valid words from start where dp[0] is true
     //  create wordDict set
@@ -177,81 +174,6 @@ public class WordBreak {
 //    System.out.println("abcdef".substring(4,2)); // this doesnt run and throws exceptions
   }
 }
-
-// "applepenapple", wordDict = ["apple", "pen"]
-//  tfffftfftfffft
-
-
-
-
-
-
-
-
-
-
-
-//wordbreak test success alla approaches
-// 01/AUG/2020
-/*
-//     public boolean wordBreak(String s, List<String> wordDict) {
-//         return dfs(0, s, new HashSet(wordDict), new Boolean[s.length()]);
-//     }
-    
-//     public boolean dfs(int start, String s, Set<String> wordSet, Boolean dp[]){
-//         if(start==s.length()){
-//             return true;
-//         }
-//         if(dp[start]!= null){
-//             return dp[start];
-//         }
-//         for(int end = start+1; end<=s.length();end++){
-//             if(wordSet.contains(s.substring(start,end)) && dfs(end, s, wordSet, dp)){
-//                 return true;
-//             }
-//         }
-//         dp[start] = false;
-//         return false;
-//     }
-    
-    // public boolean wordBreak(String s, List<String> wordDict) {
-    //     Set<String> wordSet = new HashSet(wordDict);
-    //     Queue<Integer> q = new LinkedList();
-    //     boolean visited[] = new boolean[s.length()];
-    //     q.add(0);
-    //     while(!q.isEmpty()){
-    //         int start = q.poll();
-    //         if(!visited[start]){
-    //             for(int end = start+1; end<=s.length();end++){
-    //                 if(wordSet.contains(s.substring(start,end))){
-    //                     if(end==s.length()){
-    //                         return true;
-    //                     }
-    //                     q.add(end);
-    //                 }
-    //             }
-    //         }
-    //         visited[start] = true;
-    //     }
-    //     return false;
-    // }
-    
-    // public boolean wordBreak(String s, List<String> wordDict) {
-    //     Set<String> wordSet = new HashSet(wordDict);
-    //     boolean dp[] = new boolean[s.length()+1];
-    //     dp[0] = true;
-    //     for(int i=0;i<=s.length();i++){
-    //         for(int j=i+1;j<=s.length();j++){
-    //             if(dp[i] && wordSet.contains(s.substring(i,j))){
-    //                 dp[j] = true;
-    //             }
-    //         }
-    //     }
-    //     return dp[s.length()];
-    // }   
-
-
-*/
 
 
 

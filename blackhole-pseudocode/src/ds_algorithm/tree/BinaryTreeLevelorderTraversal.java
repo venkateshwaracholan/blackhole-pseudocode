@@ -14,7 +14,7 @@ package ds_algorithm.tree;
 public class BinaryTreeLevelorderTraversal {
     
     //refer https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal for explanations
-    //
+    //APPROACH
     public List<List<Integer>> levelOrder(TreeNode root) {
         List<List<Integer>> ans=new ArrayList();
         Queue<TreeNode> q=new LinkedList();
@@ -33,6 +33,7 @@ public class BinaryTreeLevelorderTraversal {
         return ans;
     }
     
+    //APPROACH
     public List<List<Integer>> levelOrder(TreeNode root) {
         Queue<TreeNode> q = new LinkedList();
         Queue<Integer> h = new LinkedList();
@@ -59,7 +60,7 @@ public class BinaryTreeLevelorderTraversal {
         return ans;
     }
     
-    //
+    //APPROACH
     public List<List<Integer>> levelOrder(TreeNode root) {
         return levelOrder(root, new ArrayList(),0);
     }

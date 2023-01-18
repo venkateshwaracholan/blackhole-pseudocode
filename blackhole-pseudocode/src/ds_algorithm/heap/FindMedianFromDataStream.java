@@ -198,30 +198,7 @@ public class FindMedianFromDataStream {
             return -1;
         }
     }
-    
-    //same as above
-    class MedianFinder {
-        int[] count = new int[101];
-        int size=0;
-        public void addNum(int num) {
-            count[num]++;
-            size++;
-        }
-        public double findMedian() {
-            int m = size%2==0 ? size/2 : (size+1)/2;
-            int c=0, idx=0;
-            for(;idx<101;idx++){
-                c+=count[idx];
-                if(m<=c) break;
-            }
-            if(size%2==1) return idx;
-            if(m<c) return idx;
-            for(int i=idx+1;i<101;i++)
-                if(count[i]!=0)
-                    return (idx+i)/2.0;
-            return -1;
-        }
-    }
+   
     
     
     // If 99% of all integer numbers from the stream are in the range [0, 100], how would you optimize your solution?
@@ -249,38 +226,6 @@ public class FindMedianFromDataStream {
         }
     }
     
-    //
-    class MedianFinder {
-        int[] count= count = new int[101];
-        int size =0, lz=0;
-        public void addNum(int num) {
-            size++;
-            if(num<0)
-                lz++;
-            else
-                for (int i = num; i < 101; i++) count[i]++;
-        }
-        public double findMedian() {
-            int m = size % 2 == 0 ? size / 2 : (size + 1) / 2;
-            int idx = binarySearch(count, m);
-            if(size % 2 == 1)return idx;
-            if(m < count[idx]) return idx;
-            for (int i = idx + 1; i < 101; i++) 
-                if (count[i] > count[idx])
-                    return (idx + i) / 2.0;
-            return idx;
-        }
-        private int binarySearch(int[] nums, int target) {
-            int l = lz,r = nums.length;
-            while (l < r) {
-                System.out.println(l+" "+r);
-                int mid = l + (r - l) / 2;
-                if (target<=nums[mid])  r = mid;
-                else l = mid + 1;
-            }
-            return l;
-        }
-    }
     
     // looks at this later
     // https://leetcode.com/problems/find-median-from-data-stream/solutions/1506078/java-detailed-code-solutions-for-follow-ups/

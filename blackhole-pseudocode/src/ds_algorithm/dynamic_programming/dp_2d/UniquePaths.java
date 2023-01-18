@@ -13,36 +13,28 @@ package ds_algorithm.dynamic_programming.dp_2d;
 
 public class UniquePaths {
     
-    //
+    //APPROACH
     public int uniquePaths(int m, int n) {
         return uniquePaths(m,n,0,0);
     }
-
     public int uniquePaths(int m, int n, int i, int j) {
         if(i==m-1&&j==n-1) return 1;
         if(i==m||j==n) return 0;
         return uniquePaths(m,n,i+1,j) + uniquePaths(m,n,i,j+1); 
     }
-    
-    
-    //
     public int uniquePaths2(int m, int n) {
         int[][] dp = new int[m][n];
         return uniquePaths2(m,n,0,0, dp);
     }
-
     public int uniquePaths2(int m, int n, int i, int j, int[][] dp) {
         if(i==m-1&&j==n-1) return 1;
         if(i==m||j==n) return 0;
         if(dp[i][j]!=0) return dp[i][j];
         return dp[i][j] = uniquePaths2(m,n,i+1,j,dp) + uniquePaths2(m,n,i,j+1,dp); 
     }
-    
-    //
     public int uniquePaths3(int m, int n) {
         return uniquePaths3(m-1,n-1,new int[m][n]);
     }
-
     public int uniquePaths3(int m, int n, int[][] dp) {
         if(m==0&&n==0) return 1;
         if(m==-1||n==-1) return 0;
@@ -51,7 +43,7 @@ public class UniquePaths {
     }
     
     
-    //
+    //APPROACH
     public int uniquePaths4(int m, int n) {
         int[][] dp = new int[m+1][n+1];
         dp[1][1]=1;
@@ -64,7 +56,7 @@ public class UniquePaths {
         return dp[m][n];
     }
     
-    //
+    //APPROACH
     public int uniquePaths5(int m, int n) {
         int[] dp = new int[n+1];
         dp[1]=1;
@@ -74,6 +66,7 @@ public class UniquePaths {
         return dp[n];
     }
     
+    //APPROACH
     /*
     formula for below
         (m+n-2)!/(m-1)!(n-1)!
@@ -96,7 +89,6 @@ public class UniquePaths {
         }
         return (int)ans;
     }
-    
     // using min to optimize
     public int uniquePaths7(int m, int n) {
         long ans=1;

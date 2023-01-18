@@ -13,20 +13,18 @@ package ds_algorithm.dynamic_programming.array_string_dp;
 
 public class LongestPalindromicSubstring {
     
-    //
+    //APPROACH
+    // brute n*n*n
     public String longestPalindrome(String s) {
-        int max = 1,maxi=0;
-        for(int i=0;i<s.length();i++){
-            for(int j=i+1;j<s.length();j++){
+        int max = 1,l=0;
+        for(int i=0;i<s.length();i++)
+            for(int j=i+1;j<s.length();j++)
                 if(isPalindrome(s,i,j)&&j-i+1>max){
                     max = j-i+1;
-                    maxi = i;
+                    l = i;
                 }
-            }
-        }
-        return s.substring(maxi,maxi+max);
+        return s.substring(l,l+max);
     }
-
     public boolean isPalindrome(String s, int i, int j){
         for(;i<=j;i++,j--)
             if(s.charAt(i)!=s.charAt(j)) return false;
@@ -34,61 +32,63 @@ public class LongestPalindromicSubstring {
     }
     
     
-    //
+    
+    
+    //APPROACH
+    // n*n extending both odd and even
     public String longestPalindrome2(String s) {
         String maxStr="";
         for(int i=0;i<s.length();i++){
             String s1 = extend(s,i,i);
             String s2 = extend(s,i,i+1);
-            String x = s1.length()>s2.length() ?s1:s2;
-            if(maxStr.length()<x.length()) maxStr=x;
+            String x = s1.length()>s2.length()?s1:s2;
+            if(x.length()>maxStr.length()) maxStr=x;
         }
         return maxStr;
     }
-
-    public String extend(String s, int x,int y){
-        int i=x,j=y;
+    public String extend(String s, int i, int j) {
         String maxStr="";
         for(;i>=0&&j<s.length()&&s.charAt(i)==s.charAt(j);i--,j++)
-            if(maxStr.length()<j-i+1) maxStr = s.substring(i,j+1);
+            maxStr = s.substring(i,j+1);
         return maxStr;
     }
-    
-    
-    //
+    // same a s above, using []{i,j} instead of substrings
     public String longestPalindrome3(String s) {
-        int[] max=new int[2];
+        int[] max = new int[2];
         for(int i=0;i<s.length();i++){
-            int[] max1 = extend3(s,i,i);
-            int[] max2 = extend3(s,i,i+1);
-            int[] x = get(max1)>get(max2) ?max1:max2;
-            if(get(max)<get(x)) max=x;
+            int[] m1 = extend2(s,i,i);
+            int[] m2 = extend2(s,i,i+1);
+            int[] x = get(m1)>get(m2)?m1:m2;
+            if(get(x)>get(max)) max=x;
         }
         return s.substring(max[0],max[1]);
     }
-
     public int get(int[] max){
         return max[1]-max[0];
     }
-
-    public int[] extend3(String s, int x,int y){
-        int i=x,j=y;
-        int[] max=new int[2];
+    public int[] extend(String s, int i, int j) {
+        int[] max = new int[2];
         for(;i>=0&&j<s.length()&&s.charAt(i)==s.charAt(j);i--,j++)
-            if(get(max)<j-i+1) max=new int[]{i,j+1};
+           max=new int[]{i,j+1};
         return max;
     }
     
+    
+    //APPROACH
     //
     /*  babab
+    //  i==0  matching        b a b a b
+    //  i=1  matching        ba ab ba ab etc
+    //  i=2  matching         bb aa bb etc
     0 1 2 3 4
-    0 0 0 0 0
-      0 0 0 0
-        0 0 0
-          0 0
-            0
+  0 1 0 1 0 1
+  1   1 0 1 0
+  2     1 0 1
+  3       1 0
+  4         1
     */
-    
+    // dp[j][i+j] traverses through the diagonals only, [1,1,1,1,1], then [0,0,0,0], [1,1,1] etc
+    // dp[j][j] always traverses right diag, so, dp[j][i+j] moves diagonal by i times, so j<n=i,as diag elements reduce as we move right
     public String longestPalindrome4(String s) {
         int start=0,end=0, n=s.length();
         boolean[][] dp =new boolean[n][n];
@@ -103,7 +103,23 @@ public class LongestPalindromicSubstring {
         }
         return s.substring(start,end+1);
     }
-    
+    public String longestPalindrome5(String s) {
+        int start=0,end=0, n=s.length();
+        boolean[][] dp =new boolean[n][2];
+        int col=0;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n-i;j++){
+                dp[j][col] = s.charAt(j)==s.charAt(i+j) && (i<2 || dp[j+1][col]);
+                if(dp[j][col]&&i>end-start){
+                    start= j;
+                    end = i+j;
+                }
+            }
+            col^=1;
+        }
+        return s.substring(start,end+1);
+    }
+        
     
     /*
     0 0
@@ -123,30 +139,18 @@ public class LongestPalindromicSubstring {
             0
     */
     //
-    public String longestPalindrome5(String s) {
-        int start=0,end=0, n=s.length();
-        boolean[][] dp =new boolean[n][2];
-        int col=0;
-        for(int i=0;i<n;i++){
-            for(int j=0;j<n-i;j++){
-                dp[j][col] = s.charAt(j)==s.charAt(i+j) && (i<2 || dp[j+1][col]);
-                if(dp[j][col]&&i>end-start){
-                    start= j;
-                    end = i+j;
-                }
-            }
-            col^=1;
-        }
-        return s.substring(start,end+1);
-    }
     
     
-    
+    //APPROACH
+    // dont learn this algo 
     // manchers algorithm
     // getting value from mirror if its a char from palindrome
     // 0123456789  
     // @#b#a#b#a#d#$
     //     c im
+    // 0123456789
+    // @#b#a#b#a#d#$
+    // @#c#b#b#d#$
     public String longestPalindrome6(String s) {
         char[] ch = new char[2*s.length()+3];
         int x=0;

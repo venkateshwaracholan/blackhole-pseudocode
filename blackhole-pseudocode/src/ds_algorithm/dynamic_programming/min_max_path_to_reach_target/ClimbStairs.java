@@ -37,74 +37,31 @@ import static ds_algorithm.divide_and_conquer.BinarySearchIte.binarySearch;
 
 public class ClimbStairs {
     static boolean show = true;
-    
-    
-    // Time O(2**n) space: O(n) just like a tree of height h, n=2**h
-    public int climbStairs(int n) {
-        return climbStairs(n,0);
-    }
-    // just counting those reach n, and discaring i>n
-    public int climbStairs(int n, int i) {
-        if(i>n) return 0;
-        if(i==n) return 1;
-        return climbStairs(n,i+1)+ climbStairs(n,i+2);
-    }
-    
-    
-    // same as above with memo dp
-    public int climbStairsMemo(int n) {
-        int[] dp = new int[n];
-        return climbStairs(n,1,dp)+ climbStairs(n,2,dp);
-    }
-
-    public int climbStairs(int n, int i,int[]dp) {
-        if(i>n) return 0;
-        if(i==n) return 1;
-        if(dp[i]!=0) return dp[i];
-        dp[i] = climbStairs(n,i+1,dp)+ climbStairs(n,i+2,dp);
-        return dp[i];
-    }
-    
-    
-    //
-    public int climbStairsRev(int n) {
+   
+    //APPROACH
+    //use this solution
+    // reverse
+    public int climbStairs1(int n) {
         if(n<0) return 0;
         if(n==0) return 1;
-        return  climbStairs(n-1)+climbStairs(n-2);
+        return  climbStairs1(n-1)+climbStairs1(n-2);
     }
-    
-    //
-    public int climbStairsRevDP(int n) {
-        return  climbStairs(n,new int[n+1]);
+    // reverse dp
+    public int climbStairs1DP(int n) {
+        return  climbStairs1DP(n,new int[n+1]);
     }
-
-    public int climbStairs(int n,int[] dp) {
+    public int climbStairs1DP(int n,int[] dp) {
         if(n<0) return 0;
         if(n==0) return 1;
         if(dp[n]!=0) return dp[n];
-        dp[n] = climbStairs(n-1,dp)+climbStairs(n-2,dp);
+        dp[n] = climbStairs1DP(n-1,dp)+climbStairs1DP(n-2,dp);
         return dp[n];
     }
     
     
-    //
+    //APPROACH
+    // iterative 1d
     public int climbStairs2(int n) {
-        int[] dp =new int[n+2];
-        dp[1]=1;
-        dp[2]=2;
-        return  climbStairs2(n,dp);
-    }
-
-    public int climbStairs2(int n,int[] dp) {
-        if(dp[n]!=0) return dp[n];
-        dp[n] = climbStairs2(n-1,dp)+climbStairs2(n-2,dp);
-        return dp[n];
-    }
-    
-    
-    
-    //
-    public int climbStairs3(int n) {
         int[] dp =new int[n+2];
         dp[1]=1;
         dp[2]=2;
@@ -113,20 +70,10 @@ public class ClimbStairs {
         }
         return dp[n];
     }
-    
-    
-    public int climbStairs4(int n) {
-        int prev=1;
-        int cur=2;
-        for(int i=3;i<=n;i++){
-            int temp = prev;
-            prev = cur;
-            cur = cur+temp;
-        }
-        return cur;
-    }
-  
-    public static int climbStairs5(int n){
+
+    //APPROACH
+    // without dp 
+    public static int climbStairs3(int n){
         int prev = 0;
         int cur = 1;
         for(int i=1;i<=n;i++){
@@ -136,13 +83,47 @@ public class ClimbStairs {
         }
         return cur;
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //alt approaches, just for learning dont uses
+    // forward
+    // same as above with memo dp
+    public int climbStairsMemo(int n) {
+        int[] dp = new int[n];
+        return climbStairsMemo(n,1,dp)+ climbStairsMemo(n,2,dp);
+    }
+    public int climbStairsMemo(int n, int i,int[]dp) {
+        if(i>n) return 0;
+        if(i==n) return 1;
+        if(dp[i]!=0) return dp[i];
+        dp[i] = climbStairsMemo(n,i+1,dp)+ climbStairsMemo(n,i+2,dp);
+        return dp[i];
+    }
+    
+    
+    // reverse dp, with 1 and 2 values hardcoded
+    public int climbStairs5(int n) {
+        int[] dp =new int[n+2];
+        dp[1]=1;
+        dp[2]=2;
+        return  climbStairs5(n,dp);
+    }
+    public int climbStairs5(int n,int[] dp) {
+        if(dp[n]!=0) return dp[n];
+        dp[n] = climbStairs5(n-1,dp)+climbStairs5(n-2,dp);
+        return dp[n];
+    }
 
     public static void main(String[] args){
-        test(climbStairs5(1), 1);
-        test(climbStairs5(2), 2);
-        test(climbStairs5(3), 3);
-        test(climbStairs5(4), 5);
-        test(climbStairs5(5), 8);
     }
 
     public static void test(int got, int exp){

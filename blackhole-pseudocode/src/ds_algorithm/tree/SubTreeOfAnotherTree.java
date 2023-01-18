@@ -20,10 +20,6 @@ public class SubTreeOfAnotherTree {
         if(same(root,subRoot)) return true;
         return isSubtree(root.left,subRoot) || isSubtree(root.right,subRoot);
     }
-
-    public boolean same(TreeNode p, TreeNode q){
-        return p==null || q==null ? p==q: p.val==q.val&&same(p.left,q.left)&& same(p.right,q.right); 
-    }
     
     // same as above, outer rec made to bfs, we can also solve issame with bfs, same timecomplexity
     public boolean isSubtree(TreeNode root, TreeNode subRoot) {

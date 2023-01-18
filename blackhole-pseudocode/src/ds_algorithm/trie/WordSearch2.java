@@ -14,7 +14,7 @@ import java.util.*;
 
 public class WordSearch2 {
     
-    
+    //APPROACH
     // TLE
     // T/S: O( n * RC * (4 ^ w))/O(n), where RC is number of cells and w is max word length, n is number of words
     class Solution {
@@ -41,7 +41,7 @@ public class WordSearch2 {
         }
     }
     
-    
+    //APPROACH
     // NO TLE
     // T/S: O( n + RC * (4 ^ w))/O(n), where RC is number of cells and w is max word length, n is number of words
     class Solution2 {
@@ -75,6 +75,7 @@ public class WordSearch2 {
     }
     
     
+    //APPROACH
      /* Create Trie of all words. And then search in Trie.
     *
     * Time Complexity: O(R*C * 4*(3^(L-1))) + O(N)

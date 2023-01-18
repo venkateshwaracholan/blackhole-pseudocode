@@ -15,7 +15,7 @@ import java.util.*;
 
 public class CombinationSum {
     
-    // 
+    //APPROACH
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
         return combinationSum(candidates,target, 0,new ArrayList(), new ArrayList());
     }
@@ -50,6 +50,8 @@ public class CombinationSum {
         return ans;
     }
     
+    
+    //APPROACHv
     // this works if i change all 3 stacks to queues too
     public List<List<Integer>> combinationSum3(int[] candidates, int target) {
         List<List<Integer>> ans = new ArrayList();
@@ -76,7 +78,7 @@ public class CombinationSum {
         return ans;
     }
     
-    //
+    //APPROACH
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
         List<List<Integer>> ans = new ArrayList(), temp = new ArrayList();
         temp.add(new ArrayList());

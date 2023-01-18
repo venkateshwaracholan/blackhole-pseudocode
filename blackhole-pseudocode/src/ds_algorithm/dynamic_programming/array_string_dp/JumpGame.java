@@ -23,7 +23,7 @@ public class JumpGame {
 //  3  4  5  45   5
 // 45  5
 // 5
-
+    //APPROACH
     //  Time: O(n!) space O(n)
     //  why n factorial is becasue, take the worst case example
     //  [ 5	4	3	2	1	0	0]
@@ -35,22 +35,18 @@ public class JumpGame {
     public boolean canJump(int[] nums) {
         return recursion(nums, 0);
     }
-
     public boolean recursion(int nums[], int i){
         if(i>=nums.length-1) return true;
         for(int j = i+1;j<=i+nums[i];j++)
           if(recursion(nums,j)) return true;
         return false;      
     }
-  
     // Memo for ablove recursion
     // Time: O(n**2) space O(n) 
     //  approach: top down, recursion, memoization, dp
-  
     public boolean canJumpMemo(int[] nums) {
         return recursionMemo(nums, 0, new int[nums.length]);
     }
-
     public boolean recursionMemo(int nums[], int i, int dp[]){
         if(i>=nums.length-1) return true;
         for(int j = i+1;j<=i+nums[i];j++){
@@ -60,24 +56,8 @@ public class JumpGame {
         dp[i] = -1;
         return false;      
     }  
-  
-  
     //  same as above, 
     //  with a small optimisation that if we go to farthers first we have a fair chance of finding solution sooner.
-  
-    public boolean canJumpFartherst(int[] nums) {
-        return recursionFarthest(nums, 0);
-    }
-
-    public boolean recursionFarthest(int nums[], int i){
-        if(i>=nums.length-1) return true;
-        int far = Math.min(i+nums[i], nums.length-1);
-        for(int j = far;j>=i+1;j--)
-          if(recursionFarthest(nums,j))
-              return true;
-        return false;      
-    }
-  
     //  memo for reverse iteration in rec
     //  Time: O(n**2) space O(n) 
     //  approach: top down recursion, dp memoization
@@ -86,7 +66,6 @@ public class JumpGame {
     public boolean canJumpFartherstMemo(int[] nums) {
         return recursionFartherstMemo(nums, 0, new int[nums.length]);
     }
-
     public boolean recursionFartherstMemo(int nums[], int i, int dp[]){
         if(i>=nums.length-1) return true;
         int far = Math.min(i+nums[i], nums.length-1);
@@ -99,7 +78,7 @@ public class JumpGame {
     }
   
 
-  
+    //APPROACH
     // Time: O(n**2) space O(n) 
     // approach: bottom up iteration, dp tabulation
     // we traverse from reverse, and assign last pos dp as ans
@@ -122,12 +101,10 @@ public class JumpGame {
         return dp[0]==1;
     }  
 
-  
+    //APPROACH
     //  Iterative reperesentation of the top down recursion
     //  never try this, this is very risky.
     //  recursion and return value, the state of the stack memory everything helps a lot is several problems
-  
-  
     public boolean canJumpIteTopDown(int[] nums) {
         if (nums.length == 1) return true;
         int visited[] = new int[nums.length];
@@ -148,6 +125,7 @@ public class JumpGame {
     }
   
   
+    //APPROACH
     //  Time: O(n) space: O(1)
     //  appoach: greedy, reverse traversal
     //  start from n-2 to 0,
@@ -162,7 +140,6 @@ public class JumpGame {
         }
         return ans_pos==0;
     }
-    
     // iterative forward greedy
     public boolean canJump2(int[] nums) {
         int reachable = 0;

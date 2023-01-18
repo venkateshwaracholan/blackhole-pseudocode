@@ -39,18 +39,6 @@ import java.util.*;
 public class InvertBinaryTree {
   
   
-//  Time: O(n) space:O(n) D tends to n recursion
-//  core idea: tail recursion, swap before calling tail recursion
-  public TreeNode invertTree(TreeNode root) {
-      if(root==null) return null;
-      TreeNode left = root.left;
-      root.left = root.right;
-      root.right = left;
-      invertTree(root.left);
-      invertTree(root.right);
-      return root;
-  }
-  
 //  Time: O(n) space:O(n) D tends to n in linear tree
 //  core idea: head recursion, recursion assigning, swap/assign after recursion
 //  return root so that assigning is possible
@@ -63,19 +51,6 @@ public class InvertBinaryTree {
       root.left = invertTreeDfsBetter(root.right);
       root.right = invertTreeDfsBetter(left);
       return root;
-  }
-
-// same as above, using 2 temporary varables
-  
-  public static TreeNode invertTreeDfs(TreeNode root) {
-    if(root==null){
-      return null;
-    }
-    TreeNode right = invertTreeDfs(root.right);
-    TreeNode left = invertTreeDfs(root.left);
-    root.left = right;
-    root.right = left;
-    return root;
   }
   
   

@@ -54,8 +54,50 @@ public class LongestRepeatingCharReplacement {
         }
         return longest;
     }
+ 
     
     
+    // Time complexity: O(n)
+    // Space complexity: O(m) m is 26
+    // approach: sliding window, freq map
+    // build freq map, acc max freq
+    // valid window is j-i+1=window, valid wndow = window - maxf <=k
+    // if window becomes invalid, reduce window size and corresponding cahr from map, i++
+    // accumulate longest
+    public int characterReplacement4(String s, int k) {
+        int max = 0;
+        int[] map = new int[26];
+        int maxf = 0;
+        for(int i=0,j=0;j<s.length();j++){
+            map[s.charAt(j)-'A']++;
+            maxf = Math.max(maxf,map[s.charAt(j)-'A']);
+            if(j-i+1>maxf+k)
+                map[s.charAt(i++)-'A']--;
+            max = Math.max(max,j-i+1);
+        }
+        return max;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //unwanated
     //Time complexity: O(nlog⁡n) space: O(1) 26 chars
     // approach: binary search use mid to dictate widow size
     // then slide window to see if substring can be made, using freq int map, 
@@ -86,28 +128,6 @@ public class LongestRepeatingCharReplacement {
             if(w<=maxf+k) return true;
         }
         return false;
-    }
-    
-    
-    // Time complexity: O(n)
-    // Space complexity: O(m) m is 26
-    // approach: sliding window, freq map
-    // build freq map, acc max freq
-    // valid window is j-i+1=window, valid wndow = window - maxf <=k
-    // if window becomes invalid, reduce window size and corresponding cahr from map, i++
-    // accumulate longest
-    public int characterReplacement4(String s, int k) {
-        int max = 0;
-        int[] map = new int[26];
-        int maxf = 0;
-        for(int i=0,j=0;j<s.length();j++){
-            map[s.charAt(j)-'A']++;
-            maxf = Math.max(maxf,map[s.charAt(j)-'A']);
-            if(j-i+1>maxf+k)
-                map[s.charAt(i++)-'A']--;
-            max = Math.max(max,j-i+1);
-        }
-        return max;
     }
     
 }

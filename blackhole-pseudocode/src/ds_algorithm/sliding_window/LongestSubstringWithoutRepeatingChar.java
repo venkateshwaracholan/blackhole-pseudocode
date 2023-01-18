@@ -15,7 +15,7 @@ import java.util.*;
 
 public class LongestSubstringWithoutRepeatingChar {
     
-    
+    //APPROACH
     // Time O(n^3) space: O(n)
     // brute force
     // getting every string combination with 2 loops
@@ -30,7 +30,6 @@ public class LongestSubstringWithoutRepeatingChar {
         }
         return max;
     }
-
     public boolean checkRep(String s, int i, int j){
         Set<Character> set = new HashSet();
         for(;i<=j;i++){
@@ -41,7 +40,7 @@ public class LongestSubstringWithoutRepeatingChar {
     }
     
     
-    
+    //APPROACH
     // Time  O(2n) space O(n)
     // approach: 2 pointers, using set
     // while right char is present remove all chars until its nor present in set, 
@@ -60,6 +59,10 @@ public class LongestSubstringWithoutRepeatingChar {
         return max;
     }
     
+    
+    
+    
+    //APPROACH
     // Time complexity : O(n). Index j will iterate n times.
     // Space complexity : O(min(m,n)). Same as the previous approach.
     // approach: put next index of char into map
@@ -79,7 +82,6 @@ public class LongestSubstringWithoutRepeatingChar {
         }
         return max;
     }
-    
     // Time complexity : O(n). Index j will iterate n times.
     // Space complexity : O(1). as we use constant space.
     // approach: same as above, instead of map using Integer[128]

@@ -13,6 +13,7 @@ package ds_algorithm.bit_manipulation;
 
 public class NumberOf1Bits {
     
+    //APPROACH
     // Time O(n) space: O(1) n number of bits
     // right shift operator removes last bit
     // checking 1&n will give us if last bit is set or not

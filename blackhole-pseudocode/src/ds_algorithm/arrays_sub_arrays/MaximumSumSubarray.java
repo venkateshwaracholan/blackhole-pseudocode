@@ -34,6 +34,7 @@ https://leetcode.com/problems/maximum-subarray/
 public class MaximumSumSubarray {
   public static boolean show = true;
   
+    //APPROACH
     // Time: O(n) space: O(1)
     // kadane - max andn sofar
     // code idea, compare sofar with num and assign if num is greater
@@ -49,7 +50,6 @@ public class MaximumSumSubarray {
         }
         return max;
     }
-  
     //kadane
     public static int maxSubArray2(int[] nums) {
         int max = Integer.MIN_VALUE;
@@ -61,7 +61,6 @@ public class MaximumSumSubarray {
         }
         return max;
     }
-    
     //kadane
     public static int maxSubArrayElegant(int[] nums) {
         int max = nums[0],so_far = nums[0];
@@ -71,8 +70,6 @@ public class MaximumSumSubarray {
         }
         return max;
     }
-    
-    //
     public int maxSubArray3(int[] nums) {
         int max = Integer.MIN_VALUE, sum = 0;
         for(int i=0;i<nums.length;i++){
@@ -87,6 +84,11 @@ public class MaximumSumSubarray {
   
   
   
+    
+    
+    
+    
+  // solution for another problem may be  
   // Time: O(n) space: O(1)
   public static int maximumContiguousSubarray(int arr[]){
     int sofar = 0;

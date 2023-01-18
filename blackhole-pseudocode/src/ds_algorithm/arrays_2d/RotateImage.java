@@ -40,6 +40,7 @@ package ds_algorithm.arrays_2d;
 
 public class RotateImage {
   
+    //APPROACH
     //  time: O(mn) space:O(1)
     //  Core Idea: Transpose and mirror(reverse every row)
     //  for finding transpose in place, swap elements, but 
@@ -54,7 +55,6 @@ public class RotateImage {
                 matrix[i][j] = matrix[j][i];
                 matrix[j][i] = temp;
             }
-
         for(int i=0;i<matrix.length;i++){
             int l = 0, r = matrix[i].length-1;
             while(l<r){
@@ -74,7 +74,6 @@ public class RotateImage {
                 matrix[j][i] = temp;
             }
         }
-
         for(int i=0;i<r;i++){
             for(int j=0;j<c/2;j++){
                 int temp = matrix[i][j];
@@ -94,7 +93,7 @@ public class RotateImage {
   [8,5,2],
   [9,6,3]
  */
-  
+    //APPROACH
     //  Time: O(mn) space: O(1)
     //  this solution might look like a tricky one, but with fait understanding of the core idea it isnt that hard
     //  core idea: assign elements in circle

@@ -14,7 +14,7 @@ import java.util.*;
 
 public class CloneGraph {
     
-    
+    //APPROACH
     /**
      * DFS - Recursive
      *
@@ -37,11 +37,10 @@ public class CloneGraph {
         return clone;
     }
     
+    // unwanted
     public Node cloneGraph2(Node node) {
-        if(node==null) return node;
         return cloneGraph2(node, new Node[101]);
     }
-
     public Node cloneGraph2(Node node, Node[] map) {
         if(map[node.val]!=null) return map[node.val];
         map[node.val] = new Node(node.val);
@@ -51,6 +50,7 @@ public class CloneGraph {
     }
     
     
+    //APPROACH
     /**
     * BFS - Iterative
     *

@@ -17,6 +17,7 @@ import java.util.*;
 
 public class MergeIntervals {
   
+    //APPROACH
     //  Time: O(nlogn) space:O(n)
     //  fastest so far
     //  core idea: split the interval into start and end, sort and use them to compare
@@ -51,10 +52,10 @@ public class MergeIntervals {
     }
     
     
-    // 
+
     
     
-  
+    //APPROACH
     //  Time: O(nlogn) space: O(n)
     // core Idea: sort and merge with last interval
     // add first interval in arraylist
@@ -75,9 +76,29 @@ public class MergeIntervals {
         }
         return ans.toArray(new int[ans.size()][2]);
     }
-  
+        // same as above, using a last temp variable  
+    //  and another difference is adding interval in the list in after iteration
+    //  list.add(last); at the end is necessary like list.add(intervals[0]); in the above solution
+    public int[][] mergeAlt2(int[][] intervals) {
+        Arrays.sort(intervals, (a,b) -> a[0]-b[0]);
+        List<int[]> list = new ArrayList();
+        if(intervals.length<=1) return intervals;
+        int last[] = intervals[0];
+        for(int i=1; i<intervals.length;i++){
+            if(last[1]>=intervals[i][0])
+                last[1] = Math.max(last[1], intervals[i][1]);
+            else{
+                list.add(last);
+                last = intervals[i];
+            }
+        }
+        list.add(last);
+        return list.toArray(new int[list.size()][2]);
+    }
     //  same above can be implemented using  liskedlist and list.getLast 
     
+   
+    //APPROACH
     //  Time: O(nlogn) space: O(n)
     // core Idea: sort and merge with last interval
     //same as above but i am sorting by end
@@ -97,30 +118,6 @@ public class MergeIntervals {
         }
         return ans.toArray(new int[ans.size()][2]);
     }
-    
-  
-    // same as above, using a last temp variable  
-    //  and another difference is adding interval in the list in after iteration
-    //  list.add(last); at the end is necessary like list.add(intervals[0]); in the above solution
-    public int[][] mergeAlt2(int[][] intervals) {
-        Arrays.sort(intervals, (a,b) -> a[0]-b[0]);
-        List<int[]> list = new ArrayList();
-        if(intervals.length<=1) return intervals;
-        int last[] = intervals[0];
-        for(int i=1; i<intervals.length;i++){
-            if(intervals[i][0]<=last[1])
-                last[1] = Math.max(last[1], intervals[i][1]);
-            else{
-                list.add(last);
-                last = intervals[i];
-            }
-        }
-        list.add(last);
-        return list.toArray(new int[list.size()][2]);
-    }
-    
-  
-  
   
 }
 

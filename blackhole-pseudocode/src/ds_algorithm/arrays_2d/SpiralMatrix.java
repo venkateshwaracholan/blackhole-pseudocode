@@ -16,7 +16,7 @@ import java.util.*;
 
 public class SpiralMatrix {
     
-    
+    //APPROACH
     // TimeO(mn) spae: O(1)
     // we are using ans size and m*n to limit the loop
     // make sure we limit the loop everywhere, in all 4 fors too
@@ -40,7 +40,30 @@ public class SpiralMatrix {
         } 
         return ans;
     }
+    // same as above, we changed the bounds of outer loop
+    // run loop while top<=bottom and left<=right
+    // after updating top and bottom, check if baounds still make sense or return
+    public List<Integer> spiralOrder3(int[][] matrix) {
+        int m = matrix.length, n = matrix[0].length;
+        int left = 0, right = n-1, top = 0, bottom = m-1;
+        List<Integer> ans = new ArrayList();
+        while(top<=bottom && left<=right){
+            for(int i=left;i<=right;i++) ans.add(matrix[top][i]);
+            top++;
+            for(int i=top;i<=bottom;i++) ans.add(matrix[i][right]);
+            right--;
+            if(top>bottom || left>right) return ans;
+            for(int i=right;i>=left;i--) ans.add(matrix[bottom][i]);
+            bottom--;
+            for(int i=bottom;i>=top;i--) ans.add(matrix[i][left]);
+            left++;
+        } 
+        return ans;
+    }
     
+    
+    
+    //APPROACH
     // dfs
     // using visisted matrix
     // make bounds clear, if x or y goes out of range or visited return
@@ -74,50 +97,4 @@ public class SpiralMatrix {
         dfs(matrix, x, y-1, ans, visited, false);
         dfs(matrix, x-1, y, ans, visited, true);
     }
-    
-    
-    // same as above, we changed the bounds of outer loop
-    // run loop while top<=bottom and left<=right
-    // after updating top and bottom, check if baounds still make sense or return
-    public List<Integer> spiralOrder3(int[][] matrix) {
-        int m = matrix.length, n = matrix[0].length;
-        int left = 0, right = n-1, top = 0, bottom = m-1;
-        List<Integer> ans = new ArrayList();
-        while(top<=bottom && left<=right){
-            for(int i=left;i<=right;i++) ans.add(matrix[top][i]);
-            top++;
-            for(int i=top;i<=bottom;i++) ans.add(matrix[i][right]);
-            right--;
-            if(top>bottom || left>right) return ans;
-            for(int i=right;i>=left;i--) ans.add(matrix[bottom][i]);
-            bottom--;
-            for(int i=bottom;i>=top;i--) ans.add(matrix[i][left]);
-            left++;
-        } 
-        return ans;
-    }
-    
-    // same as above
-    // moving bounds inside for loops
-    // for 3rd loop we have to check top<=bottom
-    // for 4th loop we have to check left<=right
-    //to avoid thios confusion use the above solutionm skip this
-    public List<Integer> spiralOrder4(int[][] matrix) {
-        int m = matrix.length, n = matrix[0].length;
-        int left = 0, right = n-1, top = 0, bottom = m-1;
-        List<Integer> ans = new ArrayList();
-        while(top<=bottom && left<=right){
-            for(int i=left;i<=right;i++) ans.add(matrix[top][i]);
-            top++;
-            for(int i=top;i<=bottom;i++) ans.add(matrix[i][right]);
-            right--;
-            for(int i=right;i>=left&&top<=bottom;i--) ans.add(matrix[bottom][i]);
-            bottom--;
-            for(int i=bottom;i>=top&&left<=right;i--) ans.add(matrix[i][left]);
-            left++;
-        } 
-        return ans;
-    }
-    
-    
 }

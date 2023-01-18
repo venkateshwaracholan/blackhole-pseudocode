@@ -14,81 +14,13 @@ import java.util.*;
 // https://leetcode.com/problems/course-schedule/
 
 public class CourseSchedule {
-  
-    // TLE
-    //  Time: O((N**N)*E) Space: O(N+E) n - numCourses, E - prerequisites.length
-    //  create a map of lists of neighbours, unidirectional
-    //  if we can connect dest to srcin any edge then there is a cycle
-    //  add egde if not
-    //  in rec func canconnect,
-    //  iterate neighbours and check if src == dest  and call rec with neighbours and i ffound return true
-    //  or return false
-    public boolean canFinish(int numCourses, int[][] prerequisites) {
-        Map<Integer, List<Integer>> graph = new HashMap();
-        for(int i=0;i<numCourses;i++)
-            graph.put(i,new ArrayList());
-        for(int edge[]: prerequisites){
-            graph.get(edge[0]).add(edge[1]);
-            if(canConnect(edge[1],edge[0],graph)) return false;
-        }
-        return true;
-    }
 
-    public boolean canConnect(int s, int d, Map<Integer, List<Integer>> graph){
-        for(int x: graph.get(s)){
-            if(x==d || canConnect(x,d,graph)) return true;
-        }
-        return false;
-    }
-    //  TLE same as above, fasster with primitives
-    //   used array of list for map<int,list<int>>
-    public boolean canFinish2(int numCourses, int[][] prerequisites) {
-        List<Integer> graph[] = new List[numCourses];
-        for(int i=0;i<numCourses;i++)
-            graph[i] = new ArrayList();
-        for(int edge[]: prerequisites){
-            graph[edge[0]].add(edge[1]);
-            if(canConnect(edge[1],edge[0],graph)) return false;  
-        }
-        return true;
-    }
-
-    public boolean canConnect(int s, int d, List<Integer> graph[]){
-        for(int x: graph[s]){
-            if(x==d || canConnect(x,d,graph)) return true;
-        }
-        return false;
-    }  
-    // TLE using vistited set istead of source and dest
-    // Time: O((N**N)*N) Space: O(N+E)
-    public boolean canFinish3(int numCourses, int[][] prerequisites) {
-        Map<Integer, List<Integer>> graph = new HashMap();
-        Set<Integer> visited = new HashSet();
-        for(int i=0;i<numCourses;i++)
-            graph.put(i,new ArrayList());
-        for(int edge[]: prerequisites)
-            graph.get(edge[0]).add(edge[1]);
-        for(int i=0;i<numCourses;i++)
-            if(canConnect(i,visited,graph)) return false;
-        return true;
-    }
     
-    public boolean canConnect(int i, Set<Integer> vis, Map<Integer, List<Integer>> graph){
-        if(vis.contains(i)) return true;
-        vis.add(i);
-        for(int x: graph.get(i)){
-            if(canConnect(x,vis,graph)) return true;
-        }
-        vis.remove(i);
-        return false;
-    }
-    
-    
+    //APPROACH
     //proper solutions
     // O(N*N) space: O(N+E)
-    public boolean canFinish4(int numCourses, int[][] prerequisites) {
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
         Map<Integer, List<Integer>> graph = new HashMap();
-        Set<Integer> global = new HashSet();
         for(int i=0;i<numCourses;i++)
             graph.put(i,new ArrayList());
         for(int edge[]: prerequisites){
@@ -97,122 +29,89 @@ public class CourseSchedule {
         }
         return true;
     }
-
-    public boolean canConnect(int s, int d, Map<Integer, List<Integer>> graph, Set<Integer> global){
-        for(int x: graph.get(s)){
-            if(x==d || (!global.contains(s) && canConnect(x,d,graph,global))) return true;
-        }
-        global.add(s);
+    public boolean canConnect(int s, int d, Map<Integer, List<Integer>> graph, Set<Integer> vis){
+        if(vis.contains(s))return false;
+        if(s==d) return true;
+        vis.add(s);
+        for(int x: graph.get(s))
+            if(canConnect(x,d,graph,vis)) return true;
         return false;
     }
-    //
-    public boolean canFinish4_2(int numCourses, int[][] prerequisites) {
-        Map<Integer, List<Integer>> graph = new HashMap();
-        int[] visited= new int[numCourses];
+    //can implement the same with graph[]
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        List<Integer> graph[] = new List[numCourses];
         for(int i=0;i<numCourses;i++)
-            graph.put(i,new ArrayList());
-        for(int edge[]: prerequisites)
-            graph.get(edge[0]).add(edge[1]);
+            graph[i] = new ArrayList();
         for(int edge[]: prerequisites){
-            if(canConnect(edge[1],edge[0],graph, visited)) return false;
+            graph[edge[0]].add(edge[1]);
+            if(canConnect(edge[1],edge[0],graph,new HashSet())) return false;  
         }
         return true;
     }
-    //
-    public boolean canConnect(int s, int d, Map<Integer, List<Integer>> graph, int[] visited){
-        if(visited[s]==1) return true;
-        if(visited[s]==2) return false;
-        visited[s]=1;
-        for(int x: graph.get(s)){
-            if(canConnect(x,d,graph,visited)) return true;
-        }
-        visited[s]=2;
+    public boolean canConnect(int s, int d, List<Integer> graph[], Set<Integer> vis){
+        if(vis.contains(s))return false;
+        if(s==d) return true;
+        vis.add(s);
+        for(int x: graph[s])
+            if(canConnect(x,d,graph,vis)) return true;
         return false;
-    }
+    }  
+    
 
-  
+    //APPROACH
     //  Time: O(N+E) Space: O(N+E)
     //  Core idea: graph, visited set
     //  construct graph, i use Map of int, list<int>
     //  initially filling map with empty array list for each node
     //  and then adding unidirectional edge
     //  itearet course and call dfs, and if false, return false
-    //  in dfs(to find cycle), if already visited return false
-    //  or add in visited
-    //  iterate prerequisited and call dfs again with if not return false strategy
+    //  in dfs(to find cycle), if num in vis then cycle so return true
+    //  if numin completed set, then no cycle for that, return false 
     //  remove from visited as we come out of recursion so that it can be a dependency through other node
+    //  add to completed when cycle is not found for num 
     // 3 [[0,1],[0,2],[1,2]]
     // 2
     //    1
     //  0 
-  
-    public boolean canFinish5(int numCourses, int[][] prerequisites) {
-        Map<Integer,List<Integer>> graph = new HashMap(0);
-        Set<Integer> global = new HashSet(), visited= new HashSet();
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        Map<Integer,List<Integer>> graph = new HashMap();
+        for(int i=0;i<numCourses;i++) graph.put(i,new ArrayList());
+        for(int[] edge: prerequisites) graph.get(edge[0]).add(edge[1]);
+        Set<Integer> vis = new HashSet(), comp=new HashSet();
         for(int i=0;i<numCourses;i++)
-            graph.put(i,new ArrayList());
-        for(int[] edge:prerequisites)
-            graph.get(edge[0]).add(edge[1]);
-        for(int i=0;i<numCourses;i++)
-            if(cycle(i,graph,global,visited)) return false;
+            if(cycle(i,graph, vis, comp)) return false;
         return true;
     }
-
-    public boolean cycle(int i, Map<Integer,List<Integer>> graph, Set<Integer> global, Set<Integer> visited) {
-        if(visited.contains(i)) return true;
-        visited.add(i);
-        for(int x: graph.get(i))
-            if(!global.contains(i)&&cycle(x,graph,global, visited)) return true;
-        visited.remove(i);
-        global.add(i);
+    public boolean cycle(int s, Map<Integer,List<Integer>> graph, Set<Integer> vis, Set<Integer> comp){
+        if(vis.contains(s)) return true;
+        if(comp.contains(s)) return false;
+        vis.add(s);
+        for(int ch: graph.get(s))
+            if(cycle(ch,graph,vis,comp)) return true;
+        vis.remove(s);
+        comp.add(s);
         return false;
     }
-    // same as above
-    public boolean canFinish6(int numCourses, int[][] prerequisites) {
+    // same as above using int[] vis and graph[] instead of map
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
         List<Integer>[] graph = new List[numCourses];
-        Set<Integer> global = new HashSet(), visited= new HashSet();
+        for(int i=0;i<numCourses;i++) graph[i]=new ArrayList();
+        for(int[] edge: prerequisites) graph[edge[0]].add(edge[1]);
+        int[] vis = new int[numCourses];
         for(int i=0;i<numCourses;i++)
-            graph[i]=new ArrayList();
-        for(int[] edge:prerequisites)
-            graph[edge[0]].add(edge[1]);
-        for(int i=0;i<numCourses;i++)
-            if(cycle(i,graph,global,visited)) return false;
+            if(cycle(i,graph, vis)) return false;
         return true;
     }
-
-    public boolean cycle(int i,  List<Integer>[] graph, Set<Integer> global, Set<Integer> visited) {
-        if(visited.contains(i)) return true;
-        visited.add(i);
-        for(int x: graph[i])
-            if(!global.contains(i)&&cycle(x,graph,global, visited)) return true;
-        visited.remove(i);
-        global.add(i);
+    public boolean cycle(int s, List<Integer>[] graph, int[] vis){
+        if(vis[s]==1) return true;
+        if(vis[s]==2) return false;
+        vis[s]=1;
+        for(int ch: graph[s])
+            if(cycle(ch,graph,vis)) return true;
+        vis[s]=2;
         return false;
-    }
-    //
-    public boolean canFinish7(int numCourses, int[][] prerequisites) {
-        Map<Integer,List<Integer>> graph = new HashMap(0);
-        int[] visited= new int[numCourses];
-        for(int i=0;i<numCourses;i++)
-            graph.put(i,new ArrayList());
-        for(int[] edge:prerequisites)
-            graph.get(edge[0]).add(edge[1]);
-        for(int i=0;i<numCourses;i++)
-            if(cycle(i,graph,visited)) return false;
-        return true;
-    }
-
-    public boolean cycle(int i, Map<Integer,List<Integer>> graph, int[] visited) {
-        if(visited[i]==1) return true;
-        if(visited[i]==2) return false;
-        visited[i]=1;
-        for(int x: graph.get(i))
-            if(cycle(x,graph,visited)) return true;
-        visited[i]=2;
-        return false;
-    }
-  
-  
+    
+    //APPROACH
     //  Time: O(N+E) Space: O(N+E)
     //  core idea: BDS kash, count matching for processed nodes
     //  create indegrees map for end nodes
@@ -255,8 +154,7 @@ public class CourseSchedule {
         int[] indegrees = new int[numCourses];
         Queue<Integer> q = new LinkedList();
         int count=0;
-        for(int i=0;i<numCourses;i++)
-            graph[i] = new ArrayList();
+        for(int i=0;i<numCourses;i++) graph[i] = new ArrayList();
         for(int[] edge: prerequisites){
             graph[edge[0]].add(edge[1]);
             indegrees[edge[1]]+=1;
@@ -273,7 +171,7 @@ public class CourseSchedule {
   
     
     
-    //
+    //this is approach 2
     static class Course {
         private int vis=0;
         private ArrayList<Course> pre = new ArrayList<Course>();

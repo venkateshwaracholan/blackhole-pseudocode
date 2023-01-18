@@ -14,7 +14,7 @@ import java.util.*;
 
 public class DesignAddAndSearchWordsDataStructure {
     
-    
+    //APPROACH
     //TLE
     //TC : O(n * m), where n is the number of words and m is length of word we need to search.
     //SC : O(n)
@@ -40,7 +40,7 @@ public class DesignAddAndSearchWordsDataStructure {
         }
     }
 
-    
+    //APPROACH
     //    TC : O(∑ n) + O(26^m), where n is the number of words and m is length of word we need to search.
     //    SC : O(∑ n)
     // DFS REC
@@ -76,7 +76,7 @@ public class DesignAddAndSearchWordsDataStructure {
 
     
     
-    
+    //APPROACH
     // DFS ITE + REC
     class WordDictionary2 {
         class TrieNode{
@@ -97,8 +97,8 @@ public class DesignAddAndSearchWordsDataStructure {
         public boolean search(String word) {
             return search(word,0,root);
         }
-        public boolean search(String word,int idx,TrieNode node) {
-            for(int i=idx;i<word.length();i++){
+        public boolean search(String word,int i,TrieNode node) {
+            for(;i<word.length();i++){
                 char c = word.charAt(i);
                 if(c=='.'){
                     for(char x: node.ch.keySet())
@@ -111,7 +111,7 @@ public class DesignAddAndSearchWordsDataStructure {
         }
     }
     
-    
+    //APPROACH
     // BFS ITE
     class WordDictionary3 {
         class TrieNode{

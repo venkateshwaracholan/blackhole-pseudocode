@@ -10,7 +10,7 @@ package ds_algorithm.linked_list;
  */
 public class MergeKSortedLinkedList {
     
-    
+    //APPROACH
     // Time O(nk) space: O(k)
     // compare one by one
     // put heads in arraylist
@@ -63,6 +63,7 @@ public class MergeKSortedLinkedList {
     }
     
     
+    //APPROACH
     // Time O(nlogk) space: O(k)
     // adding into min heap
     // while minheap not empty
@@ -83,13 +84,13 @@ public class MergeKSortedLinkedList {
     }
     
     
+    //APPROACH
     // Time O(nlogk) space: O(logk) call stack
     // using merge sort to sort 2 lists at a time
     // bounds 0 to k-1
     public ListNode mergeKLists(ListNode[] lists) {
         return partition(lists,0,lists.length-1);
     }
-    
     // if lo>hi return null
     // if lo==hi return lo val
     // find mid, call partitions, lo, mid and mid+1,hi
@@ -102,20 +103,6 @@ public class MergeKSortedLinkedList {
         ListNode l2=partition(lists, mid+1,hi);
         return merge(l1,l2);
     }
-
-    //merge logic
-    public ListNode merge(ListNode l1,ListNode l2){
-        if(l1==null)return l2;
-        if(l2==null)return l1;
-        if(l1.val<l2.val){
-            l1.next = merge(l1.next,l2);
-            return l1;
-        }else{
-            l2.next = merge(l1,l2.next);
-            return l2;
-        }
-    }
-    
     
     // Time O(nlogk) space: O(1) 
     // iterative merge sort, very intuitive
@@ -136,6 +123,7 @@ public class MergeKSortedLinkedList {
         return siz>0 ? lists[0] : null;
     }
 
+    //merge logic
     public ListNode merge(ListNode l1,ListNode l2){
         if(l1==null)return l2;
         if(l2==null)return l1;
@@ -147,4 +135,8 @@ public class MergeKSortedLinkedList {
             return l2;
         }
     }
+    
+    
+    
+
 }

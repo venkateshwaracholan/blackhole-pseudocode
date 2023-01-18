@@ -16,7 +16,7 @@ import java.util.*;
 
 public class MissingNumber {
     
-
+    //APPROACH
     // Time O(n) space: O(1)
     // nums are in range [0,n] ans anything xor itself is 0
     // so we are xoring 0 to n to x, thus starting value x = n;
@@ -31,6 +31,7 @@ public class MissingNumber {
         return x;
     }
     
+    //APPROACH
     // Time O(n) space: O(1)
     // finding total sumof n numbers, n*(n+1)/2
     // iterting and subtracting all available umbers to get missing number
@@ -41,11 +42,13 @@ public class MissingNumber {
         return x;
     }
     
+    //APPROACH
     public int missingNumber3(int[] nums) {
         return nums.length * (nums.length + 1) / 2 - Arrays.stream(nums).sum();
     }
     
     
+    //APPROACH
     // sorting and binaary search
     // comparing mid and nums[mid] gives the answer
     // be careful with the bounds
@@ -60,6 +63,7 @@ public class MissingNumber {
         return l;
     }
     
+    //APPROACH
     // cyclic sorting
     //moving all numbers nums[i] to its position i
     // then iterating and finding who is not in their place
@@ -78,8 +82,7 @@ public class MissingNumber {
         return n;
     }
     
-    
-    //
+    //APPROACH
     // negative indexing
     // skipping if j==n coz out of bound
     // 3 checks for handling 0
@@ -95,7 +98,6 @@ public class MissingNumber {
                 else nums[j] = -nums[j];
             }
         }
-        
         for (int i = 0 ; i < n ; i++)
             if (nums[i] == 0 || nums[i] > 0)
                 return i;

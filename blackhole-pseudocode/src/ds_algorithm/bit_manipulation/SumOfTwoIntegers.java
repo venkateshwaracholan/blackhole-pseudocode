@@ -13,7 +13,7 @@ package ds_algorithm.bit_manipulation;
 
 public class SumOfTwoIntegers {
     
-
+    //APPROACH
     // T/S: O(1)/O(1)
     // sum = a xor b, carry = a&b
     // and then we have to left shift carry
@@ -35,6 +35,8 @@ public class SumOfTwoIntegers {
     // b 011   010   100   1000   0000  
     
     
+    
+    //APPROACH
     //recursive of the above approach
     public int getSum2(int a, int b) {
         if(b==0) return a;

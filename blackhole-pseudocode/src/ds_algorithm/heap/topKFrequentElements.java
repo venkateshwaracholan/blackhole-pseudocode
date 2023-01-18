@@ -36,46 +36,7 @@ public class TopKFrequentElements {
         return ans;
     }
   
-  
-    // Time O(nlogk) space O(n+K) n - number of element initailly, k - for kth largest
-      public int[] topKFrequnet2(int[] nums, int k) {
-        Map<Integer, Integer> map = new HashMap();
-        for(int n:nums)
-            map.put(n, map.getOrDefault(n,0)+1);
-        Queue<Integer> heap = new PriorityQueue<>((a,b)->map.get(a)-map.get(b));
-        for(int n: map.keySet()){    
-            heap.add(n);
-            if(heap.size()>k) heap.poll();
-        }
-        int ans[] = new int[k];
-        while(k>0)
-            ans[k---1] = heap.poll();
-        return ans;
-      }
-  
-  
-    // Time O(nlogk) space O(n+K) n - number of element initailly, k - for kth largest
-    //  using int[] for comparators and speed
-    public int[] topKFrequentArray3(int[] nums, int k) {
-        Map<Integer, Integer> map = new HashMap();
-        for(int n:nums)
-            map.put(n, map.getOrDefault(n,0)+1);
-        Queue<Integer[]> heap = new PriorityQueue<>((a,b)->a[1]-b[1]);
-        for(int n: map.keySet()){
-            if(heap.size()<k)
-                heap.add(new Integer[]{n,map.get(n)});
-            else if(map.get(n)>heap.peek()[1]){
-                heap.poll();
-                heap.add(new Integer[]{n,map.get(n)});
-            } 
-        }
-        int ans[] = new int[k];
-        while(k>0)
-            ans[k---1] = heap.poll()[0];
-        return ans;
-    }
-  
-  
+    // int[] and add strategy change
     // Time O(nlogk) space O(n+K) n - number of element initailly, k - for kth largest
     public int[] topKFrequentArray4(int[] nums, int k) {
         Map<Integer, Integer> map = new HashMap();

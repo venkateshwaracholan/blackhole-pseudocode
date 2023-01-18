@@ -27,6 +27,7 @@ public class LowestCommonAncestor {
   
   static boolean show = true;
   
+    //APPROACH
     // Time: O(n) space: O(n)
     // if ruul or p found or q founmd return root
     // get the left and right
@@ -42,7 +43,7 @@ public class LowestCommonAncestor {
     
     
   
-  
+    //APPROACH
     // using parents maps to fetch leaf to root path from p or q
     // run while until map contains p and q both
     // then add root, null in map for ending
@@ -88,7 +89,7 @@ public class LowestCommonAncestor {
     }
     
     
-    
+    //APPROACH
     // finding root to leaf paths and storing in arraylist
     // then iterate the paths to find common ancestor
     // NOTE: if we try doing this iterative, we need more space to create the root to leaf path for p and q
@@ -112,7 +113,7 @@ public class LowestCommonAncestor {
     }
     
   
-    //
+    //APPROACH
     //  using inorder traversal -> left root right
     //  if found assign to ancestor, and set ans level
     //  if found within subtree return ancetor;

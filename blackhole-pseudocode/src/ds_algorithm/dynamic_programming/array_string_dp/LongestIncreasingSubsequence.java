@@ -14,11 +14,11 @@ import java.util.*;
 
 public class LongestIncreasingSubsequence {
    
+    //APPROACH
     // Time O(2**n) sapce :O(n)
     public int lengthOfLIS(int[] nums) {
         return lengthOfLIS(nums,-1,0);
     }
-
     public int lengthOfLIS(int[] nums, int prev, int i) {
         if(i==nums.length) return 0;
         int x = 0;
@@ -27,12 +27,10 @@ public class LongestIncreasingSubsequence {
         int y = lengthOfLIS(nums,prev,i+1);
         return Math.max(x,y);
     }
-    
     // Time O(n*n) sapce :O(n*n+n)
     public int lengthOfLIS2(int[] nums) {
         return lengthOfLIS(nums,-1,0, new Integer[nums.length][nums.length]);
     }
-
     public int lengthOfLIS(int[] nums, int prev, int i, Integer[][] dp) {
         if(i==nums.length) return 0;
         if(prev!=-1&&dp[prev][i]!=null) return dp[prev][i];
@@ -44,23 +42,8 @@ public class LongestIncreasingSubsequence {
         return Math.max(x,y);
     }
     
-    // Time O(n*n) sapce :O(n*n+n)
-    public int lengthOfLIS3(int[] nums) {
-        int[][] dp = new int[nums.length][nums.length]; 
-        for(int[] i: dp) Arrays.fill(i,-1);
-        return lengthOfLIS3(nums,-1,0, dp);
-    }
-    public int lengthOfLIS3(int[] nums,int prev,int i, int[][] dp) {
-        if(i==nums.length) return 0;
-        int x=0;
-        if(prev!=-1&&dp[prev][i]!=-1) return dp[prev][i];
-        if(prev==-1||nums[prev]<nums[i])
-            x = 1+lengthOfLIS3(nums,i,i+1,dp);
-        int y= lengthOfLIS3(nums,prev,i+1,dp);
-        if(prev!=-1) dp[prev][i] = Math.max(x,y);
-        return Math.max(x,y);
-    }
     
+    //APPROACH
     // TC = O(n^2)
     // SC = O(n^2)
             /*  
@@ -86,8 +69,6 @@ public class LongestIncreasingSubsequence {
         }
         return dp[0][0];
     }
-    
-    
     /*
 [0,1,0,3,2,3]  
 0000000
@@ -113,40 +94,8 @@ public class LongestIncreasingSubsequence {
         return dp[nums.length][nums.length];
     }
     
-    //
-    public int lengthOfLIS5(int[] nums) {
-        int[] pre = new int[nums.length+1];
-        for(int i=nums.length-1;i>=0;i--){
-            int[] cur = new int[nums.length+1];
-            for(int prev=i-1;prev>=-1;prev--){
-                int x=0;
-                if(prev==-1||nums[prev]<nums[i]) 
-                    x = 1+pre[i+1];
-                int y = pre[prev+1];
-                cur[prev+1] = Math.max(x,y);
-            }
-            pre = cur;
-        }
-        return pre[0];
-    }
-    
-    
-    //
-    public int lengthOfLIS6(int[] nums) {
-        int[] dp = new int[nums.length];
-        int ans=0;
-        for(int i=0;i<nums.length;i++){
-            int max=0;
-            for(int j=0;j<i;j++){
-                if(nums[j]<nums[i])
-                    max= Math.max(max,dp[j]);
-            }
-            dp[i]=max+1;
-            ans=Math.max(ans,dp[i]);
-        }
-        return ans;
-    }
-    //
+    //APPROACH
+    //1D
     public int lengthOfLIS7(int[] nums) {
         int[] dp = new int[nums.length];
         int ans=0;
@@ -161,7 +110,7 @@ public class LongestIncreasingSubsequence {
         return ans;
     }
     
-    //
+    //APPROACH
     public int lengthOfLIS8(int[] nums) {
         List<Integer> ans = new ArrayList();
         ans.add(nums[0]);
@@ -185,8 +134,6 @@ public class LongestIncreasingSubsequence {
         }
         return l;
     }
-    
-    
     //
     public int lengthOfLIS9(int[] nums) {
         int[] dp =new int[nums.length];
@@ -202,7 +149,6 @@ public class LongestIncreasingSubsequence {
         }
         return len+1;
     }
-
     public int bin2(int[] dp, int len,int t){
         int l=0,r=len;
         while(l!=r){
@@ -213,28 +159,7 @@ public class LongestIncreasingSubsequence {
         return l;
     }
     
-        // exactly same as above, BUT ABOVE IS BETTER AS IT AVOIDS few bin searches
-    public int lengthOfLIS10(int[] nums) {
-        int[] dp = new int[nums.length];
-        int siz=0;
-        for(int i=0;i<nums.length;i++){
-            int x =bin(dp,siz,nums[i]);
-            dp[x]=nums[i];
-            if(x==siz) siz++;
-        }
-        return siz;
-    }
-
-    public int bin(int[] dp,int len, int t){
-        int l=0,r=len;
-        while(l!=r){
-            int mid = l+(r-l)/2;
-            if(t>dp[mid]) l=mid+1;
-            else r=mid;
-        } 
-        return l;
-    }
-    
+    //APPROACH
     //
     public int lengthOfLIS11 (int[] nums) {
         TreeSet<Integer> set = new TreeSet<>();

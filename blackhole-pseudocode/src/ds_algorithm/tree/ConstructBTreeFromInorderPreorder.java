@@ -26,7 +26,7 @@ public class ConstructBTreeFromInorderPreorder {
 
 */ 
   
-
+    //APPROACH
     // Time: O(n) space O(n)
     //Core Idea: recursion and use inorder's index as a map for order
     // skip placing if its index is not in the range
@@ -64,7 +64,7 @@ public class ConstructBTreeFromInorderPreorder {
     
     
 
-  
+    //APPROACH
     //  first craete node from 1sst el in pr
     // craete val to index map using inroder
     // the iterate rest and call buildtree passing root, val and map
@@ -90,7 +90,7 @@ public class ConstructBTreeFromInorderPreorder {
     }
   
     
-    
+    //APPROACH
     // using inorder traversal -> left root right
     // we use a boundary
     // for left we pass val as boundary
@@ -110,6 +110,7 @@ public class ConstructBTreeFromInorderPreorder {
     }
     
     
+    //APPROACH
     // grab first node and create root
     // iterate rest, create a stack
     // in the loop assign prev = null

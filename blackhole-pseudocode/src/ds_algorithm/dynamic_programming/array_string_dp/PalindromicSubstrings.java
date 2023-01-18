@@ -13,8 +13,8 @@ package ds_algorithm.dynamic_programming.array_string_dp;
 
 public class PalindromicSubstrings {
     
-    
-    // time O(n*n*n) space: O(1)
+    //APPROACH
+    // time O(n*n*n) space: O(1) NO TLE
     public int countSubstrings(String s) {
         int c=0;
         for(int i=0;i<s.length();i++)
@@ -29,7 +29,7 @@ public class PalindromicSubstrings {
         return true;
     }
     
-    
+    //APPROACH
     //time O(n*n) space: O(1)
     public int countSubstrings2(String s) {
         int c=0;
@@ -37,7 +37,6 @@ public class PalindromicSubstrings {
             c+= extend(s,i,i)+extend(s,i,i+1);
         return c;
     }
-
     public int extend(String s, int i, int j){
         int c=0;
         for(;i>=0&&j<s.length()&&s.charAt(i)==s.charAt(j);j++,i--)
@@ -46,7 +45,7 @@ public class PalindromicSubstrings {
     }
     
     
-    
+    //APPROACH
     //
     public int countSubstrings3(String s) {
         int n=s.length(), c=0;
@@ -59,9 +58,6 @@ public class PalindromicSubstrings {
         }
         return c;
     }
-    
-    
-    //
     public int countSubstrings4(String s) {
         int n=s.length(), c=0;
         boolean[][] dp = new boolean[n][2];
