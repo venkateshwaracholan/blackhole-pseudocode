@@ -15,7 +15,8 @@ import java.util.*;
 
 public class CombinationSum {
     
-    //APPROACH
+    //APPROACH 1 DFS + loop  => combinationSum(c[],t,k,ans,sub) -> t<0 return ans, t==0 ans.add(clone(sub)) and ret, for(k=i,len) sub.add(c[i]) rec(t-c[i],i) sub.remove(sublen-1)
+    
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
         return combinationSum(candidates,target, 0,new ArrayList(), new ArrayList());
     }
@@ -32,7 +33,8 @@ public class CombinationSum {
         }
         return ans;
     }
-    
+    //APPROACH 1.2 DFS + DFS  => combinationSum(c[],t,k,ans,sub) -> t<0 return ans, t==0 ans.add(clone(sub)) and ret, sub.add(c[i]) rec(t-c[i],i) sub.remove(sublen-1) rec(t,i+1)
+    // 
     // elimination of for loop and usage of recursion instead of the for loop
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
         return combinationSum(candidates,target, 0,new ArrayList(), new ArrayList());
@@ -50,8 +52,8 @@ public class CombinationSum {
         return ans;
     }
     
-    
-    //APPROACHv
+    //APPROACH 2 BFS => queues for sum, idx, sub, bfs with star6ted values, if(t>sum) continue, t==sum ans.add(sub) for(i,len) clone(sub) add context in queue sum, idx, sub
+    //
     // this works if i change all 3 stacks to queues too
     public List<List<Integer>> combinationSum3(int[] candidates, int target) {
         List<List<Integer>> ans = new ArrayList();
@@ -78,7 +80,10 @@ public class CombinationSum {
         return ans;
     }
     
-    //APPROACH
+    //APPROACH 3 ITE +Ite over ans len => for(i=0,len) for(j=0,tempsize) cur = clone(temp.get(j)) iterate cur find sum, 
+    //                  while(sum<target) add c[i] to cur and sum, if(sum<tar)add clone in temp, AFloop if sum==target ans.add(cur)
+    //
+    
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
         List<List<Integer>> ans = new ArrayList(), temp = new ArrayList();
         temp.add(new ArrayList());
@@ -98,7 +103,8 @@ public class CombinationSum {
         }
         return ans;
     }
-    
+    //APPROACH 3.2 ITE +Ite over ans len => for(i=0,len) for(j=0,tempsize) cur = clone(temp.get(j)) sum is at last pos, 
+    //                  while(sum<target) add c[i] to cur and sum, set sum to last pos, if(sum<tar)add clone in temp, AFloop cur.removelast() if sum==target ans.add(cur)
     // same a s above, storing sum in first char, you can also put sum in map
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
         List<List<Integer>> ans = new ArrayList(), temp = new ArrayList();

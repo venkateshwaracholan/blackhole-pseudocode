@@ -16,7 +16,7 @@ import java.util.*;
 
 public class KthSmallestElementInBst {
   
-     //APPROACH 1 DFS inorder traversal + k[], update and chek with k in in order block, use temp var for return and return if not null   
+    //APPROACH 1 DFS inorder traversal + k[], update and chek with k in in order block, use temp var for return and return if not null   
     
     //  Time: O(n) space: O(n) rec - tree might not be balanced
     // using inorder traversal in bst will always return a sorted array

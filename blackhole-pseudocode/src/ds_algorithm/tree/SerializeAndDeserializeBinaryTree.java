@@ -19,6 +19,9 @@ import java.util.*;
 
 public class SerializeAndDeserializeBinaryTree {
   
+    //APPROACH 1 serialize DFS preorder + sb, put N, for null nand return, put val, in perorder
+    //           deserialize DFS preorder + i[], split by ',', i==n or i=='N' i[0]++ and return null, create Treenode from Integer.valueOf, i[0]++ n.left=rec, n.right=rec, return n
+    
     // dfs
     // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
@@ -34,7 +37,6 @@ public class SerializeAndDeserializeBinaryTree {
         serialize(n.right,sb);
         return sb;
     }
-
     // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
         String[] s = data.split(",");
@@ -52,8 +54,9 @@ public class SerializeAndDeserializeBinaryTree {
     }
     
     
-    
-    
+    //APPROACH 2 serialize BFS + sb, put N, for null nand continue, put val, and add in q, allow nulls
+    //           deserialize BFS + create('N'->null else TreenNode) , len=0 or s[0]='N' ret null else create root node, 
+    //           x=1 bfs with root, n.left=create(x++), n.right=create(x++), add left and right in q if not null
     //bfs
     // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
@@ -72,7 +75,6 @@ public class SerializeAndDeserializeBinaryTree {
         }
         return sb.toString();
     }
-
     // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
         String[] s = data.split(",");

@@ -9,6 +9,11 @@ package ds_algorithm.trie;
 import java.util.*;
 
 public class ImplementTriePrefixTree {
+    
+    //APPROACH 1 DFS Lin REC + TrieNode(Map<C, TN> ch, bool end), create root, insert-> i==len return end=true, c=s[i] if n.ch not contains, put n.ch(c,new TN), call rec(i+n,n.ch.get(c))
+    //           search(sw=false) +startswith(sw=true) calls searchrec-> i==len retturn end||sw, c=s[i], ret n.ch(c)!=null && rec(i+1,n.ch(c))
+   
+    
     class Trie {
         class TrieNode{
             Map<Character, TrieNode> ch= new HashMap();
@@ -38,8 +43,9 @@ public class ImplementTriePrefixTree {
         }
     }
     
-    
-    // 
+    //APPROACH 2 Iterative + TrieNode(TN[26] ch, bool end), create root, insert-> for(i,len) c=s[i] if n.ch not contains, put n[c]=new TN, n=n.ch[c], i++, finally end=true
+    //           search(sw=false) +startswith(sw=true) calls searchrec-> for(i,len)c=s[i], ret n.ch[c]==null ret false, n=n.ch[c], ret end||sw
+   
     class Trie {
         class TrieNode{
             TrieNode[] ch = new TrieNode[26];
@@ -73,16 +79,18 @@ public class ImplementTriePrefixTree {
         }
     }
     
+    //APPROACH 3 DFS Rec + TST TrieNode(C val, TN l,mid,r, bool end), create root, insert-> i==len return node, c=s[i] if n null, new TN(val) n.val==c n.mid=rec(i+1,mid)
+    //                 c<n.val n.left=rec(i,left) c>n.val n.right=rec(i,right), i==len-1 end=true return n
+    //           search(sw=false) +startswith(sw=true) calls searchrec-> n==null return false, c=s[i], c==n.val&&i=len-1 ret end|sw, n.val==c ret rec(i+1,mid)
+    //              c<n.val ret rec(i,left) c>n.val ret rec(i,right)
+   
     // TST ternary search Tree
     class Trie {
         class TrieNode{
-            char val;
-            boolean end;
+            char val; boolean end;
             TrieNode left,mid,right;
             TrieNode(){}
-            TrieNode(char c){
-                val = c;
-            }
+            TrieNode(char c){  val = c; }
         }
         TrieNode root= new TrieNode();    
         public void insert(String word) {
@@ -92,17 +100,11 @@ public class ImplementTriePrefixTree {
             if(i==word.length()) return node;
             char c = word.charAt(i);
             if(node==null) node = new TrieNode(c);
-            if(node.val==c) node.mid = insert(word,i+1,node.mid);
+            if(c==node.val) node.mid = insert(word,i+1,node.mid);
             else if(c<node.val) node.left = insert(word,i,node.left);
             else if(c>node.val)node.right = insert(word,i,node.right);
             if(i==word.length()-1) node.end=true;
             return node;
-        }
-        public boolean search(String word) {
-            return searchTrie(word,0,root,false);
-        }
-        public boolean startsWith(String prefix) {
-            return searchTrie(prefix,0,root,true);
         }
         public boolean searchTrie(String word, int i, TrieNode node, boolean sw) {
             if(node==null) return false;
@@ -111,6 +113,12 @@ public class ImplementTriePrefixTree {
             if(node.val==c) return searchTrie(word,i+1,node.mid,sw);
             else if(c<node.val) return searchTrie(word,i,node.left,sw);
             else return searchTrie(word,i,node.right,sw);
+        }
+        public boolean search(String word) {
+            return searchTrie(word,0,root,false);
+        }
+        public boolean startsWith(String prefix) {
+            return searchTrie(prefix,0,root,true);
         }
     }
     

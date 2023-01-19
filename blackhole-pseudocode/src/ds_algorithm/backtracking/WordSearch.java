@@ -14,6 +14,9 @@ import java.util.*;
 
 public class WordSearch {
     
+    //APPROACH 1 ITE + DFS4 => r*c loop every row col-> if(exist(i,j,k)) ret true
+    //              DFS exist(i,j,k)-> k==len ret true, i,j not in bound or b[i][j]=='#'(visited) or w[k]!=b[i][j] ret false, c=b[i][j], b[i][j]='#'(mark vis)
+    //              go all  4 dir x= rec(i-1,j,k)||rec(i+1,j,k)||rec(i,j-1,k)||rec(i,j+1,k), b[i][j]=c(unmark vis) ret x;
     
     // T/S: O(n * (4 ^ w))/O(n), where n is number of cells and w is word length.
     // To avoid confusion, T: O(r * c * (4 ^ w)), where r x c are the dimensions of the board.
@@ -26,16 +29,16 @@ public class WordSearch {
                     return true;
         return false;
     }
-    public boolean exist2(char[][] board, String word, int m, int n, int k) {
+    public boolean exist2(char[][] board, String word, int i, int j, int k) {
         if(k==word.length()) return true;
-        if(m==-1||n==-1||m==board.length||n==board[0].length||board[m][n]!=word.charAt(k)||board[m][n]=='#') return false;
-        char c = board[m][n];
-        board[m][n] = '#';
-        boolean x = exist2(board,word,m,n-1,k+1) ||
-        exist2(board,word,m,n+1,k+1) ||
-        exist2(board,word,m-1,n,k+1) ||
-        exist2(board,word,m+1,n,k+1);
-        board[m][n] = c;
+        if(i==-1||j==-1||i==board.length||j==board[0].length||board[i][j]!=word.charAt(k)||board[i][j]=='#') return false;
+        char c = board[i][j];
+        board[i][j] = '#';
+        boolean x = exist2(board,word,i,j-1,k+1) ||
+                    exist2(board,word,i,j+1,k+1) ||
+                    exist2(board,word,i-1,j,k+1) ||
+                    exist2(board,word,i+1,j,k+1);
+        board[i][j] = c;
         return x;
     }
     //NOTE: this is just a precheker and not the solution
@@ -57,6 +60,11 @@ public class WordSearch {
     }
     
     
+    //APPROACH 2 ITE + BFS Queue<int[]>+Queue<Set<Integer>> => r*c loop every row col-> if(exist(i,j,k)) ret true
+    //              BFS queues for int[] i,j,k , Set<Integer>, do bfs c==len ret true, i,j not in bound continue, vis.contains(rc) continue; word[i]!=board[a][b] continuevis.add(rc)
+    //              go all  4 dir using dir[] add contexts in queue int[] and clone of vis
+    
+    
     // TLE 
     // word search in BFS, so memory heavy coz of nature of problem
     public boolean exist(char[][] board, String word) {
@@ -67,7 +75,6 @@ public class WordSearch {
                 if(exist(board,word,i,j,dir)) return true;
         return false;
     }
-
     public boolean exist(char[][] board, String word, int i, int j, int[][]dir) {
         Queue<int[]> q = new LinkedList();
         Queue<Set<Integer>> vis = new LinkedList();
@@ -78,11 +85,9 @@ public class WordSearch {
             Set<Integer> v = vis.poll();
             int a=x[0],b=x[1],c=x[2];
             if(c==word.length()) return true;
-            if(a==-1||a==board.length||b==-1||b==board[0].length) continue;
             int rc = a*board[0].length+b;
-            if(v.contains(rc)) continue;
+            if(a==-1||a==board.length||b==-1||b==board[0].length||v.contains(rc)||word.charAt(c)!=board[a][b]) continue;
             v.add(rc);
-            if(word.charAt(c)!=board[a][b]) continue;
             for(int z=0;z<dir.length;z++){
                 q.add(new int[]{a+dir[z][0],b+dir[z][1],c+1});
                 vis.add(new HashSet(v));

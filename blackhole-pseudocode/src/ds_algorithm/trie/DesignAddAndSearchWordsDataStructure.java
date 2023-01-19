@@ -14,7 +14,8 @@ import java.util.*;
 
 public class DesignAddAndSearchWordsDataStructure {
     
-    //APPROACH
+    //APPROACH 1 Ite + Map<Integer,Set<String>>,addWord put map(len,[strings]), 
+    //          search if map not contains len ret false, for every string in map(len), for(i,len) schar==wordchar or worchar='.', afloop i==n ret true, finally ret false  
     //TLE
     //TC : O(n * m), where n is the number of words and m is length of word we need to search.
     //SC : O(n)
@@ -22,25 +23,27 @@ public class DesignAddAndSearchWordsDataStructure {
         Map<Integer,Set<String>> map = new HashMap();
         public void addWord(String word) {
             int len = word.length();
-            if(!map.containsKey(len))
-                map.put(len, new HashSet());
+            if(!map.containsKey(len)) map.put(len, new HashSet());
             map.get(len).add(word);
         }
         public boolean search(String word) {
             int len = word.length();
-            if(map.containsKey(len)){
-                for(String s: map.get(len)){
-                    int i=0;
-                    while(i<len&&(word.charAt(i)=='.'||word.charAt(i)==s.charAt(i)))
-                        i++;
-                    if(i==len) return true;
-                }
+            if(!map.containsKey(len))return false;
+            for(String s: map.get(len)){
+                int i=0;
+                while(i<len&&(word.charAt(i)=='.'||word.charAt(i)==s.charAt(i)))
+                    i++;
+                if(i==len) return true;
             }
             return false;
         }
     }
 
-    //APPROACH
+     
+    //APPROACH 2 REC REC + TrieNode(Map<C, TN> ch, bool end) addword-> i==len return end=true, c=s[i] if n.ch(c)==null put n.ch(c,new TN), call rec(i+n,n.ch(c))
+    //              search-> searchrec(i,TN n)-> i==len return end , c=s[i], c=='.' for(x in n.ch) if(rec(i,x)) ret true, AFloop ret n.ch(c)!=null && rec(i+1,n.ch(c))
+    
+    
     //    TC : O(∑ n) + O(26^m), where n is the number of words and m is length of word we need to search.
     //    SC : O(∑ n)
     // DFS REC
@@ -75,8 +78,9 @@ public class DesignAddAndSearchWordsDataStructure {
     }
 
     
+    //APPROACH 2.2 ITE + REC + TrieNode(Map<C, TN> ch, bool end) addword-> for(i,len) c=s[i] if n.ch not contains, put n.ch(c,new TN), n=n.ch(c), i++, finally end=true
+    //         search-> searchrec(i,TN n)-> for(i,len)c=s[i], c=='.' for(x in n.ch) if(rec(i,x)ret true AFloop ret n.ch[c]==null ret false, n=n.ch[c], finally AFloop ret end
     
-    //APPROACH
     // DFS ITE + REC
     class WordDictionary2 {
         class TrieNode{
@@ -111,7 +115,10 @@ public class DesignAddAndSearchWordsDataStructure {
         }
     }
     
-    //APPROACH
+    //APPROACH 3 ITE + BFS + TrieNode(TN[26] ch, bool end) addword-> for(i,len) c=s[i] if n.ch not contains, put n[c]=new TN, n=n.ch[c], i++, finally end=true
+    //     search-> i=0, BFS root, level order-> i==len if(end) ret true else continue, c=s[i], c=='.' for(x in n.ch) not null q.add(x), AFloop n.ch[c]!=null q.add(n.ch[c])
+    //     i++ in level order
+    
     // BFS ITE
     class WordDictionary3 {
         class TrieNode{

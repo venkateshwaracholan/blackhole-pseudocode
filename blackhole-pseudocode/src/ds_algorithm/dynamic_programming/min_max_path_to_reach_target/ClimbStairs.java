@@ -71,7 +71,7 @@ public class ClimbStairs {
     }
 
     //APPROACH
-    // without dp 
+    // without dp ho
     public static int climbStairs3(int n){
         int prev = 0;
         int cur = 1;

@@ -15,6 +15,9 @@ package ds_algorithm.tree;
 
 public class BinaryTreeMaximumPathSum {
   
+    
+    //APPROACH 1 DFS postorder + max[inf], get l=max(left,0) r=max(right,0), max=max,val+l+r, but return only max(val+l,val+r)    
+    
     // Time: O(n) space: O(d)
     // approach: recursion, head recursion
     // we are making sure max gain is postive or zero
@@ -34,18 +37,17 @@ public class BinaryTreeMaximumPathSum {
     }
   
   
+    //APPROACH 1.2 DFS postorder + max[inf], l=(left) r=(right), x=max(val,val+l,val+r), max=max,x,val+l+r but return x
+    
     // Time: O(n) space: O(d)
     // approach: recursion, head recursion 
     // now if both l and r are positive add them and acc in max
-    //  or find max between, val, val+l, val+r
-    //  and return that
-
+    //  or find max between, val, val+l, val+r and return that
     //   if(l>0 && r>0)
     //      max[0] = Math.max(max[0], root.val+l+r);
     //      int x = Math.max(root.val, Math.max(root.val+l, root.val+r));
     //   if we merge the statements above, it will chose to add everything rther than a path.
     //  local max x shount contain only val, val+l, val+r and not val + l + r to return back.
-
     public int maxPathSum(TreeNode root) {
         int[] max = new int[]{Integer.MIN_VALUE};
         maxPathSum(root,max);
@@ -61,7 +63,8 @@ public class BinaryTreeMaximumPathSum {
     }
   
   
-  
+    //APPROACH 2 => Rev Ite + Map<TreeNode,Integer> , rev ite -> 2 stacks to acc(or arraylist rev), l=max(left,0) r=max(right,0), map(null,0), max=max,val+l+r map(node,max(val+l,val+r)) but return x
+   
     // iterative approach
     //idea is to get the leaf nodes process first
     // so putting in stack, we can also use arraylist and traverse in reverse order

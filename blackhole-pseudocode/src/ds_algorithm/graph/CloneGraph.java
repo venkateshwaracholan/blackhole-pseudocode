@@ -14,16 +14,13 @@ import java.util.*;
 
 public class CloneGraph {
     
-    //APPROACH
-    /**
-     * DFS - Recursive
-     *
+    //APPROACH 1 DFS + Map<Integer,Node> cloneGraph(n,map)=> n==null return n, map.contains(n.val) ret map(n.val) (gets us the clone), clone n, put in map(n.val,clone), \
+    //                                   for(x:n.neib) clone.neib.add(rec(x,map)) return clone
+    
+    /** DFS - Recursive
      * Time Complexity: O(V + E)
-     *
      * Space Complexity: O(V). Both Recursion Stack and HashMap will take O(V) space
-     *
-     * V = Number of nodes. E = Number of edges in the graph.
-     */
+     * V = Number of nodes. E = Number of edges in the graph. */
     public Node cloneGraph(Node node) {
         return cloneGraph(node,new HashMap());
     }
@@ -36,12 +33,15 @@ public class CloneGraph {
             clone.neighbors.add(cloneGraph(n,visited));
         return clone;
     }
+    //APPROACH 1.2 DFS + Node[]map cloneGraph(n,map)=> n==null return n, map[n.val]!=null ret map[n.val] (gets us the clone),put in map[n.val]=clone n, 
+    //                                   for(x:n.neib) map[n.val].neib.add(rec(x,map)) return map[n.val]
     
-    // unwanted
+
     public Node cloneGraph2(Node node) {
         return cloneGraph2(node, new Node[101]);
     }
     public Node cloneGraph2(Node node, Node[] map) {
+        if(node==null)return node;
         if(map[node.val]!=null) return map[node.val];
         map[node.val] = new Node(node.val);
         for(Node ch: node.neighbors)
@@ -50,14 +50,13 @@ public class CloneGraph {
     }
     
     
-    //APPROACH
+    //APPROACH 2 BFS + Map<Integer,Node> cloneGraph(n)=> n==null return n, create clone and put in map, 
+    //                              then do bfs -> n, for(x:n.neib) !map.contains(x.val) {put in map(x.val,clone) add in queue} map(n.val).neib.add(map(c.val))
+    
     /**
     * BFS - Iterative
-    *
     * Time Complexity: O(V + E)
-    *
     * Space Complexity: O(V). Both Queue and HashMap will take O(V) space
-    *
     * V = Number of nodes. E = Number of edges in the graph.
     */
 

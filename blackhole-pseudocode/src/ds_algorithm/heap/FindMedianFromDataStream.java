@@ -14,6 +14,8 @@ import java.util.*;
 
 public class FindMedianFromDataStream {
     
+    //APPROACH 1 minheap + maxheap + prefer left -> if l empty or num<l put in l else putin r, r>l l.add(r.poll), l>r+1 r.add(l.poll),  odd m=l even l+r/2
+    
     //    Time Complexity: O(nlogn)
     //    Space Complexity: O(n)
     class MedianFinder {
@@ -30,6 +32,8 @@ public class FindMedianFromDataStream {
             else return (left.peek()+right.peek())/2.0;
         }
     }
+    //APPROACH 1.2 minheap + maxheap +prefer both -> if l empty or num<l put in l else putin r, r-l==2 l.add(r.poll), l-r==2 r.add(l.poll),  odd l>r l else r,   even l+r/2
+    
     // same as above, diff logics, 3 checks in findMedian is due to resizing logics like right.size()-left.size()==2 etc
     class MedianFinder2{
         Queue<Integer> right = new PriorityQueue<>((a,b)->a-b);
@@ -46,6 +50,8 @@ public class FindMedianFromDataStream {
             else return (left.peek()+right.peek())/2.0;
         }
     }
+    
+    //APPROACH 2 minheap + maxheap + even odd +prefer left -> for even r.add, l.add(r.poll) for odd l.add r.add(l.poll)  odd l,   even l+r/2
     
     // using size to check if its odd or even
     // for even, put an right and move to left
@@ -68,6 +74,7 @@ public class FindMedianFromDataStream {
         }
     }
     
+    //APPROACH 3 minheap + maxheap + double memory ->  r.add, l.add(r.poll) l.add r.add(l.poll)  m=l+r/2
     
     // takes double memory
     // for 1,2,3 input
@@ -83,12 +90,12 @@ public class FindMedianFromDataStream {
             left.add(right.poll());
         }
         public double findMedian() {
-            if(left.size()==right.size()) return (left.peek()+right.peek())/2.0;
-            else return (double)left.peek();
+            return (left.peek()+right.peek())/2.0;
         }
     }
     
-    //
+    //APPROACH 4 minheap + maxheap + swap ->z=r  l.add, r.add(l.poll) swap with temp while u do it, m=l+z/2
+    
     class MedianFinder5 {
         PriorityQueue<Integer> left = new PriorityQueue<Integer>((a,b)->b-a);
         PriorityQueue<Integer> right = new PriorityQueue<Integer>((a,b)->a-b);
@@ -102,7 +109,8 @@ public class FindMedianFromDataStream {
         }
     }
     
-    //
+    //APPROACH 4.2 [maxheap,minheap] + swap 1,0 in i ->z=q[1],i=0  q[0].add, q[1].add(q[0].poll) swap with ^ while u do it, m=1[i]+q[1]/2
+    
     class MedianFinder6 {
         //Queue[] q = {new PriorityQueue(), new PriorityQueue(Collections.reverseOrder())};
         Queue<Integer>[] q = new Queue[]{new PriorityQueue<Integer>((a,b)->b-a),new PriorityQueue<Integer>((a,b)->a-b)};
@@ -115,6 +123,9 @@ public class FindMedianFromDataStream {
             return (q[i].peek()+q[1].peek())/2.0;
         }
     }
+    
+    //APPROACH 5 arraylist and binary search, find right index in AL and place,  m=len-1/2 odd m=mid, even m=mid+mid=1/2
+    
     
     //binary search
     class MedianFinder7 {
@@ -141,6 +152,10 @@ public class FindMedianFromDataStream {
             return list.size()%2==1 ? list.get(mid) :(list.get(mid)+list.get(mid+1)) / 2.0;
         }
     }
+    
+    //APPROACH 6 TreeSet<int[]> +  Comparator<int[]>, int[] l,r, put num, index in treemap to make it holds duplictes
+    //             n={num,i++}  add in ts,   ts==1 l=r=n, l==r {if n<l l=lower(l) n>r r=higher(r)} l!=r n<l r=l, n>r l=r else l=r=n   med=l[0]+r[0]/2 l could be null ret 0
+    
     
     // using treeset keys to sort
     // and maintain l and r pointers
@@ -171,6 +186,8 @@ public class FindMedianFromDataStream {
         }
     }
 
+    //FOLLOWUP 1 int[101] freq for(i=0,101) for(j=0,c[i]) at m-1 first=i and m for odd return i even first+i/2 idx++
+    
     
     
     
@@ -200,6 +217,9 @@ public class FindMedianFromDataStream {
     }
    
     
+    //FOLLOWUP 2 int[101] freq +less than zero count for(i=lz,101) for(j=0,c[i]) at m-1 first=i and m for odd return i even first+i/2 idx++
+    
+    
     
     // If 99% of all integer numbers from the stream are in the range [0, 100], how would you optimize your solution?
     class MedianFinder {
@@ -225,6 +245,10 @@ public class FindMedianFromDataStream {
             return -1;
         }
     }
+    
+    
+    
+    
     
     
     // looks at this later
