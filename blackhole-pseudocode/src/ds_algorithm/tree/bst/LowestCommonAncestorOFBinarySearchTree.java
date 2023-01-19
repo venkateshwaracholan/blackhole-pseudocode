@@ -13,7 +13,7 @@ package ds_algorithm.tree;
 
 public class LowestCommonAncestorOFBinarySearchTree {
     
-    
+    //APPROACH 1 DFS if both left go to left, both right go to rigth else return root
     // Time O(logn) space:O(logn)call stack of height of bst,h=logn
     //since its bst, if both p and q are less move left
     // else if both p and q are in greater move right
@@ -26,6 +26,7 @@ public class LowestCommonAncestorOFBinarySearchTree {
         else return root;
     }
     
+    //APPROACH 2 BFS if both left go to left, both right go to rigth else return root
     // Time O(logn) space:O(logn)
     // same above approadh in BFS
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {

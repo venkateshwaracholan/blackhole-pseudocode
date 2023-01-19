@@ -17,7 +17,7 @@ import java.util.Map;
 public class ValidAnagram {
     
     
-    
+    //APPROACH 1 hashmap compare freq
     //Time: O(n) space: O(1) 26 eng chars
     //approach: Hashmap, find fre map for both, compare freq maps
     //initially check length and return false if not equal, they are not anagrams
@@ -36,6 +36,7 @@ public class ValidAnagram {
         return true;
     }
     
+    //APPROACH 2 increment frq by s and dec freq by tin 1 loop and check for nonzero for false
     //Time: O(n) space: O(1)
     //approach: Hash, int map, add for one string chars and sub for another, so they cancel each other
     // check map if non zero not an anagram
@@ -51,7 +52,7 @@ public class ValidAnagram {
         return true;
     }
     
-    
+    //APPROACH 3 sorting char[] and equals check
     // Sorting solution
     // Time O(nlogn)avg O(n^2)worst space(logn) quick sort
     public boolean isAnagramSort(String s, String t) {

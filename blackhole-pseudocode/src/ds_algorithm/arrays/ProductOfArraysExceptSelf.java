@@ -20,6 +20,7 @@ public class ProductOfArraysExceptSelf {
   static boolean show = true;
   
   
+    //APPROACH 1 left right iteration and acc of product
     // to every node accumulate of product of values upto its previous index from left to right.
     // do the same from right to left to get the result.
 
@@ -38,7 +39,6 @@ public class ProductOfArraysExceptSelf {
         }
         return ans;
     }
-  
     // to every node accumulate of product of values upto its previous index from left to right.
     // do the same from right to left to get the result.
     //  1, 2,3,4
@@ -63,7 +63,7 @@ public class ProductOfArraysExceptSelf {
   
   //  18 6  3  3
   
-  
+    //APPROACH 2 division, zero count, product and product without zero
   
     // calculate overall product and then divide with self.
     // this problem has 2 edge cases

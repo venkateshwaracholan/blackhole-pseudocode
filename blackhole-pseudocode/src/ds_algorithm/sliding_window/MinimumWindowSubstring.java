@@ -15,6 +15,8 @@ import ds_algorithm.Pair;
 
 public class MinimumWindowSubstring {
     
+    //APPROACH 1 => 2freq Maps+2loops twopointer, fill tmap,formed loop i=0,j=0, move j,put in smap if smap and tmap freq match, inc formed
+    //  once formed, in formed loop acc ans[max,i,j], move i and dec in smap, dec formed if smap freq<tmap freq
     //Time Complexity: O(∣S∣+∣T∣)
     // Space Complexity: O(∣S∣+∣T∣)
     // approach: sliding window, 2 freq maps, ans array, formed
@@ -50,7 +52,8 @@ public class MinimumWindowSubstring {
         return ans[0]==-1 ? "" : s.substring(ans[1],ans[2]+1);
     }
     
-    
+    //APPROACH 2 => 2freq Maps+filtered[val,index]+2loops twopointer, fill tmap,formed loop i=0,j=0, move j,put in smap if smap and tmap freq match, inc formed
+    //  once formed, in formed loop acc ans[max,i,j], move i and dec in smap, dec formed if smap freq<tmap freq
     
     //Time Complexity: O(∣S∣+∣T∣)
     // Space Complexity: O(∣S∣+∣T∣)
@@ -62,33 +65,34 @@ public class MinimumWindowSubstring {
     // while(i<=j and formed==tmap size) fill ans array if ans not set or incoming ans in new min, fill ans with index in filtered
     // decrease i char from smap and check if freq of i char decreased if so, formed--; and then move i->i++;
     // while returning asn, if ans not set, retrun "" or build min window from ans
-    public String minWindow3(String s, String t) {
+   public String minWindow(String s, String t) {
         if(s.length()==0||t.length()==0) return "";
-        Map<Character,Integer> smap = new HashMap();
-        Map<Character,Integer> tmap = new HashMap();
-        List<Pair<Character, Integer>> filtered= new ArrayList();
+        Map<Character,Integer> smap = new HashMap(),tmap = new HashMap();
+        List<Character> filtered= new ArrayList();
+        List<Integer> index= new ArrayList();
         for(int i=0;i<t.length();i++)
             tmap.put(t.charAt(i), tmap.getOrDefault(t.charAt(i),0)+1);
         for(int i=0;i<s.length();i++)
-            if(tmap.containsKey(s.charAt(i)))
-                filtered.add(new Pair(s.charAt(i),i));
+            if(tmap.containsKey(s.charAt(i))){
+                filtered.add(s.charAt(i));
+                index.add(i);
+            }
         int ans[] = new int[]{-1,0,0};
         for(int i=0,j=0,formed=0;j<filtered.size();j++){
-            char c = filtered.get(j).getKey();
+            char c = filtered.get(j);
             smap.put(c, smap.getOrDefault(c,0)+1);
             if(tmap.containsKey(c) && smap.get(c).equals(tmap.get(c))) formed++;
             while(formed==tmap.size()){
-                char d = filtered.get(i).getKey();
-                int l = filtered.get(i).getValue();
-                int r = filtered.get(j).getValue();
+                int l = index.get(i);
+                int r = index.get(j);
                 if(ans[0]==-1 || r-l+1< ans[0]){
                     ans[0] = r-l+1;
                     ans[1] = l;
                     ans[2] = r;
                 }
+                char d = filtered.get(i);
                 smap.put(d, smap.getOrDefault(d,0)-1);
-                if(tmap.containsKey(d) && smap.get(d).intValue()<tmap.get(d).intValue()) 
-                    formed--;
+                if(tmap.containsKey(d) && smap.get(d).intValue()<tmap.get(d).intValue())  formed--;
                 i++;
             }
         }

@@ -13,6 +13,7 @@ import java.util.*;
 // https://leetcode.com/problems/merge-two-sorted-lists/description/
 public class MergeTwoSortedList {
     
+    //APPROACH 1 rec, return other if null, if val less, node.next = rec(move that node to right), return node
     
     // Time O(m+n) Space: O(1)
     // approach: recursion
@@ -33,8 +34,7 @@ public class MergeTwoSortedList {
             return l2;
         }
     }
-    
-    
+    //APPROACH 1.2 rec, return other if null, if val less, node.next = rec(move that node to right), return node
     // same as above alternate impl
     public ListNode mergeTwoLists2(ListNode l1, ListNode l2) {
         if(l1==null) return l2;
@@ -53,8 +53,7 @@ public class MergeTwoSortedList {
     }
     
     
-    
-    //
+    //APPROACH 2 ite,, use dummy node, while both not null, cur.next=node, cur=cur.next, move l1 and l2 resp, cur.next = put the remaining list at end
     public ListNode mergeTwoLists3(ListNode l1, ListNode l2) {
         ListNode w = new ListNode();
         ListNode cur = w;
@@ -71,8 +70,7 @@ public class MergeTwoSortedList {
         cur.next = l1==null ? l2 : l1;
         return w.next;
     }
-    
-    //
+     //APPROACH 2.2 ite, use dummy node, while either not null, 4 checks, val is inf if null, move l1 and l2 if not null
     public ListNode mergeTwoLists4(ListNode list1, ListNode list2) {
         ListNode dummy = new ListNode();
         ListNode cur = dummy;
@@ -90,6 +88,18 @@ public class MergeTwoSortedList {
         }
         return dummy.next;
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     // without dummy head node
     public ListNode mergeTwoLists5(ListNode l1, ListNode l2) {

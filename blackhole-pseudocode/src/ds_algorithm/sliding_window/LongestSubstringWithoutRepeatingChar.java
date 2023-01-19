@@ -15,19 +15,18 @@ import java.util.*;
 
 public class LongestSubstringWithoutRepeatingChar {
     
-    //APPROACH
+    //APPROACH 1 brute => 3 loops 1for checkrepetition, j=i, if no repetition put in max
+    
     // Time O(n^3) space: O(n)
     // brute force
     // getting every string combination with 2 loops
     // and checking if it dos not have repeating char an setting to max
     public int lengthOfLongestSubstring(String s) {
         int max = 0;
-        for(int i=0;i<s.length();i++){
-            for(int j=i;j<s.length();j++){
+        for(int i=0;i<s.length();i++)
+            for(int j=i;j<s.length();j++)
                 if(!checkRep(s,i,j)) 
                     max = Math.max(max,j-i+1);
-            }
-        }
         return max;
     }
     public boolean checkRep(String s, int i, int j){
@@ -39,8 +38,8 @@ public class LongestSubstringWithoutRepeatingChar {
         return false;
     }
     
+    //APPROACH 2 => twopointers +set i=0,j=0, move j, while jchar in set, move i and remove ichar from set
     
-    //APPROACH
     // Time  O(2n) space O(n)
     // approach: 2 pointers, using set
     // while right char is present remove all chars until its nor present in set, 
@@ -60,9 +59,8 @@ public class LongestSubstringWithoutRepeatingChar {
     }
     
     
+    //APPROACH 3 => twopointers +map<val,index> i=0,j=0, move j, if jchar in set, move i to max of i,idx of jchar from map
     
-    
-    //APPROACH
     // Time complexity : O(n). Index j will iterate n times.
     // Space complexity : O(min(m,n)). Same as the previous approach.
     // approach: put next index of char into map
@@ -82,11 +80,8 @@ public class LongestSubstringWithoutRepeatingChar {
         }
         return max;
     }
-    // Time complexity : O(n). Index j will iterate n times.
-    // Space complexity : O(1). as we use constant space.
     // approach: same as above, instead of map using Integer[128]
     // using Integer so that we can use null checks as contains
-    // if char present, move i to right if is less that new index
     public int lengthOfLongestSubstring4(String s) {
         int max = 0;
         Integer[] map = new Integer[128];

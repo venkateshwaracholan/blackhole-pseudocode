@@ -14,6 +14,7 @@ import java.util.*;
 
 public class TopKFrequentElements {
   
+    //APPROACH 1 freqmap + minheap upto k values, cheack and put value ans rev assignment
     // Time O(nlogk) space O(n+k) n - number of element initailly, k - for kth largest
     //  core idea: min heap and reverse assignment 
     // using maps inside comparators what an idea, without passing, it looks like javascript closure
@@ -36,6 +37,7 @@ public class TopKFrequentElements {
         return ans;
     }
   
+    //APPROACH 2 freq map + int[] minheap, add n remove if size>k, rev assignment
     // int[] and add strategy change
     // Time O(nlogk) space O(n+K) n - number of element initailly, k - for kth largest
     public int[] topKFrequentArray4(int[] nums, int k) {
@@ -53,7 +55,7 @@ public class TopKFrequentElements {
         return ans;
     }
     
-    //
+    //APPROACH 3 freq map + int[] max treeset,add n remove if size>k, treeset is uniq, comparator compare, freq,value
     // same idea as above, using treeset instead
     // be careful with the comparator, treeset is set, no duplicates
     // so we are using num,freq as uniq
@@ -72,7 +74,7 @@ public class TopKFrequentElements {
         return ans;
     }
   
-  
+    //APPROACH 4 freqmap + maxheap upto n values, ans forward assignment
     //MAX Heap;
     //Time O(nlogk) space O(n) n - number of element initailly, k - for kth largest
     public int[] topKFrequent(int[] nums, int k) {
@@ -86,6 +88,7 @@ public class TopKFrequentElements {
         return ans;
     }
   
+    //APPROACH 5 freqmap + List<Integer> bucket[] rev iteration and assignment from each bucket
     // Time: O(n) space:O(n)
     // approach: bucket sorting
     // create a bucket of freq as positions - size 0 to n+1 -> single elem case handling
@@ -108,6 +111,7 @@ public class TopKFrequentElements {
         return ans;
     }
     
+    //APPROACH 6 freqmap + int,List<Integer> max treemap, rev iteration and assignment from each bucket
     // Time O(nlogk) space O(n+k) n - number of element initailly, k - for kth largest
     // approach: using treemaps which sorte keys in sorted order
     // get map of elem to freq

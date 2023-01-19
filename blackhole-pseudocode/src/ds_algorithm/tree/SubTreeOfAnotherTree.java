@@ -13,6 +13,9 @@ package ds_algorithm.tree;
 
 public class SubTreeOfAnotherTree {
     
+    
+    //APPROACH 1 dfs isSubtree call issame(root,sub), return if found in either so, return isSubtree left||isSubtree right 
+    // issame=> dfs both nulls true, either null or val not equal false, and return left && right
     // Time:  O(mn)
     // space  O(m+n)
     public boolean isSubtree(TreeNode root, TreeNode subRoot) {
@@ -21,6 +24,8 @@ public class SubTreeOfAnotherTree {
         return isSubtree(root.left,subRoot) || isSubtree(root.right,subRoot);
     }
     
+    //APPROACH 2 BFS isSubtree call issame(root,sub) in queue, return if found 
+    // issame=> dfs both nulls true, either null or val not equal false, and return left && right
     // same as above, outer rec made to bfs, we can also solve issame with bfs, same timecomplexity
     public boolean isSubtree(TreeNode root, TreeNode subRoot) {
         Queue<TreeNode> q = new LinkedList<>();
@@ -41,6 +46,7 @@ public class SubTreeOfAnotherTree {
     }
     
     
+    //APPROACH 3 preorder sequence, with DFS and sb, root.indexof(sub)
     // preorder -> root left right
     // building preorder sequence
     //Time:  Use StringBuilder: O(m + n)

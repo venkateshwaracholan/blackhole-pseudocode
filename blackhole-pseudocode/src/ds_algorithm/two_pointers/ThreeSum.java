@@ -14,6 +14,7 @@ import java.util.*;
 
 public class ThreeSum {
     
+    //APPROACH 1 => 3 loops, j=i+1,k=j+1
     // Time O(n^3logk+nlogn) SC: O(K) - k is the number of unique triplets
     // brute force
     // even brute force requires set ans sort as we need only uniq triplets
@@ -32,8 +33,9 @@ public class ThreeSum {
         return new ArrayList(set);
     }
     
+    //APPROACH 2 => 2 loops + hashset, j=i+1
     // TC: O(n * logn) + O(n^2 * logk) => O(n^2 * logk)
-    // SC: O(K) - k is the number of unique triplets
+    // SC: O(K+n) - k is the number of unique triplets
     // Optimizing to the brute force (using HashSet):
     public List<List<Integer>> threeSum2(int[] nums) {
         Set<List<Integer>> ans = new HashSet();
@@ -50,6 +52,9 @@ public class ThreeSum {
         return new ArrayList(ans);
     }
     
+    
+    
+    //APPROACH 3.1 => 2 loops, two pointer isn 2nd loop, l=i+1 r=n-1, sum<t move left,sum>t move right, after adding ans move both if equal using temp triplet
     // TC: O(n ^ 2), SC: O(k) - k is the number of unique triplets
     // Auxiliary space: O(1)
     // approach: two pointer with skips for equal values, skipping at 3 places, i ,lo, hi 
@@ -80,7 +85,7 @@ public class ThreeSum {
         }
         return new ArrayList(ans);
     }
-    
+    //APPROACH 3.2 => 2 loops, two pointer isn 2nd loop, l=i+1 r=n-1, sum<t move left,sum>t move right, after adding move both pointers
     // approach: two pointer with skips for equal values, skipping at 3 places, i ,lo, hi 
     // if totl sum<0 move lo to right else move hi to left
     // and if sum is zero add to and and move both l anr r as we dont want that combo again

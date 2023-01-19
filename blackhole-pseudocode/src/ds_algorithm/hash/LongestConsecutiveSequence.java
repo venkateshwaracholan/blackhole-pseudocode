@@ -15,6 +15,7 @@ import java.util.*;
 
 public class LongestConsecutiveSequence {
    
+    //APPROACH 1 brute, check until next number contains in list and add count
     // Time O(n^3) space: O(1)
     // approach: brute force
     // for everny number, check until next number is present in nums
@@ -33,6 +34,8 @@ public class LongestConsecutiveSequence {
             if(n==i) return true;
         return false;
     }
+    
+    //APPROACH 2 brute optimised,use set for contains check until next number contains in list and add count, 
     // optimising above with set
     // Time O(n^2) space: O(n)
     public int longestConsecutive2(int[] nums) {
@@ -47,7 +50,7 @@ public class LongestConsecutiveSequence {
         return max;
     }
     
-    
+    //APPROACH 3 brute optimised, skip if set contains n-1,use set for contains check until next number contains in list and add count, 
     // Time O(n) space: O(n)
     // approach: hashing
     // first add all numbers in set
@@ -67,6 +70,7 @@ public class LongestConsecutiveSequence {
         return max;
     }
     
+    //APPROACH 4 sort and count numbers, skip if same
     // Time O(nlogn) space O(logn)
     // sorting solution
     // skip check if 2 numbers are same 0,1,1,2

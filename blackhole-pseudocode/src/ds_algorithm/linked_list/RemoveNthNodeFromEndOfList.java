@@ -14,66 +14,7 @@ package ds_algorithm.linked_list;
 public class RemoveNthNodeFromEndOfList {
     
     
-    // Time O(n) space: O(n)call stack
-    // recursive approach, my own unique approach i came up with instantly
-    // use recursion to get to right
-    // use int[] to create heap memory for permanacy
-    // bring node x fom recursion
-    // subrtact n when recursion gets out
-    // map node.next to x;
-    // if n==0 then return x
-    // else return node;
-    public ListNode removeNthFromEnd(ListNode head, int n) {
-        return removeNthFromEnd(head, new int[]{n});
-    }
-
-    public ListNode removeNthFromEnd(ListNode head, int n[]) {
-        if(head==null) return head;
-        ListNode x = removeNthFromEnd(head.next, n);
-        n[0]--;
-        head.next = x;
-        if(n[0]==0) return x;
-        else return head;
-    }
-    
-    
-    // Time O(n) space O(1)
-    // using two pointers
-    // first move fats pointer n times
-    // if fast is null then return head.next;
-    // then until fats !=null && fast.next !=null
-    // move slow and fast
-    // slow.next = slow.next.next;
-    //return head
-    public ListNode removeNthFromEnd(ListNode head, int n) {
-        ListNode slow = head, fast= head;
-        for(int i=0;i<n;i++) 
-            fast = fast.next; 
-        if(fast==null) return head.next; 
-        while(fast!=null&& fast.next!=null){
-            fast = fast.next;
-            slow=slow.next;
-        }
-        slow.next = slow.next.next;
-        return head;
-    }
-    
-    // we have a dummy node, saem as above we dont have to care abt edge cases
-    public ListNode removeNthFromEnd(ListNode head, int n) {
-        ListNode dummy = new ListNode(1);
-        dummy.next = head;
-        ListNode slow = dummy, fast= dummy;
-        for(int i=0;i<n;i++) 
-            fast = fast.next; 
-        while(fast!=null&& fast.next!=null){
-            fast = fast.next;
-            slow=slow.next;
-        }
-        slow.next = slow.next.next;
-        return dummy.next;
-    }
-    
-    
+    //APPROACH 1 brute ite twice,get count and move c-n times and remap
     // Time O(2n) space O(1)
     // first find count
     // find x=c-n;
@@ -94,4 +35,67 @@ public class RemoveNthNodeFromEndOfList {
         cur.next = cur.next.next;
         return head;
     }
+    
+    //APPROACH 2 rec+n[],bottom up, dec n[0]-- if n==0 return parent or return cur
+    // Time O(n) space: O(n)call stack
+    // recursive approach, my own unique approach i came up with instantly
+    // use recursion to get to right
+    // use int[] to create heap memory for permanacy
+    // bring node x fom recursion
+    // subrtact n when recursion gets out
+    // map node.next to x;
+    // if n==0 then return x
+    // else return node;
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        return removeNthFromEnd(head, new int[]{n});
+    }
+    public ListNode removeNthFromEnd(ListNode head, int n[]) {
+        if(head==null) return head;
+        ListNode x = removeNthFromEnd(head.next, n);
+        n[0]--;
+        head.next = x;
+        if(n[0]==0) return x;
+        else return head;
+    }
+    
+    
+    //APPROACH 3 ite+slowfast,move fast n times then move both at equal paces, edge case if fast==null,return head.next
+    // Time O(n) space O(1)
+    // using two pointers
+    // first move fats pointer n times
+    // if fast is null then return head.next;
+    // then until fats !=null && fast.next !=null
+    // move slow and fast
+    // slow.next = slow.next.next;
+    //return head
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode slow = head, fast= head;
+        for(int i=0;i<n;i++) 
+            fast = fast.next; 
+        if(fast==null) return head.next; 
+        while(fast!=null&& fast.next!=null){
+            fast = fast.next;
+            slow=slow.next;
+        }
+        slow.next = slow.next.next;
+        return head;
+    }
+    //APPROACH 3.2 ite+slowfast,move fast n times then move both at equal paces, with dummy node we can avoid edge case// if fast==null,return head.next
+    // we have a dummy node, saem as above we dont have to care abt edge cases
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode dummy = new ListNode(1);
+        dummy.next = head;
+        ListNode slow = dummy, fast= dummy;
+        for(int i=0;i<n;i++) 
+            fast = fast.next; 
+        while(fast!=null&& fast.next!=null){
+            fast = fast.next;
+            slow=slow.next;
+        }
+        slow.next = slow.next.next;
+        return dummy.next;
+    }
+    
+    
+    
 }

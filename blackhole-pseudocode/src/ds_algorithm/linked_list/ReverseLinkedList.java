@@ -20,7 +20,7 @@ import ds_algorithm.utils.ArrayUtils;
 
 public class ReverseLinkedList {
   
-    
+    //APPROACH 1 prev+ite
     // Time O(n) space: O(1)
     // iterte with prev and cur
     // take next, remap cur.next to prev 
@@ -36,13 +36,12 @@ public class ReverseLinkedList {
         return prev;
     }
     
+    //APPROACH 2 prev+rec, top down, cur=null, return prev
     // Time O(n) space: O(n) n in call stack
     // same aas above, just recursive
-    // top down
     public ListNode reverseList(ListNode head) {
         return reverseList(null, head);
     }
-
     public ListNode reverseList(ListNode prev, ListNode cur) {
         if(cur==null) return prev;
         ListNode next = cur.next;
@@ -50,7 +49,7 @@ public class ReverseLinkedList {
         return reverseList(cur, next);
     }
     
-    // bottom up
+    //APPROACH 3 prev+rec, bottom down, cur=null, return prevs, for returning assign in temp var
     public ListNode reverseList2(ListNode head) {
         return reverseList2(head,null);
     }
@@ -62,8 +61,8 @@ public class ReverseLinkedList {
     }
     
     
-    
-  // 1,2,3,4,5
+    //APPROACH 4 rec, bottom down, cur==null || cur.next==null, return , cur.next.next =cur, cur.next=null
+    // 1,2,3,4,5
     // Time O(n) space: O(n) n in call stack, bottom up
     // base case cur==null or nu.next==null means last node or head is null
     // keep last node in x to return that
@@ -77,44 +76,9 @@ public class ReverseLinkedList {
         return x;
     }
     
-  
-    
-  
+ 
   public static void main(String args[]){
-    SinglyLinkedList list;
-    ReverseLinkedList r = new ReverseLinkedList();
-    list = new SinglyLinkedList(new int[]{1,2,3,4,5});
-    test(SinglyLinkedList.toList(r.reverseListIte(list.head)), new int[]{1,2,3,4,5});
-    list = new SinglyLinkedList(new int[]{2,4});
-    test(SinglyLinkedList.toList(r.reverseListIte(list.head)), new int[]{2,4});
-    list = new SinglyLinkedList();
-    test(SinglyLinkedList.toList(r.reverseListIte(list.head)), new int[]{});
-    
-    list = new SinglyLinkedList(new int[]{1,2,3,4,5});
-    test(SinglyLinkedList.toList(r.reverseListRec(list.head)), new int[]{1,2,3,4,5});
-    list = new SinglyLinkedList(new int[]{2,4});
-    test(SinglyLinkedList.toList(r.reverseListRec(list.head)), new int[]{2,4});
-    list = new SinglyLinkedList();
-    test(SinglyLinkedList.toList(r.reverseListRec(list.head)), new int[]{});
-    
-    
-    list = new SinglyLinkedList(new int[]{1,2,3,4,5});
-    test(SinglyLinkedList.toList(r.reverseList(list.head)), new int[]{1,2,3,4,5});
-    list = new SinglyLinkedList(new int[]{2,4});
-    test(SinglyLinkedList.toList(r.reverseList(list.head)), new int[]{2,4});
-    list = new SinglyLinkedList();
-    test(SinglyLinkedList.toList(r.reverseList(list.head)), new int[]{});
-    
-    
-//    list = new SinglyLinkedList(new int[]{1,2,3,4,5});
-//    test(SinglyLinkedList.toList(reverseLinkedListTest(list.head)), new int[]{1,2,3,4,5});
-//    list = new SinglyLinkedList(new int[]{2,4});
-//    test(SinglyLinkedList.toList(reverseLinkedListTest(list.head)), new int[]{2,4});
-//    list = new SinglyLinkedList();
-//    test(SinglyLinkedList.toList(reverseLinkedListTest(list.head)), new int[]{});
-
   }
-  
   public static void test(ArrayList<Integer> got, int exp[]){
     Gson gson = new Gson();
     String gotStr = gson.toJson(got);

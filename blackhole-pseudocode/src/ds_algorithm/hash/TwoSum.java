@@ -15,7 +15,7 @@ import com.google.gson.GsonBuilder;
 
 public class TwoSum {
     
-    
+    //APPROACH 1 brute two loops, j=i+1
     //  Time O(n^2) space O(1)
     // approach : brute force, 2 loops, lame
     public int[] twoSumBrute(int[] nums, int target) {
@@ -25,6 +25,7 @@ public class TwoSum {
         return new int[]{0,0};
     }
     
+    //APPROACH 2 hashmap val,index check target-val in map
     //  Time O(n) space O(n)
     // approach : Hashmap, check if target-cur is present in map, store value,index in map
     // return something random at end, prblm told it def has a solution

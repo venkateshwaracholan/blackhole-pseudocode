@@ -16,6 +16,7 @@ import java.util.*;
 
 public class ValidParantheses {
     
+    //APPROACH 2 stack+checks, 
     // Time O(n) space O(n)
     // approach: stack
     // iterat chars, if else if ladder
@@ -33,7 +34,6 @@ public class ValidParantheses {
         }
         return stack.isEmpty();
     }
-    
     // Time O(n) space O(n)
     // approach: stack
     // add if one of open braces
@@ -55,7 +55,22 @@ public class ValidParantheses {
         return st.isEmpty();
     }
     
-    
+    //APPROACH 2 stack+map, 
+    // 
+    public boolean isValid3(String s) {
+        if(s.length()%2!=0) return false;
+        Map<Character,Character> map = new HashMap();
+        map.put(')','(');
+        map.put(']','[');
+        map.put('}','{');
+        Stack<Character> st = new Stack();
+        for(int i=0;i<s.length();i++){
+            char c = s.charAt(i);
+            if(!map.containsKey(c)) st.add(c);
+            else if(st.isEmpty()||st.pop()!=map.get(c)) return false;
+        }
+        return st.isEmpty();
+    }
     // using map to avoid code from above approach
     public boolean isValidMap(String s) {
         if(s.length()%2!=0) return false;
@@ -74,20 +89,6 @@ public class ValidParantheses {
         return st.isEmpty();
     }
   
-    // 
-    public boolean isValid3(String s) {
-        if(s.length()%2!=0) return false;
-        Map<Character,Character> map = new HashMap();
-        map.put(')','(');
-        map.put(']','[');
-        map.put('}','{');
-        Stack<Character> st = new Stack();
-        for(int i=0;i<s.length();i++){
-            char c = s.charAt(i);
-            if(!map.containsKey(c)) st.add(c);
-            else if(st.isEmpty()||st.pop()!=map.get(c)) return false;
-        }
-        return st.isEmpty();
-    }
+    
   
 }

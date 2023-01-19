@@ -15,7 +15,8 @@ import java.util.*;
 
 
 public class GroupAnagrams {
-  
+    
+    //APPROACH 1 hashMap Map<String, List<String>>, sorted keys, mapvalues
     //  Time: O(nklogk) space: O(nk)  n- number of strings k-max length of strings
     // approach: sorting and hashing,iterate strings with lop and covert to char array for sorting and String.valueOf for getting key
     // if map does not contain key, put a new arraylist
@@ -34,6 +35,7 @@ public class GroupAnagrams {
       return new ArrayList(map.values());
     }
   
+    //APPROACH 2 hashMap Map<String, List<String>> + cmap[26], build custom key, mapvalues
     //  Time: O(nk) space: O(nk)  n- number of strings k-max length of strings
     //approach: hashing and int map of character freq as there are only 26 chars
     //  we use 26 characters counts(a long sting of # and count) as the key to avoid sorting

@@ -10,7 +10,7 @@ package ds_algorithm.linked_list;
  */
 public class MergeKSortedLinkedList {
     
-    //APPROACH
+    //APPROACH 1 Ite+arrayList, get min from arraylist and assign to cur, move set node to next in AL, if null remove node from AL
     // Time O(nk) space: O(k)
     // compare one by one
     // put heads in arraylist
@@ -39,7 +39,7 @@ public class MergeKSortedLinkedList {
         }
         return dummy.next;
     }
-    
+    //APPROACH 1.2 Ite+lists[], skip nulls in lists, use null count to exit, get min from lists and assign to cur, move set node to next in lists
     // Time O(nk) space: O(k)
     // same as above without using lists
     // using null counts for exit
@@ -63,7 +63,7 @@ public class MergeKSortedLinkedList {
     }
     
     
-    //APPROACH
+    //APPROACH 2 Ite+minheap, put in minheap if not null, poll from ehap and put in cur, run until heap empty
     // Time O(nlogk) space: O(k)
     // adding into min heap
     // while minheap not empty
@@ -84,7 +84,7 @@ public class MergeKSortedLinkedList {
     }
     
     
-    //APPROACH
+    //APPROACH 3 merge+mergesort partition, partition and call merge 2 sorted list
     // Time O(nlogk) space: O(logk) call stack
     // using merge sort to sort 2 lists at a time
     // bounds 0 to k-1
@@ -104,6 +104,8 @@ public class MergeKSortedLinkedList {
         return merge(l1,l2);
     }
     
+    //APPROACH 3.2 merge+mergesort Ite, in=1,  while(i<siz),for(x 0 to siz-i) i=i*2, z+=2*i, merge 2 sorted list(x,x+i) and assignt to left
+    
     // Time O(nlogk) space: O(1) 
     // iterative merge sort, very intuitive
     // set interval as 1
@@ -115,8 +117,8 @@ public class MergeKSortedLinkedList {
     public ListNode mergeKLists(ListNode[] lists) {
         int interval = 1,siz = lists.length;
         while(interval<siz){
-            for(int i=0;i<siz-interval;i+=2*interval){
-                lists[i] = merge(lists[i], lists[i+interval]);
+            for(int x=0;x<siz-interval;x+=2*interval){
+                lists[x] = merge(lists[x], lists[x+interval]);
             }
             interval*=2;
         }

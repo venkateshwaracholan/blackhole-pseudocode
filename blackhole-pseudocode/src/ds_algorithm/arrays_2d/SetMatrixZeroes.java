@@ -14,6 +14,7 @@ import java.util.*;
 
 public class SetMatrixZeroes {
     
+    //APPROACH
     // Time O(mn*(m+n)) space: O(mn)
     // code is simple to understand
     public void setZeroes(int[][] matrix) {
@@ -34,6 +35,7 @@ public class SetMatrixZeroes {
     }
     
     
+    //APPROACH
     // Time: O(mn) space: O(m+n)
     // we are storing which row and whohc col has zeroes in 2 hashsets
     //then trerate again and checking if row matches i or col matche j then mark zero
@@ -57,9 +59,7 @@ public class SetMatrixZeroes {
             }
         }
     }
-    
-    
-    // same as above using nt[] instead of sets
+    // same as above using int[] instead of sets
     public void setZeroes3(int[][] matrix) {
         int m = matrix.length, n=matrix[0].length;
         int[] row = new int[m];
@@ -82,6 +82,7 @@ public class SetMatrixZeroes {
     }
     
     
+    //APPROACH
     // Time: O(mn) space: O(1)
     // the trick here is use first row and first columns as sets
     // we are going to leave first column alone, and use sep variable to track if it has zero

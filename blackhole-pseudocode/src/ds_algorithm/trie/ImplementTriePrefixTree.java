@@ -39,7 +39,7 @@ public class ImplementTriePrefixTree {
     }
     
     
-    //
+    // 
     class Trie {
         class TrieNode{
             TrieNode[] ch = new TrieNode[26];

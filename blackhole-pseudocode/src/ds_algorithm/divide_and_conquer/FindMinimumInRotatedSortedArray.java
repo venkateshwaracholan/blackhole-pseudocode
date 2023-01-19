@@ -13,7 +13,7 @@ package ds_algorithm.divide_and_conquer;
 
 public class FindMinimumInRotatedSortedArray {
     
-    
+    //APPROACH 1 binary search, nums[l]<=nums[r] no rot, mid>mid+1 is end cond, return mid+1, nums[l]<=nums[mid] rot is in right vice versa
     // Time O(logn) space:O(1)
     // left<right no rotation return nums at 0
     // while l<=r
@@ -31,9 +31,7 @@ public class FindMinimumInRotatedSortedArray {
         }
         return nums[0];
     }
-    
-    
-    //
+    // just bounds different
     public int findMin2(int[] nums) {
         int l=0,r=nums.length-1;
         if(nums[l]<=nums[r]) return nums[l];

@@ -16,6 +16,7 @@ import java.util.stream.IntStream;
 
 public class ContainsDuplicate {
     
+    //APPROACH 1 brute 2 loops, j=i+1
     //TLE
     // Time O(n*n) space O(1)
     public boolean containsDuplicateBrute(int[] nums) {
@@ -25,6 +26,7 @@ public class ContainsDuplicate {
         return false;
     }
     
+    //APPROACH 2 hashset
     // Time O(n) space O(n)
     //approach: hashset, check if present an add into set
     public boolean containsDuplicate(int[] nums) {
@@ -37,6 +39,7 @@ public class ContainsDuplicate {
     }
     
     
+    //APPROACH 3 sort
     // Time O(nlogn) space:O(logn)
     // approach: sorting and checking adjacent elements
     public boolean containsDuplicateSort(int[] nums) {
@@ -46,7 +49,7 @@ public class ContainsDuplicate {
         return false;
     }
     
-    
+    //APPROACH 4 intsteam distinct count
     // using java streams // guess its Time O(n) space O(n)
     public boolean containsDuplicateStream(int[] nums) {
         return nums.length != IntStream.of(nums).distinct().count();

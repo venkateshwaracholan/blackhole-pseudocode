@@ -14,14 +14,13 @@ import java.util.*;
 
 public class SameTree {
     
-    
+    //APPROACH 1 dfs, both nulls true, either null or val not equal false, and return left && right
     // Time O(n) space O(n)
     public boolean isSameTree2(TreeNode p, TreeNode q) {
         if(p==null&&q==null) return true;
         else if(p==null||q==null || p.val!=q.val) return false;
         return isSameTree(p.left,q.left) && isSameTree(p.right,q.right);
     }
-    
     //unwnated
     public boolean isSameTree3(TreeNode p, TreeNode q) {
         if (p == null && q == null) return true;
@@ -32,6 +31,7 @@ public class SameTree {
     } 
     
     
+    //APPROACH 2 BFS, allow nulls in queue, both nulls true, either null or val not equal false, and return left && right
     
     // critical, allowe nulls to pass on to queue to solve this easily
     public boolean isSameTree5(TreeNode p, TreeNode q) {
@@ -54,7 +54,8 @@ public class SameTree {
     
     
     
-    
+    //APPROACH 3 preorder sequencing, builod preorder seq with sb, check if equal
+   
     // preorder -> root left right
     // Building Preorder sequence, u can build pre or post with # and N 
     // NOTE: inorder wont work

@@ -14,6 +14,7 @@ package ds_algorithm.linked_list;
  
 public class LinkedListCycle {
     
+    //APPROACH 1 ite slow fast pointers, 
     // Time O(n) space: O(1)
     // floyd cycle detection
     // two pointers, slow and fast pointers
@@ -28,6 +29,7 @@ public class LinkedListCycle {
         return false;
     }
     
+    //APPROACH 1 ite+set, 
     // Time O(n) space: O(n)
     // hashset, lame
     public boolean hasCycle(ListNode head) {
@@ -40,6 +42,7 @@ public class LinkedListCycle {
         return false;
     }
     
+    //APPROACH 1 (ite or rec) changing value of node to 0xcafebabe, lol 
     // Time O(n) space: O(1)
     // modifying LIst values, bad approach
     // but was fun
@@ -51,7 +54,6 @@ public class LinkedListCycle {
         }
         return false;
     }
-    
     // same as above even shorter
     public boolean hasCycle(ListNode head) {
         return (head!=null) && (head.val == (head.val = 0xcafebabe) || hasCycle(head.next));

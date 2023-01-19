@@ -27,7 +27,8 @@ public class LowestCommonAncestor {
   
   static boolean show = true;
   
-    //APPROACH
+    //APPROACH 1 DFS if found in return root, else return whcihever node is found
+  
     // Time: O(n) space: O(n)
     // if ruul or p found or q founmd return root
     // get the left and right
@@ -43,7 +44,8 @@ public class LowestCommonAncestor {
     
     
   
-    //APPROACH
+    //APPROACH 2 DFS+hashMap+set leaf to root paths in map dfs until both p and q in map, put p in set, and move q until q is in set, return q
+    
     // using parents maps to fetch leaf to root path from p or q
     // run while until map contains p and q both
     // then add root, null in map for ending
@@ -67,7 +69,7 @@ public class LowestCommonAncestor {
         paths(root.left,map,p,q);
         paths(root.right,map,p,q);
     }
-    
+    //APPROACH 2.2 BFS+hashMap+set leaf to root paths in map bfs until both p and q in map, put p in set, and move q until q is in set, return q
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         Queue<TreeNode> qu = new LinkedList();
         Map<TreeNode, TreeNode> map= new HashMap();
@@ -89,20 +91,18 @@ public class LowestCommonAncestor {
     }
     
     
-    //APPROACH
+    //APPROACH 3 DFS+hashMap+set root to leaf paths in map as AL, move AL until same, return prev
     // finding root to leaf paths and storing in arraylist
     // then iterate the paths to find common ancestor
     // NOTE: if we try doing this iterative, we need more space to create the root to leaf path for p and q
     // n arraylists with all parents or n stringbuilder with all parents is required
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-       
         path(root,x,p);
         path(root,y,q);
         int i=0;
         for(;i<x.size()&&i<y.size()&&x.get(i).val==y.get(i).val;i++);
         return x.get(i-1);
     }
-
     public boolean path(TreeNode n, List<TreeNode> a, TreeNode t){
         if(n==null) return false;
         a.add(n);
@@ -113,7 +113,7 @@ public class LowestCommonAncestor {
     }
     
   
-    //APPROACH
+    //APPROACH 4 Iterative Inorder traversal with stack, if p or q found assing anc and anclev, found again return, stack size<anclevel, update anc and anclevel
     //  using inorder traversal -> left root right
     //  if found assign to ancestor, and set ans level
     //  if found within subtree return ancetor;

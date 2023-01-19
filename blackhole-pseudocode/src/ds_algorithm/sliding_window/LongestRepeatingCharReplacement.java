@@ -15,6 +15,7 @@ import java.util.*;
 
 public class LongestRepeatingCharReplacement {
     
+    //APPROACH 1 => 2loops inner loop twopointers i=0,j=0, move j, while jchar==ichar inc count, move i when j-i+1>c+k, window>allowed
     // TLE
     // Time complexity: O(n*⁡n) space: O(1) 26 chars
     public int characterReplacement(String s, int k) {
@@ -31,6 +32,7 @@ public class LongestRepeatingCharReplacement {
         return max;
     }
     
+    //APPROACH 2 => ouerloop running for only max 26 chars,2loops inner loop twopointers i=0,j=0, move j, while jchar==ichar inc count, move i when j-i+1>c+k, window>allowed
     // Time complexity: O(nm)
     // Space complexity: O(m) m is 26
     // approach: iterate each character and slide a valid window
@@ -55,7 +57,7 @@ public class LongestRepeatingCharReplacement {
         return longest;
     }
  
-    
+    //APPROACH 3 =>  int[] freq map + 1 twopointer loop i=0,j=0, move j and put in map, get maxf, move i when j-i+1>maxf+k, window>allowed
     
     // Time complexity: O(n)
     // Space complexity: O(m) m is 26

@@ -13,6 +13,7 @@ package ds_algorithm.linked_list;
 
 public class ReorderList {
     
+    //APPROACH 1 stak+ite, run until has the stack and remap,cur.next=null, break the chain
     // Time O(2n) space: o(n)
     // put linked list in stack, 
     // run upto stack size/2 times
@@ -39,6 +40,8 @@ public class ReorderList {
         cur.next = null;
     }
     
+    //APPROACH 2 rec+left[], end cond = left[0].next==null, left[0].next=right, make it null
+    
     //  Time O(n) space: o(n) call stack
     // using recursion bottom up to get last node
     // using ListNode[] to safely take head inside
@@ -60,6 +63,7 @@ public class ReorderList {
         if(left[0].next==right) left[0].next = null;
     }
     
+    //APPROACH 3 ite+twopinters+reverse, find mid with slw,fast pointers, get midnex, make mid.next null(break chain), reverse midnext, merge cur,midnext until either null
     
     //  Time O(n) space: o(1) Iterative
     //first find mid using slw and fast pointers
@@ -84,7 +88,6 @@ public class ReorderList {
         }
 
     }
-
     public ListNode reverse(ListNode cur){
         if(cur==null||cur.next==null) return cur;
         ListNode x = reverse(cur.next);
@@ -94,7 +97,8 @@ public class ReorderList {
     }
     // 1 2 3 n 
     // 5 4 n
-    
+    //APPROACH 3.2 ite+twopinters+reverse, find mid with slw,fast pointers, get midnex, make mid.next null(break chain), reverse midnext, merge cur,midnext until either null
+    // swap instead of full merge
     //same as above alternate merge strategy
     public void reorderList(ListNode head) {
         ListNode cur=head,slow=head,fast=head;
@@ -111,12 +115,5 @@ public class ReorderList {
             cur= midnext;
             midnext = cnext;
         }
-    }
-    public ListNode reverse(ListNode cur){
-        if(cur==null || cur.next==null) return cur;
-        ListNode h = reverse(cur.next);
-        cur.next.next = cur;
-        cur.next = null;
-        return h;
     }
 }

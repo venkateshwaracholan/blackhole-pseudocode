@@ -14,6 +14,7 @@ package ds_algorithm.two_pointers;
 
 public class ContainerWithMostWater {
   
+    //APPROACH 1 brute => 2 loops, j=i+1, get area
     // Time: O(n^2) space: O(1)
     // brute force
     // area => min of heights * j-i
@@ -25,7 +26,7 @@ public class ContainerWithMostWater {
         return max;
     }
 
-
+    //APPROACH 2 => 1 loops two pointer, i=0,j=n-1, get area, move pointer with min h
     // approach: two pointers, max
     // Time: O(n) space: O(1)
     // core idea: start two pointers with both ends

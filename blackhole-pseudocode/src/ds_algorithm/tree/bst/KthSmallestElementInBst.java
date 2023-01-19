@@ -16,36 +16,25 @@ import java.util.*;
 
 public class KthSmallestElementInBst {
   
-    //APPROACH
+     //APPROACH 1 DFS inorder traversal + k[], update and chek with k in in order block, use temp var for return and return if not null   
+    
     //  Time: O(n) space: O(n) rec - tree might not be balanced
     // using inorder traversal in bst will always return a sorted array
     // using a counter[] to return
     //  usng Integer to identify null and not return
     public int kthSmallest(TreeNode root, int k) {
-        return kthSmallest(root,new int[]{0},k);
-    }
-    // alternatively we can also change i to k[] and decrement that and check k[0]==0 
-    public Integer kthSmallest(TreeNode root, int i[], int k) {
-        if(root==null) return null;
-        Integer l = kthSmallest(root.left, i, k);
-        if(l!=null)return l;
-        if(k==i[0]++) return root.val;
-        return kthSmallest(root.right, i, k);
-    }
-    // same as above with alt impl
-    public int kthSmallest(TreeNode root, int k) {
         return kthSmallest(root,new int[]{k});
     }
-    public int kthSmallest(TreeNode root, int[] k) {
-        if(root==null) return -1;
-        int a = kthSmallest(root.left,k);
-        if(a!=-1) return a;
+    public Integer kthSmallest(TreeNode root, int[] k) {
+        if(root==null) return null;
+        Integer a = kthSmallest(root.left,k);
+        if(a!=null) return a;
         if(--k[0]==0) return root.val;
         return kthSmallest(root.right,k);
     }
     
   
-    //APPROACH
+    //APPROACH 2 Ite inorder traversal with stack + k[], update k if k==0 return k
     // Iterative inorder traversal using stack
     // Time: O(n) space: O(n) stack - tree might not be balanced
     // root!=null || !s.empty() is very important

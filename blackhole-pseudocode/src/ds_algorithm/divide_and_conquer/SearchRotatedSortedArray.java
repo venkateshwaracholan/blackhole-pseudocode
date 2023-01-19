@@ -14,7 +14,8 @@ package ds_algorithm.divide_and_conquer;
 
 public class SearchRotatedSortedArray {
   
-  
+    //APPROACH 1 binary search, target==mid is end cond, return mid, nums[l]<=nums[mid] check if target in between l<= t <mid move left else right
+    // else have the same check again ,if target between mid< t <=r
     //  Time: O(log n) single pass
     //  code idea: binary search
     //  compare mid with left most element, if its more then left->mid is a proper sorted array 
@@ -37,9 +38,10 @@ public class SearchRotatedSortedArray {
         return -1;
     }
   
+    
+    //APPROACH 2 binary search, find rot index, impl bin search, if k=0, run afull bin search, t>l bin(l,k-1) t<l bin(k,r)
     // [4,5,6,7,0,1,2] 
     // [6,7,0,1,2,4,5] 
-
     //  TimeO: (2logn) two pass with several conditionals
     //  first we need to find the rotation index, write a func for that
     //  always compare mid with left to get that idea
@@ -49,7 +51,6 @@ public class SearchRotatedSortedArray {
     //  them comare target with left(and not the) element to choose the side
     //  if target is greater than left, left to k-1
     //  else k to right
-
     //  key intricasies
     //  1. l<=r becoz we use mid+1 and mid-1
     //  2. if we retun mid+1, we have smallerst value in k, write code accordingly

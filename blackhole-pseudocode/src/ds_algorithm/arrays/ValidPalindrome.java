@@ -11,7 +11,7 @@ package ds_algorithm.arrays;
 
 public class ValidPalindrome {
     
-    //
+    //APPROACH 1 skip if letter or digit, then check if chars are same 
     public boolean isPalindrome(String s) {
         for(int i=0,j=s.length()-1;i<j;){
             char l = s.charAt(i);
@@ -28,7 +28,6 @@ public class ValidPalindrome {
         }
         return true;
     }
-  
     public static boolean isPalindrome2(String s){
         int i=0,j=s.length()-1;
         while(i<j){
@@ -46,7 +45,6 @@ public class ValidPalindrome {
         }
         return true;
     }
-  
     // same as above, just changed or to and
     public boolean isPalindrome3(String s) {
         for(int i=0,j=s.length()-1;i<j;){
@@ -63,11 +61,10 @@ public class ValidPalindrome {
     }
   
   public static void main(String args[]){
-    
     System.out.println('9' + 0);
-    
   }
   
+  //APPROACH 1 use int[] map for letter and digits, skip if letter or digit, then check if chars are same 
   // this actually consumes more space than required by prev solution but its O(1)
     public boolean isPalindrome4(String s) {
         int cmap[] = new int[256];

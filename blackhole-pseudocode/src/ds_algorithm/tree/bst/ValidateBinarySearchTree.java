@@ -14,17 +14,19 @@ package ds_algorithm.tree.bst;
 public class ValidateBinarySearchTree {
     
     
-    //APPROACH
+    //APPROACH 1 DFS+range, return false if out of range
+    
     // Time O(n) space:O(logn)
     public boolean isValidBST(TreeNode root,long lo, long hi) {
         if(root==null) return true;
         if(root.val<=lo || root.val>=hi) return false;
         return isValidBST(root.left, lo, root.val) && isValidBST(root.right, root.val, hi);
     }
-
     public boolean isValidBST(TreeNode root) {
         return isValidBST(root, Long.MIN_VALUE, Long.MAX_VALUE);
     }
+    
+    //APPROACH 1.2 BFS+range[], return false if out of range
     
     // Time O(n) space:O(n)
     // BFS, and one more queue for storing limits for each node
@@ -51,8 +53,8 @@ public class ValidateBinarySearchTree {
         return true;
     }
     
+    //APPROACH 2 Ite inorder traversal + prev    
     
-    //APPROACH
     // Time O(n) space:O(n)
     // approach: inorder traversal iterative
     // using inorder traversal -> left root right
@@ -73,6 +75,7 @@ public class ValidateBinarySearchTree {
         return true;
     }
     
+     //APPROACH 2.2 DFS inorder traversal + prev[], update and check prev in inorder block 
     
     // Time O(n) space:O(n)
     // approach: inorder traversal recursive
@@ -88,7 +91,7 @@ public class ValidateBinarySearchTree {
         prev[0] = root;
         return x&&inOrder(root.right,prev);
     }
-    
+
     
 
 }
