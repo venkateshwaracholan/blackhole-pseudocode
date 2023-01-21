@@ -14,7 +14,9 @@ import java.util.*;
 
 public class SetMatrixZeroes {
     
-    //APPROACH
+    //APPROACH 1 Ite Twice + Boolean[m][n] => first row col ite, we are just marking 0 sopts in dp, in seconds row col ite, we are checkking if marked and if marked
+    //                                        we are using 2 loops to mark zeroes the whole row and col
+     
     // Time O(mn*(m+n)) space: O(mn)
     // code is simple to understand
     public void setZeroes(int[][] matrix) {
@@ -35,54 +37,31 @@ public class SetMatrixZeroes {
     }
     
     
-    //APPROACH
+    //APPROACH 2 Ite Twice + 2 int[] row,col => first row col ite, we are just marking 0 sopts in row[i], col[j], in seconds row col ite, 
+    //                                          we are checkking if wither row or col marked, and making matriz[i][j] = 0;
+    //                              
     // Time: O(mn) space: O(m+n)
-    // we are storing which row and whohc col has zeroes in 2 hashsets
+    // we are storing which row and which col has zeroes in 2 int[] maps
     //then trerate again and checking if row matches i or col matche j then mark zero
-    public void setZeroes2(int[][] matrix) {
-        int m = matrix.length, n=matrix[0].length;
-        Set<Integer> row = new HashSet();
-        Set<Integer> col = new HashSet();
-        for(int i=0;i<m;i++){
-            for(int j=0;j<n;j++){
-                if(matrix[i][j]==0){
-                    row.add(i);
-                    col.add(j);
-                }
-            }
-        }
-        for(int i=0;i<m;i++){
-            for(int j=0;j<n;j++){
-                if(row.contains(i)||col.contains(j)){
-                    matrix[i][j]=0;
-                }
-            }
-        }
-    }
     // same as above using int[] instead of sets
     public void setZeroes3(int[][] matrix) {
         int m = matrix.length, n=matrix[0].length;
         int[] row = new int[m];
         int[] col = new int[n];
-        for(int i=0;i<m;i++){
-            for(int j=0;j<n;j++){
-                if(matrix[i][j]==0){
-                    row[i]=1;
-                    col[j]=1;
-                }
-            }
-        }
-        for(int i=0;i<m;i++){
-            for(int j=0;j<n;j++){
-                if(row[i]==1||col[j]==1){
+        for(int i=0;i<m;i++)
+            for(int j=0;j<n;j++)
+                if(matrix[i][j]==0)
+                    row[i] = col[j]=1;
+        for(int i=0;i<m;i++)
+            for(int j=0;j<n;j++)
+                if(row[i]==1||col[j]==1)
                     matrix[i][j]=0;
-                }
-            }
-        }
     }
     
     
-    //APPROACH
+    //APPROACH 3 Ite Twice + using first row and col as dp => for(i=0,m) for(j=1,n) (leave first col), aslo col0=1 if first col has zero,  we are just marking 0 spots in matrix[i][0], matrix[0][j], 
+    //                  in seconds row col ite reverse ite for(m-1,>=0) for(n-1,>=1) (leave first col), we are checkking if matrix[i][0]==0||matrix[0][j]==0 then  matrix[i][j]=0;
+    //    
     // Time: O(mn) space: O(1)
     // the trick here is use first row and first columns as sets
     // we are going to leave first column alone, and use sep variable to track if it has zero

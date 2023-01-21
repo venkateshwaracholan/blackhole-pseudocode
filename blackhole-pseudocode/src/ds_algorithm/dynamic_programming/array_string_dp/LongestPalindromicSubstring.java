@@ -13,7 +13,8 @@ package ds_algorithm.dynamic_programming.array_string_dp;
 
 public class LongestPalindromicSubstring {
     
-    //APPROACH
+    //APPROACH 1 brute => 2 loops, j=i+1, for every comb, check if string is paindrome and update max and l, ret s.substring(l,l+max)
+    
     // brute n*n*n
     public String longestPalindrome(String s) {
         int max = 1,l=0;
@@ -34,7 +35,9 @@ public class LongestPalindromicSubstring {
     
     
     
-    //APPROACH
+    //APPROACH 2 Extend => 1 loops, extend(i,i) and extend(i,i+1) find whichever is longer as x , update maxstr if x is longer than that
+    //                          extend(i,j) while chars equal and bound intact, move i to left ,j to right and udpate maxstr
+ 
     // n*n extending both odd and even
     public String longestPalindrome2(String s) {
         String maxStr="";
@@ -52,7 +55,9 @@ public class LongestPalindromicSubstring {
             maxStr = s.substring(i,j+1);
         return maxStr;
     }
-    // same a s above, using []{i,j} instead of substrings
+    //APPROACH 2.2 Extend + max[] to avoidsubstring calls => 1 loops, extend(i,i) and extend(i,i+1) find whichever is longer as x , update max[] if x is longer than that
+    //                          extend(i,j) while chars equal and bound intact, move i to left ,j to right and udpate max[] 
+    //                        
     public String longestPalindrome3(String s) {
         int[] max = new int[2];
         for(int i=0;i<s.length();i++){
@@ -74,7 +79,10 @@ public class LongestPalindromicSubstring {
     }
     
     
-    //APPROACH
+    //APPROACH 3 => 2d DP boolean[n][n] => iterate right diagonals and move to top right dir as right diag elements reduce
+    //                   j,i+j -> traverse right diagonals for(i=0,n) for(j=0,n-i) 
+    //                  dp[j][i+j] = s[i]==s[i+j](same chars if i is 0) && (i<2||dp[j+1][i+j-1]) means true for checking same char and adj chars, then depend on dp
+    //                  if(dp[j][i+j]  and i>end-start) update stant and end, i is the max as i inc, j,i+j has a diff of i, chars at these pos are compared
     //
     /*  babab
     //  i==0  matching        b a b a b
@@ -103,6 +111,11 @@ public class LongestPalindromicSubstring {
         }
         return s.substring(start,end+1);
     }
+    //APPROACH 3.2 => 2d DP boolean[n][n] => iterate right diagonals and move to top right dir as right diag elements reduce
+    //                   j,i+j -> traverse right diagonals for(i=0,n) for(j=0,n-i) 
+    //                  dp[j][i+j] = s[i]==s[i+j](same chars if i is 0) && (i<2||dp[j+1][i+j-1]) means true for checking same char and adj chars, then depend on dp
+    //                  if(dp[j][i+j]  and i>end-start) update stant and end, i is the max as i inc, j,i+j has a diff of i, chars at these pos are compared
+    //                  dp[j][i+j] can access only dp[j+1][i+j-1], its prev col, so making col size 2 and swapping col everytime saves space
     public String longestPalindrome5(String s) {
         int start=0,end=0, n=s.length();
         boolean[][] dp =new boolean[n][2];
@@ -119,15 +132,13 @@ public class LongestPalindromicSubstring {
         }
         return s.substring(start,end+1);
     }
-        
-    
+
     /*
     0 0
     0 0
     0 0
     0 0
     0 0
-        
     */
 
     /*  babab
@@ -141,7 +152,11 @@ public class LongestPalindromicSubstring {
     //
     
     
-    //APPROACH
+    //APPROACH 4 - Manchers alogirthm + char[2*len+3] ch, abc => @#a#b#c#$, 4 vars=>start,maxlen, maxright,center + c[] for storing max extentions for i,
+    //                     for(i=1,ch.len) -> if(i<maxr) p[i] = min(maxr-i, p[2*cen-i]) as maxr-i is max p[i] so far and p[2*cen-i] is the mirror character
+    //                     while(ch[i+p[i]+1] == ch[i-p[i]-1]) p[i]++ means, check if p[i] can extend both sides and increase its value i chars are equal
+    //                      if(i+p[i]>maxr) update maxr=i+p[i] and center=i, p[i]>maxlen, update new max holder, maxlen=p[i], 
+    //                      start = (i-p[i]-1)/2 means i-1/2 gives its pos, whereas i-p[i]-1 givess position of letter upto which char at i was able to extend
     // dont learn this algo 
     // manchers algorithm
     // getting value from mirror if its a char from palindrome
@@ -179,6 +194,25 @@ public class LongestPalindromicSubstring {
             }
         }
         return s.substring(start,start+maxlength);
+    }
+    
+    
+    
+    
+    
+    public String longestPalindromeTest(String s) {
+        int start=0,end=0, n=s.length();
+        boolean[] dp =new boolean[n];
+        for(int i=0;i<n;i++){
+            for(int j=0;j<=i;j++){
+                dp[j] = s.charAt(i)==s.charAt(j) && (i-j<2 || dp[j+1]);
+                if(dp[j]&&i-j>end-start){
+                    start= j;
+                    end = i;
+                }
+            }
+        }
+        return s.substring(start,end+1);
     }
     
 }

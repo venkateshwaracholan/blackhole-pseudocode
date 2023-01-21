@@ -23,7 +23,9 @@ public class PacificAtlanticWaterFlow {
     // interesting to thinks but its a worst time and space
     
     
-    // APPROACH 2
+    // APPROACH 1 DFS4 + 2 boolean[][] => call dfs for all the corner nodes in 2 loops, pass respect dp[][] to resp sides, for row col, if both dp are true add to ans
+    //                              dfs(i,j,dp,prev)  => i,j out of bound or dp[i][j] is true or h[i][j]<prev return, mark dp[i][j] true, call DFS4
+    
     //    Time Complexity: O(mn)
     //    Space Complexity: O(mn) for two visited arrays for each Ocean.
     public List<List<Integer>> pacificAtlantic(int[][] heights) {
@@ -56,7 +58,10 @@ public class PacificAtlanticWaterFlow {
 
     
     
-    //BFS
+    // APPROACH 2=> BFS 2 Queue<int[]> + dir4 + 2 boolean[][] => add the corner nodes in resp queues in 2 loops, for row col, if both dp are true add to ans
+    //                              bfs(i,j,dp,q)  => do bfs -> x[] i=x[0],j=x[1], for 4 dirs find nr,nc check i,j in bound ans dp[i][j] is false and h[nr][nc]>=h[i][j] 
+    //                              mark dp[i][j] true, add to queue
+    
     
     public List<List<Integer>> pacificAtlantic3(int[][] heights) {
         int m = heights.length,n =heights[0].length;

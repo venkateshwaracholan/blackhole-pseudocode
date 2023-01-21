@@ -43,14 +43,12 @@ public class LongestRepeatingCharReplacement {
         Set<Character> letters = new HashSet();
         int longest = 0;
         for(int i=0;i<s.length();i++) letters.add(s.charAt(i));
-        for(char c: letters){
-            int count = 0;
+        for(char l: letters){
+            int c = 0;
             for(int i=0,j=0;j<s.length();j++){
-                if(c==s.charAt(j))count++;
-                if((j-i+1-count)>k){
-                    if(c==s.charAt(i)) count--;
-                    i++;
-                }
+                if(l==s.charAt(j))c++;
+                if((j-i+1)>c+k)
+                    if(l==s.charAt(i++)) c--;
                 longest = Math.max(j-i+1, longest);
             }
         }

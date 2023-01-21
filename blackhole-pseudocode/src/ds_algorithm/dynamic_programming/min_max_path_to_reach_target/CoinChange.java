@@ -40,7 +40,9 @@ public class CoinChange {
   
   
   
-    //APPROACH
+    //APPROACH 1 DFS -  amount<0 ret -1, amount==0 ret 0 (valid case),min = inf for each coin, c =rec(amoint-coin), if c is valid, and c<min update min=c+1 (adding 1 coin)
+    //                           fin, ret min==inf -1 else min 
+  
     //  Time; O(s**n) Space: O(n) s - amount, n - coins
     //  Core idea: top down, tree recursion, tail recursion, brute force
     //  reduce capacity and break into smaller sub problems
@@ -63,6 +65,8 @@ public class CoinChange {
         }
         return min==Integer.MAX_VALUE ? -1 : min;
     }
+    //APPROACH 1.2 DFS + int[amt+1] dp -  amount<0 ret -1, amount==0 ret 0 (valid case),if found in dp ret dp val, min = inf for each coin, c =rec(amount-coin), 
+    //                         if c is valid, and c<min update min=c+1 (adding 1 coin) fin, ret put in dp, min==inf -1 else min 
     // same as above, using a dp memoization table to avoid duplicate work
     // duplicate work is computing for same amount repeatedly
     // if an amout is being assigned to dp , all combinations are already compared and min is found
@@ -83,7 +87,9 @@ public class CoinChange {
     }
   
   
-     //APPROACH
+    //APPROACH 2 Ite + int[amt+1] dp - for(i=1,<=amt) dp[i] = amt+1 (dont use inf as inf+1=-inf), for each coin, allow only i>=coin as we are doin dp[i-coin] shnd not go to negative 
+    //                             dp[i] = Math.min(dp[i], dp[i-coin]+1)  # dp[i-coin]+1 means we are adding 1 coin from prev, finally if dp[amt]==amt+1 -1 else dp[amt]
+    
     //  Time: O(s*n) space: O(s)
     //  Core Idea: DP, Bottom up, tabulation
     //  we initialize ever amount with amount+1 so that min works well
@@ -96,31 +102,30 @@ public class CoinChange {
         int dp[] = new int[amount+1];
         for(int i=1;i<=amount;i++){
             dp[i] = amount+1;
-            for(int coin: coins){
-                if(coin<=i){
+            for(int coin: coins)
+                if(i>=coin)
                     dp[i] = Math.min(dp[i], dp[i-coin]+1);
-                }
-            }
         }
         return dp[amount]==amount+1 ? -1: dp[amount];
     }
-  
+    
+    //APPROACH 2.2 Ite + int[amt+1] dp - (dont use inf as inf+1=-inf) fill dp with -1, dp[0] is 0, for each coin, for(i=coin,<=amt) 
+    //                             dp[i] = Math.min(dp[i], dp[i-coin]+1)  # dp[i-coin]+1 means we are adding 1 coin from prev, finally if dp[amt]==amt+1 -1 else dp[amt]
+    
     //  Time: O(s*n) space: O(s)  
     //  same as above, but to avoid a check, for every coin , we are starting from coin to amount in inner loop 
-    public static int coinChangeBottomupAlt(int[] coins, int amount) {
-        int dp[] = new int[amount+1];
-        Arrays.fill(dp, amount+1);
-        dp[0] = 0;
-        for(int coin:coins){
-            for(int i=coin;i<=amount;i++){
-                dp[i] = Math.min(dp[i-coin]+1, dp[i]);
-            }
-        }
-        return dp[amount]==amount+1 ? -1 : dp[amount];
+    public int coinChangeAlt(int[] coins, int amount) {
+        int[] dp = new int[amount+1];
+        Arrays.fill(dp,amount+1);
+        dp[0]=0;
+        for(int coin: coins)
+            for(int i=coin;i<=amount;i++)
+                dp[i] = Math.min(dp[i],dp[i-coin]+1);
+        return dp[amount]==amount+1?-1:dp[amount];
     }
     
     
-     //APPROACH
+    //APPROACH 3.1 BFS + boolean[amount+1] vis - staring from 0 do bfs level order traversal, x==amt ret count, x>amount || visisted continue, mark vis, add x+coin to queue
     // we are doing a bfs
     //     0
     //    125
@@ -145,6 +150,7 @@ public class CoinChange {
         }
         return -1;
     }
+    //APPROACH 3.2 BFS + boolean[amount+1] vis - staring from amt do bfs level order traversal, x==0 ret count, x<0 || visisted continue, mark vis, add x+coin to queue
     // same starting from 11 to 0
     public int coinChangebfs2(int[] coins, int amount) {
         Queue<Integer> q = new LinkedList();

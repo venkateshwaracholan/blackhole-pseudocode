@@ -17,7 +17,10 @@ https://leetcode.com/problems/maximum-product-subarray/
 
 public class MaximumProductSubarray {
 
-    //APPROACH
+    //APPROACH 1 Ite + max, localmax, localmin, tempmax, tempmin => max=lmin=lmax = nums[0] for(i=1,len) tmin = nums[i]*min, tmax = nums[i]*max
+    //                      lmin = min(nums[i],tmin,tmax) (coz anythng can change with mul neg ints) lmax = max(nums[i],tmin,tmax) fnally acc max=max(max,lmax)
+    
+    
     // Time: O(n) space: O(1) 
     // Kadane
     // Core Idea: have a min and max
@@ -28,37 +31,40 @@ public class MaximumProductSubarray {
     // array with 1 value is an exception
   
     public int maxProduct(int[] nums) {
-        int ans = nums[0],min=nums[0],max=nums[0];
+        int max=nums[0], lmin=nums[0],lmax=nums[0];
         for(int i=1;i<nums.length;i++){
-            int nmin = min*nums[i];
-            int nmax = max*nums[i];
-            min = Math.min(nums[i],Math.min(nmin,nmax));
-            max = Math.max(nums[i],Math.max(nmin,nmax));
-            ans = Math.max(ans,max);
+            int tmin = nums[i]*lmin;
+            int tmax = nums[i]*lmax;
+            lmin = Math.min(nums[i], Math.min(tmin, tmax));
+            lmax = Math.max(nums[i], Math.max(tmin, tmax));
+            max = Math.max(max,lmax);
         }
-        return ans;
+        return max;
     }
-    //Approach 2: Just the slight modification of previous approach. As we know that on 
+    //APPROACH 1.2 Ite + max, localmax, localmin + swap for negative => max=lmin=lmax = nums[0] for(i=1,len) if num[i] is neg swap lmin and lmax, as max and min are going to swap too
+    //                      lmin = min(nums[i],nums[i]*lmin) lmax = max(nums[i],nums[i]*lmax) fnally acc max=max(max,lmax)
+    
     //multiplying with negative number max will become min and min will become max, 
     //so why not as soon as we encounter negative element, we swap the max and min already.
-    public int maxProduct2(int[] nums) {
-        int ans = nums[0],min=nums[0],max=nums[0];
+    public int maxProduct(int[] nums) {
+        int max=nums[0], lmin=nums[0],lmax=nums[0];
         for(int i=1;i<nums.length;i++){
             if(nums[i]<0){
-                int t=max;
-                max=min;
-                min=t;
+                int t=lmin;
+                lmin = lmax;
+                lmax = t;
             }
-            min = Math.min(nums[i],nums[i]*min);
-            max = Math.max(nums[i],nums[i]*max);
-            ans = Math.max(ans,max);
+            lmin = Math.min(nums[i], nums[i]*lmin);
+            lmax = Math.max(nums[i], nums[i]*lmax);
+            max = Math.max(max,lmax);
         }
-        return ans;
+        return max;
     }
     
+    //APPROACH 2 Left Ite right Ite + l=r=1, max=nums[0] => for(i=0,n) mul and acc l*=nums[i] if l becomes 0, l=1 (resetting product incase of zero) 
+    //                      do the sam for right from reverse assign max in both l and r loop
     
-    //APPROACH
-    //
+   
     public int maxProduct3(int[] nums) {
         int n = nums.length;
         int l=1,r=1;
@@ -75,8 +81,10 @@ public class MaximumProductSubarray {
         }
         return ans;
     }
+    //APPROACH 2.2 left right Ite in single loop + l=r=1, max=nums[0]  => for(i=0,n) mul and acc l*=nums[i] if l becomes 0, l=1 (resetting product incase of zero) 
+    //                                               r=r*=nums[n-1-i] as we are acc from right
     
-    //
+   
     public int maxProduct4(int[] nums) {
         int n = nums.length;
         int l=1,r=1;

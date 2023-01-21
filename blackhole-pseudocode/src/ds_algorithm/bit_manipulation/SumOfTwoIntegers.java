@@ -13,7 +13,8 @@ package ds_algorithm.bit_manipulation;
 
 public class SumOfTwoIntegers {
     
-    //APPROACH
+    //APPROACH Ite Until b!=0 =>  c=a&b s = a^b,  assigning sum to a and c<<1 to b, if carry is 0 c<<1 is also 0, carry will eventually become zero
+     
     // T/S: O(1)/O(1)
     // sum = a xor b, carry = a&b
     // and then we have to left shift carry
@@ -36,13 +37,13 @@ public class SumOfTwoIntegers {
     
     
     
-    //APPROACH
+    //APPROACH 1.2  REc Until b!=0 =>  c=a&b s = a^b,  assigning sum to a and c<<1 to b, if carry is 0 c<<1 is also 0, carry will eventually become zero
+    
     //recursive of the above approach
-    public int getSum2(int a, int b) {
+    public int getSum(int a, int b) {
         if(b==0) return a;
-        int temp = a^b;
-        b = (a&b)<<1;
-        return getSum(temp,b);
+        int c = a&b;
+        return getSum(a^b,c<<1);
     }
     
     public int getSum3(int a, int b) {

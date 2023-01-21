@@ -15,7 +15,8 @@ package ds_algorithm.dynamic_programming.array_string_dp;
 
 public class CountingBits {
   
-    //APPROACH
+    //APPROACH 1 Ite + Dp int[n+1],    for(i=1,<=n) get value at dp[i>>1] or dp[i/2] (without last bit) and figure out last bit using i%2==1 or i&1
+    
     //  Time O:(n) space: O(n)
     //  core idea: DP
     //  finding the last bit alone using i%2 and then reusing other bits from the dp array
@@ -44,7 +45,8 @@ public class CountingBits {
       }
   
   
-    //APPROACH
+    //APPROACH 2 Ite + int[n+1]   => i & (i-1) loses last significant bit and get that from dp, and we ca simply add a bit
+      
     //  Time O:(n) space: O(n)
     //  core idea: DP
     //  i & (i-1) will reset the least significant 1 => 111 & 110 = 110, 110 & 101 = 100

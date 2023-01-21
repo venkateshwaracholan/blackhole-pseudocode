@@ -38,44 +38,44 @@ import static ds_algorithm.divide_and_conquer.BinarySearchIte.binarySearch;
 public class ClimbStairs {
     static boolean show = true;
    
-    //APPROACH
-    //use this solution
+    //APPROACH 1 DFS REC=> n<0 ret 0, n==1 ret 1, ret rec(n-1)+rec(n-2s) 
     // reverse
     public int climbStairs1(int n) {
         if(n<0) return 0;
         if(n==0) return 1;
         return  climbStairs1(n-1)+climbStairs1(n-2);
     }
-    // reverse dp
+    //APPROACH 1.2 DFS REC=> n<0 ret 0, n==1 ret 1, ret dp if not null , ret dp[n]=rec(n-1)+rec(n-2s) 
+    // memo
     public int climbStairs1DP(int n) {
-        return  climbStairs1DP(n,new int[n+1]);
+        return  climbStairs1DP(n,new Integer[n+1]);
     }
-    public int climbStairs1DP(int n,int[] dp) {
+    public int climbStairs1DP(int n,Integer[] dp) {
         if(n<0) return 0;
         if(n==0) return 1;
-        if(dp[n]!=0) return dp[n];
-        dp[n] = climbStairs1DP(n-1,dp)+climbStairs1DP(n-2,dp);
-        return dp[n];
+        if(dp[n]!=null) return dp[n];
+        return dp[n]=climbStairs1DP(n-1,dp)+climbStairs1DP(n-2,dp);
     }
     
     
-    //APPROACH
+    //APPROACH 2 Ite + 1D DP int[n+2]=>dp[0]=1,dp[1]=1  for(i=2,n) dp[i] = dp[i-1]+dp[i-2];
+    //  cos we use dp for -1th and 0 th step
     // iterative 1d
     public int climbStairs(int n) {
         int[] dp = new int[n+2];
-        dp[0]=1;
+        dp[0]=0;
         dp[1]=1;
-        for(int i=2;i<=n;i++)
+        for(int i=2;i<n+2;i++)
             dp[i] = dp[i-1]+dp[i-2];
-        return dp[n];
+        return dp[dp.length-1];
     }
 
-    //APPROACH
+    //APPROACH 3 Ite + 2 variables =>prev=1,cur=1  for(i=2,n) t=p, p=c , c+=t;
+    
     // without dp ho
     public static int climbStairs3(int n){
-        int prev = 0;
-        int cur = 1;
-        for(int i=1;i<=n;i++){
+        int prev = 0, cur = 1;
+        for(int i=2;i<n+2;i++){
           int temp = prev;
           prev = cur;
           cur += temp;

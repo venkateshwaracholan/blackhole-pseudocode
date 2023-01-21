@@ -14,7 +14,9 @@ package ds_algorithm.dynamic_programming.array_string_dp;
 
 public class LongestCommonSubsequence {
 
-    //APPROACH
+    //APPROACH 1 DFS + i,j => i hits len or j hits len ret 0, if chrs same then ret 1+ rec(i+1,j+1) adding 1 coz chars are same, 
+    //  otehrwise we are finding max of moving both sides  max(rec(i+1,j) , rec(i,j+1))
+     
     //  Brute recursion
     //  Time: O(2**(m+n)) space: O(m+n)
     //  core idea: top down, tree recursion, tail recursion, brute
@@ -29,6 +31,10 @@ public class LongestCommonSubsequence {
             return 1+ recursion(a, b, i+1,j+1);
         return Math.max(recursion(a, b, i,j+1), recursion(a, b, i+1,j));
     }
+     //APPROACH 1.2 DFS + Integer[m][n] + i,j => i hits len or j hits len ret 0, if chrs same then ret 1+ rec(i+1,j+1) adding 1 coz chars are same, 
+    //  otehrwise we are finding max of moving both sides  max(rec(i+1,j) , rec(i,j+1)) , assign to dp whereevr u see return
+     
+    // 
     //  Brute optimised DP
     //  Time: O(mn) space: O(mn)
     //  approach: top down, memoization 2D, tree recrusion, tail recursion
@@ -46,7 +52,10 @@ public class LongestCommonSubsequence {
         return dp[i][j] = Math.max(recursionDP(a, b, i,j+1, dp), recursionDP(a, b, i+1,j, dp));
     }
   
-    //APPROACH
+    //APPROACH 2 Ite + 2d dp  new int[m+1][n+1] => if both chars equals get from  i,j and add 1, we are using extra 1 space in rows anmd cols
+    //                            dp[i+1][j+1] =1+dp[i][j] if not we can use checks for i and j 0 and make it 0. ot interpolate dp[i+1][j+1] like this, 
+    //                             else dp[i+1][j+1] = Math.max(dp[i][j+1],dp[i+1][j]) max of right and bottom of i,j finally ret dp[m][n] coz we added 1 extra space in dp
+     
     //  2d DP
     //  Time: O(mn) space O(mn)
     //  approach: bottom up, dp tabulation 2d, forward
@@ -79,7 +88,7 @@ public class LongestCommonSubsequence {
         }
         return dp[m][n];
     }
-    //
+    // reverse of the samee
     public int longestCommonSubsequenceRev(String text1, String text2) {
         int m=text1.length(),n=text2.length();
         int[][] dp = new int[m+1][n+1];
@@ -94,6 +103,13 @@ public class LongestCommonSubsequence {
         return dp[0][0];
     }
 
+    
+    //APPROACH 3 Ite + 2d dp  new int[m+1][n+1] => if both chars equals get from  i,j and add 1, we are using extra 1 space in rows anmd cols
+    //                            dp[i+1][j+1] =1+dp[i][j] if not we can use checks for i and j 0 and make it 0. ot interpolate dp[i+1][j+1] like this, 
+    //                             else dp[i+1][j+1] = Math.max(dp[i][j+1],dp[i+1][j]) max of right and bottom of i,j finally ret dp[m][n] coz we added 1 extra space in dp
+    //                           at max we are accessing only prev col, so just use 2 1D arrays, also to keep dp size minimal, create dp for lower length string 
+    //                            craete new cur[] in first loop, prev = cur at end of first loop
+     
     //APPROACH
     // since dp on strings are symmetrical, bottom up can be don ein forward and reverse directions
     // symmetrical dp 

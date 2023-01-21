@@ -14,39 +14,131 @@ import java.util.*;
 
 public class LongestIncreasingSubsequence {
    
-    //APPROACH
+    //APPROACH 1 DFS + prev(idx) + i => i==len ret 0, we either pick or not pick, first lets not pick, so passing prev
+    //                        pick only if prev -1 or nums[i]>nums[prev] rteurn max of pick and not pick
+    
+    // 0 1 0 2 3 4
     // Time O(2**n) sapce :O(n)
     public int lengthOfLIS(int[] nums) {
         return lengthOfLIS(nums,-1,0);
     }
     public int lengthOfLIS(int[] nums, int prev, int i) {
         if(i==nums.length) return 0;
-        int x = 0;
-        if(prev==-1||nums[prev]<nums[i])
-            x = 1+lengthOfLIS(nums,i,i+1);
-        int y = lengthOfLIS(nums,prev,i+1);
-        return Math.max(x,y);
+        int notpick = lengthOfLIS(nums,prev,i+1);
+        int pick =0;
+        if(prev==-1||nums[i]>nums[prev])
+            pick = 1+lengthOfLIS(nums,i,i+1);
+        return Math.max(pick,notpick);
     }
     // Time O(n*n) sapce :O(n*n+n)
     public int lengthOfLIS2(int[] nums) {
-        return lengthOfLIS(nums,-1,0, new Integer[nums.length][nums.length]);
+        return lengthOfLIS(nums,-1,0, new Integer[nums.length+1][nums.length]);
     }
     public int lengthOfLIS(int[] nums, int prev, int i, Integer[][] dp) {
         if(i==nums.length) return 0;
-        if(prev!=-1&&dp[prev][i]!=null) return dp[prev][i];
-        int x = 0;
-        if(prev==-1||nums[prev]<nums[i])
-            x = 1+lengthOfLIS(nums,i,i+1,dp);
-        int y = lengthOfLIS(nums,prev,i+1,dp);
-        if(prev!=-1) dp[prev][i] = Math.max(x,y);
-        return Math.max(x,y);
+        if(dp[prev+1][i]!=null) return dp[prev+1][i];
+        int notpick = lengthOfLIS(nums,prev,i+1, dp);
+        int pick =0;
+        if(prev==-1||nums[i]>nums[prev])
+            pick = 1+lengthOfLIS(nums,i,i+1,dp);
+        return dp[prev+1][i]= Math.max(pick, notpick);
     }
     
     
-    //APPROACH
+    //APPROACH 2 Ite + DP int[n+1][n+1] = for(i=0,<=n) for(j=i+1,<=n) int x=0; formed so far is in dp[i][i] as we are traversing only from j=i+1
+    //                                       if(j==nums.length || nums[j]>nums[i]) j==nums.length means we are allowing for last char counting,  nums[j]>nums[i] valid inc seq
+    //                                   else find y= dp[i][j] cur value and dp[i+1][j] = max(x,y)  ret dp[n][n]
     // TC = O(n^2)
     // SC = O(n^2)
-            /*  
+    /*
+[0,1,0,3,2,3]  
+0000000
+0101111
+0002222
+0002222
+0000223
+0000033
+0000004
+    */
+    public int lengthOfLIS3(int[] nums) {
+        int n=nums.length;
+        int[][] dp = new int[n+1][n+1];
+        for(int i=0;i<=n;i++){
+            for(int j=i+1;j<=n;j++){
+                int x=0;
+                if( j==nums.length || nums[j]>nums[i])
+                    x=1+dp[i][i];
+                int y = dp[i][j];
+                dp[i+1][j] = Math.max(x,y);
+            }
+        }
+        return dp[n][n];
+    }
+    
+    //APPROACH 3 Ite + DP int[n] =>   for(i=0,n) dp[i]=1 for(int j=0,i) if(nums[j]<nums[i])lets check if dp[i]<dp[j]+1 plus one coz nums[j]<nums[i] the upate dp[i], ans = max(ans, dp[i])
+    //1D
+    public int lengthOfLIS7(int[] nums) {
+        int[] dp = new int[nums.length];
+        int ans=0;
+        for(int i=0;i<nums.length;i++){
+            dp[i]=1;
+            for(int j=0;j<i;j++){
+                if(nums[j]<nums[i] && dp[i]<dp[j]+1)
+                    dp[i] = dp[j]+1;
+            }
+            ans=Math.max(ans,dp[i]);
+        }
+        return ans;
+    }
+    
+    //APPROACH 4 Binary search + dp int[n] => dp[0] = nums[0] for(i=1,len) check last value in p with cur, if its greter place it next pos in dp else find index to place
+    //                                 use buin search to fin index to place, t>dp[mid] place on right l=mid+1, else more r=mid-1, finaly return l
+    
+    public int lengthOfLIS9(int[] nums) {
+        int[] dp =new int[nums.length];
+        dp[0]=nums[0];
+        int len=0;
+        for(int i=1;i<nums.length;i++){
+            if(nums[i]>dp[len])
+                dp[++len]=nums[i];
+            else{
+                int x =bin(dp,len,nums[i]);
+                dp[x]=nums[i];
+            }
+        }
+        return len+1;
+    }
+    public int bin(int[] dp, int len,int t){
+        int l=0,r=len-1;
+        while(l<=r){
+            int mid = l+(r-l)/2;
+            if(t>dp[mid]) l=mid+1;
+            else r=mid-1;
+        }
+        return l;
+    }
+    
+    //APPROACH 5 easiset, same as above binary search, we are using ceiling method to get next equal or greater value, and we remove them
+    //
+    public int lengthOfLIS11 (int[] nums) {
+        TreeSet<Integer> set = new TreeSet<>();
+        for(int i : nums) {
+            Integer ceil = set.higher(i);
+            if(null != ceil) {
+                set.remove(ceil);
+            }
+            set.add(i);
+        }
+        return set.size();
+    }
+    
+    
+    
+    
+    
+    //unwanted
+    
+                /*  
 [0,1,0,3,2,3]    
 4000000
 3300000
@@ -69,48 +161,10 @@ public class LongestIncreasingSubsequence {
         }
         return dp[0][0];
     }
-    /*
-[0,1,0,3,2,3]  
-0000000
-0101111
-0002222
-0002222
-0000223
-0000033
-0000004
-    */
-    //
-    public int lengthOfLIS4_2(int[] nums) {
-        int[][] dp = new int[nums.length+1][nums.length+1];
-        for(int i=0;i<=nums.length;i++){
-            for(int next=i+1;next<=nums.length;next++){
-                int x=0;
-                if(next>=nums.length||nums[i]<nums[next]) 
-                    x = 1+dp[i][i];
-                int y = dp[i][next];
-                dp[i+1][next] = Math.max(x,y);
-            }
-        }
-        return dp[nums.length][nums.length];
-    }
     
-    //APPROACH
-    //1D
-    public int lengthOfLIS7(int[] nums) {
-        int[] dp = new int[nums.length];
-        int ans=0;
-        for(int i=0;i<nums.length;i++){
-            dp[i]=1;
-            for(int j=0;j<i;j++){
-                if(nums[j]<nums[i] && dp[i]<dp[j]+1)
-                    dp[i] = dp[j]+1;
-            }
-            ans=Math.max(ans,dp[i]);
-        }
-        return ans;
-    }
     
-    //APPROACH
+    
+        //APPROACH
     public int lengthOfLIS8(int[] nums) {
         List<Integer> ans = new ArrayList();
         ans.add(nums[0]);
@@ -134,43 +188,4 @@ public class LongestIncreasingSubsequence {
         }
         return l;
     }
-    //
-    public int lengthOfLIS9(int[] nums) {
-        int[] dp =new int[nums.length];
-        dp[0]=nums[0];
-        int len=0;
-        for(int i=1;i<nums.length;i++){
-            if(nums[i]>dp[len])
-                dp[++len]=nums[i];
-            else{
-                int x =bin(dp,len,nums[i]);
-                dp[x]=nums[i];
-            }
-        }
-        return len+1;
-    }
-    public int bin2(int[] dp, int len,int t){
-        int l=0,r=len;
-        while(l!=r){
-            int mid = l+(r-l)/2;
-            if(t>dp[mid]) l=mid+1;
-            else r=mid;
-        }
-        return l;
-    }
-    
-    //APPROACH
-    //
-    public int lengthOfLIS11 (int[] nums) {
-        TreeSet<Integer> set = new TreeSet<>();
-        for(int i : nums) {
-            Integer ceil = set.ceiling(i);
-            if(null != ceil) {
-                set.remove(ceil);
-            }
-            set.add(i);
-        }
-        return set.size();
-    }
-    
 }

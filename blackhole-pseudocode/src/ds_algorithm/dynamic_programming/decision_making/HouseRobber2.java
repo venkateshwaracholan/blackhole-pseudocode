@@ -17,7 +17,8 @@ import java.util.*;
 public class HouseRobber2 {
     
     
-    //APPROACH
+    //APPROACH 1 DFS => EDGE CASE: if(n==1)return nums[0], ret max of rob(0,n-1) and rob(1,n)
+    //                  rob(i=0, n) =>  i>=n ret 0, ret max of (rob(next house), nums[i] + rob(next next house))
     //
     public int rob(int[] nums) {
         if(nums.length==1)return nums[0];
@@ -27,7 +28,8 @@ public class HouseRobber2 {
         if(i>=n) return 0;
         return Math.max(rob(nums,i+1,n),nums[i]+rob(nums,i+2,n));
     }
-    //
+    //APPROACH 1.2 DFS + Integer[] dp =>  EDGE CASE: if(n==1)return nums[0], ret  max of rob(0,n-1) and rob(1,n)
+    //                  rob(i=0, n) =>  i>=n ret 0, if(d[i]!=null) ret dp[i], ret dp[i] =  max of (rob(next house), nums[i] + rob(next next house))
     public int robMemo(int[] nums) {
         int n = nums.length;
         if(n==1)return nums[0];
@@ -43,7 +45,8 @@ public class HouseRobber2 {
     
     
     
-    //APPROACH
+    //APPROACH 2 Ite + Integer[] dp =>  EDGE CASE: if(n==1)return nums[0], ret  max of rob(0,n-1) and rob(1,n)
+    //                  rob(i=0, n) =>  dp[i+2] = max(nums[i]+dp[i], dp[i+1]) return last dp value
     // Time: O(2n) space: O(1) 
     // the core idea still stays same as house robber 1
     // but if we ro house 1 we cant rob house n.
@@ -59,7 +62,8 @@ public class HouseRobber2 {
             dp[i+2] = Math.max(dp[i+1],nums[i]+dp[i]);
         return dp[n+1];
     }
-    //in same loop
+    //APPROACH 2.2 Ite + Integer[] dp =>  EDGE CASE: if(n==1)return nums[0], fill 2 dps with single loop, dp1 and dp2, ret max( dp1[n], dp2[n+1])
+    //                  dp[i+2] = max(nums[i]+dp[i], dp[i+1])  dp[i+3] = max(nums[i+1]+dp[i+1], dp[i+2])
     public int rob4(int[] nums) {
         if(nums.length==1) return nums[0];
         int n = nums.length;
@@ -75,8 +79,9 @@ public class HouseRobber2 {
     
     
     
-    //APPROACH
-    //
+    //APPROACH 3 Ite + 2 variables => EDGE CASE: if(n==1)return nums[0], ret  max of rob(0,n-1) and rob(1,n)
+    //                      int n = max(nums[i]+prev, cur) prev = cur,cur =n  return cur
+    
     public int rob5(int[] nums) {
         if(nums.length==1) return nums[0];
         return Math.max(rob5(nums,0,nums.length-1), rob5(nums,1,nums.length));
@@ -90,6 +95,9 @@ public class HouseRobber2 {
         }
         return cur;
     } 
+    
+    //APPROACH 3.2 Ite + 2 variables => EDGE CASE: if(n==1)return nums[0],  get 2 ans with single loop,
+    //                      int n = max(nums[i]+prev, cur) prev = cur,cur =n  return cur
     //in same loop
     public int rob6(int[] nums) {
         int n = nums.length;

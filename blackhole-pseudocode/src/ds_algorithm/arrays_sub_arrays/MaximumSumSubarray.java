@@ -34,23 +34,12 @@ https://leetcode.com/problems/maximum-subarray/
 public class MaximumSumSubarray {
   public static boolean show = true;
   
-    //APPROACH
+    //APPROACH 1 Ite + sofar + max=inf => for(i=0,n) acc in sofar, sofar = max(sofar,nums[i]) avoid negative acc in sofar, choose whichever is better
+    //                                     max = max(max,sofar)
+  
     // Time: O(n) space: O(1)
     // kadane - max andn sofar
     // code idea, compare sofar with num and assign if num is greater
-    public int maxSubArray(int[] nums) {
-        int max = Integer.MIN_VALUE;;
-        int sofar = 0;
-        for(int i=0;i<nums.length;i++){
-            sofar = sofar+ nums[i];
-            if(sofar<nums[i])
-                sofar = nums[i];
-            if(sofar>max)
-                max = sofar;
-        }
-        return max;
-    }
-    //kadane
     public static int maxSubArray2(int[] nums) {
         int max = Integer.MIN_VALUE;
         int so_far = 0;
@@ -61,6 +50,8 @@ public class MaximumSumSubarray {
         }
         return max;
     }
+    //APPROACH 1.2 Ite + sofar=nums[0] + max=nums[0] => starting from 1 for(i=1,n) acc in sofar, sofar = max(sofar,nums[i]) avoid negative acc in sofar, choose whichever is better
+    //                                     max = max(max,sofar)
     //kadane
     public static int maxSubArrayElegant(int[] nums) {
         int max = nums[0],so_far = nums[0];
@@ -70,6 +61,11 @@ public class MaximumSumSubarray {
         }
         return max;
     }
+    
+    
+    //APPROACH 2 Ite + sofar + max=inf => for(i=0,n) acc in sofar, sofar<0 sofar=0 avoid negative acc in sofar, 0 is better than negative
+    //                                     max = max(max,sofar)
+    
     public int maxSubArray3(int[] nums) {
         int max = Integer.MIN_VALUE, sum = 0;
         for(int i=0;i<nums.length;i++){

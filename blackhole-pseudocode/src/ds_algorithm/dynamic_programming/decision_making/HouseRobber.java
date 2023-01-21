@@ -15,7 +15,7 @@ import java.util.*;
 
 public class HouseRobber {
     
-    //APPROACH
+    //APPROACH 1 DFS => rob(nums,i=0) =>  i>=n ret 0, ret max of (rob(next house), nums[i] + rob(next next house))
     // DFS bottom up
     public int rob1(int[] nums) {
         return rob1(nums,0);
@@ -24,6 +24,7 @@ public class HouseRobber {
         if(i>=nums.length) return 0;
         return Math.max(rob1(nums,i+1),nums[i]+rob1(nums,i+2));
     }
+    //APPROACH 1.2 DFS + Integer[] dp => rob(nums,i=0) => i>=n ret 0, if dp[i]!=null ret dp[i] ,ret dp[i] =  max of (rob(next house), nums[i] + rob(next next house))
     // memo
     public int robMemo(int[] nums) {
         return robMemo(nums,0, new Integer[nums.length]);
@@ -35,19 +36,18 @@ public class HouseRobber {
     }
     
     
-    //APPROACH
+    //APPROACH 2 Ite + Integer[n+2] dp => dp[i+2] = max(nums[i]+dp[i], dp[i+1]) return last dp value
+    
     // Time: O(n) space: O(n)
-    // same core idea as above with different coding style
     // interpolating dp array to hold 2 more values
     public int rob2(int[] nums) {
         int dp[] = new int[nums.length+2];
-        for(int i=0;i<nums.length;i++){
+        for(int i=0;i<nums.length;i++)
             dp[i+2] = Math.max(dp[i]+nums[i], dp[i+1]);
-        }
         return dp[dp.length-1]; 
     }
   
-    //APPROACH
+    //APPROACH 3 Ite + 2 variables => int n = max(nums[i]+prev, cur) prev = cur,cur =n  return cur
     // Time: O(n) space: O(n)
     // Core idea: we are scaling problem for n using dp array
     // for i<2 we cant find prev and prevprev so check help us to make it 0;

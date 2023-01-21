@@ -16,7 +16,10 @@ import java.util.*;
 public class CourseSchedule {
 
     
-    //APPROACH
+    //APPROACH 1 DFS + Map<I, List<I>> graph+ source dest + Set<I> vis  =>  put empty arraylist for all i,  for every edge, add edge and check can connect, 
+    //                                                 if connnect, then cycle present, so false, hew hashset for vis to avoid intereference
+    //    canConnect(s,d,vis)-> if vis contains then false, as we are traversing dupicate nodes, if(s==d)return true, vis.add(s), for(x:g(s)) if(rec(x,d,vis)) ret true AFloop ret false
+    
     //proper solutions
     // O(N*N) space: O(N+E)
     public boolean canFinish(int numCourses, int[][] prerequisites) {
@@ -37,9 +40,12 @@ public class CourseSchedule {
             if(canConnect(x,d,graph,vis)) return true;
         return false;
     }
+    //APPROACH 1.2 DFS + List<Integer>[] graph + source dest + Set<I> vis  =>  put empty arraylist for all i,  for every edge, add edge and check can connect, 
+    //                                                 if connnect, then cycle present, so false hew hashset for vis to avoid intereference
+    //   canConnect(s,d,vis)-> if vis contains then false, as we are traversing dupicate nodes, if(s==d)return true, vis.add(s), for(x:g(s)) if(rec(x,d,vis)) ret true AFloop ret false
     //can implement the same with graph[]
-    public boolean canFinish(int numCourses, int[][] prerequisites) {
-        List<Integer> graph[] = new List[numCourses];
+    public boolean canFinish2(int numCourses, int[][] prerequisites) {
+        List<Integer>[] graph = new List[numCourses];
         for(int i=0;i<numCourses;i++)
             graph[i] = new ArrayList();
         for(int edge[]: prerequisites){
@@ -58,7 +64,9 @@ public class CourseSchedule {
     }  
     
 
-    //APPROACH
+    //APPROACH 2 DFS + Map<I, List<I>> graph+ cycle + Set<I> vis + Set<I> comp  => put empty AL for all i,  for every edge, add edge, for every node check cycle, if cycle ret false
+    //                     cycle(s,vis,comp) -> vis(s) ret true,comp(s) ret false,vis.add(s)  iterate ch if(cycle(ch,vis,com)) ret true, vis.remove(s), comp.add(s) ret false                   
+     
     //  Time: O(N+E) Space: O(N+E)
     //  Core idea: graph, visited set
     //  construct graph, i use Map of int, list<int>
@@ -69,11 +77,8 @@ public class CourseSchedule {
     //  if numin completed set, then no cycle for that, return false 
     //  remove from visited as we come out of recursion so that it can be a dependency through other node
     //  add to completed when cycle is not found for num 
-    // 3 [[0,1],[0,2],[1,2]]
-    // 2
-    //    1
-    //  0 
-    public boolean canFinish(int numCourses, int[][] prerequisites) {
+    //  [[0,1],[0,2],[1,2]]
+    public boolean canFinish3(int numCourses, int[][] prerequisites) {
         Map<Integer,List<Integer>> graph = new HashMap();
         for(int i=0;i<numCourses;i++) graph.put(i,new ArrayList());
         for(int[] edge: prerequisites) graph.get(edge[0]).add(edge[1]);
@@ -92,8 +97,10 @@ public class CourseSchedule {
         comp.add(s);
         return false;
     }
-    // same as above using int[] vis and graph[] instead of map
-    public boolean canFinish(int numCourses, int[][] prerequisites) {
+    //APPROACH 2.2 DFS + List<Integer>[] graph+ cycle + int[] vis  => put empty AL for all i,  for every edge, add edge, for every node check cycle, if cycle ret false
+    //                     cycle(s,vis,comp) -> vis[s]==1 ret true,vis[s]==2 ret false, vis[s]=1  iterate ch if(cycle(ch,vis,com)) ret true, vis[s]=2 ret false                   
+     
+    public boolean canFinish4(int numCourses, int[][] prerequisites) {
         List<Integer>[] graph = new List[numCourses];
         for(int i=0;i<numCourses;i++) graph[i]=new ArrayList();
         for(int[] edge: prerequisites) graph[edge[0]].add(edge[1]);
@@ -110,18 +117,21 @@ public class CourseSchedule {
             if(cycle(ch,graph,vis)) return true;
         vis[s]=2;
         return false;
-    
-    //APPROACH
+    }
+        
+    //APPROACH 3 BFS Queue<Integer> + Map<I, List<I>> graph+ Map<I,I> indegrees + count => for all nodes put empty AL in graph and mark indegrees 0,
+    //            for every edge, add edge and inc dest node indegree, add nodes iwth 0 indeg to queue
+    //            do BFS -> count++, for all ch in graph -> reduce indegress of ch, if(indeg of ch==0) add in queue                                    
+    //            ret count==numcourses
     //  Time: O(N+E) Space: O(N+E)
-    //  core idea: BDS kash, count matching for processed nodes
+    //  core idea: BFS kahn, count matching for processed nodes
     //  create indegrees map for end nodes
     //  add nodes with 0 indegrees to start with queue
     //  foreach neighbours rduce indegrees
     //  and if indegrees of neighbour node becomes zero add them to queue
     //  increment count while processing nodes in queue
     //  match count with number of nodes
-  
-    public boolean canFinish8(int numCourses, int[][] prerequisites) {
+    public boolean canFinish5(int numCourses, int[][] prerequisites) {
         Map<Integer,List<Integer>> graph = new HashMap();
         Map<Integer,Integer> indegrees = new HashMap();
         Queue<Integer> q = new LinkedList();
@@ -145,11 +155,13 @@ public class CourseSchedule {
         }
         return count==numCourses;
     }
-  
+ //APPROACH 3.2 BFS Queue<Integer> + List<Integer>[] graph+ Map<I,I> indegrees + count => for all nodes put empty AL in graph and mark indegrees 0,
+    //            for every edge, add edge and inc dest node indegree, add nodes iwth 0 indeg to queue
+    //            do BFS -> count++, for all ch in graph -> reduce indegress of ch, if(indeg of ch==0) add in queue                                    
+    //            ret count==numcourses
     //  same as above, used array of list for map<int,list<int>>
     //  used array for indegrees inread of map<int, int>
-  
-    public boolean canFinish9(int numCourses, int[][] prerequisites) {
+    public boolean canFinish6(int numCourses, int[][] prerequisites) {
         List<Integer>[] graph = new List[numCourses];
         int[] indegrees = new int[numCourses];
         Queue<Integer> q = new LinkedList();
@@ -168,39 +180,5 @@ public class CourseSchedule {
         }
         return count==numCourses;
     }
-  
-    
-    
-    //this is approach 2
-    static class Course {
-        private int vis=0;
-        private ArrayList<Course> pre = new ArrayList<Course>();
-        void addPre(Course preCourse){
-            pre.add(preCourse);
-        }
-        
-        boolean isCyclic() {
-            if(vis==1) return true;
-            if(vis==2) return false;
-            vis = 1;
-            for(Course preCourse: pre )
-                if(preCourse.isCyclic())  return true;
-            vis = 2;
-            return false;
-        }
-    }
-        
-    public boolean canFinish10(int numCourses, int[][] prerequisites) {
-        Course clist[] = new Course[numCourses];
-        for(int i=0; i<numCourses; i++)
-            clist[i] = new Course();
-        for(int[] couple: prerequisites ) {
-            Course c1 = clist[couple[0]];
-            Course c2 = clist[couple[1]];
-            c1.addPre(c2);
-        }
-        for(int i=0; i<numCourses; i++) 
-            if(clist[i].isCyclic()) return false;
-        return true;
-    }
+   
 }
