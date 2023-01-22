@@ -16,7 +16,9 @@ import java.util.*;
 
 public class SpiralMatrix {
     
-    //APPROACH
+    //APPROACH 1 top=0,left=0,bottom=m-1,right=n-1 + ans.size()<m*n + m*n checks for all loops + <= >= for the 4s => 
+    //                  //  left->right, top++(coz 1st row comp), top->bot, right--, right->letf, bottom--, bottom->top left++;
+    
     // TimeO(mn) spae: O(1)
     // we are using ans size and m*n to limit the loop
     // make sure we limit the loop everywhere, in all 4 fors too
@@ -40,6 +42,10 @@ public class SpiralMatrix {
         } 
         return ans;
     }
+    
+    //APPROACH 1.2 top=0,left=0,bottom=m-1,right=n-1 + while top<=bottom && left<=right + <= >= for the 4s + top>bottom || left>right for end in middle=> 
+    //                  //  left->right, top++(coz 1st row comp), top->bot, right--, right->letf, bottom--, bottom->top left++;
+    
     // same as above, we changed the bounds of outer loop
     // run loop while top<=bottom and left<=right
     // after updating top and bottom, check if baounds still make sense or return
@@ -63,7 +69,10 @@ public class SpiralMatrix {
     
     
     
-    //APPROACH
+    //APPROACH 2 DFS4 + boolean[][] dp +  boolean up + List<Integer> ans => if i,j out of bounds or vis return ans
+    //                          ans.add(matrix[i][j]),  dp[i][j]=true mark vis, for up, we have to just call up again and again coz right of up is unvisited
+    //                          Then call the DFS4, first right(j+1), bottom(i+1), left(j-1), then up(i-1)
+    
     // dfs
     // using visisted matrix
     // make bounds clear, if x or y goes out of range or visited return
@@ -78,23 +87,17 @@ public class SpiralMatrix {
     // right top to bottom everytime checks its right, due to 1st rec
     // similrly 3rd rec, call 2 rec in front  which simply hits bounds
     public List<Integer> spiralOrder2(int[][] matrix) {
-        int m = matrix.length, n = matrix[0].length;
-        List<Integer> ans = new ArrayList();
-        Boolean visited[][] = new Boolean[m][n];
-        dfs(matrix, 0, 0, ans, visited, false);
-        return ans;
+        return dfs(matrix,0,0,new boolean[matrix.length][matrix[0].length], new ArrayList(),false);
     }
-
-    public void dfs(int[][] matrix, int x, int y, List<Integer> ans, Boolean[][] visited, boolean up){
-        if(x<0|| x>=matrix.length||y<0 || y>=matrix[0].length||visited[x][y]!=null) return;
-        ans.add(matrix[x][y]);
-        visited[x][y]=true;
-        if(up){
-            dfs(matrix, x-1, y, ans, visited, true);
-        }
-        dfs(matrix, x, y+1, ans, visited, false);
-        dfs(matrix, x+1, y, ans, visited, false);
-        dfs(matrix, x, y-1, ans, visited, false);
-        dfs(matrix, x-1, y, ans, visited, true);
+    public List<Integer> dfs(int[][] matrix, int i, int j, boolean[][] dp, List<Integer> ans, boolean up) {
+        if(i==-1||i==matrix.length||j==-1||j==matrix[0].length||dp[i][j]) return ans;
+        ans.add(matrix[i][j]);
+        dp[i][j]=true;
+        if(up) dfs(matrix,i-1,j,dp,ans,true);
+        dfs(matrix,i,j+1,dp,ans,false);
+        dfs(matrix,i+1,j,dp,ans,false);
+        dfs(matrix,i,j-1,dp,ans,false);
+        dfs(matrix,i-1,j,dp,ans,true);
+        return ans;
     }
 }

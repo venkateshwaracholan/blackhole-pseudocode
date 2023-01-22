@@ -82,8 +82,7 @@ public class CoinChange {
             int c = recursion(coins, amount-coin, dp);
             if(c>=0 && c< min) min = c+1;
         }
-        dp[amount] = min == Integer.MAX_VALUE ? -1 : min;
-        return dp[amount];
+        return dp[amount] = min == Integer.MAX_VALUE ? -1 : min;
     }
   
   

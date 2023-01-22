@@ -35,12 +35,36 @@ package ds_algorithm.arrays_2d;
 ],
 
 */
-// mysolution would be to make it a square first with n = max(m,n), and transpose,mirror and levae the last column
-
 
 public class RotateImage {
   
-    //APPROACH
+    //APPROACH 1 Transpose + mirror left right => transpose we can skip nodes below i,j diagonal inc diag(coz diag swapping is useless) 
+    //                                            then -> i,j <-> j,i
+    //              for mirror rev, i 0 to n, j 0 to n/2, swap left to right, i,j <-> i,n-1-j
+    
+    public void rotateAlt(int[][] matrix) {
+        int r = matrix.length, c = r==0 ? 0 : matrix[0].length;
+        for(int i=0;i<r;i++){
+            for(int j=i+1;j<c;j++){
+                int temp = matrix[i][j];
+                matrix[i][j] = matrix[j][i];
+                matrix[j][i] = temp;
+            }
+        }
+        for(int i=0;i<r;i++){
+            for(int j=0;j<c/2;j++){
+                int temp = matrix[i][j];
+                matrix[i][j] = matrix[i][c-1-j];
+                matrix[i][c-1-j] = temp;
+            }
+        }
+    }
+    
+    //APPROACH 1.2 Transpose + mirror left right => transpose we can skip nodes below i,j diagonal inc diag(coz diag swapping is useless) 
+    //                                            then -> i,j <-> j,i
+    //              for mirror rev, i 0 to n, instead of j , use l,r to swap while l<r, ont swap even for equals, i,l <-> i,r
+    
+    
     //  time: O(mn) space:O(1)
     //  Core Idea: Transpose and mirror(reverse every row)
     //  for finding transpose in place, swap elements, but 
@@ -64,24 +88,6 @@ public class RotateImage {
             }
         }    
     }
-    //same as above easier to understand
-    public void rotateAlt(int[][] matrix) {
-        int r = matrix.length, c = r==0 ? 0 : matrix[0].length;
-        for(int i=0;i<r;i++){
-            for(int j=i+1;j<c;j++){
-                int temp = matrix[i][j];
-                matrix[i][j] = matrix[j][i];
-                matrix[j][i] = temp;
-            }
-        }
-        for(int i=0;i<r;i++){
-            for(int j=0;j<c/2;j++){
-                int temp = matrix[i][j];
-                matrix[i][j] = matrix[i][c-1-j];
-                matrix[i][c-1-j] = temp;
-            }
-        }
-    }
   
  /*
   
@@ -93,11 +99,13 @@ public class RotateImage {
   [8,5,2],
   [9,6,3]
  */
-    //APPROACH
+    //APPROACH 2 circle swaps + bounds i 0,n/2, j i,n-1-i  => for 1st row col 0,n-1, for row 2 col 1,n-2, odd 3x3 odd=>[1,2], 4x4 even => [5,1,9,x]
+    //                                                                                                                                    [x,4,x,x]
+    
     //  Time: O(mn) space: O(1)
-    //  this solution might look like a tricky one, but with fait understanding of the core idea it isnt that hard
+    //  this solution might look like a tricky one, but with faith understanding of the core idea it isnt that hard
     //  core idea: assign elements in circle
-    //  bounds: i: 0 to i<n/2 so middle element ins diag is not processed
+    //  bounds: i: 0 to i<n/2 so middle element is diag is not processed
     //          j: i to n-1-i, so that inner circles dont interfere with outer
     //
     // 5 , 1, 9,11

@@ -94,7 +94,7 @@ public class JumpGame {
         dp[n-1]=true;
         for(int i=n-2;i>=0;i--){
             int far = Math.min(i+nums[i], n-1);
-            for(int j=i+1;j<=far;j++){
+            for(int j=far;j>=i+1;j--){
                 if(dp[j]){
                     dp[i] = true;break;
                 }
@@ -128,7 +128,7 @@ public class JumpGame {
     }
   
   
-    //APPROACH 4 Greedy, ans=n-1
+    //APPROACH 4 Greedy + rev Ite + ans=n-1 => if i+nums[i]>= ans upat ans to i, fnally chec if ans==0 
      
     //  Time: O(n) space: O(1)
     //  appoach: greedy, reverse traversal
@@ -137,18 +137,23 @@ public class JumpGame {
     //  update ans_pos to i, as jumping from i will also result in reaching last index
     //  if ans_pos becomes start, it has an answer, so ans_pos == 0
     public boolean canJumpGreedy(int[] nums) {
-        int ans = nums.length-1;
-        for(int i=nums.length-2;i>=0;i--)
+        int n = nums.length;
+        int ans = n-1;
+        for(int i=n-1;i>=0;i--)
             if(i+nums[i]>=ans)
-                ans = i;
+                ans=i;
         return ans==0;
     }
+    
+    //APPROACH 4.2 Greedy + Ite + maxreach=0  =>  chcek if i goes beyond maxreach and ret false, udpate maxreach= max(maxreach,i+nums[i])
+    
     // iterative forward greedy
-    public boolean canJump2(int[] nums) {
-        int reachable = 0;
-        for(int i=0;i<nums.length;i++){
-            if(i>reachable) return false;
-            reachable = Math.max(reachable, i+nums[i]);
+    public boolean canJumpMax(int[] nums) {
+        int n = nums.length;
+        int maxreach = 0;
+        for(int i=0;i<n;i++){
+            if(i>maxreach) return false;
+            maxreach = Math.max(maxreach,i+nums[i]);
         }
         return true;
     }
@@ -159,28 +164,6 @@ public class JumpGame {
         System.out.println(x[0]);
     }
   
-    
-    
-    //unwanted
-    //  same as above, 
-    //  with a small optimisation that if we go to farthers first we have a fair chance of finding solution sooner.
-    //  memo for reverse iteration in rec
-    //  Time: O(n**2) space O(n) 
-    //  approach: top down recursion, dp memoization
-    //  jumping farthest first doesnt mean that its bottom up,  only we are stopping porgram if we find solution fast
-    //  jumping is still capped by i+nums[i], so top down only
-    public boolean canJumpFartherstMemo(int[] nums) {
-        return recursionFartherstMemo(nums, 0, new Boolean[nums.length]);
-    }
-    public boolean recursionFartherstMemo(int nums[], int i, Boolean dp[]){
-        if(i>=nums.length-1) return true;
-        int far = Math.min(i+nums[i], nums.length-1);
-        for(int j = far;j>=i+1;j--){
-            if(dp[j]!=null) return false;
-            if(recursionFartherstMemo(nums,j,dp)) return true;
-        }
-        return dp[i] = false;      
-    }
     
     
     

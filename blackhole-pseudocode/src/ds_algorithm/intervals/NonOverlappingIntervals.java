@@ -20,7 +20,9 @@ public class NonOverlappingIntervals {
     // 1,2 end
     // 1,3 cur  
 
-    //APPROACH
+    //APPROACH 1 sort by end + count merges => sort by start, end = in[0][1], start from 1, if mergeable means last[1]>in[i][0], c++ 
+    //              since end is sorted, we will merge with min end by default, if unable to merge , update last to in[i]
+      
     //  all the below methods are sort by end, which is easier of the problem
 
     //  Time: O(nlogn) space; O(1)
@@ -31,37 +33,23 @@ public class NonOverlappingIntervals {
     //  if current's start is less than end then its an overlap, so we can remove that
     //  else we can update end and move on
     //  NOTE: since we are accessing intervals[0][1], have a lengtn 0 check upfront
-    public int eraseOverlapIntervals(int[][] intervals) {
-        if(intervals.length<1) return 0;
-        Arrays.sort(intervals, (a,b)-> a[1]-b[1]);
-        int end = intervals[0][1];
-        int count = 0;
-        for(int i=1;i<intervals.length;i++){
-            if(intervals[i][0]<end){
-                count++;
-            }else{
-                end = intervals[i][1];
+    public int eraseOverlapIntervals(int[][] in) {
+        Arrays.sort(in,(a,b)->a[1]-b[1]);
+        int c = 0;
+        int[] last = in[0];
+        for(int i=1;i<in.length;i++){
+            if(last[1]>in[i][0]){
+                c++;
             }
+            else last = in[i];
         }
-        return count;
+        return c;
     }
-    //  same a above, but i can use endIndex, instead of accessing from outside the from loop
-    //  and thereby avoid the lengtn 0 check
-      public int eraseOverlapIntervalsIndex(int[][] intervals) {
-          Arrays.sort(intervals, (a,b)-> a[1]-b[1]);
-          int endIndex = 0, count = 0;
-          for(int cur=1;cur<intervals.length;cur++){
-              if(intervals[cur][0]<intervals[endIndex][1]){
-                  count++;
-              }else{
-                  endIndex = cur;
-              }
-          }
-          return count;
-      }
   
       
-    //APPROACH
+    //APPROACH 2 sort by end + count discont. non overlaps and sub from tot =>  count=1 coz first interval skipped,  last <= in then unmergable so count
+    //                                                           and update last
+     
     // 1,2 end
     // 1,3 cur  
     //  Time: O(nlogn) space; O(1)
@@ -69,19 +57,23 @@ public class NonOverlappingIntervals {
     //  and returning length-count
     //  count has to be initialized to 1, becoz we are iterating from 1
     //  Note: a little risky for an interview
-    public int eraseOverlapIntervalsInverse(int[][] intervals) {
-        if(intervals.length==0) return 0; 
-        Arrays.sort(intervals, (a,b)-> a[1]-b[1]);
-        int end = intervals[0][1];
-        int count = 1;
-        for(int i=1;i<intervals.length;i++){
-            if(intervals[i][0]>=end){
-                count++;
-                end = intervals[i][1];
+    public int eraseOverlapIntervalsInverse(int[][] in) {
+        Arrays.sort(in,(a,b)->a[1]-b[1]);
+        int c = 1;
+        int[] last = in[0];
+        for(int i=1;i<in.length;i++){
+            if(last[1]<=in[i][0]){
+                c++;
+                last = in[i];
             }
         }
-        return intervals.length-count;
+        return in.length-c;
     }
+    
+    //APPROACH 2.2 sort by end + count discont. non overlaps and sub from tot =>  ite from 0, store so end start from -inf means end=last[1] 
+    //                                              last <= in then unmergable so count and update end
+    //                                                           
+     
     // end => -inf
     // 1,2 cur
     // 1,3
@@ -90,7 +82,7 @@ public class NonOverlappingIntervals {
           Arrays.sort(intervals, (a,b) -> a[1]-b[1]);
           int count = 0, end = Integer.MIN_VALUE;
           for(int[] i: intervals){
-              if(i[0]>=end){
+              if(end<=i[0]){
                   end = i[1];
                   count++;
               }
@@ -100,13 +92,13 @@ public class NonOverlappingIntervals {
   
   
   
-    //APPROACH
+    //APPROACH 3 sort by start  + count merges+ merge with min end => sort by start, end = in[0][1], start from 1, if mergeable means last[1]>in[i][0], merge with min end
+    //                          c++, if unable to merge , update last to in[i]
+      
     //  all the below methods are sort by start, which is easier of the problem
-
     //  example
     //  1,3 end
     //  1,2 cur
-
     //  Time: O(nlogn) space; O(1) 
     //  core idea: Greedy, sort by start time, compare with prev, intervals
     //  sort by start time
@@ -115,19 +107,17 @@ public class NonOverlappingIntervals {
     //  if start of cur < end then increment count, 
     //  since we are sorting by start, end = min(cur, end)
     //  else assign from cur
-    public int eraseOverlapIntervalsSortByStart(int[][] intervals) {
-        if(intervals.length==0) return 0;
-        Arrays.sort(intervals, (a,b) -> a[0]-b[0]);
-        int count = 0, end = intervals[0][1];
-        for(int i=1;i<intervals.length;i++){
-            if(intervals[i][0]<end){
-                end = Math.min(intervals[i][1], end);
-                count++;
+    public int eraseOverlapIntervalsSortByStart(int[][] in) {
+        Arrays.sort(in,(a,b)->a[0]-b[0]);
+        int c = 0;
+        int[] last = in[0];
+        for(int i=1;i<in.length;i++){
+            if(last[1]>in[i][0]){
+                last[1] = Math.min(in[i][1], last[1]);
+                c++;
             }
-            else{
-                end = intervals[i][1];
-            }
+            else last = in[i];
         }
-        return count; 
+        return c;
     }
 }
