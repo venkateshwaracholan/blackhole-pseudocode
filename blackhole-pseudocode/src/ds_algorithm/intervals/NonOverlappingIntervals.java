@@ -38,9 +38,7 @@ public class NonOverlappingIntervals {
         int c = 0;
         int[] last = in[0];
         for(int i=1;i<in.length;i++){
-            if(last[1]>in[i][0]){
-                c++;
-            }
+            if(last[1]>in[i][0])c++;
             else last = in[i];
         }
         return c;
@@ -69,27 +67,6 @@ public class NonOverlappingIntervals {
         }
         return in.length-c;
     }
-    
-    //APPROACH 2.2 sort by end + count discont. non overlaps and sub from tot =>  ite from 0, store so end start from -inf means end=last[1] 
-    //                                              last <= in then unmergable so count and update end
-    //                                                           
-     
-    // end => -inf
-    // 1,2 cur
-    // 1,3
-    //  same as above, less riskier
-      public int eraseOverlapIntervalsInverseBetter(int[][] intervals) {
-          Arrays.sort(intervals, (a,b) -> a[1]-b[1]);
-          int count = 0, end = Integer.MIN_VALUE;
-          for(int[] i: intervals){
-              if(end<=i[0]){
-                  end = i[1];
-                  count++;
-              }
-          }
-          return intervals.length-count; 
-      }
-  
   
   
     //APPROACH 3 sort by start  + count merges+ merge with min end => sort by start, end = in[0][1], start from 1, if mergeable means last[1]>in[i][0], merge with min end

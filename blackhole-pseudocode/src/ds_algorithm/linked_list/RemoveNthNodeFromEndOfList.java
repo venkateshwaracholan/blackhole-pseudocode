@@ -49,13 +49,12 @@ public class RemoveNthNodeFromEndOfList {
     public ListNode removeNthFromEnd(ListNode head, int n) {
         return removeNthFromEnd(head, new int[]{n});
     }
-    public ListNode removeNthFromEnd(ListNode head, int n[]) {
-        if(head==null) return head;
-        ListNode x = removeNthFromEnd(head.next, n);
-        n[0]--;
-        head.next = x;
-        if(n[0]==0) return x;
-        else return head;
+    public ListNode removeNthFromEnd(ListNode cur, int n[]) {
+        if(cur==null) return head;
+        ListNode x = removeNthFromEnd(cur.next, n);
+        cur.next = x;
+        if(--n[0]==0) return x;
+        else return cur;
     }
     
     

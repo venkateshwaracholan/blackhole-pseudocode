@@ -46,7 +46,7 @@ public class MaximumProductSubarray {
     
     //multiplying with negative number max will become min and min will become max, 
     //so why not as soon as we encounter negative element, we swap the max and min already.
-    public int maxProduct(int[] nums) {
+    public int maxProduct2(int[] nums) {
         int max=nums[0], lmin=nums[0],lmax=nums[0];
         for(int i=1;i<nums.length;i++){
             if(nums[i]<0){

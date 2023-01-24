@@ -47,17 +47,17 @@ public class BinaryTreeLevelorderTraversal {
         }
         while(!q.isEmpty()){
             TreeNode n = q.poll();
-            int l = h.poll();
-            if(ans.size()<=l) ans.add(new ArrayList());
-            List<Integer> sub= ans.get(l);
+            int d = h.poll();
+            if(ans.size()<=d) ans.add(new ArrayList());
+            List<Integer> sub= ans.get(d);
             sub.add(n.val);
             if(n.left!=null) {
                 q.add(n.left);
-                h.add(l+1);
+                h.add(d+1);
             }
             if(n.right!=null) {
                 q.add(n.right);
-                h.add(l+1);
+                h.add(d+1);
             }
         }   
         return ans;

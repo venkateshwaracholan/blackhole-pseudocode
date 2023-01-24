@@ -42,11 +42,9 @@ public class MinimumWindowSubstring {
                     ans[1] = i;
                     ans[2] = j;
                 }
-                char d = s.charAt(i);
+                char d = s.charAt(i++);
                 smap.put(d,smap.getOrDefault(d,0)-1);
-                if(tmap.containsKey(d) && smap.get(d).intValue()<tmap.get(d).intValue())
-                    formed--;
-                i++;
+                if(tmap.containsKey(d) && smap.get(d).intValue()<tmap.get(d).intValue()) formed--;
             }
         }
         return ans[0]==-1 ? "" : s.substring(ans[1],ans[2]+1);
@@ -65,7 +63,7 @@ public class MinimumWindowSubstring {
     // while(i<=j and formed==tmap size) fill ans array if ans not set or incoming ans in new min, fill ans with index in filtered
     // decrease i char from smap and check if freq of i char decreased if so, formed--; and then move i->i++;
     // while returning asn, if ans not set, retrun "" or build min window from ans
-   public String minWindow(String s, String t) {
+   public String minWindow2(String s, String t) {
         if(s.length()==0||t.length()==0) return "";
         Map<Character,Integer> smap = new HashMap(),tmap = new HashMap();
         List<Character> filtered= new ArrayList();
@@ -90,10 +88,9 @@ public class MinimumWindowSubstring {
                     ans[1] = l;
                     ans[2] = r;
                 }
-                char d = filtered.get(i);
+                char d = filtered.get(i++);
                 smap.put(d, smap.getOrDefault(d,0)-1);
                 if(tmap.containsKey(d) && smap.get(d).intValue()<tmap.get(d).intValue())  formed--;
-                i++;
             }
         }
         return ans[0]==-1 ? "" : s.substring(ans[1],ans[2]+1);

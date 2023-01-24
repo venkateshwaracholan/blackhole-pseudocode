@@ -181,9 +181,7 @@ public class LongestPalindromicSubstring {
         for(int i=1;i<ch.length-1;i++){
             if(i<maxright)
                 p[i] = Math.min(maxright-i, p[2*center-i]);
-            while(ch[i+p[i]+1] == ch[i-p[i]-1]){
-                p[i]++;
-            }
+            while(ch[i+p[i]+1] == ch[i-p[i]-1]) p[i]++;
             if(i+p[i]>maxright){
                 maxright = i+p[i];
                 center = i;

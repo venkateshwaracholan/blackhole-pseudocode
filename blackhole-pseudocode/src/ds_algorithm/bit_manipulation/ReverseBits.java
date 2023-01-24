@@ -37,7 +37,7 @@ public class ReverseBits {
         }
         return x;
     }
-    //APPROACH 1.2  Ite until 32 => x=0, leftshift x separately and add last bit (n&1) using + on next line, instead of n=n>>1 use (n>>i)&1
+    //APPROACH 1.3  Ite until 32 => x=0, leftshift x separately and add last bit (n&1) using + on next line, instead of n=n>>1 use (n>>i)&1
     // instead of modifying n in above, we are right shifting n -> i times
     public int reverseBits2(int n) {
         int x=0;

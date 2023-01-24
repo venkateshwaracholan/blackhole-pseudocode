@@ -31,8 +31,7 @@ public class DesignAddAndSearchWordsDataStructure {
             if(!map.containsKey(len))return false;
             for(String s: map.get(len)){
                 int i=0;
-                while(i<len&&(word.charAt(i)=='.'||word.charAt(i)==s.charAt(i)))
-                    i++;
+                while(i<len&&(word.charAt(i)=='.'||word.charAt(i)==s.charAt(i))) i++;
                 if(i==len) return true;
             }
             return false;

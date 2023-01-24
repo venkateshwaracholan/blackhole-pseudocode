@@ -144,6 +144,29 @@ public class LongestCommonSubsequence {
       }
       return prev[text1.length()];
     }
+    
+    //
+    public int longestCommonSubsequenceFX(String text1, String text2) {
+        if(text1.length()>text2.length()){
+            String temp = text1;
+            text1 = text2;
+            text2 = temp;
+        }
+        int[][] dp = new int[text1.length()+1][2];
+        int prev=0,cur=1;
+        for(int i=0; i<text2.length();i++){
+            for(int j=0;j<text1.length();j++){
+                if(text2.charAt(i)==text1.charAt(j))
+                    dp[j+1][cur] = dp[j][prev]+1;
+                else
+                    dp[j+1][cur] = Math.max(dp[j][cur], dp[j+1][prev]);
+            }
+            prev^=1;
+            cur^=1;
+        }
+        return dp[text1.length()][prev];
+    }
+    
     //  Time: O(mn) space O(min(m,n))
     //  approach: bottom up, dp tabulation 2d, reverse  
     //  same above 1d dp approach iterating from reverse

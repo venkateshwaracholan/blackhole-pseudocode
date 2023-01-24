@@ -41,7 +41,7 @@ public class MergeIntervals {
         return ans.toArray(new int[ans.size()][2]);
     }
     
-     //APPROACH 1 sortBy start + arraylist + temp var last + update max end in merge=> sort by start, last = in[0] , for(i=1,len) 
+     //APPROACH 1.2 sortBy start + arraylist + temp var last + update max end in merge=> sort by start, last = in[0] , for(i=1,len) 
     //                  if( last < interval) then add last and update last=in[i], else merge, Afloop, add last to the list simple
     
     // same as above, using a last temp variable  

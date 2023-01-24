@@ -84,7 +84,7 @@ public class CombinationSum {
     //                  while(sum<target) add c[i] to cur and sum, if(sum<tar)add clone in temp, AFloop if sum==target ans.add(cur)
     //
     
-    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+    public List<List<Integer>> combinationSum4(int[] candidates, int target) {
         List<List<Integer>> ans = new ArrayList(), temp = new ArrayList();
         temp.add(new ArrayList());
         for(int i=0;i<candidates.length;i++){

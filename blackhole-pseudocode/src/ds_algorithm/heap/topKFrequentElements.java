@@ -100,7 +100,7 @@ public class TopKFrequentElements {
         List<Integer> bucket[] = new List[nums.length+1];
         for(int key:map.keySet()){
             if(bucket[map.get(key)]==null) bucket[map.get(key)] = new ArrayList();
-                bucket[map.get(key)].add(key);
+            bucket[map.get(key)].add(key);
         }
         int[] ans = new int[k];
         for(int x = nums.length,r=0;x>=0&&r<k;x--)
