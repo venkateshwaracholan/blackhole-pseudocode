@@ -14,8 +14,8 @@ public class DistributedMessageQueue {
     
     /*
     Functional requirements
-        sendMessage(message)
-        receiveMessage()
+        sendMessage(queue,message)
+        receiveMessage(queue)
     
     Additional:
         create, delete queue API (delete is contoversial so most apps expose it via terminal)
@@ -75,6 +75,7 @@ public class DistributedMessageQueue {
         usage data collection - gather error and usage info for debugging and audits, like datadog
     
     Metadata service:
+        simplifies maintenance and extensible to make changes for future
         acts as a caching layer between db and frontend service
         many reads, few writes
         strong consistency is preferred but not strictly required

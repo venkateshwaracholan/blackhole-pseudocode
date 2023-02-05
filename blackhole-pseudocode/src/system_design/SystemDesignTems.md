@@ -2,12 +2,15 @@
 
 System Design Terms:
 
+functional requirements - define system behaviour or ser of operations, APIs
+Non functioanal requirements - define system qualities like scalability, perfomance, availability, consistency, durability, maintainability, security, testability, hardware cost etc
+
 Authentication - verifies the identity of a user or service.
 Authorization  - determines their access rights. basically permissions they have.
 VIP - virtual IP, symbolic hostname, dns entries
 Load Balancer LB - routes requests across number of servers
 Front end web service - initial processing of requests like validation, authernication etc
-TLS - protocal that aims to provide privacy and data integrity, decrypts requests and pass unencrypted request to downstream.
+TLS - protocal that aims to provide privacy and data integrity, decrypts requests and pass unencrypted request to downstream and also encrypt responses while sending themback.
        TLS on LB is expensive. Termination usually handled by sep proxy that runs as a process on frontend hosts.
 Server side encryption - encrypts messages, stored in encrypte form and frontend service decrypts messages when sending to consumer
 caching  - cache ifo like queue metadata,auth user data, most actively used queues to avoid db call
