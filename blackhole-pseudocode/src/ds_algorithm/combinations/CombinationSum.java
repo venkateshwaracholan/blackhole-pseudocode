@@ -106,7 +106,7 @@ public class CombinationSum {
     //APPROACH 3.2 ITE +Ite over ans len => for(i=0,len) for(j=0,tempsize) cur = clone(temp.get(j)) sum is at last pos, 
     //                  while(sum<target) add c[i] to cur and sum, set sum to last pos, if(sum<tar)add clone in temp, AFloop cur.removelast() if sum==target ans.add(cur)
     // same a s above, storing sum in first char, you can also put sum in map
-    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+    public List<List<Integer>> combinationSum5(int[] candidates, int target) {
         List<List<Integer>> ans = new ArrayList(), temp = new ArrayList();
         temp.add(new LinkedList(Arrays.asList(0)));
         for(int i=0;i<candidates.length;i++){

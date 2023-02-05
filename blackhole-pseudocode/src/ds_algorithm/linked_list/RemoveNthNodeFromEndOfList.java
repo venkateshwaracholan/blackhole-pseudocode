@@ -50,7 +50,7 @@ public class RemoveNthNodeFromEndOfList {
         return removeNthFromEnd(head, new int[]{n});
     }
     public ListNode removeNthFromEnd(ListNode cur, int n[]) {
-        if(cur==null) return head;
+        if(cur==null) return cur;
         ListNode x = removeNthFromEnd(cur.next, n);
         cur.next = x;
         if(--n[0]==0) return x;

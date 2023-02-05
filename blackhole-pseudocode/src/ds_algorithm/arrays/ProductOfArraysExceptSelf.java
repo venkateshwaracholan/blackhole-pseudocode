@@ -28,7 +28,7 @@ public class ProductOfArraysExceptSelf {
     public int[] productExceptSelf(int[] nums) {
         int[] ans = new int[nums.length];
         ans[0]=1;
-        int l=1,r = 1;;
+        int l=1,r = 1;
         for(int i=1;i<nums.length;i++){
             ans[i] = nums[i-1]*l;
             l=l*nums[i-1];
@@ -88,7 +88,7 @@ public class ProductOfArraysExceptSelf {
         for(int n:nums) 
             if(n==0) zc++;
             else pwz*=n;
-        if(zc>1)return new int[nums.length];
+        if(zc>1)return ans;
         for(int n:nums) 
             if(zc==1) ans[x++] = n==0 ? pwz : 0;
             else ans[x++] = pwz/n;

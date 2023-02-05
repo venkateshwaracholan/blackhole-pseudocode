@@ -20,7 +20,7 @@ public class NonOverlappingIntervals {
     // 1,2 end
     // 1,3 cur  
 
-    //APPROACH 1 sort by end + count merges => sort by start, end = in[0][1], start from 1, if mergeable means last[1]>in[i][0], c++ 
+    //APPROACH 1 sort by end + count merges => sort by end, end = in[0][1], start from 1, if mergeable means last[1]>in[i][0], c++ 
     //              since end is sorted, we will merge with min end by default, if unable to merge , update last to in[i]
       
     //  all the below methods are sort by end, which is easier of the problem
@@ -69,13 +69,14 @@ public class NonOverlappingIntervals {
     }
   
   
-    //APPROACH 3 sort by start  + count merges+ merge with min end => sort by start, end = in[0][1], start from 1, if mergeable means last[1]>in[i][0], merge with min end
-    //                          c++, if unable to merge , update last to in[i]
+    //APPROACH 3 sort by start  + count merges+ merge with min end(not free coz of sort by start) => sort by start, end = in[0][1], start from 1, 
+    //                              if mergeable means last[1]>in[i][0], merge with min end c++, if unable to merge , update last to in[i]
       
     //  all the below methods are sort by start, which is easier of the problem
     //  example
-    //  1,3 end
-    //  1,2 cur
+    //  1,100 end
+    //  2,10 cur
+    //  merge with min end [1, 10]
     //  Time: O(nlogn) space; O(1) 
     //  core idea: Greedy, sort by start time, compare with prev, intervals
     //  sort by start time

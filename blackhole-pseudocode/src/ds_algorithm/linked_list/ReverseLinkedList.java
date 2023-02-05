@@ -53,11 +53,11 @@ public class ReverseLinkedList {
     public ListNode reverseList2(ListNode head) {
         return reverseList2(head,null);
     }
-    public ListNode reverseList2(ListNode head, ListNode prev) {
-        if(head==null) return prev;
-        ListNode x = reverseList2(head.next,head);
-        head.next = prev;
-        return x;
+    public ListNode reverseList2(ListNode cur, ListNode prev) {
+        if(cur==null) return prev;
+        ListNode head = reverseList2(cur.next,cur);
+        cur.next = prev;
+        return head;
     }
     
     

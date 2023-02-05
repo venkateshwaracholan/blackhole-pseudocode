@@ -98,8 +98,8 @@ public class MissingNumber {
         for(int i=0;i<n;i++){
             int x = Math.abs(nums[i]);
             if(x!=n){
-                if(x==n+1) nums[0]*=-1;
-                else if(nums[x]==0) nums[x]=-(n+1);
+                if(nums[x]==0) nums[x]=-(n+1);
+                else if(x==n+1) nums[0]*=-1;
                 else nums[x]*=-1;
             }
         }

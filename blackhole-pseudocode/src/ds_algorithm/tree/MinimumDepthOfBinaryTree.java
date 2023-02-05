@@ -29,31 +29,18 @@ public class MinimumDepthOfBinaryTree {
     return Math.min(minimumDepthRec2(root.left),minimumDepthRec2(root.right))+1;
   }
   
-  public static int minimumDepthDfsIte(TreeNode root){
-    if(root==null) return 0;
-    Stack<TreeNode> s = new Stack();
-    Stack<Integer> d = new Stack();
-    int min = Integer.MAX_VALUE;
-    s.push(root);
-    d.push(1);
-    while(!s.empty()){
-      TreeNode n = s.pop();
-      int depth = d.pop();
-      if(n.left!=null){
-        s.add(n.left);
-        d.add(depth+1);
-      }
-      if(n.right!=null){
-        s.add(n.right);
-        d.add(depth+1);
-      }
-      if(n.left==null && n.right==null){
-        min = Math.min(min, depth);
-      }
+    // uniq appoach i created, return valid depth only for leaf nodes and return min of left and right
+    // corner case: root null[] if(root==null)return 0;
+
+    public int minDepth2(TreeNode root) {
+        if(root==null)return 0;
+        return minDepth2(root, 1);
     }
-    return min;
-  }
-  
+    public int minDepth2(TreeNode node, int d) {
+        if(node==null)return Integer.MAX_VALUE;
+        if(node.left==null&&node.right==null) return d;
+        return Math.min(minDepth2(node.left, d+1),minDepth2(node.right, d+1));
+    }
   
   public static int minimumDepthBfsIte(TreeNode root){
     if(root==null) return 0;
@@ -107,8 +94,31 @@ public class MinimumDepthOfBinaryTree {
     }
     return min;
   }
+      
+    
   
   
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    // unwanted
+    
+      
   // approach:recursion, dfs, send dept inside and acc min depth only if leaf node
   
   public int minDepth(TreeNode root) {
@@ -127,21 +137,12 @@ public class MinimumDepthOfBinaryTree {
         return d;
     }
     
-    public int minDepth2(TreeNode root) {
-        if(root==null)return 0;
-        return minDepth2(root, 1);
-    }
     
-    // uniq appoach i created, return valid depth only for leaf nodes and return min of left and right
-    // corner case: root null[] if(root==null)return 0;
-
-    public int minDepth2(TreeNode node, int d) {
-        if(node==null)return Integer.MAX_VALUE;
-        if(node.left==null&&node.right==null) return d;
-        return Math.min(minDepth2(node.left, d+1),minDepth2(node.right, d+1));
-    }
-  
-  
+    
+    
+    
+    
+    
   public  static void main(String[] args){
     BinaryTree t1;
 

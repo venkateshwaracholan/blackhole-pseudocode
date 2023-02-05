@@ -27,9 +27,8 @@ public class GroupAnagrams {
         char[] ch = strs[i].toCharArray();
         Arrays.sort(ch);
         String key = String.valueOf(ch);
-        if(!map.containsKey(key)){
+        if(!map.containsKey(key))
           map.put(key,new ArrayList());
-        }
         map.get(key).add(strs[i]);
       }
       return new ArrayList(map.values());

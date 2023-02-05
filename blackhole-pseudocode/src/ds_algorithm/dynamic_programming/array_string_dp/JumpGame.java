@@ -78,10 +78,8 @@ public class JumpGame {
         dp[0]=true;
         for(int i=0;i<nums.length;i++){
             int far = Math.min(i+nums[i], n-1);
-            for(int j=far;j>=i+1;j--){
-                if(dp[i])
-                    dp[j] = true;
-            }
+            for(int j=far;j>=i+1;j--)
+                dp[j] = dp[i];
         }
         return dp[n-1];
     }

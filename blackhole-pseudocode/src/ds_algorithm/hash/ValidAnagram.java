@@ -24,15 +24,14 @@ public class ValidAnagram {
     //Note: smap.getOrDefault(c,0).equals(tmap.getOrDefault(c,0) equals here coz of Object Integer( not int)
     public boolean isAnagramHashMap(String s, String t) {
         if(s.length()!=t.length()) return false;
-        Map<Character,Integer> smap = new HashMap();
-        Map<Character,Integer> tmap = new HashMap();
+        Map<Character,Integer> smap = new HashMap(),tmap = new HashMap();
         for(int i=0;i<s.length();i++){
             smap.put(s.charAt(i),smap.getOrDefault(s.charAt(i),0)+1);
             tmap.put(t.charAt(i),tmap.getOrDefault(t.charAt(i),0)+1);
         }
-        for(char c: smap.keySet()){
-            if(!smap.getOrDefault(c,0).equals(tmap.getOrDefault(c,0))) return false;
-        }
+        for(char c: smap.keySet())
+            if(!smap.getOrDefault(c,0).equals(tmap.getOrDefault(c,0))) 
+                return false;
         return true;
     }
     

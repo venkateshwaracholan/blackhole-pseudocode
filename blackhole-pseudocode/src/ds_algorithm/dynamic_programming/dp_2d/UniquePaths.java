@@ -36,7 +36,7 @@ public class UniquePaths {
     //APPROACH 2 Ite + 2D int[m][n] -> dp[0][0] =1, so skip processing 0,0, for(i=0,m) for(j=0,n) skip 0,0 
     //                          ,get dp[i-1][j] i could be 0, s check and get, same for j, add both return dp[m-1][n-1] 
     
-    public int uniquePaths(int m, int n) {
+    public int uniquePaths2(int m, int n) {
         int[][] dp = new int[m][n];
         dp[0][0]=1;
         for(int i=0;i<m;i++){
@@ -52,7 +52,7 @@ public class UniquePaths {
     
     //APPROACH Ite + 1D int[n] , while getting dp[j-1] we have to check if j is 0 , dp[j] = dp[j]+ dp[j-1];
     
-    public int uniquePaths(int m, int n) {
+    public int uniquePaths3(int m, int n) {
         int[] dp = new int[n];
         dp[0]=1;
         for(int i=0;i<m;i++){

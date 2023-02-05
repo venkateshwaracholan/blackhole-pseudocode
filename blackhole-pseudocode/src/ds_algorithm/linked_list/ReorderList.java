@@ -54,12 +54,11 @@ public class ReorderList {
     public void reorderList(ListNode right, ListNode left[]) {
         if(right==null)return;
         reorderList(right.next, left);
-        if(left[0].next!=null){
-            ListNode next = left[0].next;
-            left[0].next = right;
-            right.next = next;
-            left[0]=next;
-        }
+        if(left[0].next==null)return;
+        ListNode next = left[0].next;
+        left[0].next = right;
+        right.next = next;
+        left[0]=next;
         if(left[0].next==right) left[0].next = null;
     }
     

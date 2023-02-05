@@ -25,14 +25,14 @@ public class ReverseBits {
         }
         return x;
     }
-    //APPROACH 1.2  Ite until 32 => x=0, leftshift x separately and add last bit (n&1) using + on next line, then right shift n=n>>1
+    //APPROACH 1.2  Ite until 32 => x=0, leftshift x separately and add last bit (n&1) using + on next line, then right shift n=n>>1, 
+    //                              coz << has less precendne than +
     
     // left shift sep and add right bit
     public int reverseBits3(int n) {
         int x = 0;
         for(int i=0;i<32;i++){
-            x = x<<1;
-            x+= (n&1);
+            x = (x<<1) + (n&1);
             n=n>>1;
         }
         return x;
