@@ -197,7 +197,7 @@ public class LogParsing {
   
   public static void main(String args[]){
     
-    String inFilePath = "/Users/venkateshwarans/projects/blackhole-pseudocode/src/object_oriented_design/log_parsing_cleartax/data.csv";
+    String inFilePath = "/C:\\Users\\venka\\OneDrive\\Documents\\GitHub\\blackhole-pseudocode\\blackhole-pseudocode\\src\\object_oriented_design\\log_parsing_cleartax\\data.csv";
     String outTopPath =  "./outTopData.csv";
     String outAggPath =  "./outAggData.csv";
     LogParsing parser = new LogParsing(); 

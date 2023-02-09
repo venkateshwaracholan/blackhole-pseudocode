@@ -85,7 +85,10 @@ public class DistributedMessageQueue {
         metadata service is partioned by databut frontend doesnt know which metadat service to call, calls a random metadata node 
         and request are forwaqrded to right node.
     
+    problem of distributed msg queues becomes a problem of building a distributed database  thats can handle high throughput, u can use 3rd party
+    
     backend service
+        stores in memory and disk of backend nodes
     options:
         1 leader follower instances - leader is responsible for data storage and replication, and clean up after consumed, 
                     metadata service helps identify leader partitioned for queue, use zookeeper(in cluster manager) for leader election and management, 
