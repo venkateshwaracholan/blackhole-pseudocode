@@ -38,39 +38,53 @@ public class clues {
     
     1 raw clue is caseid, type, textual info(can be title, desc, CDm fields, comments), other meta
     
-    spark classifier - consumes data from kafka clues raw topic and filters textual info with regex to gather url patterns for kb, community aricles, jiras, 
+    sdfc -> case: cdm fields, desc and comment(raw clue) -> regex and filter -> persons(ml), sentences(ml extract) -> categorizer (coe, customer) -> formatted sentences join formatted persons
+    
+    spark classifier - consumes batch of data from kafka clues raw topic and filters textual info with regex to gather url patterns for kb, community aricles, jiras, 
                     configs, log lines, stack traces, etc
                     uses Ml models to extract important terms from the clue, compare terms with labelled tersm tsv and add weitage to those terms
                     also extract kbids, community article ids jiraids and push the processed clue record to kakfa clues topic
                 spark submit on snow nodes, spark jobs are executed in other nodes, reads and writes intermediate data in HDFS parquet files
-                finally sends terms data to kafka
+                finally sends clue record to kafka
+    
+    Ml Models: from seeds team, updated into HDFS
     
     clue record:   caseid, meta, textual info, typoe, terms and weight (hbase,3)
     
     
     case clues persister:
+        consumes a batch(usually 500) of clue records from clues kafka topic and
+        merges all clues for single case ID and stores into hbase, replaces certain info and accumulates info like terms, loglines, configs, stack traces, kbids, jira ids,
+        community article ids etc
+        pushes case records to solr for searching, so creates a searchable technical contect stripped of unwanted terms, logs, configs, stack traces, kb, community and jiras etc
+        runs a background job to get kbs and jiras and community articles from impala and put index into solr
+        for kbs, community articles and jiras, we accumulate a merged terms from cases referencing the articles url ans use that as searchable tech content, we also
+        index body, desc, summary, and number of referencing cases, views, likes, impressions etc for leveraging it in search
+        since batching,  we gather kbs,jiras, community of all uniq cases in batch and index them with updated info but we have a limit of max associations to 100
+        as possibility of an article refernced in 100 cases is very rare
+        
+    impala
         
     
     
-    Ml Models: from seeds team, updated into HDFS
     
     drift chatbot
     slack knowledge discovery
     just in time support
 
     
+    clues API: 
+        
     
-    sdfc -> case: cdm fields, desc and comment(clue) -> regex and filter -> persons(ml), sentences(ml extract) -> categorizer (coe, customer) -> formatted sentences join formatted persons
     
-    
-    Hbase:
-    
-    Kite:
+    Hbase: we store case data with terms and , case-entity relationships like kbid, jiraid, community article id, list of cases refrencing it
+            
+    Kite: we use kite model with AVRO, arow based format to store data in hbase and store data in binary compressed format
     
     Solr:
     
     
-    deployments:
+    deployments: olson, staging and prod
     salt states
     salt pillar
     Jenkins
