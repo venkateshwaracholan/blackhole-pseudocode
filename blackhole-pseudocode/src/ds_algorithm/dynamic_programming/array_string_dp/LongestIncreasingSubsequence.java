@@ -45,8 +45,8 @@ public class LongestIncreasingSubsequence {
     }
     
     
-    //APPROACH 2 Ite + DP int[n+1][n+1] = for(i=0,<=n) for(j=i+1,<=n) int x=0; formed so far is in dp[i][i] as we are traversing only from j=i+1
-    //                                       if(j==nums.length || nums[j]>nums[i]) j==nums.length means we are allowing for last char counting,  nums[j]>nums[i] valid inc seq
+    //APPROACH 2 Ite + DP int[n+1][n+1]  j==nums.length is acc max in last  => for(i=0,<=n) for(j=i+1,<=n) int x=0; formed so far is in dp[i][i] as we are traversing only from j=i+1
+    //                   if(j==nums.length || nums[j]>nums[i]) j==nums.length means we are allowing for last char counting,  nums[j]>nums[i] valid inc seq
     //                                   else find y= dp[i][j] cur value and dp[i+1][j] = max(x,y)  ret dp[n][n]
     // TC = O(n^2)
     // SC = O(n^2)
@@ -75,7 +75,8 @@ public class LongestIncreasingSubsequence {
         return dp[n][n];
     }
     
-    //APPROACH 3 Ite + DP int[n] =>   for(i=0,n) dp[i]=1 for(int j=0,i) if(nums[j]<nums[i])lets check if dp[i]<dp[j]+1 plus one coz nums[j]<nums[i] the upate dp[i], ans = max(ans, dp[i])
+    //APPROACH 3 Ite + DP int[n] =>   for(i=0,n) dp[i]=1(for inc that num count) for(int j=0,i) if(nums[j]<nums[i])lets check if dp[i]<dp[j]+1 plus one 
+    //                                                               coz nums[j]<nums[i] then update dp[i], ans = max(ans, dp[i])
     //1D
     public int lengthOfLIS7(int[] nums) {
         int[] dp = new int[nums.length];
@@ -137,6 +138,24 @@ public class LongestIncreasingSubsequence {
     
     
     //unwanted
+    
+    //
+    public int lengthOfLISX (int[] nums) {
+        int n=nums.length, max =0;
+        int[][] dp = new int[n][n];
+        for(int i=0;i<n;i++){
+            for(int j=i+1;j<n;j++){
+                int x=0;
+                if(nums[j]>nums[i])
+                    x=1+dp[i][i];
+                int y = dp[i][j];
+                dp[i+1][j] = Math.max(x,y);
+                max = Math.max(max, dp[i+1][j]);
+            }
+        }
+        return max+1;
+    }
+    
     
                 /*  
 [0,1,0,3,2,3]    
