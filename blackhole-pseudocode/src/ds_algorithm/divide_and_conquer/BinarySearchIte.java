@@ -15,18 +15,18 @@ public class BinarySearchIte {
   public static int binarySearch(int[] arr, int k){
     //System.out.println(l+" : "+r);
     int l = 0,r = arr.length-1;
-    int mid = (l+r)/2;
+    
     
     while(l<=r){
-      if(arr[mid]==k){
-        return mid;
-      }
-      if(k<arr[mid]){
-        r = mid-1;
-      }else{
-        l = mid+1;
-      }
-      mid = (l+r)/2;
+        int mid = (l+r)/2;
+        if(arr[mid]==k){
+          return mid;
+        }
+        if(k<arr[mid]){
+          r = mid-1;
+        }else{
+          l = mid+1;
+        }
     }
     return -1;
   }

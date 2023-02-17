@@ -32,26 +32,30 @@ public class ValidateBinarySearchTree {
     // BFS, and one more queue for storing limits for each node
     // check if nodes are in rage else false
     // we have to use long becoz of ques range, req some casting too
+    
+    class Entity{
+        public TreeNode n;
+        public Long[] r;
+        Entity(TreeNode n, Long[] r){
+            this.n=n;
+            this.r=r;
+        }
+    }
     public boolean isValidBST(TreeNode root) {
-        Queue<TreeNode> q = new LinkedList();
-        Queue<Long[]> lim = new LinkedList();
-        q.add(root);
-        lim.add(new Long[]{Long.MIN_VALUE,Long.MAX_VALUE});
+        Queue<Entity> q= new LinkedList();
+        if(root==null) return true;
+        q.add(new Entity(root, new Long[]{Long.MIN_VALUE, Long.MAX_VALUE}));
         while(!q.isEmpty()){
-            TreeNode n = q.poll();
-            Long[] l = lim.poll();
-            if(n.val<=l[0]||n.val>=l[1]) return false;
-            if(n.left!=null){
-                q.add(n.left);
-                lim.add(new Long[]{l[0],(long)n.val});
-            }
-            if(n.right!=null){
-                q.add(n.right);
-                lim.add(new Long[]{(long)n.val,l[1]});
-            }
+            Entity e = q.poll();
+            TreeNode n = e.n;
+            Long[] r = e.r;
+            if(n.val<=r[0]||n.val>=r[1]) return false;
+            if(n.left!=null) q.add(new Entity(n.left, new Long[]{r[0],(long)n.val}));
+            if(n.right!=null) q.add(new Entity(n.right, new Long[]{(long)n.val,r[1]}));
         }
         return true;
     }
+    
     
     //APPROACH 2 Ite inorder traversal + prev    
     
@@ -59,7 +63,7 @@ public class ValidateBinarySearchTree {
     // approach: inorder traversal iterative
     // using inorder traversal -> left root right
     // use a prev and check if cur val < prev val, then its not a bst
-    public boolean isValidBST(TreeNode root) {
+    public boolean isValidBST2(TreeNode root) {
         Stack<TreeNode> s = new Stack();
         TreeNode n = root,prev=null;
         while(n!=null||!s.isEmpty()){
@@ -81,7 +85,7 @@ public class ValidateBinarySearchTree {
     // approach: inorder traversal recursive
     // storing left part and return left && inorder(right)
     // inorder left, root, right, thats y checks are in middle
-    public boolean isValidBST(TreeNode root) {
+    public boolean isValidBST3(TreeNode root) {
         return inOrder(root, new TreeNode[1]);
     }
     public boolean inOrder(TreeNode root, TreeNode[] prev) {
@@ -93,5 +97,31 @@ public class ValidateBinarySearchTree {
     }
 
     
+    
+    
+    
+    
+    
+    //unwanted approach 1.2 use entity class avoid this
+    public boolean isValidBST(TreeNode root) {
+        Queue<TreeNode> q = new LinkedList();
+        Queue<Long[]> lim = new LinkedList();
+        q.add(root);
+        lim.add(new Long[]{Long.MIN_VALUE,Long.MAX_VALUE});
+        while(!q.isEmpty()){
+            TreeNode n = q.poll();
+            Long[] l = lim.poll();
+            if(n.val<=l[0]||n.val>=l[1]) return false;
+            if(n.left!=null){
+                q.add(n.left);
+                lim.add(new Long[]{l[0],(long)n.val});
+            }
+            if(n.right!=null){
+                q.add(n.right);
+                lim.add(new Long[]{(long)n.val,l[1]});
+            }
+        }
+        return true;
+    }
 
 }

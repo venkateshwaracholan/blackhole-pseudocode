@@ -113,9 +113,8 @@ public class MinimumWindowSubstring {
     public String minWindow2(String s, String t) {
         int[] smap = new int[64],tmap = new int[64];
         for(int i=0;i<t.length();i++) tmap[t.charAt(i)-'A']++;
-        int uniqt = 0;
+        int uniqt = 0, formed=0;
         for(int i=0;i<64;i++) if(tmap[i]!=0) uniqt++;
-        int formed=0, max=0;
         int[] ans = new int[]{-1,0,0};
         for(int i=0,j=0;j<s.length();j++){
             char c = s.charAt(j);
@@ -136,35 +135,43 @@ public class MinimumWindowSubstring {
     }
     
     //
-    public String minWindow4(String s, String t) {
-        int[] smap = new int[64],tmap = new int[64];
+    class Pair<F,S>{
+        public F c;
+        public S val;
+        Pair(F f, S s){
+            c=f;
+            val=s;
+        }
+    }
+
+    public String minWindow5(String s, String t) {
+        int[] smap = new int[64];
+        int[] tmap = new int[64];
+        int formed = 0, uniqt=0;
         for(int i=0;i<t.length();i++) tmap[t.charAt(i)-'A']++;
-        int[][] filtered = new int[s.length()][2];
-        int uniqt = 0, x=0;;
-        for(int i=0;i<64;i++) if(tmap[i]!=0) uniqt++;
+        for(int i=0;i<64;i++) if(tmap[i]!=0)uniqt++;
+        List<Pair<Character,Integer>> list = new ArrayList();
         for(int i=0;i<s.length();i++)
             if(tmap[s.charAt(i)-'A']!=0)
-                filtered[x++]=new int[]{s.charAt(i), i};
-        int formed=0, max=0;
+                list.add(new Pair(s.charAt(i),i));
         int[] ans = new int[]{-1,0,0};
-        for(int i=0,j=0;j<x;j++){
-            char c = (char)filtered[j][0];
+        for(int i=0, j=0;j<list.size();j++){
+            char c = list.get(j).c;
             smap[c-'A']++;
-            if(tmap[c-'A']==smap[c-'A']) formed++;
+            if(smap[c-'A']==tmap[c-'A']) formed++;
             while(formed==uniqt){
-                int l = filtered[i][1];
-                int r = filtered[j][1];
-                int w = r-l+1;
-                if(ans[0]==-1||w<ans[0]){
-                    ans[0] = w;
+                int l = list.get(i).val;
+                int r = list.get(j).val;
+                if(ans[0]==-1 || r-l+1<ans[0]){
+                    ans[0] = r-l+1;
                     ans[1] = l;
                     ans[2] = r;
                 }
-                char d = (char)filtered[i++][0];
+                char d = list.get(i++).c;
                 smap[d-'A']--;
                 if(smap[d-'A']<tmap[d-'A']) formed--;
             }
         }
-        return ans[0]==-1 ? "": s.substring(ans[1],ans[2]+1);
+        return ans[0]==-1 ? "" : s.substring(ans[1],ans[2]+1); 
     }
 }

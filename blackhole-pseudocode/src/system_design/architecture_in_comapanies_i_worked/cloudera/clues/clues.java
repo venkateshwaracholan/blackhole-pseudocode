@@ -10,7 +10,7 @@ package system_design.architecture_in_comapanies_i_worked.cloudera.clues;
  */
 
 /*
-architecture of clues piepline
+architecture of clues piepline - ownership
 
 */
 
@@ -52,7 +52,7 @@ public class clues {
     clue record:   caseid, meta, textual info, typoe, terms and weight (hbase,3)
     
     
-    case clues persister:
+    case clues persister: spring app + maven + docker
         consumes a batch(usually 500) of clue records from clues kafka topic and
         merges all clues for single case ID and stores into hbase, replaces certain info and accumulates info like terms, loglines, configs, stack traces, kbids, jira ids,
         community article ids etc
@@ -63,35 +63,38 @@ public class clues {
         since batching,  we gather kbs,jiras, community of all uniq cases in batch and index them with updated info but we have a limit of max associations to 100
         as possibility of an article refernced in 100 cases is very rare
         
-    impala
+    impala:
+        Apache Impala is an open source massively parallel processing (MPP) SQL query engine for data stored in a computer cluster running Apache Hadoop
+        Impala brings scalable parallel database technology to Hadoop, enabling users to issue low-latency SQL queries to data stored in HDFS and Apache 
+        HBase without requiring data movement or transformation. Impala is integrated with Hadoop to use the same file and data formats, metadata, security 
+        and resource management frameworks used by MapReduce, Apache Hive, Apache Pig and other Hadoop software.
         
-    
-    
-    
-    drift chatbot
-    slack knowledge discovery
-    just in time support
-
-    
     clues API: 
+        queries solr, to get, similar cases, kbs, community articles, jiras for a case number for customer operations engineers to use
+        we fetch case details like terms, configs, loglines, stack traces from hbase and then construct a solr query with teh data 
+        and search against technical_content over all the entities living in solr and filtering entities based on the APIs
+        for similar kbs, community and jira, we get terms accumated from referencing cases in the search and also search in the body of such entities
+        we aslo boost certains parameter we are interested in , like views, likes, number of case references
         
-    
     
     Hbase: we store case data with terms and , case-entity relationships like kbid, jiraid, community article id, list of cases refrencing it
             
     Kite: we use kite model with AVRO, arow based format to store data in hbase and store data in binary compressed format
     
-    Solr:
+    Solr: we use solr for searching similar entities based on the terms, solr should be backed by a durable database
+        as changes to solr schema or upgrades in major version requires reindexing, so reindexing scripts are exposed via API to
+        reindex entity information from hbase to solr, ths is rare though 
     
     
     deployments: olson, staging and prod
-    salt states
-    salt pillar
-    Jenkins
+    salt states - we store all configurations and properties in salt states
+    salt pillar - we store all credentials in salt pillar
+    Jenkins - one click deployments with scripts, builds and deployments in jenkins for each env 
     kubernetes + docker
-    docker images
+    docker images 
     ise kubernetes depoyments scripts + jinjatemplates + SLS salt state file
     
+    monitoring
     datadog + statsd client
     
     github
@@ -100,5 +103,25 @@ public class clues {
     And pushes to kafka so that the classifier can consume and process further. This generally takes a few minutes to pass all the services layers 
     and get indexed in solr. But if there is load in any of the layers, it can take longer. 
     
+    CTX Integration
+        clues entities APIs are consumed by CTX - cloudera troubleshooting experience service
+    CSH integration
+        clues entities APIs are consumed by CSH - cloudera troubleshooting experience service
+    
+    services accessing data from clues solr collections
+        drift chatbot
+        slack knowledge discovery
+        just in time support
+    
+    
+    tasks
+        set up nifi processors
+        adding kbs, community and jiras, craeted hbase tables using kite, 
+        scheduled job to load kbs, community and jiras from impala
+        reindexing scripts for solr upgrades and schema changes
+        pagination, filtering, solr query boosting
+        staging refreshes
+        version upgrades for log4j vulnerability
+        added ssl with csr, .p12
     */
 }

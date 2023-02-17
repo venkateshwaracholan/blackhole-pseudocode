@@ -76,9 +76,9 @@ public class ClimbStairs {
     public static int climbStairs3(int n){
         int prev = 0, cur = 1;
         for(int i=2;i<n+2;i++){
-          int temp = prev;
+          int x = prev + cur;
           prev = cur;
-          cur += temp;
+          cur = x;
         }
         return cur;
     }

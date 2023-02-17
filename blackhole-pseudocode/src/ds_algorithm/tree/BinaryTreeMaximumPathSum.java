@@ -96,4 +96,33 @@ public class BinaryTreeMaximumPathSum {
         }
         return ans;
     }
+    
+    // Topsor alternatives
+    // use it in reverse order
+    public int maxPathSum(TreeNode root) {
+        int max = Integer.MIN_VALUE;
+        List<TreeNode> list = topsort(root);
+        Map<TreeNode, Integer> map = new HashMap();
+        map.put(null, 0); 
+        for(int i=list.size()-1;i>=0;i--){
+            TreeNode n = list.get(i);
+            int l = Math.max(map.get(n.left),0);
+            int r = Math.max(map.get(n.right),0);
+            max = Math.max(max, n.val+l+r);
+            map.put(n, Math.max(l,r)+n.val);
+        } 
+        return max;
+    }
+    public List<TreeNode> topsort2(TreeNode root) {
+        Queue<TreeNode> q = new LinkedList();
+        List<TreeNode> ans = new ArrayList();
+        q.add(root);
+        while(!q.isEmpty()){
+            TreeNode n = q.poll();
+            ans.add(n);
+            if(n.left!=null) q.add(n.left);
+            if(n.right!=null) q.add(n.right);
+        }
+        return ans;
+    }
 }

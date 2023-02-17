@@ -67,7 +67,47 @@ public class WordSearch {
     
     // TLE 
     // word search in BFS, so memory heavy coz of nature of problem
+    class Entity{
+        int i,j,k;
+        Set<Integer> set;
+        Entity(int i, int j, int k, Set<Integer> set){
+            this.i=i;
+            this.j=j;
+            this.k=k;
+            this.set=set;
+        }
+    }
+
     public boolean exist(char[][] board, String word) {
+        for(int i=0;i<board.length;i++)
+            for(int j=0;j<board[0].length;j++)
+                if(dfs(board,i,j,word,0)) return true;
+        return false;
+    }
+
+    public boolean dfs(char[][] board, int i, int j, String word, int k) {
+        int m = board.length, n =board[0].length;
+        int[][] dir = new int[][]{{-1,0},{1,0},{0,-1},{0,1}};
+        Queue<Entity> q = new LinkedList();
+        q.add(new Entity(i,j,0, new HashSet()));
+        while(!q.isEmpty()){
+            Entity e = q.poll();
+            int a = e.i, b = e.j, c = e.k;
+            Set<Integer> vis = e.set;
+            int rc = a*n+b;
+            if(c==word.length()) return true;
+            if(a<0||a>=m||b<0||b>=n|| vis.contains(rc)|| word.charAt(c)!=board[a][b]) continue;
+            vis.add(rc);
+            for(int x=0;x<dir.length;x++){
+                q.add(new Entity(a+dir[x][0],b+dir[x][1],c+1, new HashSet(vis)));
+            }
+        }
+        return false;
+    }
+    
+    
+    //unwanted cos nt using classes
+    public boolean existx(char[][] board, String word) {
         if(!wordPresent(board,word)) return false;
         int[][] dir = new int[][]{{-1,0},{1,0},{0,-1},{0,1}}; 
         for(int i=0;i<board.length;i++)

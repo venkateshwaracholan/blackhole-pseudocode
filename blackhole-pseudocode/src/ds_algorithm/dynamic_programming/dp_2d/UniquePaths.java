@@ -50,6 +50,19 @@ public class UniquePaths {
         return dp[m-1][n-1];
     }
     
+    // one extra row and column with zeroes of off setting first box(robo) to 1,1
+    public int uniquePathsx(int m, int n) {
+        int[][] dp = new int[m+1][n+1];
+        dp[1][1] = 1;
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(i==0&&j==0) continue;
+                dp[i+1][j+1] = dp[i+1][j] + dp[i][j+1];
+            }
+        }
+        return dp[m][n];
+    }
+    
     //APPROACH Ite + 1D int[n] , while getting dp[j-1] we have to check if j is 0 , dp[j] = dp[j]+ dp[j-1];
     
     public int uniquePaths3(int m, int n) {
@@ -62,6 +75,18 @@ public class UniquePaths {
             }
         }
         return dp[n-1];
+    }
+    
+    public int uniquePathsxx(int m, int n) {
+        int[] dp = new int[n+1];
+        dp[1] = 1;
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(i==0&&j==0) continue;
+                dp[j+1] = dp[j+1] + dp[j];
+            }
+        }
+        return dp[n];
     }
     
     //APPROACH

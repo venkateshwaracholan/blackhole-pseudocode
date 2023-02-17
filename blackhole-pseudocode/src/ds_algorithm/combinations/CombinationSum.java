@@ -55,26 +55,27 @@ public class CombinationSum {
     //APPROACH 2 BFS => queues for sum, idx, sub, bfs with star6ted values, if(t>sum) continue, t==sum ans.add(sub) for(i,len) clone(sub) add context in queue sum, idx, sub
     //
     // this works if i change all 3 stacks to queues too
-    public List<List<Integer>> combinationSum3(int[] candidates, int target) {
-        List<List<Integer>> ans = new ArrayList();
-        Stack<List<Integer>> s = new Stack();
-        Stack<Integer> sum = new Stack();
-        Stack<Integer> index = new Stack();
-        s.add(new ArrayList());
-        sum.add(0);
-        index.add(0);
-        while(!s.isEmpty()){
-            List<Integer> x = s.pop();
-            int t = sum.pop();
-            int i = index.pop();
-            if(t>target) continue;
-            if(t==target) ans.add(x);
-            for(;i<candidates.length;i++){
-                List<Integer> y = new ArrayList(x);
-                y.add(candidates[i]);
-                s.add(y);
-                index.add(i);
-                sum.add(t+candidates[i]);
+    class State{
+        int sum, i;
+        List<Integer> sub;
+        State(int sum, int i, List<Integer> sub){
+            this.sum = sum; 
+            this.i=i;
+            this.sub=sub;
+        }
+    }
+    public List<List<Integer>> combinationSum(int[] c, int target) {
+        List<List<Integer>> ans  = new ArrayList();
+        Queue<State> q= new LinkedList();
+        q.add(new State(0,0,new ArrayList()));
+        while(!q.isEmpty()){
+            State s = q.poll();
+            if(s.sum>target || s.i==c.length) continue;
+            if(s.sum==target) ans.add(s.sub);
+            for(int i=s.i;i<c.length;i++){
+                List<Integer> copy = new ArrayList(s.sub);
+                copy.add(c[i]);
+                q.add(new State(s.sum+c[i],i,copy));
             }
         }
         return ans;
@@ -82,7 +83,7 @@ public class CombinationSum {
     
     //APPROACH 3 ITE +Ite over ans len => for(i=0,len) for(j=0,tempsize) cur = clone(temp.get(j)) iterate cur find sum, 
     //                  while(sum<target) add c[i] to cur and sum, if(sum<tar)add clone in temp, AFloop if sum==target ans.add(cur)
-    //
+    // int siz = temp.size(); ismust coz we are modifying tepmp in loop
     
     public List<List<Integer>> combinationSum4(int[] candidates, int target) {
         List<List<Integer>> ans = new ArrayList(), temp = new ArrayList();

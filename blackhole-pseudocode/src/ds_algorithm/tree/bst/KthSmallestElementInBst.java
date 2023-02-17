@@ -54,4 +54,8 @@ public class KthSmallestElementInBst {
         }
         return -1;
     }
+    
+    public static void main(){
+        
+    }
 }

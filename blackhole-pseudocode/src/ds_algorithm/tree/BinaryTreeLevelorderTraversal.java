@@ -37,29 +37,28 @@ public class BinaryTreeLevelorderTraversal {
     
     //APPROACH 2 BFS+depth queue, get list from index depth and add in list
     
-    public List<List<Integer>> levelOrder(TreeNode root) {
-        Queue<TreeNode> q = new LinkedList();
-        Queue<Integer> h = new LinkedList();
-        List<List<Integer>> ans = new ArrayList();
-        if(root!=null) {
-            q.add(root);
-            h.add(0);
+    class Entity{
+        public TreeNode n;
+        public int d;
+        Entity(TreeNode n, int d){
+            this.n=n;
+            this.d=d;
         }
+    }
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        Queue<Entity> q = new LinkedList();
+        List<List<Integer>> ans = new ArrayList();
+        if(root==null) return ans;
+        q.add(new Entity(root,0));
         while(!q.isEmpty()){
-            TreeNode n = q.poll();
-            int d = h.poll();
+            Entity e = q.poll();
+            TreeNode n = e.n;
+            int d = e.d;
             if(ans.size()<=d) ans.add(new ArrayList());
-            List<Integer> sub= ans.get(d);
-            sub.add(n.val);
-            if(n.left!=null) {
-                q.add(n.left);
-                h.add(d+1);
-            }
-            if(n.right!=null) {
-                q.add(n.right);
-                h.add(d+1);
-            }
-        }   
+            ans.get(d).add(n.val);
+            if(n.left!=null) q.add(new Entity(n.left,d+1));
+            if(n.right!=null) q.add(new Entity(n.right,d+1));
+        }
         return ans;
     }
     

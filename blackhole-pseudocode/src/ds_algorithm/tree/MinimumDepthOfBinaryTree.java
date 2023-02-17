@@ -12,22 +12,13 @@ import java.util.*;
 //https://leetcode.com/problems/minimum-depth-of-binary-tree/
 
 public class MinimumDepthOfBinaryTree {
-  static boolean show = false;
-  public static int minimumDepthRec(TreeNode root){
-    if(root==null) return 0;
-    int left = minimumDepthRec(root.left);
-    int right = minimumDepthRec(root.right);
-    if(left==0) return right+1;
-    if(right==0) return left+1;
-    return Math.min(left,right)+1;
-  }
-  
-  public static int minimumDepthRec2(TreeNode root){
-    if(root==null) return 0;
-    if(root.left==null) return minimumDepthRec2(root.right)+1;
-    if(root.right==null) return minimumDepthRec2(root.left)+1;
-    return Math.min(minimumDepthRec2(root.left),minimumDepthRec2(root.right))+1;
-  }
+    static boolean show = false;
+    public static int minimumDepthRec2(TreeNode root){
+      if(root==null) return 0;
+      if(root.left==null) return minimumDepthRec2(root.right)+1;
+      if(root.right==null) return minimumDepthRec2(root.left)+1;
+      return Math.min(minimumDepthRec2(root.left),minimumDepthRec2(root.right))+1;
+    }
   
     // uniq appoach i created, return valid depth only for leaf nodes and return min of left and right
     // corner case: root null[] if(root==null)return 0;
@@ -42,58 +33,53 @@ public class MinimumDepthOfBinaryTree {
         return Math.min(minDepth2(node.left, d+1),minDepth2(node.right, d+1));
     }
   
-  public static int minimumDepthBfsIte(TreeNode root){
-    if(root==null) return 0;
-    Queue<TreeNode> q = new LinkedList();
-    int min = Integer.MAX_VALUE;
-    q.add(root);
-    int height = 1;
-    while(!q.isEmpty()){
-      int nodeCount = q.size();
-      while(nodeCount>0){
-        TreeNode n = q.poll();
-        if(n.left!=null){
-          q.add(n.left);
+    
+    // bfs level order
+    public static int minimumDepthBfsIte(TreeNode root){
+        Queue<TreeNode> q = new LinkedList();
+        if(root==null) return 0;
+        q.add(root);
+        int dep = 0, min=Integer.MAX_VALUE;
+        while(!q.isEmpty()){    
+            int siz = q.size();
+            while(siz-->0){
+                TreeNode n = q.poll();
+                if(n.left!=null) q.add(n.left);
+                if(n.right!=null) q.add(n.right);
+                if(n.left==null&&n.right==null)
+                    min = Math.min(min,dep+1);
+            }
+            dep++;
         }
-        if(n.right!=null){
-          q.add(n.right);
-        }
-        if(n.left==null && n.right==null){
-          min = Math.min(min, height);
-        }
-        nodeCount--;
-      }
-      height++;
+        return min;
     }
-    return min;
-  }
   
-  
-  // O(n)   O(2**h)
-  public static int minimumDepthBfsIte2(TreeNode root){
-    if(root==null) return 0;
-    Queue<TreeNode> q = new LinkedList();
-    Queue<Integer> d = new LinkedList();
-    int min = Integer.MAX_VALUE;
-    q.add(root);
-    d.add(1);
-    while(!q.isEmpty()){
-      TreeNode n = q.poll();
-      int depth = d.poll();
-      if(n.left!=null){
-        q.add(n.left);
-        d.add(depth+1);
-      }
-      if(n.right!=null){
-        q.add(n.right);
-        d.add(depth+1);
-      }
-      if(n.left==null && n.right==null){
-        min = Math.min(min, depth);
-      }
+    // normal bfs
+    // O(n)   O(2**h)
+    class Entity{
+        public TreeNode n;
+        public int d;
+        Entity(TreeNode n, int d){
+            this.n=n;
+            this.d=d;
+        }
     }
-    return min;
-  }
+    public int minDepthIte(TreeNode root) {
+        Queue<Entity> q = new LinkedList();
+        if(root==null) return 0;
+        q.add(new Entity(root,1));
+        int dep = 0, min=Integer.MAX_VALUE;
+        while(!q.isEmpty()){
+            Entity e = q.poll();
+            TreeNode n = e.n;
+            int d = e.d;
+            if(n.left!=null) q.add(new Entity(n.left,d+1));
+            if(n.right!=null) q.add(new Entity(n.right,d+1));
+            if(n.left==null && n.right==null)
+                min = Math.min(min, d);
+        }
+        return min;
+    }
       
     
   

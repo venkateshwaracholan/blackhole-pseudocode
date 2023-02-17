@@ -97,6 +97,7 @@ public class LowestCommonAncestor {
     // NOTE: if we try doing this iterative, we need more space to create the root to leaf path for p and q
     // n arraylists with all parents or n stringbuilder with all parents is required
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        List<TreeNode> x = new ArrayList(), y = new ArrayList();
         path(root,x,p);
         path(root,y,q);
         int i=0;

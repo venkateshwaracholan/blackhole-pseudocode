@@ -18,79 +18,75 @@ import java.util.*;
 public class MaximumDepthOfBinaryTree {
   static boolean show = true;
   
-  //APPROACH 1 dfs+max(left,right)+1
-  // Time: O(n) space: O(n)
-  // simple recursion to return max of left and right
-  public static int maximumDepthRec(TreeNode node){
-    if(node==null)return 0;
-    return Math.max(maximumDepthRec(node.left)+1, maximumDepthRec(node.right)+1);
-  }
+    //APPROACH 1 dfs+max(left,right)+1
+    // Time: O(n) space: O(n)
+    // simple recursion to return max of left and right
+    public static int maximumDepthRec(TreeNode node){
+        if(node==null)return 0;
+        return Math.max(maximumDepthRec(node.left)+1, maximumDepthRec(node.right)+1);
+    }
   
-  //APPROACH 2 dfs+max(left(d+1),right(d+1))
-  // Time: O(n) space: O(n)
-  // simple recursion to return max of left and right by passing depth
-  public static int maximumDepthRec2(TreeNode node){
-    return maximumDepthRec2(node, 0);
-  }
-  public static int maximumDepthRec2(TreeNode node, int d){
-    if(node==null){
-      return d;
+    //APPROACH 2 dfs+max(left(d+1),right(d+1))
+    // Time: O(n) space: O(n)
+    // simple recursion to return max of left and right by passing depth
+    public static int maximumDepthRec2(TreeNode node){
+        return maximumDepthRec2(node, 0);
     }
-    return Math.max(maximumDepthRec2(node.left, d+1), maximumDepthRec2(node.right, d+1));
-  }
+    public static int maximumDepthRec2(TreeNode node, int d){
+        if(node==null) return d;
+        return Math.max(maximumDepthRec2(node.left, d+1), maximumDepthRec2(node.right, d+1));
+    }
   
-  //APPROACH 3 bfs level order traversal
-  // Time: O(n) space: O(n)
-  // BFS Ite
-  // double loop bfs for identifying levels
-  public static int maximumDepthBFSIte(TreeNode node){
-    int height = 0;
-    Queue<TreeNode> q = new LinkedList();
-    if(node!=null)
-      q.add(node);
-    while(!q.isEmpty()){
-      int nodeCount = q.size();
-      while(nodeCount>0){
-        TreeNode n = q.poll();
-        if(n.left!=null)
-          q.add(n.left);
-        if(n.right!=null)
-          q.add(n.right);
-        nodeCount--;
-      }
-      height++;
-      
+    //APPROACH 3 bfs level order traversal
+    // Time: O(n) space: O(n)
+    // BFS Ite
+    // double loop bfs for identifying levels
+    public static int maximumDepthBFSIte(TreeNode root){
+        Queue<TreeNode> q = new LinkedList();
+        if(root==null) return 0;
+        q.add(root);
+        int dep = 0;
+        while(!q.isEmpty()){    
+            int siz = q.size();
+            while(siz-->0){
+                TreeNode n = q.poll();
+                if(n.left!=null) q.add(n.left);
+                if(n.right!=null) q.add(n.right);
+            }
+            dep++;
+        }
+        return dep;
     }
-    return height;
-  }
   
-  //APPROACH 4 dfs + stack for depth, can be done with bfs + queue for depth
-  // Time: O(n) space: O(n)
-  // Dfs Ite
-  // double stacks to maintain nodes and depths
-  public static int maximumDepthDFSIte(TreeNode node){
-    int maxHeight = 0;
-    Stack<TreeNode> s = new Stack();
-    Stack<Integer> depths = new Stack();
-    if(node!=null){
-      s.add(node);
-      depths.add(1);
+    //APPROACH 4 bfs + entity with TreeNode and Depth in the queue
+    // 
+    // Time: O(n) space: O(n)
+    // Dfs Ite
+    // double stacks to maintain nodes and depths
+    
+    class Entity{
+        public TreeNode n;
+        public int d;
+        Entity(TreeNode n, int d){
+            this.n=n;
+            this.d=d;
+        }
     }
-    while(!s.isEmpty()){
-      TreeNode n = s.pop();
-      int d = depths.pop();
-      if(n.right!=null){
-        s.add(n.right);
-        depths.add(d+1);
-      }
-      if(n.left!=null){
-        s.add(n.left);
-        depths.add(d+1);
-      }
-      maxHeight = Math.max(d, maxHeight);  
+    public int maxDepth(TreeNode root) {
+        Queue<Entity> q = new LinkedList();
+        if(root==null) return 0;
+        q.add(new Entity(root,1));
+        int dep = 0, max=0;
+        while(!q.isEmpty()){
+            Entity e = q.poll();
+            TreeNode n = e.n;
+            int d = e.d;
+            if(n.left!=null) q.add(new Entity(n.left,d+1));
+            if(n.right!=null) q.add(new Entity(n.right,d+1));
+            max = Math.max(max, d);
+        }
+        return max;
     }
-    return maxHeight;
-  }
   
   
   public  static void main(String[] args){
