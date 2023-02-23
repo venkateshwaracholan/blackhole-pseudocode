@@ -60,10 +60,12 @@ public class LongestIncreasingSubsequence {
 0000033
 0000004
     */
+    // use max variable if u want to avoid max accumulation in last col j<=n, j==nums.length ||, but return max+1 finally
+    // implemented below search APPROACH 2 alt with max
     public int lengthOfLIS3(int[] nums) {
         int n=nums.length;
         int[][] dp = new int[n+1][n+1];
-        for(int i=0;i<=n;i++){
+        for(int i=0;i<n;i++){
             for(int j=i+1;j<=n;j++){
                 int x=0;
                 if( j==nums.length || nums[j]>nums[i])
@@ -77,19 +79,23 @@ public class LongestIncreasingSubsequence {
     
     //APPROACH 3 Ite + DP int[n] =>   for(i=0,n) dp[i]=1(for inc that num count) for(int j=0,i) if(nums[j]<nums[i])lets check if dp[i]<dp[j]+1 plus one 
     //                                                               coz nums[j]<nums[i] then update dp[i], ans = max(ans, dp[i])
-    //1D
+    //1D 
+    // since we cant use from prev we have to surely use max
     public int lengthOfLIS7(int[] nums) {
-        int[] dp = new int[nums.length];
+        int n = nums.length;
+        int[] dp = new int[n+1];
         int ans=0;
-        for(int i=0;i<nums.length;i++){
-            dp[i]=1;
-            for(int j=0;j<i;j++){
-                if(nums[j]<nums[i] && dp[i]<dp[j]+1)
-                    dp[i] = dp[j]+1;
+        for(int i=0;i<n;i++){
+            for(int j=i+1;j<n;j++){
+                int x=0,y=0;
+                if( nums[j]>nums[i])
+                    x=dp[i]+1;
+                y = dp[j];
+                dp[j] = Math.max(x,y);
+                ans=Math.max(ans,dp[j]);
             }
-            ans=Math.max(ans,dp[i]);
         }
-        return ans;
+        return ans+1;
     }
     
     //APPROACH 4 Binary search + dp int[n] => dp[0] = nums[0] for(i=1,len) check last value in p with cur, if its greter place it next pos in dp else find index to place
@@ -139,7 +145,7 @@ public class LongestIncreasingSubsequence {
     
     //unwanted
     
-    //
+    //APPROACH 2  alt with max
     public int lengthOfLISX (int[] nums) {
         int n=nums.length, max =0;
         int[][] dp = new int[n][n];
@@ -156,6 +162,20 @@ public class LongestIncreasingSubsequence {
         return max+1;
     }
     
+    
+    public int lengthOfLIS7asd(int[] nums) {
+        int[] dp = new int[nums.length];
+        int ans=0;
+        for(int i=0;i<nums.length;i++){
+            dp[i]=1;
+            for(int j=0;j<i;j++){
+                if(nums[j]<nums[i] && dp[i]<dp[j]+1)
+                    dp[i] = dp[j]+1;
+            }
+            ans=Math.max(ans,dp[i]);
+        }
+        return ans;
+    }
     
                 /*  
 [0,1,0,3,2,3]    
