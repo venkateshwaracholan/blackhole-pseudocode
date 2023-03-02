@@ -1,6 +1,33 @@
 # blackhole-pseudocode
 
 
+thins to Do::
+
+Create a story for ideal developer worked at ZOHO, Freshworks, Cloudera
+Data structures and algorithms
+    blind 75
+
+System design
+    HLD
+        System design interview
+        code karle
+    LLD
+        The code Mate
+        The tech granth
+        Leetcode design problems
+Java Behaviours
+Java Multi Threading
+Design patterns
+    The tech granth
+Database Modelling/design
+Amazon LeadserShip principles
+    
+After MAX::
+Interview questions from leetcode discuss and updte them in correct categories
+
+    
+
+
 #starting again on 10-12-2022
 
 

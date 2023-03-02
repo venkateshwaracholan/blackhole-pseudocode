@@ -29,7 +29,8 @@ Delete - remove
 member DELETE /call/1
 collection DELETE /calls
 
-
+post is collection only
+pathc is member only
 member and collection applies for everything except POST and PATCH.
 
 

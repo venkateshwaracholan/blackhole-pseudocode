@@ -18,33 +18,57 @@
 1. customer obsession
 
 1. When you’re working with a large number of customers, it’s tricky to deliver excellent service to them all. How do you go about prioritizing your customers’ needs?
-
-A: In freshcaller, the customers are categorized into plans, estate, garden, blossom ,sprout and the number of agent licensing, phone credits and call volumes they use that directly correlates their importance to the business. so, we depend on the data for prioritizing and sometimes priority is based on th potential business opportunity. And as a product features are prioritized based on the priority customer's requirement and also after careful evaluation on the road map of the product as well.
+    
+based on their subscription and priority, avoiding bugs that might affecta a larger audience    
+A: In freshcaller, the customers are categorized into plans, estate, garden, blossom ,sprout and the number of agent licensing,
+ phone credits and call volumes they use that directly correlates their importance to the business. so, we depend on the 
+data for prioritizing and sometimes priority is based on th potential business opportunity. And as a product features 
+are prioritized based on the priority customer's requirement and also after careful evaluation on the road map of the 
+product as well.
 
 2. Give me an example of a time when you did not meet a client’s expectation. What happened, and how did you attempt to rectify the situation?
 
-I was working on a feature to show agent's status report, and it had existing data migration for approx 2 billion records from one format to another and i did not meet the client's expectation in term of the timelines because the nature of the work demanded time. I made sure that the product will not promise unrealistic timelines to customers moving forward.
+I was working on a feature to show agent's status report, and it had existing data migration for approx 2 billion records 
+from one format to another and i did not meet the client's expectation in term of the timelines because the nature of the
+ work demanded time. I made sure that the product will not promise unrealistic timelines to customers moving forward.
+In cloudera, Solr crashes/upgrade usually kills all the data and therefore it needs to be reindexed. because of which 
+we faced outages of critical search apps which COEs defenitely need to solve cases. we rectified it by adding API reindexing
+endpoints to trigger with out code changes or releases.
 
 3. Who was your most difficult customer?
 
-A customer who does not understand the nature of business environments, the process the product has to follow to ensure a trust worthy service to most of its customers. Violating the process for urgency may lead to further catastrophe.
+A customer who does not understand the nature of business environments, the process the product has to follow to ensure a 
+trust worthy service to most of its customers. Violating the process for urgency may lead to further catastrophe.
 
 4.Tell the story of the last time you had to apologize to someone.
 
-When i was working on an agents status report migration, I made an incorrect assumption without clarifying with one of the down stream services about a new field addition and there fore the pushed data was not stored in the down stream service. I apologized for the incorrect assumption, republished the data from our database through scripts, and made sure that i verify all of my assumption from that point in time when i realized assumptions are dangerous until confirmation.
+When i was working on an agents status report migration, I made an incorrect assumption without clarifying with one of the 
+down stream services about a new field addition and there fore the pushed data was not stored in the down stream service. 
+I apologized for the incorrect assumption, republished the data from our database through scripts, and made sure that 
+i verify all of my assumption from that point in time when i realized assumptions are dangerous until confirmation.
+in cloudera, Underestimation of tasks initiially caused release deadlines, so had to apologize to PMS, we rectified it by 
+stricttly estimating features with jira and adding story points along with buffer for releases and testing.
 
 5. Can you tell me about a time you obsessed over giving very high quality service to a customer?
-I was working on a feature to provide custom status for agents. That had transformation of data from one table to another. And the front end code was not capable of handling the change in the data model and the impact would be after frontend deployment, customers who don't refresh will face issues. so to avoid this, I suggested a pre release frontend code that supports the change and avoid such bad experiences which took us a little more effort.
+I was working on a feature to provide custom status for agents. That had transformation of data from one table to another.
+ And the front end code was not capable of handling the change in the data model and the impact would be after frontend 
+deployment, customers who don't refresh will face issues. so to avoid this, I suggested a pre release frontend code that 
+supports the change and avoid such bad experiences which took us a little more effort.
 
 2. Ownership
 
 1.Tell me about a time when you had to make a difficult short term decision to make long term gains.
 
-the product uses a gem called multitenant which contains common code like account and user related code, common for most of the products and freshcaller had unique user id in users table instead of a normalized table authorization  in the multitenant gem. freshcaller overridden a lot of common code to support uuid being in users table. i had to migrate that to authorization table in a short deadline so that common code form multiteant can be used in long term without overriding.
+the product uses a gem called multitenant which contains common code like account and user related code, 
+common for most of the products and freshcaller had unique user id in users table instead of a normalized table authorization 
+ in the multitenant gem. freshcaller overridden a lot of common code to support uuid being in users table.
+ i had to migrate that to authorization table in a short deadline so that common code form multiteant can be used 
+in long term without overriding.
 
 2.Tell me about a time when you had to work on a project with unclear responsibilities.
 
-Freshid V2 migration, requirement was unclear and had to figure out things myself talking to several teams and took roles of PMs, leads and architect.
+Freshid V2 migration, requirement was unclear and had to figure out things myself talking to several teams and took roles 
+of PMs, leads and architect. and provided a solution of chained migration to them.
 
 3. Tell me about a time when you had to leave a task unfinished.
 I had to leave a GDPR redis migration unfinished so that i can work on more pressing tasks, later the task was delegated the task to someone. I posted my analysis and work done so far my attaching docs and PR links in the fresh release ticket.
