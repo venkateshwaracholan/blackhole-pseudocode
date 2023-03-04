@@ -2,7 +2,7 @@
 package system_design.aws;
 
 
-public class Incoming {
+public class Aws {
   
 }
 

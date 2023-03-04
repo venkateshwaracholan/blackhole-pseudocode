@@ -25,6 +25,7 @@ Amazon LeadserShip principles
 After MAX::
 Interview questions from leetcode discuss and updte them in correct categories
 
+use AI and extensions to apply a large sets of companies across the globe
     
 
 

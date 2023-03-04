@@ -123,5 +123,27 @@ public class clues {
         staging refreshes
         version upgrades for log4j vulnerability
         added ssl with csr, .p12
+    
+    
+    
+    features and additional
+    
+    Solr upgrades or schema changes require the search data to be reindexed as the data can become stale and solr 
+    recommends a reindexing.
+    
+    scripts triggered via API endpoints to reindex Solr data from HBase. 
+    
+    since we have APi-triggered scripts, we don't need much manual effort for the reindexing, things are automated.
+    these scripts can be triggered any number of times without code changes or deployments.
+    
+    
+    Log4j security vulnerability has made the whole world vulnerable, as all the java apps using the 
+    library has to upgrade to a safer version of the log4j library.
+    
+    upgraded the maven dependencies to make sure none of the libraries were dependent on a vulnerable version of the 
+    log4j, slf4j libraries which are core to a tonne of libraries in maven and java.
+    
+    after the upgrade, the vulnerability is gone as we were not using the versions of log4j and slf4j that were affected. 
+    instead we are pointing to safer versions of the libraries
     */
 }
