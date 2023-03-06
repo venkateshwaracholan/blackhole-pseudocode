@@ -50,9 +50,9 @@ public class RateLimiting {
     rules DB - DB to store rules
     Rules service -   CRUD operations 
     throttle rules cache
-    client identifier builder - auth info, remote ip, or combi attributes that uniquely identify a client. passes the key to arte limiter
+    client identifier builder - auth info, remote ip, or combi attributes that uniquely identify a client. passes the key to rate limiter
     Rate limiter - check key against rules cache to get rules for client, if found checks if number of req made by client for time duration is less than threshold
-                    if threshold not exceede req is passed for further processing else rejected
+                    if threshold not exceeded req is passed for further processing else rejected
     
     rejection possibilities
         1. 503(service unavailable), 429(too many requests)
@@ -74,8 +74,8 @@ public class RateLimiting {
     
     Classes and interfaces
     JobScheduler
-        RetrieveJobScheduler - run retrieve rules talk, inti, start, stop scheduler, use scheduledExecutorService interface
-        RetrieveRulesTask - makes remote calls to rules service, craete token buckets based on rules and stores in token bucket cache
+        RetrieveJobScheduler - run retrieve rules tasks, init, start, stop scheduler, use scheduledExecutorService interface
+        RetrieveRulesTask - makes remote calls to rules service, create token buckets based on rules and stores in token bucket cache
     RulesCache
         TokenBucketCache - stores token buckets, to store buckets we can use a maps, concurrentHashMaps, or google guava cache
     ClientIdentifier
@@ -92,10 +92,10 @@ public class RateLimiting {
         4 request may hit 3 hosts at same time or network partition happens, so 12 requests procesed?
         until all host agree on tokens they have, request will slip, so we need to scale our cluster accordingly
         modifying currentTokens to allow to hold negative numbers, and requests wont be processed until it becomes positive
-        so on average we process 12 requests in 3 seconds, but all 12 were p[rocessed in 1st second
+        so on average we process 12 requests in 3 seconds, but all 12 were processed in 1st second
     
     Communication between hosts:
-        1. tell everyone everything, mesh toplogy +  zookeeper for heartbeats and addinga ndremoving of nodes, or we can use config files with hosts and deploy
+        1. tell everyone everything, mesh toplogy +  zookeeper for heartbeats and adding and removing of nodes, or we can use config files with hosts and deploy
             its not scalable
         2. Gossip protocol - based on the way epidemics spread, random peer selection and shares data(yahoo uses this)
         3. distributed cache cluster - redis, can scale its separately and share between teams
@@ -123,13 +123,13 @@ public class RateLimiting {
     populariry, millions of buckets craeted and stored in memeory
         we can cleanup buckets from memeory if no requests pops in for some time, and bucket will be created again if request for client comes again
     failures
-        daemon failed and other hosts can lose visibility of failed daemon, so it leavs the group, throttles independently, onmly less requests will be throttled
+        daemon failed and other hosts can lose visibility of failed daemon, so it leavs the group, throttles independently, only less requests will be throttled
         same for network partition, 
     rules management
         self service tool for CRUD
     synchronization
         token bucket- use atomic refrences
-        tokcen bucket cache - while cleanup and recraetion sync is required, use concurrentHashMap
+        token bucket cache - while cleanup and recreation syncronization is required, use concurrentHashMap
         it will only become bottleneck for services with insanely large requests  per seconds rate
     wat to do with throttled req
         queue for processing later
@@ -139,7 +139,7 @@ public class RateLimiting {
         non func req met? 
         depends on no. of hosts in cluster, no of rules, request rate
         for cluster size less than 100 nodes, and no of active buckets is less than 10000, gossip over UDP is really fast adn quite accurate
-        for nodes > 10000 we cant rely on host comm as  it becomes costly, so we need distributed cache, but it increases latency but scales, its a tradeoff
+        for nodes > 10000 we cant rely on host comm as it becomes costly, so we need distributed cache, but it increases latency but scales, its a tradeoff
         
     
     */

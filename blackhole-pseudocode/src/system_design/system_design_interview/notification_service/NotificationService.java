@@ -118,7 +118,7 @@ public class NotificationService {
     
     will msg be sent to users as spam?
         we need to register sub, sub need to confirm and agree to get notification from service, 
-        upon registration we send a confirmation msg to sub hhtpo endpoint or email, onwers need to confirm subscription request
+        upon registration we send a confirmation msg to sub http endpoint or email, onwers need to confirm subscription request
     
     dulicate messages?
         can be handles in frontend service with request id caching at publisher level
@@ -139,7 +139,7 @@ public class NotificationService {
     
     monitoring
         setup monitoring for every microservice
-        give customers ability to tract state of their topics like number of msg waiting for del;ivery, num of msg failed to deliver
+        give customers ability to tract state of their topics like number of msg waiting for delivery, num of msg failed to deliver
         so integ with monitoring system is required
     
     final outlook

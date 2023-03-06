@@ -64,6 +64,20 @@ data replication:
         data is sync or async replicated or based on quorom reads and writes
         https://stackoverflow.com/questions/48434860/master-less-model-in-cassandra-vs-master-slave-model-in-mongodb
 
+
+data lineage: Data lineage is the process of tracking the flow of data over time, providing a clear understanding of where the
+ data originated, how it has changed, and its ultimate destination within the data pipeline.
+
+Data catalogue:
+a data catalog is an organized inventory of data assets in the organization. It uses metadata to help organizations manage 
+their data.
+
+data governance: Data governance means setting internal standards—data policies—that apply to how data is gathered, stored, 
+processed, and disposed of. It governs who can access what kinds of data and what kinds of data are under governance.
+
+data team: Key roles of data team are: provide information and decision support. discover insights and share knowledge. 
+track performance and progress of company products. generate signals and warn if something goes wrong.
+
 Quorom writes:
     a write is successful when predefined set of replcas ack the write. odd number of nodes help achieve quorom easier
 

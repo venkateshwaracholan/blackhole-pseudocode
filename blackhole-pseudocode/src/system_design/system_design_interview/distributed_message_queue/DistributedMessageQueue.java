@@ -82,7 +82,7 @@ public class DistributedMessageQueue {
         3 strategies:
         all metadata service holds same data
         metadata service is partioned by data, stores chunk of data in each node, frontend knows which metadata service to call using consistent hashing rings
-        metadata service is partioned by databut frontend doesnt know which metadat service to call, calls a random metadata node 
+        metadata service is partioned by databut front end doesnt know which metadat service to call, calls a random metadata node 
         and request are forwaqrded to right node.
     
     problem of distributed msg queues becomes a problem of building a distributed database  thats can handle high throughput, u can use 3rd party
@@ -97,14 +97,14 @@ public class DistributedMessageQueue {
                     splits queues into partitions and each partition gets a leader
         2 small clusters of independent instances (out cluster manager)- random instance in the cluster is responsible for data storage and  replication, and clean up after consumed,
                             metadata service helps identify cluster partitioned for queue. manages queue assignment across cluster,
-                            maintains list of clusters, monitors cluster health, dals with overheated cluster meaning new queues wont to assigned to clusters with limits reached
+                            maintains list of clusters, monitors cluster health, deals with overheated cluster meaning new queues wont be assigned to clusters with limits reached
                             splits queues across several clusters
                                             
         
     
     Message deletion
-        1. In Kafka, not to delete messages right after it was consumed and let consumers deal with it, use offets and dleete mesages after several days with a job
-        2. i AMazon SQS, msg not deleted immediately, but marked invisible and consumer needs to call dlete msg api.
+        1. In Kafka, not to delete messages right after it was consumed and let consumers deal with it, use offets and delete mesages after several days with a job
+        2. in AMazon SQS, msg not deleted immediately, but marked invisible and consumer needs to call delete msg api.
     
     Message replication
         sync - waits until msg is replicated to other hostsa dn success response is returned to producer only after replication is fully complete. high durability, high latency for send msg operation
