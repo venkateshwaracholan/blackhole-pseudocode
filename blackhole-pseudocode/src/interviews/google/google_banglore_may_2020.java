@@ -58,6 +58,10 @@ return s;
 
 
 
+
+
+
+
 4. Assume the function in the last question will be called again and again with different input eid, how do we optimize the efficiency of lookup? Assume the map does not change, and you are able to preprocess the given map before anyone call the lookup function.
 
 class FteScore{
@@ -497,6 +501,95 @@ k:
 1
 k<s.length
 k>s.length
+
+
+
+
+
+1. raltime source of data ignore duplicates within 10 sec
+feedback
+foo5
+foo5
+bar13
+
+
+grasps, and worked solution
+nice testing, figured logic bug
+quick solution with expanded discussion
+
+2. function outputs looks the same when turned upside down
+
+axe
+dip
+gallop
+mow
+
+rotate to different word on list
+we,am, did,pip, held,play, flays(sheft), loom(bool)
+
+worked quickly nearly working code
+sloppy code
+readablity worse
+multiples statement on one line
+bad variables
+no helpers
+algo was good
+
+understood problem
+could have ddiscussed better
+tested and missed mistakes
+insufficient test case
+
+
+map, set, list
+
+
+3. 2d grid of char, find shortesest manhattan l1 distance
+
+x o o o
+x o o o
+o o y y
+
+visiting grid more than once and noit propogating 
+
+did bruteforce and didnot understand bfs
+i didnt ask p[roper questions
+i didnt clear;ly explain thoughts
+he provided way more hints
+coding a fast but non trivial errors
+
+
+
+4. helloooworld find the longest substring whose alphabet consists of no more than 2 characters
+
+whats time and spacxre complexity
+
+lets make 2 as k>1
+
+idomatic java, but intorduced read after delete problem
+came close to impl optimal linear solution
+easy to implement quadratic solution
+stumbledn on space complexity
+
+took a ittle long to smoke out error s it contained
+good list of etstcase
+didnt include null check
+rushed into coding before understanding problem
+failed to adress central problem
+
+iteratively
+sliding window
+discovered and fixed problems
+char freq
+nullity
+repeated chartAt move into variable
+
+
+
+
+
+
+
 
 
 */

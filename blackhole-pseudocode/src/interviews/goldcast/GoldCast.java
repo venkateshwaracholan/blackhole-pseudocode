@@ -86,5 +86,6 @@ public class GoldCast {
         List<List<Integer>> input7 = new ArrayList<>();
         int peak7 = findPeak(input7); // Expected output: 0
         System.out.println("testcase 7: Expected output: 0 Actual: " + peak7);
+        
     }
 }

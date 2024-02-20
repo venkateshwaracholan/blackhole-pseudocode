@@ -27,8 +27,8 @@ public class ImplementTriePrefixTree {
             if(i==word.length()) return node.end = true;
             char c = word.charAt(i);
             if(!node.ch.containsKey(c))
-                node.ch.put(word.charAt(i),new TrieNode());
-            return insert(word,i+1,node.ch.get(word.charAt(i)));
+                node.ch.put(c,new TrieNode());
+            return insert(word,i+1,node.ch.get(c));
         }
         public boolean search(String word, int i,TrieNode node, boolean sw) {
             if(i==word.length())return sw||node.end;

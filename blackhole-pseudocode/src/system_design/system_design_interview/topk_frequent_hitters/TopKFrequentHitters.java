@@ -90,7 +90,7 @@ public class TopKFrequentHitters {
         so it depends on resources available, memory, CPU, network, disk io
     
     Distributed message queue
-        kafka, aws kinesis, internally kasfka splits messages across several partitions and each partition can be placed on separate machines
+        kafka, aws kinesis, internally kafka splits messages across several partitions and each partition can be placed on separate machines
         we dont have a pref on how data is partitioned so random partiton is enough
     
     Fast Path:
@@ -116,7 +116,7 @@ public class TopKFrequentHitters {
     
     slow path:
         we calc heavy hitters accurately, but takes time
-        2 Mapdreduce jobs + distributed file system HDFS or object storage
+        2 Mapreduce jobs + distributed file system HDFS or object storage
         freq count mapreduce job, top k map reduce job 
         lets add a data partitioner and run mapreduce jobs in parallel
     data partitioner

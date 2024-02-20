@@ -17,14 +17,14 @@ public class LongestPalindromicSubstring {
     
     // brute n*n*n
     public String longestPalindrome(String s) {
-        int max = 1,l=0;
+        int max = 1,start=0;
         for(int i=0;i<s.length();i++)
             for(int j=i+1;j<s.length();j++)
                 if(isPalindrome(s,i,j)&&j-i+1>max){
                     max = j-i+1;
-                    l = i;
+                    start = i;
                 }
-        return s.substring(l,l+max);
+        return s.substring(start,start+max);
     }
     public boolean isPalindrome(String s, int i, int j){
         for(;i<=j;i++,j--)
@@ -71,7 +71,7 @@ public class LongestPalindromicSubstring {
     public int get(int[] max){
         return max[1]-max[0];
     }
-    public int[] extend(String s, int i, int j) {
+    public int[] extend2(String s, int i, int j) {
         int[] max = new int[2];
         for(;i>=0&&j<s.length()&&s.charAt(i)==s.charAt(j);i--,j++)
            max=new int[]{i,j+1};
@@ -197,7 +197,17 @@ public class LongestPalindromicSubstring {
     
     
     
+    /*  babab
+    0 1 2 3 4
+    0 0 0 0 0
+      0 0 0 0
+        0 0 0
+          0 0
+            0
     
+    i: 0 < n lead
+    j 0 <= i lag
+    */
     public String longestPalindromeTest(String s) {
         int start=0,end=0, n=s.length();
         boolean[] dp =new boolean[n];

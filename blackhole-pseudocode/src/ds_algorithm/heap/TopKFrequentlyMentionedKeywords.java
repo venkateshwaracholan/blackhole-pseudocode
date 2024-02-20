@@ -35,7 +35,7 @@ public class TopKFrequentlyMentionedKeywords {
   
 // "\\w" regex - will match all cahracters except[a-zA-z_0-9] refer regex.java
 // use min heap
-// we use an added set to avoid counting multiple occurances of eywords in same review text
+// we use an added set to avoid counting multiple occurances of keywords in same review text
 // and the check word.length()>0 is important becase .. can be taken as empty word and could count it
 // we add ans in reverse order using ans.add(0,val), every time we add its add before
 //  alternatively we can also accumulate words in string builder if a non character occurs instead of using a regex

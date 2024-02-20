@@ -74,7 +74,7 @@ public class ValidParantheses {
     // using map to avoid code from above approach
     public boolean isValidMap(String s) {
         if(s.length()%2!=0) return false;
-        Map<Character,Character> map = new HashMap();
+        Map<Character,Character> map = new HashMap<>();
         map.put('(',')');
         map.put('[',']');
         map.put('{','}');

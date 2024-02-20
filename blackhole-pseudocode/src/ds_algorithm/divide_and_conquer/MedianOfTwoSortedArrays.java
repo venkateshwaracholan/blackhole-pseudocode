@@ -15,79 +15,71 @@ package ds_algorithm.divide_and_conquer;
   
 public class MedianOfTwoSortedArrays {
   
-  // Time: O(nlog(n)) space: O(1)
-  public static double medianOfTwoSortedArraysAlt(int a1[], int a2[]){
-    
-    int l1 = a1.length;
-    int l2  = a2.length;
-    if(l1>l2){
-      return medianOfTwoSortedArrays(a2,a1);
+    // Time: O(log(min(m,n))) space: O(1)
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        if(nums1.length>nums2.length) return findMedianSortedArrays(nums2,nums1);
+        int x = nums1.length, y = nums2.length;
+        int lo = 0, hi = x;
+        int mid = (x+y)/2;
+        while(lo<=hi){
+            int partx = (hi+lo)/2;
+            int party = mid - partx;
+            int leftx = partx==0 ? Integer.MIN_VALUE: nums1[partx-1];
+            int rightx = partx==x ? Integer.MAX_VALUE: nums1[partx];
+            int lefty = party==0 ? Integer.MIN_VALUE: nums2[party-1];
+            int righty = party==y ? Integer.MAX_VALUE: nums2[party];
+
+            if(leftx<=righty && lefty<= rightx){
+                if((x+y)%2==0){
+                    return ((double)Math.max(leftx,lefty) + Math.min(rightx,righty))/2;
+                }else{
+                    return Math.min(rightx,righty);
+                } 
+            }else if(leftx>righty){
+                hi= partx-1;
+            }else{
+                lo = partx+1;
+            }
+        }
+        return 0;
     }
-    int indMin = 0, indMax = l1;
-		int half = (l1 + l2) / 2;
-    while (indMin <= indMax) {
-			int i = (indMax + indMin) / 2;
-			int j = half - i;
-
-			int A_left = i == 0 ? Integer.MIN_VALUE : a1[i - 1];
-			int A_right = i == l1 ? Integer.MAX_VALUE : a1[i];
-			int B_left = j == 0 ? Integer.MIN_VALUE : a2[j - 1];
-			int B_right = j == l2 ? Integer.MAX_VALUE : a2[j];
-
-			if (A_left > B_right) {
-				indMax = i - 1;
-			} else if (B_left > A_right) {
-				indMin = i + 1;
-			} else {
-				int maxLeft = Math.max(A_left, B_left);
-				int minRight = Math.min(A_right, B_right);
-				if ((l1 + l2) % 2 == 1) return minRight;
-				return (minRight + maxLeft) / 2.0;
-			}
-		}
-    return 0.0;
     
-  }
-  
+    
+    
+    // Time: O(m+n) space: O(1)
+    public double findMedianSortedArraysLinear(int[] nums1, int[] nums2) {
+        int idx1 = 0, idx2=0, med1=0, med2=0;
+        int l1=nums1.length, l2=nums2.length;
+        int mid = (l1+l2)/2;
+        for(int i=0;i<=mid;i++){
+            med1 = med2;
+            if(idx1==l1){
+                med2 = nums2[idx2];
+                idx2++;
+            }else if(idx2==l2){
+                med2 = nums1[idx1];
+                idx1++;
+            }else if(nums1[idx1]<nums2[idx2]){
+                med2 = nums1[idx1];
+                idx1++;
+            }else{
+                med2 = nums2[idx2];
+                idx2++;
+            }
+        }
+        if((l1+l2)%2==0){
+            return (double)(med1+med2)/2;
+        }
+        return med2;
+    }
+    
   //  L     R
   // 1 3   5 7  a1 
   // 2 4   6 8  a2
-  
-  // Time: O(log(min(m,n))) space: O(1)
-  public static double medianOfTwoSortedArrays(int a1[], int a2[]){
-    int l1 = a1.length;
-    int l2 = a2.length;
-    if(l1<l2){
-      return medianOfTwoSortedArrays(a2,a1);
-    }
-    int imin = 0, imax = l1;
-    while(imin<=imax){
-      int i = (imin+imax)/2;
-      int j = (l1+l2)/2 - i;
-      if(i>imin && a1[i-1]>a2[j]){
-        imax = i-1;
-      }else if( i<imax && a2[j-1] > a1[i]){
-        imin = i+1;
-      }else{ //found
-        int maxLeft = 0;
-        if(i==0) maxLeft = a2[j-1];
-        else if(j==0) maxLeft = a1[i-1];
-        else maxLeft = Math.max(a1[j-1],a2[j-1]);
-        if((l1+l2)%2==1) return maxLeft;
-        
-        int minRight = 0;
-        if(i==l1) minRight = a2[j];
-        else if(j==l2) minRight = a1[i];
-        else minRight = Math.min(a1[j],a2[i]);
-        return (maxLeft + minRight)/2.0;   
-      }
-    }
-    return 0.0;
-  }
 
   public static void main(String args[]){
-    test(medianOfTwoSortedArrays(new int[]{1,2,3,4}, new int[]{5,6,7,8}),4.5); // 5,6,7   1,2,3,4
-    test(medianOfTwoSortedArrays(new int[]{1,3,5,7}, new int[]{2,4,6,8}),4.5); // 5,6,7   1,2,3,4
+//    test(medianOfTwoSortedArrays(new int[]{1,2,3,4}, new int[]{5,6,7,8}),4.5); // 5,6,7   1,2,3,4
+//    test(medianOfTwoSortedArrays(new int[]{1,3,5,7}, new int[]{2,4,6,8}),4.5); // 5,6,7   1,2,3,4
   }
 
   public static void test(double got, double exp){
