@@ -43,7 +43,7 @@ public class clues {
     spark classifier - consumes batch of data from kafka clues raw topic and filters textual info with regex to gather url patterns for kb, community aricles, jiras, 
                     configs, log lines, stack traces, etc
                     uses Ml models to extract important terms from the clue, compare terms with labelled tersm tsv and add weitage to those terms
-                    also extract kbids, community article ids jiraids and push the processed clue record to kakfa clues topic
+                    also extract kb ids, community article ids jiraids and push the processed clue record to kakfa clues topic
                 spark submit on snow nodes, spark jobs are executed in other nodes, reads and writes intermediate data in HDFS parquet files
                 finally sends clue record to kafka
     
@@ -79,7 +79,7 @@ public class clues {
     
     Hbase: we store case data with terms and , case-entity relationships like kbid, jiraid, community article id, list of cases refrencing it
             
-    Kite: we use kite model with AVRO, arow based format to store data in hbase and store data in binary compressed format
+    Kite: we use kite model with AVRO, a row based format to store data in hbase and store data in binary compressed format
     
     Solr: we use solr for searching similar entities based on the terms, solr should be backed by a durable database
         as changes to solr schema or upgrades in major version requires reindexing, so reindexing scripts are exposed via API to

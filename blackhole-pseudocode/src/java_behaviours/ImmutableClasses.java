@@ -18,7 +18,7 @@ Getter method for all the variables in it
 No setters(To not have the option to change the value of the instance variable)
 
 Advantages:
-mutable objects are thread-safe so you will not have any synchronization issues.
+immutable objects are thread-safe so you will not have any synchronization issues.
 Immutable objects are good Map keys and Set elements, since these typically do not change once created.
 Immutability makes it easier to write, use and reason about the code (class invariant is established once and then unchanged)
 Immutability makes it easier to parallelize your program as there are no conflicts among objects.
@@ -29,7 +29,7 @@ example:
 map keys are immutable
 
 final vs immutability
-in finan referene cant be changes but states of objects can be,
+in finan referene cant be changed but states of objects can be,
 in immutable class reference can be changes buut not the states.
 
 */

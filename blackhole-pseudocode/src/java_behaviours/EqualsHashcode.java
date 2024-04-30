@@ -11,7 +11,7 @@ package java_behaviours;
  */
 // hascode not being unique will caluse only perfomance problem as 
 // different objects will be put inside same bucket.
-// anyway hashmap is growing and ints initial capacity is 16 in which 
+// anyway hashmap is growing and its initial capacity is 16 in which 
 // different objects are so likely to fall under same buckets
 // anyways equals determine the true equality.
 

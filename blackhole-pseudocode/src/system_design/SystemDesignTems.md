@@ -6,7 +6,7 @@ System Design Terms:
 Always start with simple solution and evolve in interviews and mention that
 Everything has a cost, tradeoff, always remember tradeoffs, more knowledge and exp can help
 
-functional requirements - define system behaviour or ser of operations, APIs
+functional requirements - define system behaviour or set of operations, APIs
 Non functioanal requirements - define system qualities like scalability, perfomance, availability, consistency, durability, maintainability, accuracy, security, testability, hardware cost etc
 
 Authentication - verifies the identity of a user or service.
@@ -24,7 +24,7 @@ Rate limiting(throttling) - process of limiting number of requests that u can su
 request dispatching - call services though http requests, metadata service, backend service. 
                         islotate requests to diff services, one service failure should not affect other, bulk head, circuit breaker helps
 request deduplication - when response to successful request fails to reach client this happens, 
-                        matters for atmost once, exactly once delivery strategies, not to orry for atleast once strategy
+                        matters for atmost once, exactly once delivery strategies, not to worry for atleast once strategy
                         caching request ids can help to void duplication
 usage data collection - gather error and usage info for debugging and audits, like datadog
 

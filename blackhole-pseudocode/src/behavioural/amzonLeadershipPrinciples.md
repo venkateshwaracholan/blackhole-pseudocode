@@ -71,7 +71,8 @@ Freshid V2 migration, requirement was unclear and had to figure out things mysel
 of PMs, leads and architect. and provided a solution of chained migration to them.
 
 3. Tell me about a time when you had to leave a task unfinished.
-I had to leave a GDPR redis migration unfinished so that i can work on more pressing tasks, later the task was delegated the task to someone. I posted my analysis and work done so far my attaching docs and PR links in the fresh release ticket.
+I had to leave a GDPR redis migration unfinished so that i can work on more pressing tasks, later the task was delegated the task to someone. I posted my analysis and work done 
+so far my attaching docs and PR links in the fresh release ticket.
 
 4.Tell me about a time when you took on a task that went beyond your normal responsibilities.
 
@@ -338,7 +339,8 @@ uuid authorization
 i would ask carifying questions on why we are doing it this way and understand that. that would boil down to
 priority, efficiency, deadline, scalability, reusability, extensibility. if two equal approaches, with all constraints pre calculated occurs, they both are fine, i woont have problem choosing direct manager's approach as well and it makes sense. atlast we are collaborating for the same cause.
 
-if it never makes sense, i disagree and commit, but, me agreeing t something and committing is always going to better and efficient  than disagree and commit. so its the responsibility of the manager to convince me with actual data or something that makes better sense.
+if it never makes sense, i disagree and commit, but, me agreeing t something and committing is always going to better and efficient  than disagree and commit. so its the responsibility 
+of the manager to convince me with actual data or something that makes better sense.
 
 3. Tell me about a time when you did not accept the status quo.
 

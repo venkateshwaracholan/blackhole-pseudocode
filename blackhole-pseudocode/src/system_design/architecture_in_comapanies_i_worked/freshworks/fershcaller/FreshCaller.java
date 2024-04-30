@@ -29,7 +29,7 @@ only merge after the unit tests were completed successfully which was taking mor
 Parallelized Unit test that runs on CD/CI pipelines(Jenkins), reduced
 its time complexity by the number of CPUs, n(usually 16).
 
-since tests were running in parallel, it took only a fraction 9 of the time that it initially took, 
+since tests were running in parallel, it took only a fraction of the time that it initially took, 
 so developers dot have to wait anymore.
 */
 

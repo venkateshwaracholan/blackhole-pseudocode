@@ -41,7 +41,7 @@ public class DistributedCounter {
     Functional requirements
         countViews(videoId)
         -> countEvent(videoId, eventType)
-        ->processEvent(videoId, eventType, funstion) eventType-> likes views, share function-> count, sum, avg
+        ->processEvent(videoId, eventType, function) eventType-> likes views, share function-> count, sum, avg
         processEvents(list of events)
     
         getCountViews(videoId, startTime, EndTime)
@@ -76,7 +76,7 @@ public class DistributedCounter {
     
     where we store data
         both sq and nosql can scale well
-        how to scare writes? 
+        how to scale writes? 
         how to scale reads? 
         how to make read and writes faster? 
         how not to lose data in hardware failures and network partition?
@@ -175,7 +175,7 @@ public class DistributedCounter {
         checkpointing - fixed order allows us to use offsets, every time event is read from storage offset moves, we can use commits too
             once evens are processed successfully we can write checkpoints to some persistent storage, if machine dies, another machine can start from checkpoint
             checkpointing is very important for stream processing
-        partitioning - events can be paritioned to multiple queues, partitioning allows us to parallelize processing, more evets more partitions
+        partitioning - events can be paritioned to multiple queues, partitioning allows us to parallelize processing, more events more partitions
         
         partition consumer - establishes and maintains TCP connection with partition to fetch data, polls data, 
                             deserializes from byte arry(we can use AVRO binary format too) to objects, consumer is usually single threaded
@@ -234,7 +234,7 @@ public class DistributedCounter {
                         means about  1% of requests will timeout, what to do with failed requests, retries, retry may hit a better machine increasing chances to success
     Retries + exp backoff and jitter
         we have to retry smart with exp backoff and jitter, otherwise all  clients retry at same time and creates retry storm event and overloads server
-        exp backoff increases waiting time between retries up to maximum backoff time and joitter adds randomness to retry intervals to spread load
+        exp backoff increases waiting time between retries up to maximum backoff time and jitter adds randomness to retry intervals to spread load
         if we dont add jitter, backoff algo will retry at same time
     
     circuit breaker
@@ -248,13 +248,13 @@ public class DistributedCounter {
     
     LB - distribute events evenly(ideally) to partitioners :
     
-    hardware - network devices we buy from known orgs, powerful machines with many cpu cores, memoru=y and are optimized to handle very high throughput
+    hardware - network devices we buy from known orgs, powerful machines with many cpu cores, memory and are optimized to handle very high throughput
                 millions of requests per second
     software - software we can install on hardware of our choice, we dont need big fancy machines and software lb are opensource, also lb is available 
-                as p[ublic cloud service(AWS ELB)
+                as public cloud service(AWS ELB)
 
     network protocol
-        TCP lb - simply forwards network packets without inspecting the content, establish a single end to end tcp connection between client and server
+        TCP LB - simply forwards network packets without inspecting the content, establish a single end to end tcp connection between client and server
                 super fast and handle millions of requests per sec
         HTTP LB -  Lb gets http request from client, terminates connections from client, establishes new connection to server,sends request to server
                    it can inspect content and make a LB decision based on the content, based on cookie info or header
@@ -278,7 +278,7 @@ public class DistributedCounter {
         and if unhealthy server is identified Lb stops sending traffic to it, it will resume routing when it detects the server is healthy again
            
     Lb high availability
-        lb uses a concept of primary and secondary nodes, proimary accepts connections and serves request, while secondary monitors primary
+        lb uses a concept of primary and secondary nodes, primary accepts connections and serves request, while secondary monitors primary
         if for any reason primary is unavailable secondary takes over, primary adn secondary also live in diff data centers in case one data center goes down
     
     
@@ -398,7 +398,7 @@ public class DistributedCounter {
             Amazon kinsis - public cloud kafka
     
         Processing service:
-            apache spoark or flink - to process and aggregate evens in memeory, we can use these stream processing frameworks
+            apache spark or flink - to process and aggregate evens in memeory, we can use these stream processing frameworks
             kinesis data analytics - public cloud stream processing
         
         storage:
