@@ -18,6 +18,9 @@ import ds_algorithm.utils.ArrayUtils;
 
 // https://leetcode.com/problems/reverse-linked-list/description/
 
+
+1->2->3->4->5->N
+
 public class ReverseLinkedList {
   
     //APPROACH 1 prev+ite

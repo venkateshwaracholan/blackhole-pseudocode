@@ -13,6 +13,17 @@ import java.util.*;
 
 // https://leetcode.com/problems/number-of-islands
 
+
+
+
+[
+1 1 1 1 1
+1 1 1 0 0
+1 0 0 0 1
+1 0 1 1 1
+1 1 0 1 1
+]
+
 public class NumberOfIslands {
   
     //APPROACH 1 ITE + BFS Queue<Integer> rowcol + dir4 => r*c loop every row col->  g[i][j]=='1' c++ put rc in queue
