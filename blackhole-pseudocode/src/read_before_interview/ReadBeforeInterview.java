@@ -16,11 +16,12 @@ for DS and algo:
 ask constraints for problems
 method input and outputs
 reiterate problem and confirm
-expect followups and addd extensible code, write object oriented, create custom classes,
+expect followups and add extensible code, write object oriented, create custom classes,
 write time complexity and space complexity
 proper variable names
 breakdown as functions
 concurrency for problems
+edge cases
 
 
 concurrency + concurrent resources

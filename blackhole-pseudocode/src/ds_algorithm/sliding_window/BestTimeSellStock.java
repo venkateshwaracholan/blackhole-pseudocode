@@ -50,4 +50,19 @@ public class BestTimeSellStock {
         }
         return max;
     }
+    
+    
+    // Approach 3, i cam up with this on a blind 75 run
+    // use two pointers, instead of low variable, we use i to track index of min;
+    public int maxProfit3(int[] prices) {
+        int len = prices.length;
+        int max = 0;
+        for(int i=0,j=i+1;j<len;j++){
+            max = Math.max(max, prices[j]-prices[i]);
+            if(prices[j]<prices[i]){
+                i = j;
+            }
+        }
+        return max;
+    }
 }

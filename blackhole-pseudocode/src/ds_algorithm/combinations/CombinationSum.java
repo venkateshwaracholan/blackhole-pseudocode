@@ -37,12 +37,12 @@ public class CombinationSum {
     // 
     // elimination of for loop and usage of recursion instead of the for loop
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
-        return combinationSum(candidates,target, 0,new ArrayList(), new ArrayList());
+        return combinationSum(candidates,target, 0,new ArrayList<>(), new ArrayList<>());
     }
     public List<List<Integer>> combinationSum2(int[] c, int target, int i, List<List<Integer>> ans, ArrayList<Integer> sub) {
         if(target<0 || i==c.length) return ans;
         if(target==0) {
-            ans.add(new ArrayList(sub));
+            ans.add(new ArrayList<>(sub));
             return ans;
         }
         sub.add(c[i]);
@@ -64,7 +64,7 @@ public class CombinationSum {
             this.sub=sub;
         }
     }
-    public List<List<Integer>> combinationSum(int[] c, int target) {
+    public List<List<Integer>> combinationSum3(int[] c, int target) {
         List<List<Integer>> ans  = new ArrayList();
         Queue<State> q= new LinkedList();
         q.add(new State(0,0,new ArrayList()));

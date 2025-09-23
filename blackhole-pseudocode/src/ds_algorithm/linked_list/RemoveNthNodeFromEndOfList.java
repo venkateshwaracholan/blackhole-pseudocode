@@ -46,12 +46,12 @@ public class RemoveNthNodeFromEndOfList {
     // map node.next to x;
     // if n==0 then return x
     // else return node;
-    public ListNode removeNthFromEnd(ListNode head, int n) {
-        return removeNthFromEnd(head, new int[]{n});
+    public ListNode removeNthFromEnd2(ListNode head, int n) {
+        return removeNthFromEnd2(head, new int[]{n});
     }
-    public ListNode removeNthFromEnd(ListNode cur, int n[]) {
+    public ListNode removeNthFromEnd2(ListNode cur, int n[]) {
         if(cur==null) return cur;
-        ListNode x = removeNthFromEnd(cur.next, n);
+        ListNode x = removeNthFromEnd2(cur.next, n);
         cur.next = x;
         if(--n[0]==0) return x;
         else return cur;
@@ -67,7 +67,7 @@ public class RemoveNthNodeFromEndOfList {
     // move slow and fast
     // slow.next = slow.next.next;
     //return head
-    public ListNode removeNthFromEnd(ListNode head, int n) {
+    public ListNode removeNthFromEnd3(ListNode head, int n) {
         ListNode slow = head, fast= head;
         for(int i=0;i<n;i++) 
             fast = fast.next; 
@@ -81,7 +81,7 @@ public class RemoveNthNodeFromEndOfList {
     }
     //APPROACH 3.2 ite+slowfast,move fast n times then move both at equal paces, with dummy node we can avoid edge case// if fast==null,return head.next
     // we have a dummy node, saem as above we dont have to care abt edge cases
-    public ListNode removeNthFromEnd(ListNode head, int n) {
+    public ListNode removeNthFromEnd4(ListNode head, int n) {
         ListNode dummy = new ListNode(1);
         dummy.next = head;
         ListNode slow = dummy, fast= dummy;

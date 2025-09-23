@@ -19,7 +19,7 @@ public class LongestSubstringWithoutRepeatingChar {
     
     // Time O(n^3) space: O(n)
     // brute force
-    // getting every string combination with 2 loops
+    // getting every string combination itself takes 2 loops
     // and checking if it dos not have repeating char an setting to max
     public int lengthOfLongestSubstring(String s) {
         int max = 0;
@@ -63,11 +63,10 @@ public class LongestSubstringWithoutRepeatingChar {
     
     // Time complexity : O(n). Index j will iterate n times.
     // Space complexity : O(min(m,n)). Same as the previous approach.
-    // approach: put next index of char into map
-    // if map contains key, move i to right max of i or index presnt in map
-    //abcba
-    // when b hits, bs idx in map is 2,  i=max(0,2)=2
-    // when a hits as idx in map is 1    i=max(2,1)=2
+    // approach: put index of char into map and move i to that position + 1
+    // if map contains key, move i to what is in map plus 1, meaning next char of its pos in map
+    // coz removing is not even required we care only abt max, so let map be tainted for a while
+    // even if a character is found, i cannot go behind becoz of MAX comparing itself
     public int lengthOfLongestSubstring3(String s) {
         Map<Character, Integer> map = new HashMap();
         int max = 0;

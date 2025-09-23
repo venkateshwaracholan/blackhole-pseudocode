@@ -21,17 +21,16 @@ public class GroupAnagrams {
     // approach: sorting and hashing,iterate strings with lop and covert to char array for sorting and String.valueOf for getting key
     // if map does not contain key, put a new arraylist
     // add the strs[i] is map contains the key, return new arraylist of map.values as we dont care abt the order of result
+    // abbccc
     public List<List<String>> groupAnagrams(String[] strs) {
-      Map<String, List<String>> map = new HashMap();
-      for(int i=0;i<strs.length;i++){
-        char[] ch = strs[i].toCharArray();
-        Arrays.sort(ch);
-        String key = String.valueOf(ch);
-        if(!map.containsKey(key))
-          map.put(key,new ArrayList());
-        map.get(key).add(strs[i]);
-      }
-      return new ArrayList(map.values());
+        var map = new HashMap<String, List<String>>(strs.length);
+        for(String s: strs){
+            var chars = s.toCharArray();
+            Arrays.sort(chars);
+            String key = new String(chars);
+            map.computeIfAbsent(key, (k)-> new ArrayList<>()).add(s);
+        }
+        return new ArrayList<>(map.values());
     }
   
     //APPROACH 2 hashMap Map<String, List<String>> + cmap[26], build custom key, mapvalues
@@ -40,19 +39,20 @@ public class GroupAnagrams {
     //  we use 26 characters counts(a long sting of # and count) as the key to avoid sorting
     //  #1#2#3
     public List<List<String>> groupAnagramsCMap(String[] strs) {
-        Map<String, List<String>> map = new HashMap();
-        for(int i=0;i<strs.length;i++){
-            int[] cmap = new int[26];
-            for(int k=0;k<strs[i].length();k++)
-                cmap[strs[i].charAt(k)-'a']++;
-            StringBuilder s = new StringBuilder();
-            for(int k=0;k<26;k++)
-                s.append('#').append(cmap[k]);
-            String key = s.toString();
-            if(!map.containsKey(key)) map.put(key, new ArrayList());
-            map.get(key).add(strs[i]);
+        var map = new HashMap<String, List<String>>(strs.length);
+        for(String s: strs){
+            int[] freq = new int[26];
+            StringBuilder sb = new StringBuilder();
+            for(int i=0;i<s.length();i++){
+                freq[s.charAt(i)-'a']++;
+            }
+            for(int k=0;k<26;k++){
+                sb.append('#').append(freq[k]);
+            }
+            String key = sb.toString();
+            map.computeIfAbsent(key, (k)-> new ArrayList<>()).add(s);
         }
-        return new ArrayList(map.values());
+        return new ArrayList<>(map.values());
     }
   
     public static void main(String args[]){

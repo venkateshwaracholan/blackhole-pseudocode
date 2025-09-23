@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package ds_algorithm.linked_list;
+import java.util.*;
 
 /**
  *
@@ -44,7 +45,7 @@ public class MergeKSortedLinkedList {
     // same as above without using lists
     // using null counts for exit
     // so starting loop made infinite
-    public ListNode mergeKLists(ListNode[] lists) {
+    public ListNode mergeKLists2(ListNode[] lists) {
         ListNode dummy = new ListNode();
         ListNode cur = dummy;
         while(true){
@@ -69,7 +70,7 @@ public class MergeKSortedLinkedList {
     // while minheap not empty
     // poll and move dummies
     // add in minheap if min's next is not null
-    public ListNode mergeKLists(ListNode[] lists) {
+    public ListNode mergeKLists3(ListNode[] lists) {
         ListNode dummy = new ListNode(1);
         ListNode cur = dummy;
         Queue<ListNode> minheap = new PriorityQueue<>((a,b)->a.val-b.val);
@@ -88,7 +89,7 @@ public class MergeKSortedLinkedList {
     // Time O(nlogk) space: O(logk) call stack
     // using merge sort to sort 2 lists at a time
     // bounds 0 to k-1
-    public ListNode mergeKLists(ListNode[] lists) {
+    public ListNode mergeKLists4(ListNode[] lists) {
         return partition(lists,0,lists.length-1);
     }
     // if lo>hi return null
@@ -114,7 +115,7 @@ public class MergeKSortedLinkedList {
     // list[i] = merge two lists 
     // once merged all adjacents, make interval twice
     // 0,1,2
-    public ListNode mergeKLists(ListNode[] lists) {
+    public ListNode mergeKLists5(ListNode[] lists) {
         int interval = 1,siz = lists.length;
         while(interval<siz){
             for(int x=0;x<siz-interval;x+=2*interval){

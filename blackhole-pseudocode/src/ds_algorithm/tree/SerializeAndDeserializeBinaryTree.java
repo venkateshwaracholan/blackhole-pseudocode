@@ -24,32 +24,32 @@ public class SerializeAndDeserializeBinaryTree {
     
     // dfs
     // Encodes a tree to a single string.
-    public String serialize(TreeNode root) {
-        return serialize(root,new StringBuilder()).toString();
+    public static String serializeDfs(TreeNode root) {
+        return serializeDfs(root,new StringBuilder()).toString();
     }
-    public StringBuilder serialize(TreeNode n, StringBuilder sb) {
+    public static StringBuilder serializeDfs(TreeNode n, StringBuilder sb) {
         if(n==null){
             sb.append("N,");
             return sb;
         }
         sb.append(n.val).append(',');
-        serialize(n.left,sb);
-        serialize(n.right,sb);
+        serializeDfs(n.left,sb);
+        serializeDfs(n.right,sb);
         return sb;
     }
     // Decodes your encoded data to tree.
-    public TreeNode deserialize(String data) {
+    public static TreeNode deSerializeDfs(String data) {
         String[] s = data.split(",");
-        return deserialize(s,new int[1]);
+        return deSerializeDfs(s,new int[1]);
     }
-    public TreeNode deserialize(String[] s, int[] i) {
+    public static TreeNode deSerializeDfs(String[] s, int[] i) {
         if(i[0]==s.length||s[i[0]].equals("N")) {
             i[0]++;
             return null;
         }
         TreeNode n = new TreeNode(Integer.valueOf(s[i[0]++]));
-        n.left = deserialize(s,i);
-        n.right = deserialize(s,i);
+        n.left = deSerializeDfs(s,i);
+        n.right = deSerializeDfs(s,i);
         return n;
     }
     
@@ -59,7 +59,7 @@ public class SerializeAndDeserializeBinaryTree {
     //           x=1 bfs with root, n.left=create(x++), n.right=create(x++), add left and right in q if not null
     //bfs
     // Encodes a tree to a single string.
-    public String serialize(TreeNode root) {
+    public static String serializeBfs(TreeNode root) {
         Queue<TreeNode> q=new LinkedList();
         q.add(root);
         StringBuilder sb = new StringBuilder();
@@ -76,7 +76,7 @@ public class SerializeAndDeserializeBinaryTree {
         return sb.toString();
     }
     // Decodes your encoded data to tree.
-    public TreeNode deserialize(String data) {
+    public static TreeNode deSerializeBfs(String data) {
         String[] s = data.split(",");
         Queue<TreeNode> q=new LinkedList();
         if(s.length==0 || s[0].equals("N")) return null;
@@ -92,7 +92,7 @@ public class SerializeAndDeserializeBinaryTree {
         }
         return root;
     }
-    public TreeNode create(String s){
+    public static TreeNode create(String s){
         if(s.equals("N")) return null;
         else return new TreeNode(Integer.valueOf(s));
     }

@@ -5,7 +5,6 @@
  */
 package ds_algorithm.linked_list;
 
-import static ds_algorithm.linked_list.ReverseLinkedList.reverseLinkedListRec2;
 
 /**
  *

@@ -86,7 +86,8 @@ public class ThreeSum {
         return new ArrayList(ans);
     }
     //APPROACH 3.2 => 2 loops, two pointer isn 2nd loop, l=i+1 r=n-1, sum<t move left,sum>t move right, after adding move both pointers
-    // approach: two pointer with skips for equal values, skipping at 3 places, i ,lo, hi 
+    // prefer THIS
+    // approach: two pointer with skips for equal values, skipping at 3 places, i ,l, r 
     // if totl sum<0 move lo to right else move hi to left
     // and if sum is zero add to and and move both l anr r as we dont want that combo again
     // but both next values can be same but set takes care of it

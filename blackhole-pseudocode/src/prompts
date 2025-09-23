@@ -1,0 +1,65 @@
+give name for this problem
+descibe this problem with example like leetcode form with constraints
+and solve it as google expects for a staff engineer role, brute to optimal, tradeoffs, scale constraints, time and memory to google level and see if followups can be possible and solve that as well, write code in java for google interview standards and add main method to test the same as well,
+this is for my documentation of 100 leetcode discussed problems so be detailed so that i grasp it quicker when i revisit for revision and recall.
+dont be too descriptive or way too long solution that google doesnt expent candidate to come up with in a 60 mins interview
+
+
+
+
+
+I found a Google (or FAANG) coding interview problem on LeetCode Discuss. Here are the details:
+
+I want you to help me **fully document this problem for revision and interview recall**, in the style of my AddressMatcherWildcards problem. Please cover **everything Google expects**, including edge cases and real-world considerations. Specifically, include:
+
+1. **Problem Name**  
+   - Suggest a clear, concise name suitable for my 100-problem documentation.
+
+2. **Problem Description**  
+   - Clean, LeetCode-style description with input/output and constraints.  
+   - Include all possible edge cases explicitly (e.g., empty input, all nulls, duplicates, maximum/minimum values, unusual characters).  
+
+3. **Brute Force Solution**  
+   - Java method inside a single class, readable, using `var` where appropriate.  
+   - Include comments with:
+       - Time and space complexity  
+       - Clear example(s) inline for recall  
+       - Mention any edge case handling  
+   - Minimal code required for Google-level 60-min interview.  
+
+4. **Optimal Solution(s)**  
+   - Explain approach first with example(s).  
+   - Include time/space complexity, trade-offs, and when best to use.  
+   - Java implementation inside the same class, clean and concise.  
+   - Use `var` and early exits / smart handling of nulls or edge cases.  
+
+5. **Follow-up / Scaling / Discussion Points**  
+   - Scaling to large N/Q or extreme constraints.  
+   - Memory vs query time trade-offs.  
+   - Possible variants like precomputation, caching, Bloom filters, etc.  
+   - Handling duplicates, normalization (trim, lowercase, special chars), or other real-world data issues.  
+   - Edge case discussion: empty input, all fields null, maximum values, unusual characters, repeated queries.  
+   - Things Google values in discussion: correctness, efficiency, clarity, ability to reason about trade-offs.  
+
+6. **Main Method with Tests**  
+   - Demonstrate brute and optimal methods.  
+   - Include edge cases explicitly.  
+   - Provide expected output as comments.
+
+7. **Comments for Recall / Discussion Table**  
+   - Key points for interview discussion  
+   - When each approach is preferable  
+   - Optimization ideas and early exit strategies  
+   - Clear time/space/trade-off table or bullets  
+
+8. **Normalization Note** (if applicable)  
+   - Trim, lowercase, remove punctuation, standardize abbreviations  
+
+Constraints for output:  
+- Keep code concise and readable (Google interview standard, no over-engineering).  
+- Include examples inline in comments for recall.  
+- Focus on what Google expects in a 60-min coding interview.  
+- Prioritize clarity, correctness, and handling of edge cases.  
+
+**Deliverable:**  
+- A single Java class with all methods, comments, examples, edge case handling, and main method as described.

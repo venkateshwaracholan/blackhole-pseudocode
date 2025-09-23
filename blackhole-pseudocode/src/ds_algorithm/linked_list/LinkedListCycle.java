@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package ds_algorithm.linked_list;
+import java.util.*;
 
 /**
  *
@@ -32,7 +33,7 @@ public class LinkedListCycle {
     //APPROACH 1 ite+set, 
     // Time O(n) space: O(n)
     // hashset, lame
-    public boolean hasCycle(ListNode head) {
+    public boolean hasCycle2(ListNode head) {
         Set<ListNode> set = new HashSet();
         while(head!=null){
             if(set.contains(head)) return true;
@@ -46,7 +47,7 @@ public class LinkedListCycle {
     // Time O(n) space: O(1)
     // modifying LIst values, bad approach
     // but was fun
-    public boolean hasCycle(ListNode head) {
+    public boolean hasCycle3(ListNode head) {
         while(head!=null){
             if(head.val == 0xcafebabe) return true;
             head.val = 0xcafebabe;
@@ -55,7 +56,7 @@ public class LinkedListCycle {
         return false;
     }
     // same as above even shorter
-    public boolean hasCycle(ListNode head) {
+    public boolean hasCycle4(ListNode head) {
         return (head!=null) && (head.val == (head.val = 0xcafebabe) || hasCycle(head.next));
     }
   

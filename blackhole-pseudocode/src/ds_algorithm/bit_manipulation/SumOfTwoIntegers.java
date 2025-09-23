@@ -40,7 +40,7 @@ public class SumOfTwoIntegers {
     //APPROACH 1.2  REc Until b!=0 =>  c=a&b s = a^b,  assigning sum to a and c<<1 to b, if carry is 0 c<<1 is also 0, carry will eventually become zero
     
     //recursive of the above approach
-    public int getSum(int a, int b) {
+    public int getSum1(int a, int b) {
         if(b==0) return a;
         int c = a&b;
         return getSum(a^b,c<<1);

@@ -19,7 +19,7 @@ import ds_algorithm.utils.ArrayUtils;
 // https://leetcode.com/problems/reverse-linked-list/description/
 
 
-1->2->3->4->5->N
+//1->2->3->4->5->N
 
 public class ReverseLinkedList {
   
@@ -81,6 +81,7 @@ public class ReverseLinkedList {
     
  
   public static void main(String args[]){
+      
   }
   public static void test(ArrayList<Integer> got, int exp[]){
     Gson gson = new Gson();

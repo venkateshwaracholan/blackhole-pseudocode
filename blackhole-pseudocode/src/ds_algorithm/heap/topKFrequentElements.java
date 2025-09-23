@@ -13,126 +13,201 @@ import java.util.*;
 // https://leetcode.com/problems/top-k-frequent-elements/
 
 public class TopKFrequentElements {
-  
-    //APPROACH 1 freqmap + minheap upto k values, cheack and put value ans rev assignment
-    // Time O(nlogk) space O(n+k) n - number of element initailly, k - for kth largest
-    //  core idea: min heap and reverse assignment 
-    // using maps inside comparators what an idea, without passing, it looks like javascript closure
-    //  i use min heap and add answer in reverse
-    public int[] topKFrequentFast(int[] nums, int k) {
-        Map<Integer, Integer> map = new HashMap();
-        for(int n:nums)
-          map.put(n, map.getOrDefault(n,0)+1);
-        Queue<Integer> heap = new PriorityQueue<>((a,b)->map.get(a)-map.get(b));
-        for(int n: map.keySet()){
-            if(heap.size()<k) heap.add(n);
-            else if(map.get(n)>map.get(heap.peek())){
-                heap.poll();
-                heap.add(n);
+
+    /**
+     * Brute Force:
+     * - Count frequencies using a HashMap
+     * - Sort map entries by frequency with comparator(n entries)
+     * - Take top K
+     * 
+     * Time: O(N log N)
+     * Space: O(N)
+     */
+    public int[] topKFrequentBrute(int[] nums, int k) {
+        var freq = new HashMap<Integer, Integer>();
+        int[] ans = new int[k];
+        for(int n: nums){
+            // freq.compute(n, (key,v) -> v==null ? 1 : v+1);
+            freq.merge(n,1,Integer::sum);
+        }
+        var sorted = new ArrayList<>(freq.keySet());
+        sorted.sort((a,b) -> freq.get(b)-freq.get(a));
+        
+        for(int i=0;i<k;i++){
+            ans[i] = sorted.get(i);
+        }
+        return ans;
+    }
+    
+   /**
+     * Approach 1: Frequency Map + Min Heap
+     * - Count element frequencies using a HashMap
+     * - Maintain a min-heap of size k+1 to track top K frequent elements
+     * - If heap size exceeds K, remove element with smallest frequency
+     * - Extract elements from heap for final result (order optional)
+     * 
+     * Time: O(N log K)
+     * Space: O(N + K)
+     * 
+     * Note: if using maxHeap then we ll have to insert n records coz removing min is not possible 
+     */
+    public int[] topKFrequentOptimal(int[] nums, int k) {
+        var freq = new HashMap<Integer, Integer>();
+        int[] ans = new int[k];
+        for(int n: nums){
+            freq.merge(n,1,Integer::sum);
+        }
+        var minHeap = new PriorityQueue<Integer>((a,b)-> freq.get(a)-freq.get(b));
+        for(int n: freq.keySet()){
+            minHeap.add(n);
+            if(minHeap.size()>k){
+                minHeap.poll();
             }
         }
-        int ans[] = new int[k];
-        while(k>0)
-            ans[k---1] = heap.poll();
+        for(int i=k-1;i>=0;i--){
+            ans[i] = minHeap.poll();
+        }
         return ans;
     }
-  
-    //APPROACH 2 freq map + int[] minheap, add n remove if size>k, rev assignment
-    // int[] and add strategy change
-    // Time O(nlogk) space O(n+K) n - number of element initailly, k - for kth largest
-    public int[] topKFrequentArray4(int[] nums, int k) {
-        Map<Integer, Integer> map = new HashMap();
-        for(int n:nums)
-            map.put(n, map.getOrDefault(n,0)+1);
-        Queue<Integer[]> heap = new PriorityQueue<>((a,b)->a[1]-b[1]);
-        for(int n: map.keySet()){
-            heap.add(new Integer[]{n,map.get(n)});
-            if(heap.size()>k) heap.poll();
+
+
+    /**
+     * Approach 1.2: Frequency Map + Min Heap of size K
+     * 
+     * - Count frequency of each number using HashMap (`merge` for clarity).
+     * - Maintain a min-heap (PriorityQueue) of size k storing [number, frequency] pairs.
+     *   - Only push a new pair if heap size < k, or frequency > min frequency in heap.
+     *   - This differs from the "k+1 then poll" approach:
+     *       - Here, we **never exceed size k**, simplifying heap logic.
+     *       - Previous approach added every element and polled when size > k, achieving same effect.
+     * - Using Integer[] allows the comparator to directly access frequency for ordering.
+     * - Pop from heap in reverse to fill answer array in descending order of frequency.
+     *
+     * Time Complexity: O(N log K)  
+     *   - Counting frequencies: O(N)  
+     *   - Heap operations: O(N log K)  
+     * Space Complexity: O(N + K)  
+     *   - HashMap stores N elements  
+     *   - Heap stores up to K elements
+     */
+    public int[] topKFrequentMoreOptimal(int[] nums, int k) {
+        var freq = new HashMap<Integer, Integer>();
+        for (int n : nums) {
+            freq.merge(n, 1, Integer::sum); // increment frequency by 1
         }
-        int ans[] = new int[k];
-        while(k>0)
-            ans[k---1] = heap.poll()[0];
-        return ans;
-    }
-    
-    //APPROACH 3 freq map + int[] max treeset,add n remove if size>k, treeset is uniq, comparator compare, freq,value
-    // same idea as above, using treeset instead
-    // be careful with the comparator, treeset is set, no duplicates
-    // so we are using num,freq as uniq
-    // if freq equal then check num val
-    public int[] topKFrequent5(int[] nums, int k) {
-        Map<Integer,Integer> map = new HashMap();
-        for(int n:nums) map.put(n, map.getOrDefault(n,0)+1);
-        TreeSet<int[]> treeset = new TreeSet<>((a,b)->a[1]==b[1]?a[0]-b[0]:a[1]-b[1]);
-        for(int n:map.keySet()) {
-            treeset.add(new int[]{n,map.get(n)});
-            if(treeset.size()>k) treeset.pollFirst();
+        var minHeap = new PriorityQueue<Integer[]>((a, b) -> a[1] - b[1]);
+        for (int n : freq.keySet()) {
+            int f = freq.get(n);
+            if (minHeap.size() < k) {
+                minHeap.add(new Integer[]{n, f}); // add new pair if heap not full
+            } else if (f > minHeap.peek()[1]) {
+                minHeap.poll();                   // remove smallest frequency
+                minHeap.add(new Integer[]{n, f}); // add current
+            }
         }
+
         int[] ans = new int[k];
-        while(k-->0)
-            ans[k]=treeset.pollFirst()[0];
+        for (int i = k - 1; i >= 0; i--) {
+            ans[i] = minHeap.poll()[0];
+        }
+
         return ans;
     }
+
   
-    //APPROACH 4 freqmap + maxheap upto n values, ans forward assignment
-    //MAX Heap;
-    //Time O(nlogk) space O(n) n - number of element initailly, k - for kth largest
-    public int[] topKFrequent(int[] nums, int k) {
-        Map<Integer, Integer> map = new HashMap();
-        for(int n:nums) map.put(n, map.getOrDefault(n,0)+1);
-        Queue<Integer> heap = new PriorityQueue((a,b)->map.get(b)-map.get(a));
-        for(int n:map.keySet())heap.add(n);
-        int ans[] = new int[k];
-        for(int x = 0;x<k;x++)
-            ans[x] = heap.poll();
-        return ans;
-    }
-  
-    //APPROACH 5 freqmap + List<Integer> bucket[] rev iteration and assignment from each bucket
-    // Time: O(n) space:O(n)
-    // approach: bucket sorting
-    // create a bucket of freq as positions - size 0 to n+1 -> single elem case handling
-    // put values as list as more than one number can have same freq
-    // get first k elements from the bucket traversing in reverse
+    /**
+     * Approach: Bucket Sort for Top K Frequent Elements
+     *
+     * - Idea: Map numbers → frequencies, then invert map to frequency → numbers.
+     * - Steps:
+     *   1. Count frequencies using a HashMap.
+     *   2. Create an array of lists (bucket) where index = frequency.
+     *      - bucket[f] contains all numbers appearing f times.
+     *      - Using array allows direct access by frequency; ArrayList<List<Integer>> would need pre-filling list to avoid IndexOutOfBoundsException.
+     *   3. Traverse bucket in reverse (high → low frequency) and collect first k elements.
+     *
+     * - Advantages:
+     *   - Linear time O(n) since max frequency ≤ n.
+     *   - Simple, avoids heap or tree structures.
+     *
+     * - Caveats:
+     *   - Null checks needed since not all frequencies may exist.
+     *   - Only practical when frequencies are bounded by array size (≤ n).
+     *
+     * Time: O(n)
+     * Space: O(n)
+     */
     public int[] topKFrequentBucket(int[] nums, int k) {
-        Map<Integer, Integer> map = new HashMap();
-        for(int n:nums) map.put(n, map.getOrDefault(n,0)+1);
+        var freq = new HashMap<Integer, Integer>();
         List<Integer> bucket[] = new List[nums.length+1];
-        for(int key:map.keySet()){
-            if(bucket[map.get(key)]==null) bucket[map.get(key)] = new ArrayList();
-            bucket[map.get(key)].add(key);
-        }
         int[] ans = new int[k];
-        for(int x = nums.length,r=0;x>=0&&r<k;x--)
-            if(bucket[x]!=null)
-                for(int z = 0;z<bucket[x].size();z++)
-                    ans[r++] = bucket[x].get(z);
-                
+        for(int n: nums){
+            freq.merge(n,1,Integer::sum);
+        }
+        for(int n: freq.keySet()){
+            int f = freq.get(n);
+            if(bucket[f]==null){
+                bucket[f] = new ArrayList<>();
+            }
+            bucket[f].add(n);
+        }
+
+        for(int i=nums.length, x = 0; i>=0 && x<k; i--){
+            var b = bucket[i];
+            if(b!=null){
+                for(int z=0;z<b.size();z++,x++){
+                    ans[x] = b.get(z);
+                }
+            }
+        }
         return ans;
     }
     
-    //APPROACH 6 freqmap + int,List<Integer> max treemap, rev iteration and assignment from each bucket
-    // Time O(nlogk) space O(n+k) n - number of element initailly, k - for kth largest
-    // approach: using treemaps which sorte keys in sorted order
-    // get map of elem to freq
-    // store freq to elems in treemap in reverse order
-    // k get values from treemap
-    public int[] topKFrequentTreeMap(int[] nums, int k) {
-        Map<Integer,Integer> map = new HashMap();
-        for(int n:nums) map.put(n, map.getOrDefault(n,0)+1);
-        TreeMap<Integer,List<Integer>> tmap = new TreeMap<>((a,b)->b-a);
-        for(int n:map.keySet()) {
-            if(!tmap.containsKey(map.get(n)))
-                tmap.put(map.get(n),new ArrayList());
-            tmap.get(map.get(n)).add(n);
-        }
-        int[] ans = new int[k];
-        int a=0;
-        for(List<Integer> n: tmap.values())
-            for(int x=0;a<k&&x<n.size();x++)
-                ans[a++]=n.get(x);
-        return ans;
-    }
+
+    /**
+     * Approach: TreeSet / TreeMap / Heap for Top K Frequent Elements
+     *
+     * - TreeSet: 
+     *   - Maintains elements in sorted order automatically based on comparator (here frequency, then value for uniqueness).
+     *   - Correct comparator example (min-order, like min-heap behavior): 
+     *         (a, b) -> a[1] == b[1] ? a[0] - b[0] : a[1] - b[1]
+     *       - a[1] == b[1] → frequencies equal, compare numbers to prevent duplicates.
+     *       - Otherwise, sort by frequency ascending (smallest frequency first → min-heap analogy).
+     *   - Max-order comparator example (like max-heap behavior):
+     *         (a, b) -> a[1] == b[1] ? a[0] - b[0] : b[1] - a[1]
+     *       - Largest frequency first.
+     *   - Can efficiently maintain a sliding “top k” by adding new elements and removing the smallest when size > k.
+     *   - Caveats:
+     *       - TreeSet does not allow duplicate keys (comparator returning 0 is treated as duplicate), so combine frequency + value to ensure uniqueness.
+     *       - Min-order TreeSet + size=k → O(n log k) time, Max-order TreeSet requires storing all n elements → O(n log n) time.
+     *
+     * - TreeMap:
+     *   - Maps frequency → list of numbers with that frequency, maintaining frequencies in sorted order.
+     *   - Min-order comparator (like min-heap behavior, ascending frequencies):
+     *         (a, b) -> a - b
+     *   - Max-order comparator (like max-heap behavior, descending frequencies):
+     *         (a, b) -> b - a
+     *   - Allows reverse traversal to pick top-k elements efficiently.
+     *   - Time: O(n log n) due to maintaining sorted map of all frequencies, Space: O(n + k).
+     *   - Caveats:
+     *       - Overkill for simple top-k problems because heap gives O(n log k) with smaller constants.
+     *       - List<Integer> as value handles multiple numbers sharing same frequency.
+     *       - Min-order TreeMap + size=k → O(n log k), Max-order → add all n elements → O(n log n).
+     *
+     * - Heap (PriorityQueue):
+     *   - Min-heap:
+     *       - Maintain size=k → remove smallest frequency → O(n log k) time, O(k) space.
+     *   - Max-heap:
+     *       - Add all n elements → poll k times → O(n + k log n) time, O(n) space.
+     *
+     * Summary / Distinction:
+     * - TreeSet<int[]> uses int[] key to combine number and frequency for uniqueness.
+     * - TreeMap<Integer, List<Integer>> uses frequency as key, list as value to handle multiple numbers.
+     * - Heap is simpler and faster for Top K Frequent Elements.
+     * - Trees are educational here, helpful for problems requiring ordering, range queries, or unique constraints.
+     */
+
+
     
   
   // need to try quick select when i am free, large code

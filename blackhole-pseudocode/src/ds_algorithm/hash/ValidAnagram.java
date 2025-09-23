@@ -23,15 +23,19 @@ public class ValidAnagram {
     //initially check length and return false if not equal, they are not anagrams
     //Note: smap.getOrDefault(c,0).equals(tmap.getOrDefault(c,0) equals here coz of Object Integer( not int)
     public boolean isAnagramHashMap(String s, String t) {
-        if(s.length()!=t.length()) return false;
-        Map<Character,Integer> smap = new HashMap(),tmap = new HashMap();
-        for(int i=0;i<s.length();i++){
-            smap.put(s.charAt(i),smap.getOrDefault(s.charAt(i),0)+1);
-            tmap.put(t.charAt(i),tmap.getOrDefault(t.charAt(i),0)+1);
+        if(s.length()!=t.length()){
+            return false;
         }
-        for(char c: smap.keySet())
-            if(!smap.getOrDefault(c,0).equals(tmap.getOrDefault(c,0))) 
+        Map<Character,Integer> freqS= new HashMap<>(), freqT = new HashMap<>();
+        for(int i=0;i<s.length();i++){
+            freqS.compute(s.charAt(i),(k,v)-> v==null ? 1 : v+1);
+            freqT.compute(t.charAt(i),(k,v)-> v==null ? 1 : v+1);
+        }
+        for(char k: freqS.keySet()){
+            if(!freqS.get(k).equals(freqT.get(k))){
                 return false;
+            }
+        }
         return true;
     }
     
@@ -41,13 +45,19 @@ public class ValidAnagram {
     // check map if non zero not an anagram
     // initially check length and return false if not equal, they are not anagrams
     public boolean isAnagram(String s, String t) {
-        if(s.length()!=t.length()) return false;
+        if(s.length()!=t.length()){
+            return false;
+        }
         int[] map = new int[26];
         for(int i=0;i<s.length();i++){
             map[s.charAt(i)-'a']++;
-            map[t.charAt(i)-'a']--;
+            map[t.charAt(i)-'a']--;    
         }
-        for(int i: map) if(i!=0) return false;
+        for(int i: map){
+            if(i!=0){
+                return false;
+            }
+        }
         return true;
     }
     

@@ -91,20 +91,20 @@ public class HouseRobber {
             max = Math.max(max,nums[i]+rob(nums,x));
         return max;
     }
-    public int rob2(int[] nums) {
+    public int rob4(int[] nums) {
         int max = 0;
         int[] dp = new int[nums.length];
         Arrays.fill(dp,-1);
         for(int i=0;i<nums.length;i++)
-            max= Math.max(max,rob2(nums,i,dp));
+            max= Math.max(max,rob4(nums,i,dp));
         return max;
     }
-    public int rob2(int[] nums, int i, int[] dp) {
+    public int rob4(int[] nums, int i, int[] dp) {
         if(i>=nums.length) return 0;
         if(dp[i]!=-1) return dp[i];
         int max = nums[i];
         for(int x=i+2;x<nums.length;x++)
-            max = Math.max(max,nums[i]+rob2(nums,x,dp));
+            max = Math.max(max,nums[i]+rob4(nums,x,dp));
         dp[i]=max;
         return max;
     }

@@ -57,11 +57,12 @@ public class LongestConsecutiveSequence {
     // then for everynumber check if n-1 is present and if so skip those, we will track from from the smaller number to next as sequence
     // while set contains next elem inncrease seq count, compare to max and assign
     // while can only run max of n times if all  numbers are in sequence
+    // traversing set is optimal coz of duplicates in starting number of seq
     public int longestConsecutiveHash(int[] nums) {
         int max = 0;
         Set<Integer> set = new HashSet();
         for(int n: nums) set.add(n);
-        for(int n:nums){
+        for(int n:set){
             if(set.contains(n-1)) continue;
             int c = 1, cur = n+1;
             while(set.contains(cur++)) c++;

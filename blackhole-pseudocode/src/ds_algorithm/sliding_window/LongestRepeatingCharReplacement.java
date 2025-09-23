@@ -15,7 +15,11 @@ import java.util.*;
 
 public class LongestRepeatingCharReplacement {
     
-    //APPROACH 1 => 2loops inner loop twopointers i=0,j=0, move j, while jchar==ichar inc count, move i when j-i+1>c+k, window>allowed
+    //APPROACH 1 => 2loops inner loop twopointers i=0,j=0, move j, 
+    //while jchar==ichar inc count, move i when j-i+1>c+k, window>allowed
+    // window = j-i+1, c is count so far for char, k is allowed mistakes
+    // so win - count cannot exceed k => w-c>k exceeded mistakes so correction required so moving i
+    // while moving i if it matches char, count shld be reduced too
     // TLE
     // Time complexity: O(n*⁡n) space: O(1) 26 chars
     public int characterReplacement(String s, int k) {
@@ -32,7 +36,8 @@ public class LongestRepeatingCharReplacement {
         return max;
     }
     
-    //APPROACH 2 => ouerloop running for only max 26 chars,2loops inner loop twopointers i=0,j=0, move j, while jchar==ichar inc count, move i when j-i+1>c+k, window>allowed
+    //APPROACH 2 => ouerloop running for only max 26 chars, so making it uniq witha  set
+    //2 loops inner loop twopointers i=0,j=0, move j, while jchar==ichar inc count, move i when j-i+1>c+k, window>allowed
     // Time complexity: O(nm)
     // Space complexity: O(m) m is 26
     // approach: iterate each character and slide a valid window
@@ -55,14 +60,20 @@ public class LongestRepeatingCharReplacement {
         return longest;
     }
  
-    //APPROACH 3 =>  int[] freq map + 1 twopointer loop i=0,j=0, move j and put in map, get maxf, move i when j-i+1>maxf+k, window>allowed
+    //APPROACH 3 =>  int[] freq map + 1 twopointer loop i=0,j=0, move j and put in map, get maxf, 
+    //move i when j-i+1>maxf+k, window>allowed
     
     // Time complexity: O(n)
     // Space complexity: O(m) m is 26
     // approach: sliding window, freq map
+    // core idea: max freq letter os the window will only be able to form longer 
+    // string after replaceemnt and we can track only one frequency for j char, so tracking max char for that window
+    // "BAAAB" expects 5, but wne j is at last b, if we take bs count then window will be reduced
     // build freq map, acc max freq
+    // we check and get freq of j char,  but with a max to maxf so we dont go below and lose progress
+    // ans will anyway eventually come as j is moving forward until allowed window
     // valid window is j-i+1=window, valid wndow = window - maxf <=k
-    // if window becomes invalid, reduce window size and corresponding cahr from map, i++
+    // if window becomes invalid, reduce window size and corresponding char from map, i++
     // accumulate longest
     public int characterReplacement4(String s, int k) {
         int max = 0;

@@ -193,7 +193,7 @@ public class FindMedianFromDataStream {
     
     //follow ups
     // If all integer numbers from the stream are in the range [0, 100], how would you optimize your solution?
-    class MedianFinder {
+    class MedianFinder9 {
         int[] count = new int[101];
         int size=0;
         public void addNum(int num) {
@@ -222,7 +222,7 @@ public class FindMedianFromDataStream {
     
     
     // If 99% of all integer numbers from the stream are in the range [0, 100], how would you optimize your solution?
-    class MedianFinder {
+    class MedianFinder10 {
         int[] count = new int[101];
         int size=0, lz;
         public void addNum(int num) {
@@ -256,11 +256,11 @@ public class FindMedianFromDataStream {
     
     
     //worst case
-    class MedianFinder10 {
+    class MedianFinder11 {
 
         ArrayList<Integer> list;
 
-        public MedianFinder10() {
+        public MedianFinder11() {
             list = new ArrayList<>();
         }
 

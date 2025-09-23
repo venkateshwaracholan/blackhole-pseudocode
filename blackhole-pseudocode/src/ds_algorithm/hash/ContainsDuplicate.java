@@ -20,9 +20,13 @@ public class ContainsDuplicate {
     //TLE
     // Time O(n*n) space O(1)
     public boolean containsDuplicateBrute(int[] nums) {
-        for(int i=0;i<nums.length;i++)
-            for(int j=i+1;j<nums.length;j++)
-                if(nums[i]==nums[j]) return true;
+        for(int i=0;i<nums.length;i++){
+            for(int j=i+1;j<nums.length;j++){
+                if(nums[i]==nums[j]){
+                     return true;
+                }
+            }
+        }
         return false;
     }
     
@@ -30,9 +34,11 @@ public class ContainsDuplicate {
     // Time O(n) space O(n)
     //approach: hashset, check if present an add into set
     public boolean containsDuplicate(int[] nums) {
-        Set<Integer> set = new HashSet();
+        var set = new HashSet<Integer>();
         for(int i=0;i<nums.length;i++){
-            if(set.contains(nums[i])) return true;
+            if(set.contains(nums[i])){
+                return true;
+            }
             set.add(nums[i]);
         }
         return false;
