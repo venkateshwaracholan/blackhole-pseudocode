@@ -15,81 +15,123 @@ import java.util.*;
 
 public class LongestSubstringWithoutRepeatingChar {
     
-    //APPROACH 1 brute => 3 loops 1for checkrepetition, j=i, if no repetition put in max
-    
-    // Time O(n^3) space: O(n)
-    // brute force
-    // getting every string combination itself takes 2 loops
-    // and checking if it dos not have repeating char an setting to max
+    /*
+     * Approach 1: Brute-force
+     * - Check all substrings s[i..j] of the input string.
+     * - Use a HashSet to check if the substring contains duplicate characters.
+     * - If no duplicates, update max length.
+     *
+     * Time Complexity: O(n^3)
+     *   - Outer loop over i: O(n)
+     *   - Inner loop over j: O(n)
+     *   - rep() checks substring uniqueness: O(n)
+     * Space Complexity: O(n) for the HashSet in rep()
+     *
+     * Note: Works correctly but inefficient for large inputs.
+     */
     public int lengthOfLongestSubstring(String s) {
         int max = 0;
-        for(int i=0;i<s.length();i++)
-            for(int j=i;j<s.length();j++)
-                if(!checkRep(s,i,j)) 
-                    max = Math.max(max,j-i+1);
+        for (int i = 0; i < s.length(); i++) {
+            for (int j = i; j < s.length(); j++) {
+                if (!rep(s, i, j)) {
+                    max = Math.max(max, j - i + 1);
+                }
+            }
+        }
         return max;
     }
-    public boolean checkRep(String s, int i, int j){
-        Set<Character> set = new HashSet();
-        for(;i<=j;i++){
-            if(set.contains(s.charAt(i))) return true;
+
+    // Helper to check if substring s[i..j] contains any repeating characters
+    public boolean rep(String s, int i, int j) {
+        var set = new HashSet<Character>();
+        for (; i <= j; i++) {
+            if (set.contains(s.charAt(i))) {
+                return true;
+            }
             set.add(s.charAt(i));
         }
         return false;
     }
     
-    //APPROACH 2 => twopointers +set i=0,j=0, move j, while jchar in set, move i and remove ichar from set
-    
-    // Time  O(2n) space O(n)
-    // approach: 2 pointers, using set
-    // while right char is present remove all chars until its nor present in set, 
-    // meaning moving i to right until j char is not present
-    // axybcba
-    // when 2nd b hits, remove axyb using while, thats y 2n
-    public int lengthOfLongestSubstring2(String s) {
+    /*
+    * Sliding Window + HashSet:
+    * - Two pointers i (window start) and j (window end) track the current substring with unique chars.
+    * - Both i and j start at 0 to correctly handle substrings of length 1.
+    * - HashSet stores characters in the current window.
+    * - While s[j] is already in the set, shrink the window from the left:
+    *     - Remove s[i] from the set and increment i.
+    *     - Repeat until s[j] is no longer in the set.
+    *     - This handles cases where multiple duplicates exist behind j and ensures
+    *       the window always contains only unique characters.
+    * - After the while loop, add s[j] to the set and update max length: max = Math.max(max, j-i+1)
+    *
+    * Time: O(2n) → each character is added once (when j moves) and removed once (when i moves),
+    * Space: O(min(n, charset)) → window stores unique chars
+    */
+    public int lengthOfLongestSubstringTwoPointerSet(String s) {
         int max = 0;
-        Set<Character> set = new HashSet();
-        for(int i=0,j=0;j<s.length();j++){
-            while(set.contains(s.charAt(j)))
-                set.remove(s.charAt(i++));
+        var set = new HashSet<Character>();
+        for(int i=0,j=i;j<s.length();j++){
+            while(set.contains(s.charAt(j))){
+                set.remove(s.charAt(i));
+                i++;
+            }
+            max = Math.max(max, j-i+1);
             set.add(s.charAt(j));
-            max = Math.max(max, j-i+1);
         }
         return max;
     }
     
     
-    //APPROACH 3 => twopointers +map<val,index> i=0,j=0, move j, if jchar in set, move i to max of i,idx of jchar from map
-    
-    // Time complexity : O(n). Index j will iterate n times.
-    // Space complexity : O(min(m,n)). Same as the previous approach.
-    // approach: put index of char into map and move i to that position + 1
-    // if map contains key, move i to what is in map plus 1, meaning next char of its pos in map
-    // coz removing is not even required we care only abt max, so let map be tainted for a while
-    // even if a character is found, i cannot go behind becoz of MAX comparing itself
-    public int lengthOfLongestSubstring3(String s) {
-        Map<Character, Integer> map = new HashMap();
+    /*
+    * Sliding Window + HashMap (Optimized O(n)):
+    * - lastIndex stores last seen index of each character.
+    * - i = start of window, j = end pointer.
+    * - For s[j]:
+    *     - If s[j] seen in current window (lastIndex[c] >= i), jump i to lastIndex[c]+1.
+    *     - Update lastIndex[c] = j.
+    *     - Update max = Math.max(max, j-i+1).
+    * - Rationale: jump i directly past duplicates → true O(n), window always unique.
+    * - Works for all chars (Unicode), unlike int[] for ASCII.
+    *
+    * Time: O(n) → each character is processed at most once for j and i jumps exactly once per duplicate.
+    * Space: O(min(n, charset)) → store last seen index of unique characters.
+    */
+    public int lengthOfLongestSubstringOptimizedMap(String s) {
         int max = 0;
-        for(int i=0,j=0;j<s.length();j++){
+        var lastIndex = new HashMap<Character,Integer>();
+        for (int i = 0, j = 0; j < s.length(); j++) {
             char c = s.charAt(j);
-            if (map.containsKey(c))
-                i = Math.max(map.get(c),i);
-            max = Math.max(max, j-i+1);
-            map.put(c, j+1);
+            if (lastIndex.containsKey(c) && lastIndex.get(c) >= i) {
+                i = lastIndex.get(c) + 1;
+            }
+            lastIndex.put(c, j);
+            max = Math.max(max, j - i + 1);
         }
         return max;
     }
-    // approach: same as above, instead of map using Integer[128]
-    // using Integer so that we can use null checks as contains
+    /*
+    * Approach: Sliding Window using Integer[128] (like map for ASCII)
+    * - lastIndex[c] stores last seen index of character c.
+    * - null indicates character not seen yet (replaces containsKey).
+    * - int[] wouldn't work because default 0 can't distinguish unseen vs seen at index 0.
+    * - i = start of window, j = end pointer.
+    * - For s[j]:
+    *     - If lastIndex[c] != null and >= i → duplicate, jump i = lastIndex[c]+1.
+    *     - Update lastIndex[c] = j.
+    *     - Update max = Math.max(max, j-i+1).
+    * - Time: O(n), Space: O(128) fixed for ASCII.
+    */
     public int lengthOfLongestSubstring4(String s) {
         int max = 0;
-        Integer[] map = new Integer[128];
-        for(int i=0,j=0;j<s.length();j++){
+        var lastIndex = new Integer[256];
+        for (int i = 0, j = 0; j < s.length(); j++) {
             char c = s.charAt(j);
-            if(map[c]!=null)
-                i = Math.max(i,map[c]);
-            map[c]=j+1;
-            max = Math.max(max, j-i+1);
+            if (lastIndex[c]!=null && lastIndex[c] >= i) {
+                i = lastIndex[c] + 1;
+            }
+            lastIndex[c] = j;
+            max = Math.max(max, j - i + 1);
         }
         return max;
     }

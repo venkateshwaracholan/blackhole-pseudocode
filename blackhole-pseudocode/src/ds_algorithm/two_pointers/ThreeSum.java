@@ -14,100 +14,151 @@ import java.util.*;
 
 public class ThreeSum {
     
-    //APPROACH 1 => 3 loops, j=i+1,k=j+1
-    // Time O(n^3logk+nlogn) SC: O(K) - k is the number of unique triplets
-    // brute force
-    // even brute force requires set ans sort as we need only uniq triplets
-    // TLE
+    /*
+    * Approach 1 (Brute-force with minor optimizations):
+    * - Sort the array to simplify duplicate handling.
+    * - Use three nested loops to check all triplets.
+    * - Skip duplicate values for the first element to reduce unnecessary work.
+    * - Store triplets in a HashSet to ensure uniqueness.
+    *
+    * Time: O(n^3) worst-case
+    * Space: O(n) for storing unique triplets
+    */
     public List<List<Integer>> threeSum(int[] nums) {
-        Set<List<Integer>> set = new HashSet();
+        int len = nums.length;
+        var set = new HashSet<List<Integer>>();
         Arrays.sort(nums);
-        for(int i=0;i<nums.length;i++){
-            for(int j=i+1;j<nums.length;j++){
-                for(int k=j+1;k<nums.length;k++){
-                    if(nums[i]+nums[j]+nums[k]==0)
+        for(int i=0;i<len;i++){
+            if (i > 0 && nums[i] == nums[i - 1]) continue; // skip duplicates(optional)
+            for(int j=i+1;j<len;j++){
+                for(int k=j+1;k<len;k++){
+                    if(nums[i]+nums[j]+nums[k]==0){
                         set.add(Arrays.asList(nums[i],nums[j],nums[k]));
-                }
-            }
-        }
-        return new ArrayList(set);
-    }
-    
-    //APPROACH 2 => 2 loops + hashset, j=i+1
-    // TC: O(n * logn) + O(n^2 * logk) => O(n^2 * logk)
-    // SC: O(K+n) - k is the number of unique triplets
-    // Optimizing to the brute force (using HashSet):
-    public List<List<Integer>> threeSum2(int[] nums) {
-        Set<List<Integer>> ans = new HashSet();
-        Arrays.sort(nums);
-        for(int i=0;i<nums.length;i++){
-            Set<Integer> set = new HashSet();
-            for(int j=i+1;j<nums.length;j++){
-                int target = -1*(nums[i]+nums[j]);
-                if(set.contains(target))
-                    ans.add(Arrays.asList(nums[i],nums[j],target));
-                set.add(nums[j]);
-            }
-        }
-        return new ArrayList(ans);
-    }
-    
-    
-    
-    //APPROACH 3.1 => 2 loops, two pointer isn 2nd loop, l=i+1 r=n-1, sum<t move left,sum>t move right, after adding ans move both if equal using temp triplet
-    // TC: O(n ^ 2), SC: O(k) - k is the number of unique triplets
-    // Auxiliary space: O(1)
-    // approach: two pointer with skips for equal values, skipping at 3 places, i ,lo, hi 
-    // if totl sum<0 move lo to right else move hi to left
-    // and if sum is zero store tiplet in var ans add to ans
-    // we can use value in triplet to skip same values for l and r refering to triplet 
-    // -6,1,1,1,1,5,5,5,5
-    // -6,1,5  we have to skip all 1s and all 5s so we need to compare l and r from triplet, and move until new value is found, also array is sorted
-    // loop stopped with len -2 coz u cant make a tripletwith 2 nums
-    public List<List<Integer>> threeSum3(int[] nums) {
-        Set<List<Integer>> ans = new HashSet();
-        Arrays.sort(nums);
-        for(int i=0;i<nums.length-2;i++){
-            if(i==0||nums[i]!=nums[i-1]){
-                int l=i+1,r=nums.length-1;
-                while(l<r){
-                    int sum  = nums[i]+nums[l]+nums[r];
-                    if(sum<0) l++;
-                    else if (sum>0) r--;
-                    else {
-                        List<Integer> trip = Arrays.asList(nums[i],nums[l++],nums[r--]);
-                        ans.add(trip);
-                        while(l<r&&nums[l]==trip.get(1)) l++;
-                        while(l<r&&nums[r]==trip.get(2)) r--;
                     }
                 }
             }
         }
-        return new ArrayList(ans);
+        return new ArrayList<>(set);
     }
-    //APPROACH 3.2 => 2 loops, two pointer isn 2nd loop, l=i+1 r=n-1, sum<t move left,sum>t move right, after adding move both pointers
-    // prefer THIS
-    // approach: two pointer with skips for equal values, skipping at 3 places, i ,l, r 
-    // if totl sum<0 move lo to right else move hi to left
-    // and if sum is zero add to and and move both l anr r as we dont want that combo again
-    // but both next values can be same but set takes care of it
-    // loop stopped with len -2 coz u cant make a tripletwith 2 nums
-    // -6,1,1,1,1,5,5,5,5
-    // -6,1,5, we just do l++ and r--, so -6,1,5 comes again and again and set takes care
-    public List<List<Integer>> threeSum4(int[] nums) {
-        Set<List<Integer>> ans = new HashSet();
+    
+    /*
+    * Approach 2 (Brute-ish with HashSet for complement):
+    * - Sort the array to make triplets predictable (optional for set uniqueness).
+    * - Iterate over each pair (nums[i], nums[j]).
+    * - Compute the required third element as target = 0 - nums[i] - nums[j].
+    * - Use a HashSet to check if the target exists among previously seen numbers.
+    * - Store triplets in a HashSet to avoid duplicates.
+    *
+    * Time: O(n^2) → two nested loops + O(1) set lookup
+    * Space: O(n) → HashSet for complements + HashSet for unique triplets
+    *
+    * Note: This is an improvement over pure O(n^3) brute because we avoid the innermost loop.
+    *       Still uses extra space for uniqueness but easy to understand in interviews.
+    */
+    public List<List<Integer>> threeSum2(int[] nums) {
+        int len = nums.length;
+        var res = new HashSet<List<Integer>>();
+        var set = new HashSet<Integer>();
         Arrays.sort(nums);
-        for(int i=0;i<nums.length-2;i++){
-            if(i==0||nums[i]!=nums[i-1]){
-                int l=i+1,r=nums.length-1;
-                while(l<r){
-                    int sum  = nums[i]+nums[l]+nums[r];
-                    if(sum<0) l++;
-                    else if (sum>0) r--;
-                    else ans.add(Arrays.asList(nums[i],nums[l++],nums[r--]));
+        for(int i=0;i<len;i++){
+            for(int j=i+1;j<len;j++){
+                int target = 0-nums[i]-nums[j];
+                if(set.contains(target)){
+                res.add(Arrays.asList(nums[i],nums[j],target));
+                }
+            }
+            set.add(nums[i]);
+        }
+        return new ArrayList<>(res);
+    }
+    
+    /*
+    * Approach 3 (Two-Pointer 3Sum):
+    * - Sort the array first to enable two-pointer traversal.
+    * - Fix the first element nums[i], then use two pointers j=i+1 and k=len-1 for the remaining array.
+    * - Compute sum = nums[i] + nums[j] + nums[k]:
+    *     - If sum > 0 → decrement k to reduce sum.
+    *     - If sum < 0 → increment j to increase sum.
+    *     - If sum == 0 → add triplet to result set (to avoid duplicates), then move both pointers.
+    * - Using a HashSet ensures only unique triplets are stored.
+    * - i only goes up to len-2 because we need at least two elements (j and k) after i to form a triplet.
+    *
+    * Time:  O(n^2) → outer loop n times, inner while loop runs at most n times total per i.
+    * Space: O(n) → HashSet for unique triplets + result ArrayList
+    *
+    * Note: Further optimization can skip duplicate nums[i] and duplicate nums[j]/nums[k]
+    *       to remove the need for a HashSet.
+    */
+    public List<List<Integer>> threeSumTwoPointers(int[] nums) {
+        int len = nums.length;
+        var res = new HashSet<List<Integer>>();
+        Arrays.sort(nums);
+        for(int i=0;i<len-2;i++){
+            for(int j=i+1,k=len-1;j<k;){
+                int sum = nums[i]+nums[j]+nums[k];
+                if(sum>0){
+                    k--;
+                }else if(sum<0){
+                    j++;
+                }
+                else{
+                    res.add(Arrays.asList(nums[i],nums[j],nums[k]));
+                    j++;
+                    k--;
                 }
             }
         }
-        return new ArrayList(ans);
+        return new ArrayList<>(res);
+    }
+    
+    
+    /*
+    * Approach: Two-Pointer 3Sum (skip duplicates inline)
+    * - Sort the array first to enable two-pointer traversal.
+    * - Iterate i from 0 to len-2:
+    *     - len-2 ensures at least two elements remain for j and k to form a triplet.
+    *     - Skip duplicate nums[i] to avoid repeated triplets.
+    * - Use two pointers j = i+1 and k = len-1:
+    *     - Compute sum = nums[i] + nums[j] + nums[k].
+    *     - If sum < 0 → increment j to increase sum.
+    *     - If sum > 0 → decrement k to reduce sum.
+    *     - If sum == 0 → add triplet to result and skip duplicates:
+    *         - Move j past all duplicates of nums[j].
+    *         - Move k past all duplicates of nums[k].
+    *         - Increment j and decrement k to continue search.
+    * - No HashSet needed because duplicates are skipped inline.
+    *
+    * Time Complexity: O(n^2) → outer loop n times, inner loop moves j and k at most n times total.
+    * Space Complexity: O(1) extra → only the result list is used.
+    */
+    public List<List<Integer>> threeSum3(int[] nums) {
+        int len = nums.length;
+        var res = new ArrayList<List<Integer>>();
+        Arrays.sort(nums);
+        for(int i=0;i<len-2;i++){
+            if(i>0 && nums[i]==nums[i-1]){
+                continue;
+            }
+            for(int j=i+1,k=len-1;j<k;){
+                int sum = nums[i]+nums[j]+nums[k];
+                if(sum>0){
+                    k--;
+                }else if(sum<0){
+                    j++;
+                }
+                else{
+                    res.add(Arrays.asList(nums[i],nums[j],nums[k]));
+                    while(j<k&&nums[j]==nums[j+1]){
+                        j++;
+                    }
+                    while(j<k&&nums[k]==nums[k-1]){
+                        k--;
+                    }
+                    j++;
+                    k--;
+                }
+            }
+        }
+        return res;
     }
 }

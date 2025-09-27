@@ -15,130 +15,112 @@ import java.util.*;
 
 public class LongestRepeatingCharReplacement {
     
-    //APPROACH 1 => 2loops inner loop twopointers i=0,j=0, move j, 
-    //while jchar==ichar inc count, move i when j-i+1>c+k, window>allowed
-    // window = j-i+1, c is count so far for char, k is allowed mistakes
-    // so win - count cannot exceed k => w-c>k exceeded mistakes so correction required so moving i
-    // while moving i if it matches char, count shld be reduced too
-    // TLE
-    // Time complexity: O(n*⁡n) space: O(1) 26 chars
+    /*
+    * Approach: Brute Sliding Window by character index
+    * - For each character s[x] in string:
+    *     - Use a sliding window [i, j] to track substring where 
+    *       up to k replacements turn all characters to s[x].
+    *     - A valid window = window size (j-i+1) ≤ c+k (non-matching chars ≤ k).
+    *     - c = count of matching characters in current window.
+    *     - If window size (j-i+1) > c+k → window invalid, shrink from left (i++).
+    * - Keep track of maximum valid window size found.
+    *
+    * Time Complexity: O(n^2) in worst case (checking all positions for all characters).
+    * Space Complexity: O(1) extra space.
+    *
+    * This works but is slower than the optimal single-pass sliding window approach.
+    */
     public int characterReplacement(String s, int k) {
-        int max = 0;
+        int max = 1;
         for(int x=0;x<s.length();x++){
             int c = 0;
             for(int i=0,j=0;j<s.length();j++){
-                if(s.charAt(x)==s.charAt(j)) c++;
-                if(j-i+1>c+k)
-                    if(s.charAt(x)==s.charAt(i++)) c--;
-                max = Math.max(max,j-i+1);
+                if(s.charAt(x)==s.charAt(j)){
+                    c++;
+                }
+                if(j-i+1>c+k){
+                    if(s.charAt(x)==s.charAt(i)){
+                        c--;
+                    }
+                    i++;
+                }
+                max = Math.max(max, j-i+1);
             }
         }
         return max;
     }
     
-    //APPROACH 2 => ouerloop running for only max 26 chars, so making it uniq witha  set
-    //2 loops inner loop twopointers i=0,j=0, move j, while jchar==ichar inc count, move i when j-i+1>c+k, window>allowed
-    // Time complexity: O(nm)
-    // Space complexity: O(m) m is 26
-    // approach: iterate each character and slide a valid window
-    // valid window is j-i+1=window, valid wndow = window - count <=k
-    // if beyond valid window size, reduce window size by increasing i
-    // and removing char at i if its the letter
+    /*
+    * Approach: Brute Sliding Window by Unique Character
+    * - First, collect all unique characters in the string (letters set).
+    * - For each unique character 'l':
+    *     - Use a sliding window [i, j] to track substrings where up to k replacements 
+    *       make all characters equal to 'l'.
+    *     - c = count of matching characters in the current window.
+    *     - A valid window satisfies: window size (j-i+1) ≤ c+k.
+    *     - If window invalid (j-i+1 > c+k), shrink window from the left (i++).
+    *     - If removed char matches 'l', decrement c.
+    * - Keep track of the maximum valid window size.
+    *
+    * Time Complexity: O(n + U × n) where U = number of unique characters in s (≤ 26 for letters).
+    *                  Effectively O(n) since U is bounded by a constant.
+    * Space Complexity: O(U) for storing unique characters.
+    *
+    * Note: This reduces redundant checks compared to the pure brute-force version,
+    *       making it more efficient for strings with limited unique characters.
+    */
     public int characterReplacement2(String s, int k) {
-        Set<Character> letters = new HashSet();
-        int longest = 0;
-        for(int i=0;i<s.length();i++) letters.add(s.charAt(i));
+        int max = 1;
+        var letters = new HashSet<Character>();
+        for(int i=0;i<s.length();i++){
+            letters.add(s.charAt(i));
+        }
         for(char l: letters){
             int c = 0;
             for(int i=0,j=0;j<s.length();j++){
-                if(l==s.charAt(j))c++;
-                if((j-i+1)>c+k)
-                    if(l==s.charAt(i++)) c--;
-                longest = Math.max(j-i+1, longest);
+                if(l==s.charAt(j)){
+                    c++;
+                }
+                if(j-i+1>c+k){
+                    if(l==s.charAt(i)){
+                        c--;
+                    }
+                    i++;
+                }
+                max = Math.max(max, j-i+1);
             }
         }
-        return longest;
+        return max;
     }
  
-    //APPROACH 3 =>  int[] freq map + 1 twopointer loop i=0,j=0, move j and put in map, get maxf, 
-    //move i when j-i+1>maxf+k, window>allowed
-    
-    // Time complexity: O(n)
-    // Space complexity: O(m) m is 26
-    // approach: sliding window, freq map
-    // core idea: max freq letter os the window will only be able to form longer 
-    // string after replaceemnt and we can track only one frequency for j char, so tracking max char for that window
-    // "BAAAB" expects 5, but wne j is at last b, if we take bs count then window will be reduced
-    // build freq map, acc max freq
-    // we check and get freq of j char,  but with a max to maxf so we dont go below and lose progress
-    // ans will anyway eventually come as j is moving forward until allowed window
-    // valid window is j-i+1=window, valid wndow = window - maxf <=k
-    // if window becomes invalid, reduce window size and corresponding char from map, i++
-    // accumulate longest
-    public int characterReplacement4(String s, int k) {
-        int max = 0;
-        int[] map = new int[26];
-        int maxf = 0;
+    /*
+    * Approach: Optimized Sliding Window
+    * - Use a sliding window [i, j] to find longest substring where
+    *   at most k replacements make all chars the same.
+    * - map[c] tracks frequency of each char in current window.
+    * - After adding s[j], compute maxf = max frequency of any char in window.
+    *   This ensures maxf always represents the current window’s most frequent char,
+    *   which determines how many replacements are needed.
+    * - If (window size) > maxf + k → too many replacements needed → shrink window from left.
+    * - Time: O(n), Space: O(26) for map (constant).
+    * - Rationale: Tracking maxf dynamically eliminates the need for outer loops
+    *   over unique characters, achieving true linear time.
+    */
+    public int characterReplacement3(String s, int k) {
+        int max = 1, maxf=0;
+        int[] map = new int[26]; 
         for(int i=0,j=0;j<s.length();j++){
             map[s.charAt(j)-'A']++;
-            maxf = Math.max(maxf,map[s.charAt(j)-'A']);
-            if(j-i+1>maxf+k)
-                map[s.charAt(i++)-'A']--;
-            max = Math.max(max,j-i+1);
+            maxf = Math.max(maxf, map[s.charAt(j)-'A']);
+            if(j-i+1>maxf+k){
+                map[s.charAt(i)-'A']--;
+                i++;
+            }
+            
+            max = Math.max(max, j-i+1);
         }
         return max;
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    //unwanated
-    //Time complexity: O(nlog⁡n) space: O(1) 26 chars
-    // approach: binary search use mid to dictate widow size
-    // then slide window to see if substring can be made, using freq int map, 
-    // accumulate max freq, and check if enuf freq present for windowsize with k replacements
-    // if true, then we can move lo right so that we can check if hgher window is possible
-    // else move r to mid to decrease window size
-    // binary bounds => lo=0, hi = s.length()+1 (required to make window size go upto n length)
-    // while(lo+1<hi) lo<hi will make infinite loop
-    //
-    public int characterReplacement3(String s, int k) {
-        int l=0,r=s.length()+1;
-        while(l+1<r){
-            int mid = l+(r-l)/2;
-            if(characterReplacement(s,mid,k))l=mid;
-            else r=mid;
-        }
-        return l;
-    }
-    
-    public boolean characterReplacement(String s, int w, int k) {
-        int[] map = new int[26];
-        int maxf = 0;
-        for(int i=0,j=0;j<s.length();j++){
-            map[s.charAt(j)-'A']++;
-            maxf = Math.max(maxf,map[s.charAt(j)-'A']);
-            if(j-i+1>maxf+k)
-                map[s.charAt(i++)-'A']--;
-            if(w<=maxf+k) return true;
-        }
-        return false;
-    }
     
 }

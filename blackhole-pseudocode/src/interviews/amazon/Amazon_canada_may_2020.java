@@ -1,5 +1,5 @@
 
-package curated_lists.interviews;
+package interviews.amazon;
 
 /**
  *

@@ -14,86 +14,166 @@ import ds_algorithm.Pair;
 // https://leetcode.com/problems/minimum-window-substring/description/
 
 public class MinimumWindowSubstring {
-    
-    //APPROACH 1 => 2freq Maps+2loops twopointer, fill tmap,formed loop i=0,j=0, move j,put in smap if smap and tmap freq match, inc formed
-    //  once formed, in formed loop acc ans[max,i,j], move i and dec in smap, dec formed if smap freq<tmap freq
-    //Time Complexity: O(∣S∣+∣T∣)
-    // Space Complexity: O(∣S∣+∣T∣)
-    // approach: sliding window, 2 freq maps, ans array, formed
-    // fill freq of t in tmap
-    // start window and put freq of j char in smap
-    // if(tmap has j char and both freq count match) increase formed
-    // while(i<=j and formed==tmap size) fill ans array if ans not set or indoming ans in new min
-    // decrease i char from smap and check if freq of i char decreased if so, formed--; and then move i->i++;
-    // while returning asn, if ans not set, retrun "" or build min window from ans
+
+
+    /*
+    * Approach: Brute Force with frequency arrays
+    * - Count frequency of each character in t → tCount[128].
+    * - For every possible start index i in s:
+    *     - Expand end index j, building sCount[128] for substring s[i..j].
+    *     - After each expansion, check if sCount covers tCount (contains()).
+    *     - If valid and window is smaller, update answer.
+    * - contains(): compares two frequency arrays, returns true if sCount has at least as many of every char as tCount.
+    *
+    * Time Complexity: O(n^2 * 128) 
+    *   - Outer loop over i, inner loop over j, each validation is O(128).
+    * Space Complexity: O(128) per window count + O(128) for tCount.
+    *
+    * Rationale: Simple brute force – generate all substrings, validate via frequency counts.
+    * Inefficient for large input, but correctness is straightforward.
+    */
     public String minWindow(String s, String t) {
-        Map<Character,Integer> smap = new HashMap();
-        Map<Character,Integer> tmap = new HashMap();
-        for(int i=0;i<t.length();i++) 
-            tmap.put(t.charAt(i),tmap.getOrDefault(t.charAt(i),0)+1);
-        int ans[] = new int[]{-1,0,0};
-        for(int i=0,j=0,formed=0;j<s.length();j++){
-            char c = s.charAt(j);
-            smap.put(c,smap.getOrDefault(c,0)+1);
-            if(tmap.containsKey(c) && smap.get(c).equals(tmap.get(c))) formed++;
-            while(formed==tmap.size()){
-                if(ans[0]==-1|| j-i+1<ans[0]){
-                    ans[0] = j-i+1;
-                    ans[1] = i;
-                    ans[2] = j;
+        int min = Integer.MAX_VALUE;
+        int[] tCount = new int[128];
+        String ans = "";
+        for(char c: t.toCharArray()){
+            tCount[c]++;
+        }
+        for(int i=0;i<s.length();i++){
+            int[] sCount = new int[128];
+            for(int j=i;j<s.length();j++){
+                sCount[s.charAt(j)]++;
+                if(contains(sCount, tCount) && j-i+1<min){
+                    min = j-i+1;
+                    ans = s.substring(i,j+1);
                 }
-                char d = s.charAt(i++);
-                smap.put(d,smap.getOrDefault(d,0)-1);
-                if(tmap.containsKey(d) && smap.get(d).intValue()<tmap.get(d).intValue()) formed--;
             }
         }
-        return ans[0]==-1 ? "" : s.substring(ans[1],ans[2]+1);
+        return ans;
+    }
+    public boolean contains(int[] s, int[] t){
+        for(int i=0;i<128;i++){
+            if(t[i]>s[i]){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    
+    
+    /*
+    * Approach 1: Optimized Sliding Window with Hash Maps
+    * - Build frequency map tMap for characters in t.
+    * - Use two pointers (i, j) to maintain a sliding window in s.
+    * - Expand window by moving j and update sMap with character counts.
+    * - Maintain a formed count: number of characters in window matching required frequency in tMap.
+    * - When formed == tMap.size(), window contains all required characters:
+    *     - Shrink window from left (i) to minimize size while still containing all characters.
+    *     - Update min window length and start position when a smaller valid window is found.
+    * - Continue until j reaches end of s.
+    * - Build result substring once at the end (s.substring(start, start+min)) to avoid
+    *   costly substring creation inside loop.
+    * Time & Space: O(n) — each char visited at most twice, O(|S|+|T|) — for frequency maps.
+    * Rationale: Efficiently finds smallest substring containing all chars of t
+    * using sliding window and frequency tracking.
+    */
+    public String minWindowTwoPointers(String s, String t) {
+        int min = Integer.MAX_VALUE, start=0;
+        var tMap = new HashMap<Character, Integer>();
+        var sMap = new HashMap<Character, Integer>();
+        // String ans = "";
+        for(char c: t.toCharArray()){
+            tMap.merge(c,1,Integer::sum);
+        }
+        for(int i=0,j=0, formed=0;j<s.length();j++){
+            char jc = s.charAt(j);
+            sMap.merge(jc, 1, Integer::sum);
+            if(tMap.containsKey(jc) && sMap.get(jc).equals(tMap.get(jc))){
+                formed++;
+            }
+            while(formed==tMap.size()){
+                if(j-i+1<min){
+                    min = j-i+1;
+                    start = i;
+                    // ans = s.substring(i,j+1);
+                }
+                char ic = s.charAt(i);
+                sMap.merge(ic,-1,Integer::sum);
+                if(tMap.containsKey(ic) && sMap.get(ic).intValue()<tMap.get(ic).intValue()){
+                    formed--;
+                }
+                i++;
+            }
+        }
+        if(min>s.length()){
+            return "";
+        }
+        return s.substring(start, start+min);
     }
     
-    //APPROACH 2 => 2freq Maps+filtered[val,index]+2loops twopointer, fill tmap,formed loop i=0,j=0, move j,put in smap if smap and tmap freq match, inc formed
-    //  once formed, in formed loop acc ans[max,i,j], move i and dec in smap, dec formed if smap freq<tmap freq
-    
-    //Time Complexity: O(∣S∣+∣T∣)
-    // Space Complexity: O(∣S∣+∣T∣)
-    // approach: sliding window, 2 freq maps, list of filtered values, ans array, formed
-    // fill freq of t in tmap
-    // filter s only if chars present in t, add them as pair c, i we need index to form ans; 
-    // start window over the filtered array and put freq of j char in smap
-    // if(tmap has j char and both freq count match) increase formed
-    // while(i<=j and formed==tmap size) fill ans array if ans not set or incoming ans in new min, fill ans with index in filtered
-    // decrease i char from smap and check if freq of i char decreased if so, formed--; and then move i->i++;
-    // while returning asn, if ans not set, retrun "" or build min window from ans
-   public String minWindow2(String s, String t) {
-        if(s.length()==0||t.length()==0) return "";
-        Map<Character,Integer> smap = new HashMap(),tmap = new HashMap();
-        List<Character> filtered= new ArrayList();
-        List<Integer> index= new ArrayList();
-        for(int i=0;i<t.length();i++)
-            tmap.put(t.charAt(i), tmap.getOrDefault(t.charAt(i),0)+1);
-        for(int i=0;i<s.length();i++)
-            if(tmap.containsKey(s.charAt(i))){
-                filtered.add(s.charAt(i));
-                index.add(i);
-            }
-        int ans[] = new int[]{-1,0,0};
-        for(int i=0,j=0,formed=0;j<filtered.size();j++){
-            char c = filtered.get(j);
-            smap.put(c, smap.getOrDefault(c,0)+1);
-            if(tmap.containsKey(c) && smap.get(c).equals(tmap.get(c))) formed++;
-            while(formed==tmap.size()){
-                int l = index.get(i);
-                int r = index.get(j);
-                if(ans[0]==-1 || r-l+1< ans[0]){
-                    ans[0] = r-l+1;
-                    ans[1] = l;
-                    ans[2] = r;
-                }
-                char d = filtered.get(i++);
-                smap.put(d, smap.getOrDefault(d,0)-1);
-                if(tmap.containsKey(d) && smap.get(d).intValue()<tmap.get(d).intValue())  formed--;
+    /*
+    * Approach 2: Filtered Sliding Window with IndexedChar record
+    * - Build frequency map tMap for characters in t.
+    * - Preprocess s into a filtered list containing only characters present in t,
+    *   storing both the character and its original index using IndexedChar record.
+    * - Use two pointers (i, j) to maintain a sliding window over the filtered list.
+    * - Expand window by moving j and updating sMap with character counts.
+    * - Maintain a formed count: number of characters in window matching required frequency in tMap.
+    * - When formed == tMap.size():
+    *     - Shrink window from left (i) to minimize size while still containing all characters.
+    *     - Update min length and starting index when a smaller valid window is found.
+    * - Construct result substring once at the end using s.substring(start, start+min) for efficiency.
+    *
+    * Time & Space: O(n) — filtering and sliding window each iterate s at most once;
+    *                 O(|S| + |T|) — for filtered list and frequency maps.
+    *
+    * Trade‑off: Filtering reduces iterations over irrelevant characters,
+    *            but adds preprocessing and extra memory usage;
+    *            actual runtime improvement depends on input density.
+    *
+    * Rationale: Efficiently finds the smallest substring containing all characters of t
+    * using a filtered sliding window to skip irrelevant characters.
+    */
+    public String minWindowFiltered(String s, String t) {
+        int min = Integer.MAX_VALUE, start=0;
+        var tMap = new HashMap<Character, Integer>();
+        var sMap = new HashMap<Character, Integer>();
+        record IndexedChar(char ch, int idx){}
+        var filtered = new ArrayList<IndexedChar>();
+        for(char c: t.toCharArray()){
+            tMap.merge(c,1,Integer::sum);
+        }
+        for(int i=0;i<s.length();i++){
+            if(tMap.containsKey(s.charAt(i))){
+                filtered.add(new IndexedChar(s.charAt(i), i));
             }
         }
-        return ans[0]==-1 ? "" : s.substring(ans[1],ans[2]+1);
+        for(int i=0,j=0, formed=0;j<filtered.size();j++){
+            char jc = filtered.get(j).ch();
+            sMap.merge(jc, 1, Integer::sum);
+            if(tMap.containsKey(jc) && sMap.get(jc).equals(tMap.get(jc))){
+                formed++;
+            }
+            while(formed==tMap.size()){
+                int l = filtered.get(i).idx();
+                int r = filtered.get(j).idx();
+                if(r-l+1<min){
+                    min = r-l+1;
+                    start = l;
+                }
+                char ic = filtered.get(i).ch();
+                sMap.merge(ic,-1,Integer::sum);
+                if(tMap.containsKey(ic) && sMap.get(ic).intValue()<tMap.get(ic).intValue()){
+                    formed--;
+                }
+                i++;
+            }
+        }
+        if(min>s.length()){
+            return "";
+        }
+        return s.substring(start, start+min);
     }
     
     
@@ -110,68 +190,86 @@ public class MinimumWindowSubstring {
     
     // we can use int[] instead of map with above 2 approaches
     //same as above usng int[] intead of map
-    public String minWindow2(String s, String t) {
-        int[] smap = new int[64],tmap = new int[64];
-        for(int i=0;i<t.length();i++) tmap[t.charAt(i)-'A']++;
-        int uniqt = 0, formed=0;
-        for(int i=0;i<64;i++) if(tmap[i]!=0) uniqt++;
-        int[] ans = new int[]{-1,0,0};
-        for(int i=0,j=0;j<s.length();j++){
-            char c = s.charAt(j);
-            smap[c-'A']++;
-            if(tmap[c-'A']!=0 && tmap[c-'A']==smap[c-'A']) formed++;
-            while(formed==uniqt){
-                if(ans[0]==-1||j-i+1<ans[0]){
-                    ans[0] = j-i+1;
-                    ans[1] = i;
-                    ans[2] = j;
+    public String minWindowTwoPointersArrayMap(String s, String t) {
+        int min = Integer.MAX_VALUE;
+        int start = 0, uniqT = 0;
+        int[] tMap = new int[128];
+        int[] sMap = new int[128];
+        for(char c: t.toCharArray()){
+            if(tMap[c]==0){
+                uniqT++;
+            }
+            tMap[c]++;
+        }
+        for(int i=0, j=0, formed = 0;j<s.length();j++){
+            char jc = s.charAt(j);
+            sMap[jc]++;
+            if(tMap[jc]!=0 && sMap[jc]==tMap[jc]){
+                formed++;
+            }
+            while(formed == uniqT){
+                if(j-i+1<min){
+                    min = j-i+1;
+                    start = i;
                 }
-                char d = s.charAt(i++);
-                if(smap[d-'A']!=0)smap[d-'A']--;
-                if(tmap[d-'A']!=0&&smap[d-'A']<tmap[d-'A']) formed--;
+                char ic = s.charAt(i);
+                sMap[ic]--;
+                if(tMap[ic]!=0 && sMap[ic]<tMap[ic]){
+                    formed--;
+                }
+                i++;
             }
         }
-        return ans[0]==-1 ? "": s.substring(ans[1],ans[2]+1);
+        if(min>s.length()){
+            return "";
+        }
+        return s.substring(start, start+min);
     }
     
-    //
-    class Pair<F,S>{
-        public F c;
-        public S val;
-        Pair(F f, S s){
-            c=f;
-            val=s;
+    public String minWindowFilteredArrayMap(String s, String t) {
+        int min = Integer.MAX_VALUE;
+        int start = 0, uniqT = 0;
+        int[] tMap = new int[128];
+        int[] sMap = new int[128];
+        record Index(char ch, int idx){}
+        Index[] filtered = new Index[s.length()];
+        for(char c: t.toCharArray()){
+            if(tMap[c]==0){
+                uniqT++;
+            }
+            tMap[c]++;
         }
-    }
-
-    public String minWindow5(String s, String t) {
-        int[] smap = new int[64];
-        int[] tmap = new int[64];
-        int formed = 0, uniqt=0;
-        for(int i=0;i<t.length();i++) tmap[t.charAt(i)-'A']++;
-        for(int i=0;i<64;i++) if(tmap[i]!=0)uniqt++;
-        List<Pair<Character,Integer>> list = new ArrayList();
-        for(int i=0;i<s.length();i++)
-            if(tmap[s.charAt(i)-'A']!=0)
-                list.add(new Pair(s.charAt(i),i));
-        int[] ans = new int[]{-1,0,0};
-        for(int i=0, j=0;j<list.size();j++){
-            char c = list.get(j).c;
-            smap[c-'A']++;
-            if(smap[c-'A']==tmap[c-'A']) formed++;
-            while(formed==uniqt){
-                int l = list.get(i).val;
-                int r = list.get(j).val;
-                if(ans[0]==-1 || r-l+1<ans[0]){
-                    ans[0] = r-l+1;
-                    ans[1] = l;
-                    ans[2] = r;
-                }
-                char d = list.get(i++).c;
-                smap[d-'A']--;
-                if(smap[d-'A']<tmap[d-'A']) formed--;
+        int idxLen = 0;
+        for(int i=0;i<s.length();i++){
+            if(tMap[s.charAt(i)]!=0){
+                filtered[idxLen] = new Index(s.charAt(i), i);
+                idxLen++;
             }
         }
-        return ans[0]==-1 ? "" : s.substring(ans[1],ans[2]+1); 
+        for(int i=0, j=0, formed = 0;j<idxLen;j++){
+            char jc = filtered[j].ch();
+            sMap[jc]++;
+            if(tMap[jc]!=0 && sMap[jc]==tMap[jc]){
+                formed++;
+            }
+            while(formed == uniqT){
+                int l = filtered[i].idx();
+                int r = filtered[j].idx();
+                if(r-l+1<min){
+                    min = r-l+1;
+                    start = l;
+                }
+                char ic = filtered[i].ch();
+                sMap[ic]--;
+                if(tMap[ic]!=0 && sMap[ic]<tMap[ic]){
+                    formed--;
+                }
+                i++;
+            }
+        }
+        if(min>s.length()){
+            return "";
+        }
+        return s.substring(start, start+min);
     }
 }

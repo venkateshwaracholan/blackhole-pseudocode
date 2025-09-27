@@ -10,74 +10,103 @@ package ds_algorithm.arrays;
 // https://leetcode.com/problems/valid-palindrome/
 
 public class ValidPalindrome {
+
+    /*
+    * Approach 1 (Brute Force):
+    * - Build a new string containing only lowercase alphanumeric characters.
+    * - Reverse the string.
+    * - Compare the filtered string with its reverse to check for palindrome.
+    * 
+    * Time: O(n) → filtering O(n) + reversing O(n) + comparison O(n)
+    * Space: O(n) → extra string for filtered and reversed characters
+    */
+    public boolean isPalindromeBrute(String s) {
+        var filtered = new StringBuilder();
+        for(char c: s.toCharArray()){
+            if(Character.isLetterOrDigit(c)){
+                filtered.append(Character.toLowerCase(c));
+            }
+        }
+        String forward = filtered.toString();
+        String reverse = filtered.reverse().toString();
+        return forward.equals(reverse);
+    }
     
-    //APPROACH 1 skip if letter or digit, then check if chars are same 
+    /*
+    * Approach 2 (Two-Pointer In-Place with for loop):
+    * - Use two pointers starting from the beginning and end of the string.
+    * - Skip non-alphanumeric characters.
+    * - Compare lowercase versions of valid characters.
+    * - Move pointers inward until they meet; return false if mismatch occurs.
+    *
+    * Time:  O(n)
+    * Space: O(1)
+    */
     public boolean isPalindrome(String s) {
         for(int i=0,j=s.length()-1;i<j;){
-            char l = s.charAt(i);
+            char f = s.charAt(i);
             char r = s.charAt(j);
-            if(!(Character.isLetter(l)||Character.isDigit(l))) {
-                i++; continue;
-            }
-            if(!(Character.isLetter(r)||Character.isDigit(r))){
-                j--; continue;
-            }
-            if(Character.toLowerCase(l)!=Character.toLowerCase(r))
-                return false;
-            i++;j--;
-        }
-        return true;
-    }
-    public static boolean isPalindrome2(String s){
-        int i=0,j=s.length()-1;
-        while(i<j){
-            char c1 = s.charAt(i);
-            char c2 = s.charAt(j);
-            if(!(Character.isLetter(c1) || Character.isDigit(c1))){
+            if(!Character.isLetterOrDigit(f)){
                 i++;
-            }else if(!(Character.isLetter(c2) || Character.isDigit(c2))){
+            }
+            else if(!Character.isLetterOrDigit(r)){
                 j--;
-            }else if(Character.toLowerCase(c1)!=Character.toLowerCase(c2))
+            }
+            else if(Character.toLowerCase(f)==Character.toLowerCase(r)){
+                i++;
+                j--;
+            }
+            else{
                 return false;
-            else{
-                i++;j--;
             }
         }
         return true;
     }
-    // same as above, just changed or to and
-    public boolean isPalindrome3(String s) {
-        for(int i=0,j=s.length()-1;i<j;){
-            char l = s.charAt(i);
-            char r = s.charAt(j);
-            if(!Character.isLetter(l)&&!Character.isDigit(l)) i++;
-            else if(!Character.isLetter(r)&&!Character.isDigit(r)) j--;
-            else if(Character.toLowerCase(l)!=Character.toLowerCase(r)) return false;
-            else{
-                i++;j--;
-            }
-        }
-        return true;
-    }
+
   
-  public static void main(String args[]){
-    System.out.println('9');
-  }
-  
-  //APPROACH 1 use int[] map for letter and digits, skip if letter or digit, then check if chars are same 
-  // this actually consumes more space than required by prev solution but its O(1)
+    /*
+    * Approach 3 (Precomputed Character Map):
+    * - Use an int[256] array as a lookup table to mark all alphanumeric characters
+    *   (letters 'A'-'Z', 'a'-'z' and digits '0'-'9').
+    * - Two pointers start from beginning and end of string.
+    * - Skip characters not in the map.
+    * - Compare lowercase versions of characters at pointers, move inward.
+    * - Slightly more space than the previous two-pointer method, but still O(1) space.
+    *
+    * Educational: This manual map approach essentially replicates what 
+    *   Character.isLetterOrDigit() does internally (a fast lookup table for letters/digits),
+    *   but restricted to ASCII. Useful for understanding how the method works under the hood.
+    *
+    * Time:  O(n) → O(1) to build map + O(n) to iterate with two pointers.
+    * Space: O(1) → fixed 256-int array.
+    *
+    * Unique: Avoids multiple Character.isLetterOrDigit() calls, slightly faster for long ASCII strings.
+    */
     public boolean isPalindrome4(String s) {
-        int cmap[] = new int[256];
-        for(int i=0;i<10;i++) cmap['0'+i] = 1;
+        int[] map = new int[256];
+        for(int i=0;i<10;i++){
+            map[i+'0']=1;
+        }
         for(int i=0;i<26;i++){
-            cmap['a'+i] = 1;
-            cmap['A'+i] = 1;
+            map[i+'a']=1;
+            map[i+'A']=1;
         }
         for(int i=0,j=s.length()-1;i<j;){
-            if(cmap[s.charAt(i)]==0) i++;
-            else if(cmap[s.charAt(j)]==0) j--;
-            else if(Character.toLowerCase(s.charAt(i++))!=Character.toLowerCase(s.charAt(j--))) 
+            char f = s.charAt(i);
+            char r = s.charAt(j);
+            if(map[f]==0){
+                i++;
+            }
+            else if(map[r]==0){
+                j--;
+            }
+            else if(Character.toLowerCase(f)==Character.toLowerCase(r)){
+                i++;
+                j--;
+            }
+            else{
                 return false;
+            }
         }
         return true;
     }

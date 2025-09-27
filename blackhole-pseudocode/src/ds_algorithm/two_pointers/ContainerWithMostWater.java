@@ -14,30 +14,65 @@ package ds_algorithm.two_pointers;
 
 public class ContainerWithMostWater {
   
-    //APPROACH 1 brute => 2 loops, j=i+1, get area
-    // Time: O(n^2) space: O(1)
-    // brute force
-    // area => min of heights * j-i
+    /*
+    * Approach 1: Brute-force (check all pairs)
+    * - Iterate over all pairs of lines (i, j) in the array.
+    * - Compute the area formed by height[i] and height[j]:
+    *     - height = min(height[i], height[j])
+    *     - width  = j - i
+    *     - area   = height * width
+    * - Keep track of the maximum area encountered.
+    *
+    * Time Complexity: O(n^2) → two nested loops over n elements
+    * Space Complexity: O(1)  → only a single variable 'max' used
+    *
+    * Note: Simple and easy to implement but not efficient for large inputs.
+    */
     public int maxAreaBrute(int[] height) {
-        int max = Integer.MIN_VALUE;
-        for(int i=0;i<height.length-1;i++)
-            for(int j=i+1;j<height.length;j++)
-                max = Math.max(max, (j-i)*Math.min(height[i],height[j]));
+        int max = 0;
+        for(int i=0;i<height.length;i++){
+            for(int j=i+1;j<height.length;j++){
+                int h = Math.min(height[i],height[j]);
+                int w = j-i;
+                max = Math.max(max, w*h);
+            }
+        }
         return max;
     }
 
-    //APPROACH 2 => 1 loops two pointer, i=0,j=n-1, get area, move pointer with min h
-    // approach: two pointers, max
-    // Time: O(n) space: O(1)
-    // core idea: start two pointers with both ends
-    // its is of no use to move longer line inwards, so do the opposite
-    // stor in max and return
+    /*
+    * Approach 2: Two-Pointer Optimized
+    * - Initialize two pointers: i = 0 (left), j = height.length - 1 (right).
+    * - At each step, compute the area formed by height[i] and height[j]:
+    *     - height = min(height[i], height[j])
+    *     - width  = j - i
+    *     - area   = height * width
+    * - Update max if the current area is larger.
+    * - Move the pointer pointing to the smaller height inward:
+    *     - If height[i] < height[j], increment i
+    *     - Else, decrement j
+    * - Repeat until i >= j.
+    *
+    * Rationale:
+    * - Moving the smaller height can potentially increase area because width decreases otherwise.
+    * - Skipping the taller line won't help increase area, so we always move the smaller one.
+    *
+    * Time Complexity: O(n) → single pass from both ends
+    * Space Complexity: O(1) → only a few variables used
+    *
+    * This is the optimal solution for the "Container With Most Water" problem.
+    */
     public int maxArea(int[] height) {
-        int max = Integer.MIN_VALUE;
+        int max = 0;
         for(int i=0,j=height.length-1;i<j;){
-            max = Math.max(max, (j-i)*Math.min(height[i],height[j]));
-            if(height[i]<height[j])i++;
-            else j--;
+            int h = Math.min(height[i],height[j]);
+            int l = j-i;
+            max = Math.max(max, l*h);
+            if(height[i]<height[j]){
+                i++;
+            }else{
+                j--;
+            }
         }
         return max;
     }

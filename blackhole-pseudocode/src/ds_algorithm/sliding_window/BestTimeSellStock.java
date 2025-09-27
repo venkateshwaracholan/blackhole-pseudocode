@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ds_algorithm.arrays;
+package ds_algorithm.sliding_window;
 
 /**
  *
@@ -14,54 +14,80 @@ package ds_algorithm.arrays;
 
 public class BestTimeSellStock {
     
-    //APPROACH 1 brute => 2 loops, j=i+1, get area
-    
-    //  Time: O(n^2) space: O(1)
-    //  brute force
+    /*
+    * Approach 1: Brute-force
+    * - Iterate over all pairs of days (i, j) with i < j.
+    * - Compute profit if buying on day i and selling on day j: prices[j] - prices[i].
+    * - Keep track of the maximum profit encountered.
+    *
+    * Time Complexity: O(n^2) → two nested loops over n days
+    * Space Complexity: O(1)  → only a single variable 'max' used
+    *
+    * Note: Works correctly but inefficient for large inputs. Optimal solution exists in O(n) time.
+    */
     public int maxProfit(int[] prices) {
         int max = 0;
-        for(int i=0;i<prices.length;i++)
-            for(int j=i+1;j<prices.length;j++)
-                max = Math.max(max,prices[j]-prices[i]);
-        return max;
-    }
-    
-    
-    //APPROACH 2 => 1 loops, accumulate min and sub with cur
-    
-    //  approach: iteration, min accumulation and subtraction
-    //  Time: O(n) space: O(1)
-    //  update min price as loop goes and update max by subtracting current price with min, simple
-    public static int maxProfit2(int[] nums) {
-      int low = Integer.MAX_VALUE,max = 0;
-      for(int i=0;i<nums.length;i++){
-          if(nums[i]<low) low = nums[i];
-          else if(nums[i]-low>max) max = nums[i]-low;
-      }
-      return max;
-    }
-    //  Time: O(n) space: O(1)
-    //  same as above, different coding style
-    public int maxProfitAlt(int[] prices) {
-        int max = 0, min = prices[0];
-        for(int i=1;i<prices.length;i++){
-            max = Math.max(max,prices[i]-min);
-            min = Math.min(min, prices[i]);
+        for(int i=0;i<prices.length;i++){
+            for(int j=i+1;j<prices.length;j++){
+                max = Math.max(max, prices[j]-prices[i]);
+            }
         }
         return max;
     }
     
     
-    // Approach 3, i cam up with this on a blind 75 run
-    // use two pointers, instead of low variable, we use i to track index of min;
-    public int maxProfit3(int[] prices) {
-        int len = prices.length;
-        int max = 0;
-        for(int i=0,j=i+1;j<len;j++){
-            max = Math.max(max, prices[j]-prices[i]);
-            if(prices[j]<prices[i]){
-                i = j;
+    /*
+    * Approach 2: One-pass Optimized
+    * - Track the minimum price seen so far (low) as we iterate through the array.
+    * - At each day i, compute the potential profit if we sell on that day: prices[i] - low.
+    * - Update max profit if this profit is higher than current max.
+    * - If prices[i] is lower than the current low, update low.
+    *
+    * Rationale:
+    * - Buying at the lowest price seen so far maximizes potential profit.
+    * - Only a single pass is needed, no nested loops.
+    *
+    * Time Complexity: O(n) → single pass through prices
+    * Space Complexity: O(1) → only two variables (low, max) used
+    *
+    * This is the optimal solution for the "Best Time to Buy and Sell Stock" problem.
+    */
+    public static int maxProfit2(int[] prices) {
+      int max = 0, low = prices[0];
+        for(int i=0;i<prices.length;i++){
+            low = Math.min(low, prices[i]); // equivalent to: if(prices[i]<low) low = prices[i];
+            if(prices[i]<low){
+                low = prices[i];
             }
+            
+            max = Math.max(max, prices[i]-low);
+
+        }
+        return max;
+    }
+
+    /*
+     * Approach 3: Sliding Window / Index Tracking
+     * - Track the index of the minimum price seen so far (i).
+     * - Iterate j from i+1 to end:
+     *     - Compute profit = prices[j] - prices[i]
+     *     - Update max if higher
+     *     - If prices[j] < prices[i], move the "window" start: i = j
+     *
+     * Time Complexity: O(n) → single pass
+     * Space Complexity: O(1)
+     *
+     * Note: This version explicitly demonstrates a sliding window concept.
+     *       Conceptually equivalent to Approach 2, but the index makes the moving window intuitive.
+     */
+    public int maxProfitSlidingWindow(int[] prices) {
+        int max = 0;
+        for(int i=0,j=i+1;j<prices.length;j++){
+            if(prices[j]<prices[i]){
+                i = j; // slide window forward
+            }
+            max = Math.max(max, prices[j]-prices[i]);
+
         }
         return max;
     }

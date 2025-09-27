@@ -5,7 +5,7 @@
 package java_behaviours;
 
 import java.util.Arrays;
-import Comparators.Car;
+import java_behaviours.Car;
 import java.util.List;
 import java.util.stream.Collectors;
 

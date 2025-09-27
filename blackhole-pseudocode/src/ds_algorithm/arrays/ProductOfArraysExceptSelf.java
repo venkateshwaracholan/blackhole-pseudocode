@@ -20,93 +20,180 @@ public class ProductOfArraysExceptSelf {
   static boolean show = true;
   
   
-    // Approach Brute
+    /*
+    * Approach: Brute Force Multiplication
+    * - For each index i:
+    *     - Initialize ans[i] = 1.
+    *     - Loop through every index j:
+    *         - If j != i, multiply nums[j] into ans[i].
+    * - Return ans after all iterations.
+    *
+    * Time Complexity: O(n^2) — outer loop runs n times, inner loop n times.
+    * Space Complexity: O(1) extra (output array not counted).
+    *
+    * Rationale: Straightforward approach that directly computes the product
+    * excluding self by recomputing products each time.
+    * Correct but inefficient for large input; serves as a baseline for optimization.
+    */
     public int[] productExceptSelfBrute(int[] nums) {
         int ans[] = new int[nums.length];
         for(int i=0;i<nums.length;i++){
             ans[i] = 1;
             for(int j=0;j<nums.length;j++){
-                if(i!=j)
+                if(i!=j){
                     ans[i]*=nums[j];
+                }
             }
         }
         return ans;
     }
   
-    //APPROACH 1 left right iteration and acc of product
-    // to every node accumulate of product of values upto its previous index from left to right.
-    // do the same from right to left to get the result.
-    // left acc is without involving ans, coz itz like init of ans, ans[0] is set starting from 1, starting from 1 hints usage of nums[i-1]
-    // right acc is with ans[i] so tat we get to final ans, right acc start from number before last, hits usage of nums[i+1]
-    // Time: O(n) space: O(n) but result space is not counted as per leetcode.
+    /*
+    * Approach: Prefix and Suffix Product (O(n), O(1) extra space)
+    * - Build result array in two passes without division.
+    * - Left pass:
+    *     - Track running product l from the left.
+    *     - ans[i] stores product of all elements before i.
+    * - Right pass:
+    *     - Track running product r from the right.
+    *     - Multiply ans[i] with product of all elements after i.
+    * - Final ans[i] = product of all nums except nums[i].
+    *
+    * Time Complexity: O(n) — two linear passes.
+    * Space Complexity: O(1) extra — only scalars l and r, output array excluded.
+    *
+    * Rationale: Efficiently computes product except self in-place using prefix/suffix products,
+    * avoiding O(n^2) brute force and disallowed division.
+    */
     public int[] productExceptSelf(int[] nums) {
         int[] ans = new int[nums.length];
+        int l=1,r=1;
         ans[0]=1;
-        int l=1,r = 1;
         for(int i=1;i<nums.length;i++){
             ans[i] = nums[i-1]*l;
-            l=l*nums[i-1];
+            l = l*nums[i-1];
         }
-        for(int i=nums.length-2;i>=0;i--){
-            ans[i] = ans[i]*nums[i+1]*r;
-            r=r*nums[i+1];
+        for(int i=nums.length-1;i>0;i--){
+            ans[i-1] = ans[i-1]*nums[i]*r;
+            r = r*nums[i];
         }
         return ans;
     }
-    // to every node accumulate of product of values upto its previous index from left to right.
-    // do the same from right to left to get the result.
-    // optimizing further to assign r initially,so right acc is lead rather than lag, so +1 is removed from index
-    //  1, 2,3,4
-    //  1, 1,2,6
-    // 24,12,8,6
+    /*
+    For educational purpose:
+    * Difference from previous optimization:
+    * - Previous version explicitly tracked both left (l) and right (r) accumulators.
+    * - Here, left accumulator is skipped:
+    *     - ans[] itself is used to store prefix products during the left-to-right pass
+    *       (ans[i] = ans[i-1] * nums[i-1]).
+    * - Right accumulator r is still required for the right-to-left pass,
+    *   but initialized directly with nums[last], so each update multiplies only 2 values
+    *   (ans[i-1] * r) instead of 3.
+    *
+    * Benefit: Slightly simpler and more efficient — avoids an extra variable for l
+    * and reduces one multiplication per iteration in the right pass. 
+    *  1, 2,3,4
+    *  1, 1,2,6
+    * 24,12,8,6
+    */
+    
     public int[] productExceptSelf2(int[] nums) {
         int[] ans = new int[nums.length];
+        int r=1;
         ans[0]=1;
-        for(int i=1;i<nums.length;i++)
+        for(int i=1;i<nums.length;i++){
             ans[i] = nums[i-1]*ans[i-1];
-        int r = nums[nums.length-1];
-        for(int i=nums.length-2;i>=0;i--){
-            ans[i] = ans[i]*r;
-            r=r*nums[i];
+        }
+        r = nums[nums.length-1];
+        for(int i=nums.length-1;i>0;i--){
+            ans[i-1] = ans[i-1]*r;
+            r = r*nums[i-1];
         }
         return ans;
     }
   
   
-  //  1 ,2, 6,18 
-  //  18,6, 3, #
-  
-  //  18 6  3  3
-  
-    //APPROACH 2 division, zero count, product and product without zero
-  
-    // calculate overall product and then divide with self.
-    // this problem has 2 edge cases
-    // 1. with 1 zero which can be solved with prodWithoutZero.
-    // 2. two more zeroes - in this case output is always a zero array.
-    // Time: O(n) space: O(1) using division.
+    /*
+    * Approach: Division with Zero Handling
+    * - Compute:
+    *     - p  = total product of all elements (will be 0 if any zero exists).
+    *     - pwz = product of all non-zero elements (product without zeros).
+    *     - zc = count of zeros in nums.
+    * - If more than one zero exists:
+    *     - Every product except self will include at least one zero → ans[] all zeros.
+    * - Otherwise:
+    *     - For each index i:
+    *         - If nums[i] == 0 → ans[i] = pwz (only position that can be non-zero).
+    *         - Else → ans[i] = p / nums[i] (safe since no division by zero).
+    *
+    * Time Complexity: O(n) — single scan to compute products, one more to fill result.
+    * Space Complexity: O(1) extra (ans[] excluded).
+    *
+    * Rationale: Division-based shortcut with explicit zero handling.
+    * Simpler than prefix/suffix approach, but only valid if division is allowed.
+    */
     public int[] productExceptSelf3(int[] nums) {
-        int p = 1, pwz = 1,zc=0, x=0;
+        int[] ans = new int[nums.length];
+        int p=1,pwz=1,zc=0;
         for(int n:nums){
-            if(n==0) zc++;
-            else pwz*=n;
-            p*=n;
+            if(n==0){
+                zc++;
+            }
+            else {
+                pwz=pwz*n;
+            }
+            p=p*n;
         }
-        if(zc>1)return new int[nums.length];
-        for(int n:nums) 
-            nums[x++] = n==0 ? pwz : p/n;
-        return nums;
+        if(zc>1){
+            return ans;
+        }
+        for(int i=0;i<nums.length;i++){
+            ans[i] = nums[i]==0 ? pwz: p/nums[i];
+        }
+        return ans;
     }
-  
+
+    /*
+    * Approach: Division with Zero Handling (skip total product)
+    * - Instead of computing full product p, track only:
+    *     - pwz = product of all non-zero elements.
+    *     - zc  = count of zeros in nums.
+    * - If more than one zero → every product will include zero → ans[] all zeros.
+    * - If exactly one zero → only the position with zero gets pwz, others are 0.
+    * - If no zero → ans[i] = pwz / nums[i].
+    *
+    * Time Complexity: O(n) — one pass for counts/products, one pass to build ans.
+    * Space Complexity: O(1) extra (output excluded).
+    *
+    * Difference from previous division approach:
+    * - Avoids computing full product p (which is always 0 when zc > 0).
+    * - Slightly simpler and avoids unnecessary multiplications.
+    *
+    * Rationale: Cleaner division-based solution with explicit zero handling,
+    * though still invalid in contexts where division is disallowed.
+    */
     public static int[] productExceptSelf4(int[] nums) {
-        int pwz = 1,zc=0, x=0, ans[] = new int[nums.length];
-        for(int n:nums) 
-            if(n==0) zc++;
-            else pwz*=n;
-        if(zc>1)return ans;
-        for(int n:nums) 
-            if(zc==1) ans[x++] = n==0 ? pwz : 0;
-            else ans[x++] = pwz/n;
+        int[] ans = new int[nums.length];
+        int pwz=1,zc=0;
+        for(int n:nums){
+            if(n==0){
+                zc++;
+            }
+            else {
+                pwz=pwz*n;
+            }
+        }
+        if(zc>1){
+            return ans;
+        }
+        for(int i=0;i<nums.length;i++){
+            if(zc==1){
+                ans[i] = nums[i]==0 ? pwz: 0;
+            }
+            else{
+                ans[i] = pwz/nums[i];
+            }
+        }
         return ans;
     }
   
