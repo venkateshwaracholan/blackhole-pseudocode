@@ -15,9 +15,9 @@ package read_before_interview;
 /*
 
 Contains Duplicate	
-    * Brute Force        : Compare each element with every later element to detect duplicates in O(n²).
-    * HashSet Approach   : Use a HashSet to track seen elements and detect duplicates in O(n).
-    * Sorting Approach   : Sort array and check adjacent elements for duplicates in O(n log n).
+    * Brute Force        : Compare each elem with every later elem(iterate i in (0, n), iterate j in (i+1, n)) to avoid checking self) to detect duplicates in O(n²).
+    * HashSet Approach   : iterate i in (0, n), iterate j in (i+1, n), Use a HashSet to track seen elements(add after checking) and detect duplicates in O(n).
+    * Sorting Approach   : Sort array and check adjacent elements for duplicates(iterate i in (1, n) to use i-1 withour error) in O(n log n).
     * Stream Approach    : Use Java Streams to compare distinct count with original length to detect duplicates in O(n) on average.
 
 Valid Anagram
@@ -27,8 +27,8 @@ Valid Anagram
     * Array Count (Opt)  : Use int[26], increment for s and decrement for t, all zeros ⇒ anagram → O(n).
 
 Two Sum
-    * Brute Force Approach : Check every pair of numbers until one sums to target (O(n²) time, O(1) space).
-    * HashMap Lookup       : Store numbers and their positions in a HashMap, check complement (target - num) in O(n) time and O(n) space.
+    * Brute Force Approach : Check every pair of numbers(iterate i in (0, n), iterate j in (i+1, n) to avoid checking self) until one sums to target (O(n²) time, O(1) space).
+    * HashMap Lookup       : Use a HashMap to store numbers and their positions, and check if complement (target - number) exists, add in map after checking.
 
 Group Anagrams
     * Brute Force Pair Comparison: Compare every string with every other string and group anagrams manually using isAnagram() and a used[] array → O(n²·k) time, O(nk) space.
@@ -47,7 +47,7 @@ Top K Frequent Elements
     * - Both self-balance; heaps preferred for top-k due to peek efficiency and simpler implementation, trees better for range queries or full ordering.
 
 Product of Array Except Self
-    * Brute Force: For each i, multiply all nums[j] (j != i) → O(n²) time, O(1) extra space.
+    * Brute Force: Brute Force: For each i, multiply all nums[j] (j != i) and store in ans[i]→ O(n²) time, O(1) extra space.
     * Prefix & Suffix Product: Two-pass with left/right accumulators (ans[0]=l=r=1), ans[i] -> store all product before i, right pass inlcude ans[i] too in mul, no division → O(n) time, O(1) extra space.
     * Prefix Product In-Place (Optimized): Store left products in ans[], use one right accumulator (ans[0]=l,r=last)→ O(n) time, O(1) extra space, fewer multiplications.
     * Division with Zero Handling: Compute p, pwz, zero count, handle zc>1, zc=1, zc=0 cases using pwz or p/n → O(n) time, O(1) extra space.  
@@ -67,17 +67,17 @@ Valid Palindrome
     * Two-Pointer with Map: Precompute alphanumeric map for fast lookup, skip non-alphanumerics, compare lowercase, , move both inward if equal or exit false → O(n) time, O(1) space.
 
 3Sum
-    * Brute Force: Sort array, three nested loops, skip first element duplicates(optional as set covers), store triplets in HashSet → O(n³) time, O(n) space.  
-    * Complement Lookup: Sort array, for each i and j compute complement=0-i-j in inner loop(like two sum), check HashSet for existence, if present store triplets in HashSet  → O(n²) time, O(n) space.
+    * Brute Force: Sort array, three nested loops i(0 to n), j(i+1 to n), k(j+1 to n), skip first element duplicates(optional as set covers), store triplets in HashSet → O(n³) time, O(n) space.
+    * Complement Lookup: Sort array, for i(0 to n), for j(i+1 to n) compute complement=0-i-j in inner loop(like two sum), check HashSet for existence, if present store triplets in HashSet  → O(n²) time, O(n) space.
     * Two-Pointer + HashSet: Sort array, for every i, inner loop j=i+1,k=len-1, move j->right on sum<0, k->left sum>0, add sum=0 to HashSet → O(n²) time, O(n) space.  
     * Two-Pointer Inline Dupes skip + Arraylist: Sort array, for every i, skip i duplicates(must coz no set), inner loop j=i+1,k=len-1, move j->right on sum<0, k->left sum>0, on sum=0 add to arraylist, j/k duplicates inline with while and bound j<k, → O(n²) time, O(1) extra space.
 
 Container With Most Water
-    * Brute Force: Check all pairs (i, j), height = min(height[i], height[j]), width = j-i, area = height*width, keep max → O(n²) time, O(1) space.
+    * Brute Force: for each elem with every later elem(iterate i in (0, n), iterate j in (i+1, n)), height = min(height[i], height[j]), width = j-i, area = height*width, keep max → O(n²) time, O(1) space.
     * Two-Pointer Optimized(Move smaller h inward): Two pointers at both ends i = 0, j = n-1, height = min(height[i], height[j]), width = j-i, area = height*width, move pointer with smaller height inward, keep max → O(n) time, O(1) space.
     
 Best Time to Buy And Sell Stock	
-    * Brute Force: iterate i in (0, n), iterate j in (i+1, n), profit = prices[j] - prices[i], keep max → O(n²), O(1).
+    * Brute Force: for each elem with every later elem(iterate i in (0, n), iterate j in (i+1, n)), profit = prices[j] - prices[i], keep max → O(n²), O(1).
     * One-Pass Optimized: iterate i in (0, n), track min price so far in low, profit = prices[i] - low, update max → O(n), O(1).
     * Sliding Window: iterate i = 0, j=i+1 to n, store min price index in i(slide i = j if prices[j] < prices[i]), profit = prices[j] - prices[i], update max → O(n), O(1).
 

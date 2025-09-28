@@ -17,15 +17,15 @@ public class ThreeSum {
     /*
     * ONE-LINERS — Quick Reference:
     *
-    * Brute Force: Sort array, three nested loops, skip first element duplicates(optional as set covers), store triplets in HashSet → O(n³) time, O(n) space.  
-    * Complement Lookup: Sort array, for each i and j compute complement=0-i-j in inner loop(like two sum), check HashSet for existence, if present store triplets in HashSet  → O(n²) time, O(n) space.
+    * Brute Force: Sort array, three nested loops i(0 to n), j(i+1 to n), k(j+1 to n), skip first element duplicates(optional as set covers), store triplets in HashSet → O(n³) time, O(n) space.
+    * Complement Lookup: Sort array, for i(0 to n), for j(i+1 to n) compute complement=0-i-j in inner loop(like two sum), check HashSet for existence, if present store triplets in HashSet  → O(n²) time, O(n) space.
     * Two-Pointer + HashSet: Sort array, for every i, inner loop j=i+1,k=len-1, move j->right on sum<0, k->left sum>0, add sum=0 to HashSet → O(n²) time, O(n) space.  
     * Two-Pointer Inline Dupes skip + Arraylist: Sort array, for every i, skip i duplicates(must coz no set), inner loop j=i+1,k=len-1, move j->right on sum<0, k->left sum>0, on sum=0 add to arraylist, j/k duplicates inline with while and bound j<k, → O(n²) time, O(1) extra space.
     */
 
     
     /*
-    * ONE LINER => Brute Force: Sort array, three nested loops, skip first element duplicates(optional as set covers), store triplets in HashSet → O(n³) time, O(n) space.  
+    * ONE LINER => Brute Force: Sort array, three nested loops i(0 to n), j(i+1 to n), k(j+1 to n), skip first element duplicates(optional as set covers), store triplets in HashSet → O(n³) time, O(n) space.
     *
     * Approach 1 (Brute-force with minor optimizations):
     * - Sort the array to simplify duplicate handling.
@@ -54,7 +54,7 @@ public class ThreeSum {
     }
     
     /*
-    * ONE LINER => Complement Lookup: Sort array, for each i and j compute complement=0-i-j in inner loop(like two sum), check HashSet for existence, if present store triplets in HashSet  → O(n²) time, O(n) space.
+    * ONE LINER => Complement Lookup: Sort array, for i(0 to n), for j(i+1 to n) compute complement=0-i-j in inner loop(like two sum), check HashSet for existence, if present store triplets in HashSet  → O(n²) time, O(n) space.
     *
     * Approach 2 (Brute-ish with HashSet for complement):
     * - Sort the array to make triplets predictable (optional for set uniqueness).
