@@ -13,8 +13,19 @@ package ds_algorithm.sliding_window;
 // https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
 
 public class BestTimeSellStock {
+
+    /*
+    * ONE-LINERS — Quick Reference:
+    *
+    * Brute Force: iterate i in (0, n), iterate j in (i+1, n), profit = prices[j] - prices[i], keep max → O(n²), O(1).
+    * One-Pass Optimized: iterate i in (0, n), track min price so far in low, profit = prices[i] - low, update max → O(n), O(1).
+    * Sliding Window: iterate i = 0, j=i+1 to n, store min price index in i(slide i = j if prices[j] < prices[i]), profit = prices[j] - prices[i], update max → O(n), O(1).
+    */
+
     
     /*
+    * ONE LINER => Brute Force: iterate i in (0, n), iterate j in (i+1, n), profit = prices[j] - prices[i], keep max → O(n²), O(1).
+    *
     * Approach 1: Brute-force
     * - Iterate over all pairs of days (i, j) with i < j.
     * - Compute profit if buying on day i and selling on day j: prices[j] - prices[i].
@@ -37,6 +48,8 @@ public class BestTimeSellStock {
     
     
     /*
+    * ONE LINER => One-Pass Optimized: iterate i in (0, n), track min price so far in low, profit = prices[i] - low, update max → O(n), O(1).
+    *
     * Approach 2: One-pass Optimized
     * - Track the minimum price seen so far (low) as we iterate through the array.
     * - At each day i, compute the potential profit if we sell on that day: prices[i] - low.
@@ -55,7 +68,7 @@ public class BestTimeSellStock {
     public static int maxProfit2(int[] prices) {
       int max = 0, low = prices[0];
         for(int i=0;i<prices.length;i++){
-            low = Math.min(low, prices[i]); // equivalent to: if(prices[i]<low) low = prices[i];
+            // low = Math.min(low, prices[i]); // equivalent to: if(prices[i]<low) low = prices[i];
             if(prices[i]<low){
                 low = prices[i];
             }
@@ -67,19 +80,21 @@ public class BestTimeSellStock {
     }
 
     /*
-     * Approach 3: Sliding Window / Index Tracking
-     * - Track the index of the minimum price seen so far (i).
-     * - Iterate j from i+1 to end:
-     *     - Compute profit = prices[j] - prices[i]
-     *     - Update max if higher
-     *     - If prices[j] < prices[i], move the "window" start: i = j
-     *
-     * Time Complexity: O(n) → single pass
-     * Space Complexity: O(1)
-     *
-     * Note: This version explicitly demonstrates a sliding window concept.
-     *       Conceptually equivalent to Approach 2, but the index makes the moving window intuitive.
-     */
+    * ONE LINER => Sliding Window: iterate i = 0, j=i+1 to n, store min price index in i(slide i = j if prices[j] < prices[i]), profit = prices[j] - prices[i], update max → O(n), O(1).
+    *
+    * Approach 3: Sliding Window / Index Tracking
+    * - Track the index of the minimum price seen so far (i).
+    * - Iterate j from i+1 to end:
+    *     - Compute profit = prices[j] - prices[i]
+    *     - Update max if higher
+    *     - If prices[j] < prices[i], move the "window" start: i = j
+    *
+    * Time Complexity: O(n) → single pass
+    * Space Complexity: O(1)
+    *
+    * Note: This version explicitly demonstrates a sliding window concept.
+    *       Conceptually equivalent to Approach 2, but the index makes the moving window intuitive.
+    */
     public int maxProfitSlidingWindow(int[] prices) {
         int max = 0;
         for(int i=0,j=i+1;j<prices.length;j++){

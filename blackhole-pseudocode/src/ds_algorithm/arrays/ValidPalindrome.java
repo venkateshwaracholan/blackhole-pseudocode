@@ -12,6 +12,17 @@ package ds_algorithm.arrays;
 public class ValidPalindrome {
 
     /*
+    * ONE-LINERS — Quick Reference:
+    *
+    * Brute Force: Filter and create lowercase alphanumerics, reverse, compare → O(n) time, O(n) space.
+    * Two-Pointer: Skip non-alphanumerics with respective pointers, compare lowercase, move both inward if equal or exit false → O(n) time, O(1) space.
+    * Two-Pointer with Map: Precompute alphanumeric map for fast lookup, skip non-alphanumerics, compare lowercase, , move both inward if equal or exit false → O(n) time, O(1) space.
+    */
+
+
+    /*
+    * ONE LINER => Brute Force: Filter and create lowercase alphanumerics, reverse, compare → O(n) time, O(n) space.
+    *
     * Approach 1 (Brute Force):
     * - Build a new string containing only lowercase alphanumeric characters.
     * - Reverse the string.
@@ -33,6 +44,8 @@ public class ValidPalindrome {
     }
     
     /*
+    * ONE LINER => Two-Pointer: Skip non-alphanumerics with respective pointers, compare lowercase, move both inward if equal or exit false → O(n) time, O(1) space.
+    *
     * Approach 2 (Two-Pointer In-Place with for loop):
     * - Use two pointers starting from the beginning and end of the string.
     * - Skip non-alphanumeric characters.
@@ -65,6 +78,8 @@ public class ValidPalindrome {
 
   
     /*
+    * ONE LINER => Two-Pointer with Map: Precompute alphanumeric map for fast lookup, skip non-alphanumerics, compare lowercase, , move both inward if equal or exit false → O(n) time, O(1) space.
+    *
     * Approach 3 (Precomputed Character Map):
     * - Use an int[256] array as a lookup table to mark all alphanumeric characters
     *   (letters 'A'-'Z', 'a'-'z' and digits '0'-'9').

@@ -13,8 +13,18 @@ package ds_algorithm.two_pointers;
 // https://leetcode.com/problems/container-with-most-water/
 
 public class ContainerWithMostWater {
+
+    /*
+    * ONE-LINERS — Quick Reference:
+    *
+    * Brute Force: Check all pairs (i, j), height = min(height[i], height[j]), width = j-i, area = height*width, keep max → O(n²) time, O(1) space.
+    * Two-Pointer Optimized(Move smaller h inward): Two pointers at both ends i = 0, j = n-1, height = min(height[i], height[j]), width = j-i, area = height*width, move pointer with smaller height inward, keep max → O(n) time, O(1) space.
+    */
+
   
     /*
+    * ONE LINER => Brute Force: Check all pairs (i, j), height = min(height[i], height[j]), width = j-i, area = height*width, keep max → O(n²) time, O(1) space.
+    *
     * Approach 1: Brute-force (check all pairs)
     * - Iterate over all pairs of lines (i, j) in the array.
     * - Compute the area formed by height[i] and height[j]:
@@ -41,6 +51,8 @@ public class ContainerWithMostWater {
     }
 
     /*
+    * ONE LINER => Two-Pointer Optimized(Move smaller h inward): Two pointers at both ends i = 0, j = n-1, height = min(height[i], height[j]), width = j-i, area = height*width, move pointer with smaller height inward, keep max → O(n) time, O(1) space.
+    *
     * Approach 2: Two-Pointer Optimized
     * - Initialize two pointers: i = 0 (left), j = height.length - 1 (right).
     * - At each step, compute the area formed by height[i] and height[j]:

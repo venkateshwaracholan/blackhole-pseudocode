@@ -17,10 +17,22 @@ import com.google.gson.Gson;
 // [2, 3, 4, 5]
 
 public class ProductOfArraysExceptSelf {
-  static boolean show = true;
-  
+    static boolean show = true;
   
     /*
+    * ONE-LINERS — Quick Reference:
+    *
+    * Brute Force: For each i, multiply all nums[j] (j != i) → O(n²) time, O(1) extra space.
+    * Prefix & Suffix Product: Two-pass with left/right accumulators (ans[0]=l=r=1), ans[i] -> store all product before i, right pass inlcude ans[i] too in mul, no division → O(n) time, O(1) extra space.
+    * Prefix Product In-Place (Optimized): Store left products in ans[], use one right accumulator (ans[0]=l,r=last)→ O(n) time, O(1) extra space, fewer multiplications.
+    * Division with Zero Handling: Compute p, pwz, zero count, handle zc>1, zc=1, zc=0 cases using pwz or p/n → O(n) time, O(1) extra space.  
+    * Division with Zero Handling (skip total product): Track pwz, zero count, handle zc>1, zc=1, zc=0 separately → O(n) time, O(1) extra space.
+    */
+
+  
+    /*
+    * ONE LINER => Brute Force: For each i, multiply all nums[j] (j != i) → O(n²) time, O(1) extra space.
+    *
     * Approach: Brute Force Multiplication
     * - For each index i:
     *     - Initialize ans[i] = 1.
@@ -48,7 +60,8 @@ public class ProductOfArraysExceptSelf {
         return ans;
     }
   
-    /*
+    /* ONE LINER => Prefix & Suffix Product: Two-pass with left/right accumulators (ans[0]=l=r=1), ans[i] -> store all product before i, right pass inlcude ans[i] too in mul, no division → O(n) time, O(1) extra space.
+    *
     * Approach: Prefix and Suffix Product (O(n), O(1) extra space)
     * - Build result array in two passes without division.
     * - Left pass:
@@ -79,7 +92,9 @@ public class ProductOfArraysExceptSelf {
         }
         return ans;
     }
-    /*
+    /* 
+    * ONE LINER => Prefix Product In-Place (Optimized): Store left products in ans[], use one right accumulator (ans[0]=l,r=last)→ O(n) time, O(1) extra space, fewer multiplications.
+    *
     For educational purpose:
     * Difference from previous optimization:
     * - Previous version explicitly tracked both left (l) and right (r) accumulators.
@@ -99,12 +114,11 @@ public class ProductOfArraysExceptSelf {
     
     public int[] productExceptSelf2(int[] nums) {
         int[] ans = new int[nums.length];
-        int r=1;
         ans[0]=1;
+        int r = nums[nums.length-1];
         for(int i=1;i<nums.length;i++){
             ans[i] = nums[i-1]*ans[i-1];
         }
-        r = nums[nums.length-1];
         for(int i=nums.length-1;i>0;i--){
             ans[i-1] = ans[i-1]*r;
             r = r*nums[i-1];
@@ -114,6 +128,8 @@ public class ProductOfArraysExceptSelf {
   
   
     /*
+    * ONE LINER => Division with Zero Handling: Compute p, pwz, zero count, handle zc>1, zc=1, zc=0 cases using pwz or p/n → O(n) time, O(1) extra space.
+    *
     * Approach: Division with Zero Handling
     * - Compute:
     *     - p  = total product of all elements (will be 0 if any zero exists).
@@ -154,6 +170,8 @@ public class ProductOfArraysExceptSelf {
     }
 
     /*
+    * ONE LINER => Division with Zero Handling (skip total product): Track pwz, zero count, handle zc>1, zc=1, zc=0 separately → O(n) time, O(1) extra space.
+    *
     * Approach: Division with Zero Handling (skip total product)
     * - Instead of computing full product p, track only:
     *     - pwz = product of all non-zero elements.

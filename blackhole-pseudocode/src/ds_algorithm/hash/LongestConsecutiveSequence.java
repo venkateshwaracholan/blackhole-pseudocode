@@ -16,8 +16,19 @@ import java.util.*;
 public class LongestConsecutiveSequence {
    
     /*
+    * ONE-LINERS — Quick Reference:
+    *
+    * Brute Force: For each number, while next consecutive exists via linear search, track max length → O(n³) time, O(1) space.  
+    * Brute Force + HashSet: Use HashSet for O(1) contains, For each number, while next consecutive exists, track max length → O(n²) time, O(n) space.  
+    * Optimized HashSet: Only start from sequence heads (n-1 absent), for each number, while next consecutive exists, track max length → O(n) time, O(n) space.  
+    * Sort & Count: Sort array, skip duplicates, track consecutive length minima/maxima → O(n log n) time, O(1) extra space.  
+    */
+
+    /*
+    * ONE LINER => Brute Force: For each number, while next consecutive exists via linear search, track max length → O(n³) time, O(1) space.  
+    *
     * Approach 1 (Brute Force):
-    * - For each number, keep checking if next consecutive number exists in the array.
+    * - For each number, keep checking if next consecutive number exists in the array with while.
     * - Use a linear search (contains) to check presence of each next number.
     * - Count the length of each sequence and track the maximum.
     *
@@ -45,6 +56,8 @@ public class LongestConsecutiveSequence {
     }
     
     /*
+    * ONE LINER => Brute Force + HashSet: Use HashSet for O(1) contains, For each number, while next consecutive exists, track max length → O(n²) time, O(n) space.   
+    *
     * Approach 2 (Brute Force Optimized with HashSet):
     * - Add all numbers to a HashSet for O(1) contains checks.
     * - For each number, extend the sequence while the set contains the next number.
@@ -72,6 +85,8 @@ public class LongestConsecutiveSequence {
     }
     
     /*
+    * ONE LINER => Optimized HashSet: Only start from sequence heads (n-1 absent), for each number, while next consecutive exists, track max length → O(n) time, O(n) space.
+    *
     * Approach 3 (HashSet optimization):
     * - Add all numbers to a set for O(1) contains check.
     * - Traverse the set (not array) to avoid duplicate work from repeated nums.
@@ -96,11 +111,23 @@ public class LongestConsecutiveSequence {
         return max;
     }
     
-    //APPROACH 4 sort and count numbers, skip if same
-    // Time O(nlogn) space O(logn)
-    // sorting solution
-    // skip check if 2 numbers are same 0,1,1,2
-    // if num eq prev sc++ else reset c to 1
+    /*
+    * ONE LINER => Sort & Count: Sort array, skip duplicates, track consecutive length minima/maxima → O(n log n) time, O(1) extra space.  
+    *
+    * Approach: Sort & Count Consecutives
+    * - Sort nums so consecutive numbers are adjacent.
+    * - Iterate from i = 1 to n-1:
+    *     - Skip duplicates (nums[i] == nums[i-1]).
+    *     - If nums[i] == nums[i-1] + 1 → increment consecutive count c, update max.
+    *     - Else reset c to 1 (sequence broken).
+    * - Return max length found.
+    *
+    * Time Complexity: O(n log n) — sorting dominates.
+    * Space Complexity: O(1) extra (in-place sort, ignoring input storage).
+    *
+    * Rationale: Sorting aligns numbers for linear scan to count consecutive sequences efficiently.
+    * Caveat: slower than optimal O(n) approaches, but easy to implement.
+    */
     public int longestConsecutiveSort(int[] nums) {
         int max = 1, c=1;
         if(nums.length==0){

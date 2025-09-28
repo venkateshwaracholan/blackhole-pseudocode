@@ -14,7 +14,26 @@ import java.util.*;
 
 public class TopKFrequentElements {
 
+    /*
+    * ONE-LINERS — Quick Reference:
+    *
+    * Brute Force: Count frequencies using a HashMap, sort entries by frequency with comparator, take top k → O(N log N), O(N) space.
+    * Min Heap (Approach 1): Count frequencies using a HashMap, maintain size-(k+1) min-heap with comparator (a,b) → map.get(a)-map.get(b) → O(N log k), O(N + k) space.
+    * Min Heap (Approach 1.2): Count frequencies using a HashMap, maintain size-k min-heap of Integer[] [num,freq], comparator on freq → a[1]-b[1] → O(N log k), O(N + k) space.
+    * Bucket Sort: Count frequencies using a HashMap, invert map to buckets by frequency, traverse from high → low → O(N), O(N) space.
+    * TreeSet/TreeMap: Count frequencies using a HashMap, maintain sorted order by frequency using comparator (freq, then value for uniqueness), use for top-k extraction → O(n log k) / O(n log n), O(n + k) space.
+    * 
+    *Comparator & Complexity Note:
+    * - Heap: add/poll → O(log n), peek → O(1). Uses simple comparator for frequency, e.g., (a,b) -> freq.get(a)-freq.get(b).
+    * - TreeMap/TreeSet: put/remove → O(log n), peek(first/last) → O(log n). Uses comparator to maintain sorted order of keys.
+    * - Both self-balance; heaps preferred for top-k due to peek efficiency and simpler implementation, trees better for range queries or full ordering.
+    */
+
+
+
     /**
+     * ONE LINER => Brute Force: Count frequencies, sort entries by frequency, take top k → O(N log N), O(N) space.
+     * 
      * Brute Force:
      * - Count frequencies using a HashMap
      * - Sort map entries by frequency with comparator(n entries)
@@ -40,6 +59,8 @@ public class TopKFrequentElements {
     }
     
    /**
+     * ONE LINER => Min Heap (apprch:1): Count freq using a HashMap, maintain size-(k+1) min-heap with comparator (a,b) → map.get(a)-map.get(b) → O(N log k), O(N + k) space.
+     * 
      * Approach 1: Frequency Map + Min Heap
      * - Count element frequencies using a HashMap
      * - Maintain a min-heap of size k+1 to track top K frequent elements
@@ -72,8 +93,10 @@ public class TopKFrequentElements {
 
 
     /**
-     * Approach 1.2: Frequency Map + Min Heap of size K
+     * ONE LINER => Min Heap (Apprch 1.2): Count freq using a HashMap, maintain size-k min-heap of Integer[] [num,freq], comparator on freq → a[1]-b[1] → O(N log k), O(N + k) space.
      * 
+     * 
+     * Approach 1.2: Frequency Map + Min Heap of size K
      * - Count frequency of each number using HashMap (`merge` for clarity).
      * - Maintain a min-heap (PriorityQueue) of size k storing [number, frequency] pairs.
      *   - Only push a new pair if heap size < k, or frequency > min frequency in heap.
@@ -116,8 +139,9 @@ public class TopKFrequentElements {
 
   
     /**
+     * ONE LINER => Bucket Sort: Count frequencies using a HashMap, invert map to buckets by frequency, traverse from high → low → O(N), O(N) space.
+     * 
      * Approach: Bucket Sort for Top K Frequent Elements
-     *
      * - Idea: Map numbers → frequencies, then invert map to frequency → numbers.
      * - Steps:
      *   1. Count frequencies using a HashMap.
@@ -165,6 +189,8 @@ public class TopKFrequentElements {
     
 
     /**
+     * TreeSet/TreeMap: Count frequencies using a HashMap, maintain sorted order by frequency using comparator (freq, then value for uniqueness), use for top-k extraction → O(n log k) / O(n log n), O(n + k) space.
+     * 
      * Approach: TreeSet / TreeMap / Heap for Top K Frequent Elements
      *
      * - TreeSet: 
