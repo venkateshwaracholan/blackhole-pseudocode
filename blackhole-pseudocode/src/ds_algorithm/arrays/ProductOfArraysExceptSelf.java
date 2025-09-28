@@ -22,7 +22,7 @@ public class ProductOfArraysExceptSelf {
     /*
     * ONE-LINERS — Quick Reference:
     *
-    * Brute Force: For each i, multiply all nums[j] (j != i) and store in ans[i]→ O(n²) time, O(1) extra space.
+    * Brute Force: For each i(0 to n-1), iterate j(0 to n-1) multiply all nums[j] (j != i) and store in ans[i]→ O(n²) time, O(1) extra space.
     * Prefix & Suffix Product: Two-pass with left/right accumulators (ans[0]=l=r=1), ans[i] -> store all product before i, right pass inlcude ans[i] too in mul, no division → O(n) time, O(1) extra space.
     * Prefix Product In-Place (Optimized): Store left products in ans[], use one right accumulator (ans[0]=l,r=last)→ O(n) time, O(1) extra space, fewer multiplications.
     * Division with Zero Handling: Compute p, pwz, zero count, handle zc>1, zc=1, zc=0 cases using pwz or p/n → O(n) time, O(1) extra space.  
@@ -31,7 +31,7 @@ public class ProductOfArraysExceptSelf {
 
   
     /*
-    * ONE LINER => Brute Force: For each i, multiply all nums[j] (j != i) and store in ans[i]→ O(n²) time, O(1) extra space.
+    * ONE LINER => Brute Force: For each i(0 to n-1), iterate j(0 to n-1) multiply all nums[j] (j != i) and store in ans[i]→ O(n²) time, O(1) extra space.
     *
     * Approach: Brute Force Multiplication
     * - For each index i:
@@ -93,7 +93,7 @@ public class ProductOfArraysExceptSelf {
         return ans;
     }
     /* 
-    * ONE LINER => Prefix Product In-Place (Optimized): Store left products in ans[], use one right accumulator (ans[0]=l,r=last)→ O(n) time, O(1) extra space, fewer multiplications.
+    * ONE LINER => Prefix Product In-Place (Optimized): Store left products in ans[], use one right accumulator (ans[0]=l,r=last) inlcude ans[i] too in mul→ O(n) time, O(1) extra space, fewer multiplications.
     *
     For educational purpose:
     * Difference from previous optimization:

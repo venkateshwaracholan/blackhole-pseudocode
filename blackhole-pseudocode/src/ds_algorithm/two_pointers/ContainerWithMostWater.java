@@ -17,13 +17,13 @@ public class ContainerWithMostWater {
     /*
     * ONE-LINERS — Quick Reference:
     *
-    * Brute Force: for each elem with every later elem(iterate i in (0, n), iterate j in (i+1, n)), height = min(height[i], height[j]), width = j-i, area = height*width, keep max → O(n²) time, O(1) space.
+    * Brute Force: for each elem with every later elem(iterate i in (0, n-1), iterate j in (i+1, n-1)), height = min(height[i], height[j]), width = j-i, area = height*width, keep max → O(n²) time, O(1) space.
     * Two-Pointer Optimized(Move smaller h inward): Two pointers at both ends i = 0, j = n-1, height = min(height[i], height[j]), width = j-i, area = height*width, move pointer with smaller height inward, keep max → O(n) time, O(1) space.
     */
 
   
     /*
-    * ONE LINER => Brute Force: for each elem with every later elem(iterate i in (0, n), iterate j in (i+1, n)), height = min(height[i], height[j]), width = j-i, area = height*width, keep max → O(n²) time, O(1) space.
+    * ONE LINER => Brute Force: for each elem with every later elem(iterate i in (0, n-1), iterate j in (i+1, n-1)), height = min(height[i], height[j]), width = j-i, area = height*width, keep max → O(n²) time, O(1) space.
     *
     * Approach 1: Brute-force (check all pairs)
     * - Iterate over all pairs of lines (i, j) in the array.

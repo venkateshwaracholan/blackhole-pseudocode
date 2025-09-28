@@ -17,14 +17,14 @@ public class BestTimeSellStock {
     /*
     * ONE-LINERS — Quick Reference:
     *
-    * Brute Force: Brute Force: for each elem with every later elem(iterate i in (0, n), iterate j in (i+1, n)), profit = prices[j] - prices[i], keep max → O(n²), O(1).
-    * One-Pass Optimized: iterate i in (0, n), track min price so far in low, profit = prices[i] - low, update max → O(n), O(1).
-    * Sliding Window: iterate i = 0, j=i+1 to n, store min price index in i(slide i = j if prices[j] < prices[i]), profit = prices[j] - prices[i], update max → O(n), O(1).
+    * Brute Force: for each elem with every later elem(iterate i in (0, n-1), iterate j in (i+1, n-1)), profit = prices[j] - prices[i], keep max → O(n²), O(1).
+    * One-Pass Optimized: iterate i in (0, n-1), track min price so far in low, profit = prices[i] - low, update max → O(n), O(1).
+    * Sliding Window: iterate i = 0, j=i+1 to n-1, store min price index in i(slide i = j if prices[j] < prices[i]), profit = prices[j] - prices[i], update max → O(n), O(1).
     */
 
     
     /*
-    * ONE LINER => Brute Force: for each elem with every later elem(iterate i in (0, n), iterate j in (i+1, n)), profit = prices[j] - prices[i], keep max → O(n²), O(1).
+    * ONE LINER => Brute Force: for each elem with every later elem(iterate i in (0, n-1), iterate j in (i+1, n-1)), profit = prices[j] - prices[i], keep max → O(n²), O(1).
     *
     * Approach 1: Brute-force
     * - Iterate over all pairs of days (i, j) with i < j.
@@ -48,7 +48,7 @@ public class BestTimeSellStock {
     
     
     /*
-    * ONE LINER => One-Pass Optimized: iterate i in (0, n), track min price so far in low, profit = prices[i] - low, update max → O(n), O(1).
+    * ONE LINER => One-Pass Optimized: iterate i in (0, n-1), track min price so far in low, profit = prices[i] - low, update max → O(n), O(1).
     *
     * Approach 2: One-pass Optimized
     * - Track the minimum price seen so far (low) as we iterate through the array.
@@ -80,7 +80,7 @@ public class BestTimeSellStock {
     }
 
     /*
-    * ONE LINER => Sliding Window: iterate i = 0, j=i+1 to n, store min price index in i(slide i = j if prices[j] < prices[i]), profit = prices[j] - prices[i], update max → O(n), O(1).
+    * ONE LINER => Sliding Window: iterate i = 0, j=i+1 to n-1, store min price index in i(slide i = j if prices[j] < prices[i]), profit = prices[j] - prices[i], update max → O(n), O(1).
     *
     * Approach 3: Sliding Window / Index Tracking
     * - Track the index of the minimum price seen so far (i).

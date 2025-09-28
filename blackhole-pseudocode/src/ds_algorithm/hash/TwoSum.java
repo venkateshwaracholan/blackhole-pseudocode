@@ -18,13 +18,13 @@ public class TwoSum {
     /*
     * TWO SUM — Quick Reference:
     *
-    * Brute Force Approach   : Check every pair of numbers(iterate i in (0, n), iterate j in (i+1, n) to avoid checking self) until one sums to target (O(n²) time, O(1) space).
+    * Brute Force Approach   : Check every pair of numbers(iterate i in (0, n-1), iterate j in (i+1, n-1) to avoid checking self) until one sums to target (O(n²) time, O(1) space).
     * HashMap Lookup         : Use a HashMap to store numbers and their positions, and check if complement (target - number) exists, add in map after checking.
     */
 
     
     /*
-    * ONE LINER => Check every pair of numbers(iterate i in (0, n), iterate j in (i+1, n) to avoid checking self) until one sums to target (O(n²) time, O(1) space).
+    * ONE LINER => Check every pair of numbers(iterate i in (0, n-1), iterate j in (i+1, n-1) to avoid checking self) until one sums to target (O(n²) time, O(1) space).
     *
     * Approach 1: Brute Force (Nested Loops)
     * - Outer loop picks nums[i].

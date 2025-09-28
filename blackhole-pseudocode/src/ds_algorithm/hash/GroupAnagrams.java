@@ -19,7 +19,7 @@ public class GroupAnagrams {
     /*
     * ONE-LINERS — Quick Reference:
     *
-    * Brute Force Pair Comparison: Compare every string with every other string and group anagrams manually using isAnagram() and a used[] array → O(n²·k) time, O(nk) space.
+    * Brute Force Pair Comparison: Compare every string with every other string and group anagrams manually using isAnagram() and a used[] array to avoid processing again→ O(n²·k) time, O(nk) space.
     * Sorting + HashMap: Sort each string and group by sorted string as key using a HashMap → O(n·k log k) time, O(nk) space.
     * Fixed-size Freq Array(int[26]) + HashMap: Count letter freq into a fixed array and use as a key(Ex: "bat" → "#1#1#0...#1") to group anagrams → O(n·k) time, O(nk) space. 
     */
@@ -27,7 +27,7 @@ public class GroupAnagrams {
 
 
     /*
-    * ONE LINER => Compare every string with every other and group anagrams manually using isAnagram() and a used[] array → O(n²·k) time, O(nk) space.
+    * ONE LINER => Brute Force Pair Comparison: Compare every string with every other string and group anagrams manually using isAnagram() and a used[] array to avoid processing again→ O(n²·k) time, O(nk) space.
     *
     * Approach 1: Brute Force Pair Comparison
     * - Maintain a boolean[] `used` to track which strings have already been grouped.

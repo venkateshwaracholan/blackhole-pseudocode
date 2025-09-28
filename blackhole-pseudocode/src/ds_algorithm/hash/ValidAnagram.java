@@ -19,7 +19,7 @@ public class ValidAnagram {
     /*
     * ONE-LINERS — Quick Reference:
     *
-    * Brute Nested Match : For each char in s, linearly search t (as char[]) and mark match → O(n²).
+    * Brute Nested Match : For each char in s, linearly search t (as char[]) and mark match with '#' and break to avoid multiple match→ O(n²).
     * Sorting Approach   : Sort both strings and compare arrays → O(n log n).
     * HashMap Count      : Build frequency maps for s and t, compare counts → O(n).
     * Array Count (Opt)  : Use int[26], increment for s and decrement for t, all zeros ⇒ anagram → O(n).
@@ -27,7 +27,7 @@ public class ValidAnagram {
 
     
     /*
-    * ONE LINER => For each char in s, find and mark a matching char in t using O(n²) nested loops.
+    * ONE LINER => For each char in s, linearly search t (as char[]) and mark match with '#' and break to avoid multiple match→ O(n²).
     *
     * Approach BRUTE: Nested Matching with Marker
     * - If lengths differ → return false.

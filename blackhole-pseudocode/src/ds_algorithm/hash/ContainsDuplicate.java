@@ -19,9 +19,9 @@ public class ContainsDuplicate {
     /*
     * ONE-LINERS — Quick Reference:
     *
-    * Brute Force        : Compare each elem with every later elem(iterate i in (0, n), iterate j in (i+1, n)) to avoid checking self) to detect duplicates in O(n²).
-    * HashSet Approach   : iterate i in (0, n), iterate j in (i+1, n), Use a HashSet to track seen elements(add after checking) and detect duplicates in O(n).
-    * Sorting Approach   : Sort array and check adjacent elements for duplicates(iterate i in (1, n) to use i-1 withour error) in O(n log n).
+    * Brute Force        : Compare each elem with every later elem(iterate i in (0, n-1), iterate j in (i+1, n-1)) to avoid checking self) to detect duplicates in O(n²).
+    * HashSet Approach   : iterate i in (0, n-1), Use a HashSet to track seen elements(add after checking) and detect duplicates in O(n).
+    * Sorting Approach   : Sort array and check adjacent elements for duplicates(iterate i in (1, n-1) to use i-1 withour error) in O(n log n).
     * Stream Approach    : Use Java Streams to compare distinct count with original length to detect duplicates in O(n) on average.
     */
 
@@ -29,8 +29,7 @@ public class ContainsDuplicate {
 
     
     /*
-    * ONE LINER => Compare each elem with every later elem(iterate i in (0, n), iterate j in (i+1, n)) to avoid checking self) to detect duplicates in O(n²).
-    *
+    * ONE LINER => Compare each elem with every later elem(iterate i in (0, n-1), iterate j in (i+1, n-1)) to avoid checking self) to detect duplicates in O(n²).
     * Approach: Brute Force Pair Comparison
     * - Compare every element with all elements that come after it.
     * - If any pair matches → return true.
@@ -59,7 +58,7 @@ public class ContainsDuplicate {
     }
     
     /*
-    * ONE LINER => iterate i in (0, n), iterate j in (i+1, n), Use a HashSet to track seen elements(add after checking) and detect duplicates in O(n).
+    * ONE LINER => iterate i in (0, n-1), Use a HashSet to track seen elements(add after checking) and detect duplicates in O(n).
     *
     * Approach: HashSet Tracking
     * - Create an empty HashSet.
@@ -93,7 +92,7 @@ public class ContainsDuplicate {
     
     
     /*
-    * ONE LINER => Sort array and check adjacent elements for duplicates(iterate i in (1, n) to use i-1 withour error) in O(n log n).
+    * ONE LINER => Sort array and check adjacent elements for duplicates(iterate i in (1, n-1) to use i-1 withour error) in O(n log n).
     *
     * Approach: Sorting + Adjacent Check
     * - Sort the array.
