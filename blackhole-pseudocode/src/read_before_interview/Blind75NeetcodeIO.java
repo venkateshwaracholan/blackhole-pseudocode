@@ -66,7 +66,7 @@ Valid Palindrome
     * Two-Pointer: Skip non-alphanumerics with respective pointers, compare lowercase, move both inward if equal or exit false → O(n) time, O(1) space.
     * Two-Pointer with Map: Precompute alphanumeric map for fast lookup, skip non-alphanumerics, compare lowercase, , move both inward if equal or exit false → O(n) time, O(1) space.
 
-3Sum
+ThreeSum
     * Brute Force: Sort array, three nested loops i(0 to n-1), j(i+1 to n-1), k(j+1 to n-1), skip first element duplicates(optional as set covers), store triplets in HashSet → O(n³) time, O(n) space.
     * Complement Lookup: Sort array, for i(0 to n-1), for j(i+1 to n-1) compute complement=0-i-j in inner loop(like two sum), check HashSet for existence, if present store triplets in HashSet  → O(n²) time, O(n) space.
     * Two-Pointer + HashSet: Sort array, for every i, inner loop j=i+1,k=len-1, move j->right on sum<0, k->left sum>0, add sum=0 to HashSet → O(n²) time, O(n) space.  
@@ -81,17 +81,42 @@ Best Time to Buy And Sell Stock
     * One-Pass Optimized: iterate i in (0, n-1), track min price so far in low, profit = prices[i] - low, update max → O(n), O(1).
     * Sliding Window: iterate i = 0, j=i+1 to n-1, store min price index in i(slide i = j if prices[j] < prices[i]), profit = prices[j] - prices[i], update max → O(n), O(1).
 
-Longest Substring Without Repeating Characters	
+Longest Substring Without Repeating Characters
+    * Brute Force: for each substring check repeats (iterate i in (0, n-1), iterate j in (i, n-1)), check repetition in s[i..j] using set, update max if uniq and j-i+1>max → O(n³), O(n).
+    * Sliding Window + HashSet: iterate i = 0, j = i to n-1, shrink window while duplicate char at j by moving i and removing s[i] from set, add s[j] to set, update max → keeps unique chars in window → O(2n), O(min(n, charset)).
+    * Sliding Window + HashMap(val,index): iterate i = 0, j = i to n-1, if s[j] seen in lastIndex map after i pos, skip i to that pos skipping processing all other characters, store last seen index of s[j] in map, update max if j-i+1>max→ O(n), O(min(n, charset)).
+    * Sliding Window + Integer[256](asciiVal, pos): iterate i = 0, j = i to n-1, if s[j] seen in lastIndex array after i pos, skip i to that pos skipping processing all other characters, store last seen index of s[j], update max if j-i+1>max→ faster for ASCII → O(n), O(256).  
 
-Longest Repeating Character Replacement	
+Longest Repeating Character Replacement
+    * Brute Force: for each substring s[i..j] (iterate i in (0, n-1), iterate j in (i, n-1)), iterate all chars to find max frequency, if j-i+1(window length) ≤ maxFreq+k(valid window = count+mistakes) update max → O(n³) for constant charset, O(n⁴) if counting all substring chars, O(1) space.
+    * Brute Sliding Window by char: for each character at x (iterate x in (0, n-1)), iterate i = 0, j = 0 to n-1, track count of matches s[x]==s[j], shrink window if j-i+1(window length)>c+k (valid window = count+mistakes) by moving i and decrementing c if s[i]==s[x], update max if j-i+1>max → check all chars → O(n²), O(1).
+    * Sliding Window by unique char: collect letters set, for each l in letters set, iterate i = 0, j = i to n-1, track count of matches letter==s[j], shrink window if j-i+1(window length)>c+k (valid window = count+mistakes) by moving i and decrementing c if s[i]==l, update max if j-i+1>max → avoids redundant checks → O(n×U), O(U).
+    * Optimized Sliding Window with array and maxf: iterate i = 0, j = i to n-1, increment map[c] for s[j], track maxf = max frequency in window, shrink window if j-i+1(window length)>maxf+k (valid window = max frequency+mistakes) by moving i and decrementing map[s[i]], update max if j-i+1>max → track most frequent char dynamically → O(n), O(26).
 
-Minimum Window Substring	
+Minimum Window Substring
+    * Brute Force: build tCount[128] with count, for every substring (iterate i=0,j=i→n-1), inner loop expand j updating sCount[jchar]++, valid window = sCount has at least tCount chars (checked by iterating all 128 chars in contains method), update min if j-i+1<min → O(n²*128), O(128).
+    * Sliding Window (HashMap): build tMap with count, iterate i=0,j=0→n-1, expand j updating sMap[jchar]++ and formed++ if sMap[jchar]==tMap[jchar], while (valid window = formed==tMap.size()) shrink i reducing sMap[ichar]-- and formed-- if sMap[ichar]<tMap[ichar], update min if j-i+1<min → O(n), O(|S|+|T|).
+    * Filtered Sliding Window (HashMap): build tMap with count, filter s into record(ch,idx) containing only t chars, iterate i=0,j=0→filtered.size()-1, expand j updating sMap[jchar]++ and formed++ if sMap[jchar]==tMap[jchar], while (valid window = formed==tMap.size()) shrink i reducing sMap[ichar]-- and formed-- if sMap[ichar]<tMap[ichar], update min if filtered[j].idx-filtered[i].idx+1<min → O(n), O(|S|+|T|).
+    * Sliding Window (int[]): build tCount[128] with count, track uniqT, iterate i=0,j=0→n-1, expand j updating sMap[jchar]++ and formed++ if sMap[jchar]==tCount[jchar], while (valid window = formed==uniqT) shrink i reducing sMap[ichar]-- and formed-- if sMap[ichar]<tCount[ichar], update min if j-i+1<min → O(n), O(128).
+    * Filtered Sliding Window (int[]): build tCount[128] with count, track uniqT, filter s into record(ch,idx) containing only t chars, iterate i=0,j=0→idxLen-1, expand j updating sMap[jchar]++ and formed++ if sMap[jchar]==tCount[jchar], while (valid window = formed==uniqT) shrink i reducing sMap[ichar]-- and formed-- if sMap[ichar]<tCount[ichar], update min if filtered[j].idx-filtered[i].idx+1<min → O(n), O(128).
+    
 
-Valid Parentheses	
+Valid Parentheses
+    * Brute Force Replacement: set prev="", while (s not equals prev(meaning s didn’t change after replacing)) assign prev=s and repeatedly replace "()", "[]", "{}" in s ans assign replaced string to s, if result is empty → valid parentheses → O(n²), O(n).
+    * Stack Push Open: iterate i=0→n-1, push open brackets to stack, else if stack empty or no corresponding brace present (c=')',t!='(' || c=']',t!='[' || c='}',t!='{') → false, valid = stack empty → O(n), O(n).
+    * Stack Push Open Map: build map = {('('→')'), ('{'→'}'), ('['→']')}, iterate i=0→n-1, if map.containsKey(c) push c(open brace), else if(close brace) stack empty or map.get(st.pop())!=c (get corresp close brace from stack(has only open) with map) → false, valid = stack empty → O(n), O(n).
+    * Stack Push Expected Close: iterate i=0→n-1, if c='(' push ')', c='{' push '}', c='[' push ']', else if stack empty or st.pop()!=c (expected close brace already pushed to stack)→ false, valid = stack empty → O(n), O(n).
+    * Stack Map Push Expected Close: build map = {('('→')'), ('{'→'}'), ('['→']')}, iterate i=0→n-1, if map.containsKey(c) push map.get(c) (pushing expected close brace from map), else if stack empty or st.pop()!=c(expected close brace already pushed to stack) → false, valid = stack empty → O(n), O(n).
 
-Find Minimum In Rotated Sorted Array	
+Find Minimum In Rotated Sorted Array
+    * Binary Search r‑anchored: set l=0,r=n-1, if nums[l] ≤ nums[r] (no rotation) return nums[0](first elem), else binary search anchored on r — compare mid with nums[r]: if nums[mid] > nums[r] → l=mid+1 (min in right half), else r=mid (min in left half including mid), repeat until l=r (meaning we always keep min in [l,r]), return nums[l] (min) → O(log n), O(1).
+    * Unsafe Binary Search: set l=0,r=n-1, if nums[l] ≤ nums[r] (no rotation) return nums[0](first elem), else use l ≤ r and mid+1 check — if nums[mid]>nums[mid+1] pivot found return nums[mid+1], else if nums[mid]>nums[r] → l=mid+1 else r=mid; repeat until found → O(log n), O(1); risk of index errors if not mid+1 check.
+    * Unsafe l‑variant: set l=0,r=n-1, if nums[l] ≤ nums[r] (no rotation) return nums[0](first elem), else use l ≤ r with mid+1 check — if nums[mid]>nums[mid+1] return nums[mid+1], else if nums[l]<nums[mid] → l=mid+1 else r=mid; repeat until found, return nums[l] → O(log n), O(1).risk of index errors if not mid+1 check.
 
-Search In Rotated Sorted Array	
+Search In Rotated Sorted Array
+    * Single-pass Modified Binary Search: Finds the sorted half and skips it if the target isn’t there, set l=0,r=n-1, while l≤r, mid= l+(r-l)/2; if nums[mid]==target return mid; if nums[l]≤nums[mid] (left sorted) → if target lies in [nums[l],nums[mid]) then r=mid-1 else l=mid+1(skip left sorted); else (right sorted) → if target lies in (nums[mid],nums[r]] then l=mid+1 else r=mid-1(skip right sorted); repeat until found or l>r, return -1 → O(log n), O(1).
+    * Two-step Binary Search find rotation pivot, then binary search in correct sorted half: set l=0,r=n-1, if nums[l]≤nums[r] return binarySearch(l,r); else find rotation index rot: while l<r mid=l+(r-l)/2 → if nums[mid]>nums[r] l=mid+1 else r=mid; return l; then binarySearch in correct half: if target lies in [nums[rot],nums[r]] search [rot,r] else search [l,rot-1]; binarySearch: standard O(log n) search → O(log n), O(1).
+    
 
 
 

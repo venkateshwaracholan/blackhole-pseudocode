@@ -16,8 +16,22 @@ import java.util.*;
 
 public class ValidParantheses {
 
+    /*
+    * ONE-LINERS — Quick Reference:
+    *
+    * Brute Force Replacement: set prev="", while (s not equals prev(meaning s didn’t change after replacing)) assign prev=s and repeatedly replace "()", "[]", "{}" in s ans assign replaced string to s, if result is empty → valid parentheses → O(n²), O(n).
+    * Stack Push Open: iterate i=0→n-1, push open brackets to stack, else if stack empty or no corresponding brace present (c=')',t!='(' || c=']',t!='[' || c='}',t!='{') → false, valid = stack empty → O(n), O(n).
+    * Stack Push Open Map: build map = {('('→')'), ('{'→'}'), ('['→']')}, iterate i=0→n-1, if map.containsKey(c) push c(open brace), else if(close brace) stack empty or map.get(st.pop())!=c (get corresp close brace from stack(has only open) with map) → false, valid = stack empty → O(n), O(n).
+    * Stack Push Expected Close: iterate i=0→n-1, if c='(' push ')', c='{' push '}', c='[' push ']', else if stack empty or st.pop()!=c (expected close brace already pushed to stack)→ false, valid = stack empty → O(n), O(n).
+    * Stack Map Push Expected Close: build map = {('('→')'), ('{'→'}'), ('['→']')}, iterate i=0→n-1, if map.containsKey(c) push map.get(c) (pushing expected close brace from map), else if stack empty or st.pop()!=c(expected close brace already pushed to stack) → false, valid = stack empty → O(n), O(n).
+    */
+
+
 
     /*
+
+    * ONE LINER => Brute Force Replacement: set prev="", while (s not equals prev(meaning s didn’t change after replacing)) assign prev=s and repeatedly replace "()", "[]", "{}" in s ans assign replaced string to s, if result is empty → valid parentheses → O(n²), O(n).
+    *
     * Approach: Brute Force by repeated replacement
     * - While the string changes:
     *     - Replace all "()", "[]", "{}" with "".
@@ -46,6 +60,8 @@ public class ValidParantheses {
     }
 
     /*
+    * ONE LINER => Stack Push Open: iterate i=0→n-1, push open brackets to stack, else if stack empty or no corresponding brace present (c=')',t!='(' || c=']',t!='[' || c='}',t!='{') → false, valid = stack empty → O(n), O(n).
+    *
     * Approach: Optimized Stack-Based Matching by pushing open braces
     * - If string length is odd → return false (cannot be balanced).
     * - Use a stack to track open brackets '(' '{' '['.
@@ -91,6 +107,8 @@ public class ValidParantheses {
     }
 
     // using map to avoid code from above approach
+    /* ONE LINER => Stack Push Open Map: build map = {('('→')'), ('{'→'}'), ('['→']')}, iterate i=0→n-1, if map.containsKey(c) push c(open brace), else if(close brace) stack empty or map.get(st.pop())!=c (get corresp close brace from stack(has only open) with map) → false, valid = stack empty → O(n), O(n).
+    */
     public boolean isValidMap(String s) {
         if(s.length()%2==1){
             return false;
@@ -111,6 +129,8 @@ public class ValidParantheses {
 
     
     /*
+    * ONE LINER => Stack Push Expected Close: iterate i=0→n-1, if c='(' push ')', c='{' push '}', c='[' push ']', else if stack empty or st.pop()!=c (expected close brace already pushed to stack)→ false, valid = stack empty → O(n), O(n).
+    *
     * Approach: Optimized Stack-Based Matching by pushing expected closing brackets
     * - If string length is odd → return false (cannot be balanced).
     * - Use a stack to track expected closing brackets.
@@ -156,6 +176,8 @@ public class ValidParantheses {
     }
 
     // using map to avoid code from above approach
+    /* ONE LINER => Stack Map Push Expected Close: build map = {('('→')'), ('{'→'}'), ('['→']')}, iterate i=0→n-1, if map.containsKey(c) push map.get(c) (pushing expected close brace from map), else if stack empty or st.pop()!=c(expected close brace already pushed to stack) → false, valid = stack empty → O(n), O(n).
+    */
     public boolean isValid4(String s) {
         if(s.length()%2==1){
             return false;

@@ -14,21 +14,33 @@ import java.util.*;
 // https://leetcode.com/problems/longest-substring-without-repeating-characters/description/
 
 public class LongestSubstringWithoutRepeatingChar {
+
+    /*
+    * ONE-LINERS — Quick Reference:
+    *
+    * Brute Force: for each substring check repeats (iterate i in (0, n-1), iterate j in (i, n-1)), check repetition in s[i..j] using set, update max if uniq and j-i+1>max → O(n³), O(n).
+    * Sliding Window + HashSet: iterate i = 0, j = i to n-1, shrink window while duplicate char at j by moving i and removing s[i] from set, add s[j] to set, update max → keeps unique chars in window → O(2n), O(min(n, charset)).
+    * Sliding Window + HashMap(val,index): iterate i = 0, j = i to n-1, if s[j] seen in lastIndex map after i pos, skip i to that pos skipping processing all other characters, store last seen index of s[j] in map, update max if j-i+1>max→ O(n), O(min(n, charset)).
+    * Sliding Window + Integer[256](asciiVal, pos): iterate i = 0, j = i to n-1, if s[j] seen in lastIndex array after i pos, skip i to that pos skipping processing all other characters, store last seen index of s[j], update max if j-i+1>max→ faster for ASCII → O(n), O(256).  
+    */
+
     
     /*
-     * Approach 1: Brute-force
-     * - Check all substrings s[i..j] of the input string.
-     * - Use a HashSet to check if the substring contains duplicate characters.
-     * - If no duplicates, update max length.
-     *
-     * Time Complexity: O(n^3)
-     *   - Outer loop over i: O(n)
-     *   - Inner loop over j: O(n)
-     *   - rep() checks substring uniqueness: O(n)
-     * Space Complexity: O(n) for the HashSet in rep()
-     *
-     * Note: Works correctly but inefficient for large inputs.
-     */
+    * ONE LINER => Brute Force: for each substring check repeats (iterate i in (0, n-1), iterate j in (i, n-1)), check repetition in s[i..j] using set, update max if uniq and j-i+1>max → O(n³), O(n).
+    *
+    * Approach 1: Brute-force
+    * - Check all substrings s[i..j] of the input string.
+    * - Use a HashSet to check if the substring contains duplicate characters.
+    * - If no duplicates, update max length.
+    *
+    * Time Complexity: O(n^3)
+    *   - Outer loop over i: O(n)
+    *   - Inner loop over j: O(n)
+    *   - rep() checks substring uniqueness: O(n)
+    * Space Complexity: O(n) for the HashSet in rep()
+    *
+    * Note: Works correctly but inefficient for large inputs.
+    */
     public int lengthOfLongestSubstring(String s) {
         int max = 0;
         for (int i = 0; i < s.length(); i++) {
@@ -54,6 +66,8 @@ public class LongestSubstringWithoutRepeatingChar {
     }
     
     /*
+    * ONE LINER => Sliding Window + HashSet: iterate i = 0, j = i to n-1, shrink window while duplicate char at j by moving i and removing s[i] from set, add s[j] to set, update max → keeps unique chars in window → O(2n), O(min(n, charset)).
+    *
     * Sliding Window + HashSet:
     * - Two pointers i (window start) and j (window end) track the current substring with unique chars.
     * - Both i and j start at 0 to correctly handle substrings of length 1.
@@ -84,6 +98,8 @@ public class LongestSubstringWithoutRepeatingChar {
     
     
     /*
+    * ONE LINER => Sliding Window + HashMap(val,index): iterate i = 0, j = i to n-1, if s[j] seen in lastIndex map after i pos, skip i to that pos skipping processing all other characters, store last seen index of s[j] in map, update max if j-i+1>max→ O(n), O(min(n, charset)).
+    *
     * Sliding Window + HashMap (Optimized O(n)):
     * - lastIndex stores last seen index of each character.
     * - i = start of window, j = end pointer.
@@ -111,6 +127,8 @@ public class LongestSubstringWithoutRepeatingChar {
         return max;
     }
     /*
+    * ONE LINER => Sliding Window + Integer[256](asciiVal, pos): iterate i = 0, j = i to n-1, if s[j] seen in lastIndex array after i pos, skip i to that pos skipping processing all other characters, store last seen index of s[j], update max if j-i+1>max→ faster for ASCII → O(n), O(256).  
+    *
     * Approach: Sliding Window using Integer[128] (like map for ASCII)
     * - lastIndex[c] stores last seen index of character c.
     * - null indicates character not seen yet (replaces containsKey).

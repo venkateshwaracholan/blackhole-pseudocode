@@ -15,8 +15,20 @@ import ds_algorithm.Pair;
 
 public class MinimumWindowSubstring {
 
+    /*
+    * ONE-LINERS — Quick Reference:
+    *
+    * Brute Force: build tCount[128] with count, for every substring (iterate i=0,j=i→n-1), inner loop expand j updating sCount[jchar]++, valid window = sCount has at least tCount chars (checked by iterating all 128 chars in contains method), update min if j-i+1<min → O(n²*128), O(128).
+    * Sliding Window (HashMap): build tMap with count, iterate i=0,j=0→n-1, expand j updating sMap[jchar]++ and formed++ if sMap[jchar]==tMap[jchar], while (valid window = formed==tMap.size()) shrink i reducing sMap[ichar]-- and formed-- if sMap[ichar]<tMap[ichar], update min if j-i+1<min → O(n), O(|S|+|T|).
+    * Filtered Sliding Window (HashMap): build tMap with count, filter s into record(ch,idx) containing only t chars, iterate i=0,j=0→filtered.size()-1, expand j updating sMap[jchar]++ and formed++ if sMap[jchar]==tMap[jchar], while (valid window = formed==tMap.size()) shrink i reducing sMap[ichar]-- and formed-- if sMap[ichar]<tMap[ichar], update min if filtered[j].idx-filtered[i].idx+1<min → O(n), O(|S|+|T|).
+    * Sliding Window (int[]): build tCount[128] with count, track uniqT, iterate i=0,j=0→n-1, expand j updating sMap[jchar]++ and formed++ if sMap[jchar]==tCount[jchar], while (valid window = formed==uniqT) shrink i reducing sMap[ichar]-- and formed-- if sMap[ichar]<tCount[ichar], update min if j-i+1<min → O(n), O(128).
+    * Filtered Sliding Window (int[]): build tCount[128] with count, track uniqT, filter s into record(ch,idx) containing only t chars, iterate i=0,j=0→idxLen-1, expand j updating sMap[jchar]++ and formed++ if sMap[jchar]==tCount[jchar], while (valid window = formed==uniqT) shrink i reducing sMap[ichar]-- and formed-- if sMap[ichar]<tCount[ichar], update min if filtered[j].idx-filtered[i].idx+1<min → O(n), O(128).
+    */
+
 
     /*
+    * ONE LINER => Brute Force: build tCount[128] with count, for every substring (iterate i=0,j=i→n-1), inner loop expand j updating sCount[jchar]++, valid window = sCount has at least tCount chars (checked by iterating all 128 chars in contains method), update min if j-i+1<min → O(n²*128), O(128).
+    *
     * Approach: Brute Force with frequency arrays
     * - Count frequency of each character in t → tCount[128].
     * - For every possible start index i in s:
@@ -63,6 +75,8 @@ public class MinimumWindowSubstring {
     
     
     /*
+    * ONE LINER => Sliding Window (HashMap): build tMap with count, iterate i=0,j=0→n-1, expand j updating sMap[jchar]++ and formed++ if sMap[jchar]==tMap[jchar], while (valid window = formed==tMap.size()) shrink i reducing sMap[ichar]-- and formed-- if sMap[ichar]<tMap[ichar], update min if j-i+1<min → O(n), O(|S|+|T|).
+    *
     * Approach 1: Optimized Sliding Window with Hash Maps
     * - Build frequency map tMap for characters in t.
     * - Use two pointers (i, j) to maintain a sliding window in s.
@@ -113,6 +127,8 @@ public class MinimumWindowSubstring {
     }
     
     /*
+    * ONE LINER => Filtered Sliding Window (HashMap): build tMap with count, filter s into record(ch,idx) containing only t chars, iterate i=0,j=0→filtered.size()-1, expand j updating sMap[jchar]++ and formed++ if sMap[jchar]==tMap[jchar], while (valid window = formed==tMap.size()) shrink i reducing sMap[ichar]-- and formed-- if sMap[ichar]<tMap[ichar], update min if filtered[j].idx-filtered[i].idx+1<min → O(n), O(|S|+|T|).
+    *
     * Approach 2: Filtered Sliding Window with IndexedChar record
     * - Build frequency map tMap for characters in t.
     * - Preprocess s into a filtered list containing only characters present in t,
@@ -190,6 +206,9 @@ public class MinimumWindowSubstring {
     
     // we can use int[] instead of map with above 2 approaches
     //same as above usng int[] intead of map
+
+    /* ONE LINER => Sliding Window (int[]): build tCount[128] with count, track uniqT, iterate i=0,j=0→n-1, expand j updating sMap[jchar]++ and formed++ if sMap[jchar]==tCount[jchar], while (valid window = formed==uniqT) shrink i reducing sMap[ichar]-- and formed-- if sMap[ichar]<tCount[ichar], update min if j-i+1<min → O(n), O(128).
+    */
     public String minWindowTwoPointersArrayMap(String s, String t) {
         int min = Integer.MAX_VALUE;
         int start = 0, uniqT = 0;
@@ -225,6 +244,8 @@ public class MinimumWindowSubstring {
         }
         return s.substring(start, start+min);
     }
+    /* ONE LINER => Filtered Sliding Window (int[]): build tCount[128] with count, track uniqT, filter s into record(ch,idx) containing only t chars, iterate i=0,j=0→idxLen-1, expand j updating sMap[jchar]++ and formed++ if sMap[jchar]==tCount[jchar], while (valid window = formed==uniqT) shrink i reducing sMap[ichar]-- and formed-- if sMap[ichar]<tCount[ichar], update min if filtered[j].idx-filtered[i].idx+1<min → O(n), O(128).
+    */
     
     public String minWindowFilteredArrayMap(String s, String t) {
         int min = Integer.MAX_VALUE;

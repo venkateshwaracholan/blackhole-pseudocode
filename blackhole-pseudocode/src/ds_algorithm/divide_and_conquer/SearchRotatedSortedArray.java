@@ -14,8 +14,19 @@ package ds_algorithm.divide_and_conquer;
 
 public class SearchRotatedSortedArray {
   
+
     /*
-    * ONE LINER => Finds the sorted half and skips it if the target isn’t there.
+    * ONE-LINERS — Quick Reference:
+    *
+    * Single-pass Modified Binary Search: Finds the sorted half and skips it if the target isn’t there, set l=0,r=n-1, while l≤r, mid= l+(r-l)/2; if nums[mid]==target return mid; if nums[l]≤nums[mid] (left sorted) → if target lies in [nums[l],nums[mid]) then r=mid-1 else l=mid+1(skip left sorted); else (right sorted) → if target lies in (nums[mid],nums[r]] then l=mid+1 else r=mid-1(skip right sorted); repeat until found or l>r, return -1 → O(log n), O(1).
+    * Two-step Binary Search find rotation pivot, then binary search in correct sorted half: set l=0,r=n-1, if nums[l]≤nums[r] return binarySearch(l,r); else find rotation index rot: while l<r mid=l+(r-l)/2 → if nums[mid]>nums[r] l=mid+1 else r=mid; return l; then binarySearch in correct half: if target lies in [nums[rot],nums[r]] search [rot,r] else search [l,rot-1]; binarySearch: standard O(log n) search → O(log n), O(1).
+    */
+
+
+    /*
+    * ONE LINER => Single-pass Modified Binary Search: Finds the sorted half and skips it if the target isn’t there, set l=0,r=n-1, while l≤r, mid= l+(r-l)/2; if nums[mid]==target return mid; if nums[l]≤nums[mid] (left sorted) → if target lies in [nums[l],nums[mid]) then r=mid-1 else l=mid+1(skip left sorted); else (right sorted) → if target lies in (nums[mid],nums[r]] then l=mid+1 else r=mid-1(skip right sorted); repeat until found or l>r, return -1 → O(log n), O(1).
+    *
+    * ONE LINER => 
     *
     * Approach: Single-pass Modified Binary Search
     * - Use l and r pointers to bound search space.
@@ -70,7 +81,7 @@ public class SearchRotatedSortedArray {
   
     
     /*
-    * ONE LINER => Two-step O(log n): find rotation pivot, then binary search in correct sorted half.
+    * ONE LINER => Two-step Binary Search find rotation pivot, then binary search in correct sorted half: set l=0,r=n-1, if nums[l]≤nums[r] return binarySearch(l,r); else find rotation index rot: while l<r mid=l+(r-l)/2 → if nums[mid]>nums[r] l=mid+1 else r=mid; return l; then binarySearch in correct half: if target lies in [nums[rot],nums[r]] search [rot,r] else search [l,rot-1]; binarySearch: standard O(log n) search → O(log n), O(1).
     *
     * Approach: Two-step Binary Search
     * 1. Find rotation index using modified binary search (findRot):
