@@ -22,12 +22,33 @@ import ds_algorithm.utils.ArrayUtils;
 //1->2->3->4->5->N
 
 public class ReverseLinkedList {
+
+    /*
+    * ONE-LINERS — Quick Reference:
+    *
+    * Iterative Reverse List: prev=null, cur=head, while cur!=null store next(cur.next before modifying cur.next), reverse link(cur.next=prev), move pointers(prev=cur, cur=next), return prev → O(n), O(1).
+    * Top‑down Recursive Reverse List: implement and call reverseList(cur=head,prev=null), base case: if cur==null return prev, store next(cur.next), reverse link(cur.next=prev), recurse with(next,cur) → O(n), O(n) (stack).
+    * Bottom‑up Recursive Reverse List: implement and call reverseList(cur=head,prev=null), base case: if cur==null return prev, recurse head=reverseList(cur.next,cur) without changing head until recursion unwinds (because reversal happens bottom‑up), after recursion unwinds reverse link via cur(cur.next=prev), return head level by level → O(n), O(n) (stack).
+    * Bottom‑up Recursive Reverse List (Single Method): base case: head==null || head.next==null (handle empty list and return last node as new head), recurse last=reverseListBottomUpSingleMethod(head.next) without changing last until recursion unwinds (because reversal happens bottom‑up), then reverse link via head.next.next=head (modify head here), then mark head.next=null to terminate old link so that first element’s next becomes null, preserve last as new head to return → O(n), O(n) (stack).
+    */
+
   
-    //APPROACH 1 prev+ite
-    // Time O(n) space: O(1)
-    // iterte with prev and cur
-    // take next, remap cur.next to prev 
-    // move prev and cur acc 
+    /*
+    * ONE LINER => Iterative Reverse List: prev=null, cur=head, while cur!=null store next(cur.next before modifying cur.next), reverse link(cur.next=prev), move pointers(prev=cur, cur=next), return prev → O(n), O(1).
+    *
+    * Approach: Iterative reversal of a singly linked list
+    * - Initialize prev=null (to mark new list end), cur=head (start of list).
+    * - While cur is not null:
+    *     - Store next node (next=cur.next) → to not lose access to rest of list.
+    *     - Reverse link (cur.next=prev) → flips pointer direction.
+    *     - Move pointers (prev=cur, cur=next) → progress through list.
+    * - Return prev → new head of reversed list.
+    *
+    * Time Complexity: O(n) — each node visited once.
+    * Space Complexity: O(1) — constant extra space.
+    *
+    * Rationale: Iteratively reverses pointers to reverse list in-place without extra space.
+    */
     public ListNode reverseListIte(ListNode head) {
         ListNode prev = null, cur = head;
         while(cur!=null){
@@ -39,44 +60,87 @@ public class ReverseLinkedList {
         return prev;
     }
     
-    //APPROACH 2 prev+rec, top down, cur=null, return prev
-    // Time O(n) space: O(n) n in call stack
-    // same aas above, just recursive
-    public ListNode reverseList(ListNode head) {
-        return reverseList(null, head);
+    /*
+    * ONE LINER => Top‑down Recursive Reverse List: implement and call reverseList(cur=head,prev=null), base case: if cur==null return prev, store next(cur.next), reverse link(cur.next=prev), recurse with(next,cur) → O(n), O(n) (stack).
+    *
+    * Approach: Top‑down Recursive reversal of a singly linked list (implement and call reverseList(head,null))
+    * - Call reverseList(cur=head,prev=null) → prev initially null (implement and call step).
+    * - Base case: if cur is null → return prev (new head).
+    * - Store next node (next=cur.next) → to not lose the rest of the list.
+    * - Reverse link (cur.next=prev) → flips pointer direction.
+    * - Recurse with remaining list (reverseList(next,cur)) → progress through list.
+    *
+    * Time Complexity: O(n) — each node visited once.
+    * Space Complexity: O(n) — recursion stack of depth n.
+    *
+    * Rationale: Elegant top‑down reversal that uses recursion to reverse links while unwinding the call stack.
+    */
+    public ListNode reverseListTopDown(ListNode head) {
+        return reverseListTopDown(head, null);
     }
-    public ListNode reverseList(ListNode prev, ListNode cur) {
-        if(cur==null) return prev;
+
+    public ListNode reverseListTopDown(ListNode cur, ListNode prev){
+        if(cur==null){
+            return prev;
+        }
         ListNode next = cur.next;
         cur.next = prev;
-        return reverseList(cur, next);
+        return reverseListTopDown(next,cur);
     }
     
-    //APPROACH 3 prev+rec, bottom down, cur=null, return prevs, for returning assign in temp var
-    public ListNode reverseList2(ListNode head) {
-        return reverseList2(head,null);
+    /*
+    * ONE LINER => Bottom‑up Recursive Reverse List: implement and call reverseList(cur=head,prev=null), base case: if cur==null return prev, recurse head=reverseList(cur.next,cur) without changing head until recursion unwinds (because reversal happens bottom‑up), after recursion unwinds reverse link via cur(cur.next=prev), return head level by level → O(n), O(n) (stack).
+    *
+    * Approach: Bottom‑up Recursive reversal of a singly linked list
+    * - Implement and call reverseList(cur=head,prev=null) → prev initially null.
+    * - Base case: if cur is null → return prev (new head).
+    * - Recurse first (head=reverseList(cur.next,cur)) without changing head until recursion unwinds
+    *   (ensures reversal happens bottom‑up and head is preserved until the final unwind).
+    * - After recursion unwinds level by level, reverse link (cur.next=prev).
+    * - Return head found at deepest call.
+    *
+    * Time Complexity: O(n) — each node visited once.
+    * Space Complexity: O(n) — recursion stack of depth n.
+    *
+    * Rationale: Bottom‑up recursion ensures reversal happens in reverse call order and head is preserved until final unwind.
+    */
+    public ListNode reverseListBottomUp(ListNode head) {
+        return reverseListBottomUp(head, null);
     }
-    public ListNode reverseList2(ListNode cur, ListNode prev) {
-        if(cur==null) return prev;
-        ListNode head = reverseList2(cur.next,cur);
+
+    public ListNode reverseListBottomUp(ListNode cur, ListNode prev){
+        if(cur==null){
+            return prev;
+        }
+        ListNode head = reverseListBottomUp(cur.next,cur);
         cur.next = prev;
         return head;
     }
     
     
-    //APPROACH 4 rec, bottom down, cur==null || cur.next==null, return , cur.next.next =cur, cur.next=null
-    // 1,2,3,4,5
-    // Time O(n) space: O(n) n in call stack, bottom up
-    // base case cur==null or nu.next==null means last node or head is null
-    // keep last node in x to return that
-    // to rechain cur.next.next = cur meaning remapping cur's next to point to cur itself
-    // cur.next = null, useful for removing the chain at 1st node
-    public ListNode reverseListRec(ListNode cur) {
-        if(cur==null || cur.next==null) return cur;
-        ListNode x =  reverseList(cur.next);
-        cur.next.next = cur;
-        cur.next = null;
-        return x;
+    /*
+    * ONE LINER => Bottom‑up Recursive Reverse List (Single Method): base case: head==null || head.next==null (handle empty list and return last node as new head), recurse last=reverseListBottomUpSingleMethod(head.next) without changing last until recursion unwinds (because reversal happens bottom‑up), then reverse link via head.next.next=head (modify head here), then mark head.next=null to terminate old link so that first element’s next becomes null, preserve last as new head to return → O(n), O(n) (stack).
+    *
+    * Approach: Bottom‑up Recursive reversal in a single method
+    * - Base case: if head==null || head.next==null → return head (handles empty list and captures last node as new head).
+    * - Recurse: last=reverseListBottomUpSingleMethod(head.next) without changing last until recursion unwinds → ensures reversal happens bottom‑up.
+    * - Reverse link: head.next.next=head (modifies head here to point backward).
+    * - Terminate old link: head.next=null so that first element’s next becomes null.
+    * - Preserve and return last from deepest recursion call as new head (do not change last inside recursion).
+    *
+    * Time Complexity: O(n) — each node visited once.
+    * Space Complexity: O(n) — recursion stack of depth n.
+    *
+    * Rationale: Bottom‑up recursion with single method preserves last and reverses links correctly, avoiding premature modification of the final new head, and ensures first element’s next becomes null to end the reversed list.
+    */
+    public ListNode reverseListBottomUpSingleMethod(ListNode head) {
+        if(head==null || head.next==null){
+            return head;
+        }
+        ListNode last = reverseListBottomUpSingleMethod(head.next);
+        head.next.next = head;
+        head.next = null;
+        return last;
     }
     
  

@@ -14,12 +14,60 @@ import java.util.*;
 // https://leetcode.com/problems/linked-list-cycle/description/
  
 public class LinkedListCycle {
+
+    /*
+    * ONE LINERS — Quick Reference:
+    *
+    * Cycle Detection Brute (HashSet): traverse list, store visited nodes in set, if a node repeats return true → O(n), O(n).
+    * Cycle Detection (Floyd’s Tortoise and Hare): slow=head, fast=head, move slow by 1 and fast by 2 steps, then check if slow equals fast (only after both moves, coz they are initially equal) → O(n), O(1).
+    */
+
     
-    //APPROACH 1 ite slow fast pointers, 
-    // Time O(n) space: O(1)
-    // floyd cycle detection
-    // two pointers, slow and fast pointers
-    //if they become equal at some point, cycle is there
+    /*
+    * ONE LINER => Cycle Detection Brute (HashSet): traverse list, store visited nodes in set, if a node repeats return true → O(n), O(n).
+    *
+    * Approach: Detect cycle in linked list using extra memory
+    * - Create a HashSet to store visited nodes.
+    * - While head is not null:
+    *     - If current node exists in set → cycle detected, return true.
+    *     - Else add current node to set.
+    *     - Move head to next node (head=head.next).
+    * - If loop exits → no cycle found, return false.
+    *
+    * Time Complexity: O(n) — each node is visited once.
+    * Space Complexity: O(n) — stores all visited nodes.
+    *
+    * Rationale: Stores all visited nodes to detect revisits (cycle) at the cost of extra memory.
+    */
+
+    public boolean hasCycleButeSet(ListNode head) {
+        var set = new HashSet<ListNode>();
+        while(head!=null){
+            if(set.contains(head)){
+                return true;
+            }
+            set.add(head);
+            head = head.next;
+        }
+        return false;
+    }
+
+    /*
+    * ONE LINER => Cycle Detection (Floyd’s Tortoise and Hare): slow=head, fast=head, move slow by 1 and fast by 2 steps, then check if slow equals fast (only after both moves, coz they are initially equal) → O(n), O(1).
+    *
+    * Approach: Detect cycle in linked list using Floyd’s cycle-finding algorithm
+    * - Initialize two pointers: slow=head, fast=head.
+    * - While fast and fast.next are not null:
+    *     - Move slow pointer by one step (slow=slow.next).
+    *     - Move fast pointer by two steps (fast=fast.next.next).
+    *     - Only after both moves, check if slow equals fast → if true, cycle detected, return true (important: check happens only after moves since they start equal).
+    * - If loop exits → no cycle found, return false.
+    *
+    * Time Complexity: O(n) — slow and fast traverse at most n steps before meeting or terminating.
+    * Space Complexity: O(1) — constant extra space.
+    *
+    * Rationale: Moving both pointers before equality check avoids false positives and ensures correctness, since slow and fast start at the same node.
+    */
     public boolean hasCycle(ListNode head) {
         ListNode slow = head,fast=head;
         while(fast!=null && fast.next!=null){
@@ -30,19 +78,34 @@ public class LinkedListCycle {
         return false;
     }
     
-    //APPROACH 1 ite+set, 
-    // Time O(n) space: O(n)
-    // hashset, lame
-    public boolean hasCycle2(ListNode head) {
-        Set<ListNode> set = new HashSet();
-        while(head!=null){
-            if(set.contains(head)) return true;
-            set.add(head);
-            head=head.next;
-        }
-        return false;
-    }
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //unwanted approach, dont tr this
+
     //APPROACH 1 (ite or rec) changing value of node to 0xcafebabe, lol 
     // Time O(n) space: O(1)
     // modifying LIst values, bad approach
