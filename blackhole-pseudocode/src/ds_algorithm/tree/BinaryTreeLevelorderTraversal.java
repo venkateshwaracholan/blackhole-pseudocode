@@ -4,6 +4,11 @@
  */
 package ds_algorithm.tree;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 /**
  *
  * @author venka
@@ -18,26 +23,35 @@ public class BinaryTreeLevelorderTraversal {
     //APPROACH 1 BFS+level order traversal, create and add in list
     
     public List<List<Integer>> levelOrder(TreeNode root) {
-        List<List<Integer>> ans=new ArrayList();
-        Queue<TreeNode> q=new LinkedList();
-        if(root!=null) q.add(root);
-        while(!q.isEmpty()){
-            int siz= q.size();
-            List<Integer> sub = new ArrayList();
-            while(siz-->0){
-                TreeNode n = q.poll();
-                sub.add(n.val);
-                if(n.left!=null) q.add(n.left);
-                if(n.right!=null) q.add(n.right);
-            }
-            ans.add(sub);
+        var queue = new LinkedList<TreeNode>();
+        var result = new ArrayList<List<Integer>>();
+        int level = 0;
+        if(root!=null){
+            queue.add(root);
         }
-        return ans;
+        while(!queue.isEmpty()){
+            int size = queue.size();
+            result.add(new ArrayList<Integer>());
+            while(size>0){
+                TreeNode node = queue.poll();
+                result.get(level).add(node.val);
+                if(node.left!=null){
+                    queue.add(node.left);
+                }
+                if(node.right!=null){
+                    queue.add(node.right);
+                }
+                size--;
+            }
+            level++;
+        }
+        return result;
     }
     
+
+
     //APPROACH 2 BFS+depth queue, get list from index depth and add in list
-    
-    class Entity{
+    class Entity2{
         public TreeNode n;
         public int d;
         Entity(TreeNode n, int d){
@@ -45,35 +59,53 @@ public class BinaryTreeLevelorderTraversal {
             this.d=d;
         }
     }
+    record Entity(TreeNode node, int depth){}
     public List<List<Integer>> levelOrder(TreeNode root) {
-        Queue<Entity> q = new LinkedList();
-        List<List<Integer>> ans = new ArrayList();
-        if(root==null) return ans;
-        q.add(new Entity(root,0));
-        while(!q.isEmpty()){
-            Entity e = q.poll();
-            TreeNode n = e.n;
-            int d = e.d;
-            if(ans.size()<=d) ans.add(new ArrayList());
-            ans.get(d).add(n.val);
-            if(n.left!=null) q.add(new Entity(n.left,d+1));
-            if(n.right!=null) q.add(new Entity(n.right,d+1));
+        var queue = new LinkedList<Entity>();
+        var result = new ArrayList<List<Integer>>();
+        if(root!=null){
+            queue.add(new Entity(root, 0));
         }
-        return ans;
+        while(!queue.isEmpty()){
+            Entity entity = queue.poll();
+            TreeNode node = entity.node();
+            int depth = entity.depth();
+            if(result.size()<=depth){
+                result.add(new ArrayList<Integer>());
+            }
+            result.get(depth).add(node.val);
+            if(node.left!=null){
+                queue.add(new Entity(node.left, depth+1));
+            }
+            if(node.right!=null){
+                queue.add(new Entity(node.right, depth+1));
+            }
+        }
+        return result;
     }
     
     //APPROACH 3 DFS+depth, get list from index depth and add in list
     
     public List<List<Integer>> levelOrder(TreeNode root) {
-        return levelOrder(root, new ArrayList(),0);
+        var result = new ArrayList<List<Integer>>();
+        levelOrder(root, 0, result);
+        return result;
     }
 
-    public List<List<Integer>> levelOrder(TreeNode node, List<List<Integer>> ans, int l){
-        if(node==null) return ans;
-        if(l>=ans.size()) ans.add(new ArrayList());
-        ans.get(l).add(node.val);
-        levelOrder(node.left,ans,l+1);
-        levelOrder(node.right,ans,l+1);
-        return ans;
+    public void levelOrder(TreeNode node, int depth, List<List<Integer>> result){
+        if(node==null){
+            return;
+        }
+        if(result.size()<=depth){
+            result.add(new ArrayList<Integer>());
+        }
+        result.get(depth).add(node.val);
+        levelOrder(node.left,depth+1, result);
+        levelOrder(node.right,depth+1, result);
+    }
+
+
+    public  static void main(String[] args){
+        System.out.println("hahah");
     }
 }
