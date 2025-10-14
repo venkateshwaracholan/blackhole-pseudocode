@@ -1,0 +1,283 @@
+```text
+PROMPT FOR DOCUMENTING & SOLVING SYSTEM DESIGN HLD QUESTIONS (FAANG / LINKEDIN / LEETCODE DISCUSS STYLE)
+=======================================================================================================
+
+GOAL:
+-----
+Generate a *full, FAANG-interview-ready*, High-Level Design (HLD) document for a given system design problem.
+This prompt should be reusable for solving hundreds of HLD interview questions.
+
+The output must be a **single structured document** containing:
+- Clear problem understanding
+- Requirements breakdown
+- System constraints
+- High-level architecture
+- Component diagrams
+- API design
+- Data modeling
+- Scalability, reliability, and maintainability discussion
+- Trade-offs and alternatives
+- Cost analysis
+- Design rationale
+- Interview talking points
+- Recall-friendly summary
+
+---
+
+REQUIRED OUTPUT STRUCTURE:
+
+1. Problem Name
+   - Concise, clear name suitable for a 100-problem archive (e.g., “URLShortenerHLD”).
+   - Alternate one-line alias in parentheses if helpful.
+
+1a. Problem Context & Scope
+   - Why this system is important.
+   - Business objectives.
+   - Scope boundaries.
+   - High-level constraints (budget, timeline, legal, compliance, etc.).
+
+2. Problem Description
+   - Restate the problem clearly.
+   - Include:
+     - Purpose of the system.
+     - Scope.
+     - Stakeholders.
+     - Real-world examples.
+   - Constraints recap at the end.
+
+3. Requirements Gathering
+   - Functional Requirements (FRs)
+     - List main functions the system must provide.
+   - Non-Functional Requirements (NFRs)
+     - Scalability
+     - Reliability
+     - Availability
+     - Latency
+     - Throughput
+     - Maintainability
+     - Security
+   - Explicitly list any **edge cases** and unusual requirements.
+
+4. Assumptions
+   - State assumptions clearly (e.g., expected traffic, read/write ratio, user distribution, etc.).
+   - Mention which assumptions influence design decisions.
+
+4a. Metrics & Service Level Agreements (SLAs)
+   - Latency targets (e.g., p99 < 200ms).
+   - Throughput targets.
+   - Availability targets (e.g., 99.99% uptime).
+   - Error rate goals.
+
+5. High-Level Architecture
+   - Diagram showing major components and their interactions.
+   - Components such as:
+     - Client layer.
+     - API Gateway.
+     - Service layer.
+     - Database layer.
+     - Caching layer.
+     - Message queues.
+     - Search/indexing service.
+   - Include a textual explanation of the diagram.
+   - Mention major protocols, frameworks, and technologies used.
+
+5a. Design Rationale
+   - Justify architecture choices.
+   - Explain why selected components, technologies, and patterns were chosen.
+   - Trade-offs considered in choosing the architecture.
+   - How this design aligns with requirements and constraints.
+
+5b. Data Flow Diagrams
+   - High-level data movement between components.
+   - Sequence diagrams where applicable.
+
+6. Component Design
+   - For each major component:
+     - Purpose.
+     - Interfaces/APIs.
+     - Data flow.
+     - Dependencies.
+     - Fault tolerance strategies.
+   - Include diagrams where appropriate.
+
+7. Data Modeling
+   - ER diagrams or schema definitions.
+   - Primary data models.
+   - Key attributes.
+   - Relationships.
+   - Indexing strategies.
+   - Justification for chosen database(s) (SQL vs NoSQL, etc.).
+
+8. API Design
+   - List key APIs with:
+     - Endpoint.
+     - Method (GET/POST/PUT/DELETE).
+     - Request format.
+     - Response format.
+     - Error handling.
+   - Example API request/response.
+   - Versioning strategy.
+
+9. Scalability & Performance Considerations
+   - Scaling strategies:
+     - Vertical scaling.
+     - Horizontal scaling.
+     - Sharding.
+     - Caching.
+     - Load balancing.
+   - Bottleneck identification.
+   - Data partitioning strategy.
+   - Latency reduction techniques.
+
+10. Reliability & Fault Tolerance
+    - Redundancy.
+    - Failover.
+    - Circuit breaker patterns.
+    - Monitoring and alerting.
+
+10a. Monitoring, Observability & Maintenance
+    - Logging strategy.
+    - Metrics collection.
+    - Alerts & dashboards.
+    - Maintenance plan.
+    - Disaster recovery plan.
+
+11. Security Considerations
+    - Authentication & Authorization.
+    - Data encryption (in transit and at rest).
+    - Rate limiting.
+    - Input validation.
+    - Privacy concerns.
+
+11a. Security Threat Model
+    - Threat identification.
+    - Attack surface analysis.
+    - Mitigation strategies.
+
+12. Trade-offs & Alternatives
+    - Compare possible design choices (databases, caching, queue systems, architectures, etc.).
+    - Pros & cons of each.
+    - Why chosen design is optimal under stated assumptions.
+
+13. Brute-to-Optimal & Alternate Architecture Comparison Table
+    - Table comparing:
+      - Initial naive design vs optimal design.
+      - Alternate architectures considered.
+      - Time to implement.
+      - Scalability.
+      - Maintenance complexity.
+      - Reliability.
+      - Cost.
+      - Complexity.
+      - When to use each approach.
+
+14. Cost Analysis
+    - Estimated cost for infrastructure (servers, DB, caching, bandwidth, storage, etc.).
+    - Operational costs (monitoring, maintenance, upgrades).
+    - Cost vs performance trade-offs.
+    - Cost scalability with traffic growth.
+
+15. Complexity Analysis
+    - Big-O for key operations.
+    - Load capacity.
+    - Storage requirements.
+
+16. Interview Talking Points
+    - Ready “elevator pitch” for your design.
+    - How to justify trade-offs.
+    - Answers to common follow-up questions.
+    - Scalability, reliability, and cost discussions.
+    - Likely interviewer probing questions and answers.
+
+17. Follow-up / Scaling / Discussion Points
+    - How design evolves with scale.
+    - Handling billions of requests.
+    - Multi-region deployment.
+    - Eventual consistency vs strong consistency.
+    - Handling failures and recovery.
+    - Future extensibility.
+
+18. Summary Diagram
+    - Final system design diagram summarizing architecture, components, data flow, and trade-offs.
+
+19. References & Resources
+    - Links to diagrams, relevant technologies, and patterns.
+
+20. Recall / Discussion Table
+    - Quick bullet list of:
+      - Core decisions.
+      - Trade-offs.
+      - Alternate approaches.
+      - Scaling strategies.
+      - Interview talking points.
+
+21. Possible Variations & Interview Question Angles
+    - List all possible ways this question could be framed in a FAANG interview.
+    - Include changes in scale, scope, constraints, or emphasis.
+    - Include variations that could be asked as follow-up questions.
+    - Provide reasoning for each variation and how it would affect the design.
+
+---
+
+STYLE REQUIREMENTS:
+-------------------
+- Structured clearly with section headers.
+- Include diagrams (describe them in text or specify format like PlantUML/ASCII).
+- Include explicit examples and edge cases.
+- Trade-offs must be explicit.
+- Include both technical reasoning and interview talking points.
+- Document assumptions clearly.
+- Use professional, crisp language (ready for FAANG interview).
+
+---
+
+WHAT FAANG INTERVIEWERS EXPECT IN HLD:
+- Clear problem understanding and scope definition.
+- Explicit requirements (functional + non-functional).
+- Awareness of scalability, reliability, and maintainability challenges.
+- Clear architecture with justified choices.
+- Thoughtful trade-off analysis.
+- Awareness of real-world constraints.
+- Defensive assumptions and edge case handling.
+- Interview readiness with talking points.
+- Awareness of possible variations of the question.
+
+---
+
+FINAL DELIVERABLE:
+A **single structured document** containing:
+- Problem Name
+- Problem Context & Scope
+- Problem Description
+- Requirements Gathering
+- Assumptions
+- Metrics & SLAs
+- High-Level Architecture
+- Design Rationale
+- Data Flow Diagrams
+- Component Design
+- Data Modeling
+- API Design
+- Scalability & Performance Considerations
+- Reliability & Fault Tolerance
+- Monitoring, Observability & Maintenance
+- Security Considerations
+- Security Threat Model
+- Trade-offs & Alternatives
+- Brute-to-Optimal & Alternate Architecture Comparison Table
+- Cost Analysis
+- Complexity Analysis
+- Interview Talking Points
+- Follow-up / Scaling discussion
+- Summary Diagram
+- References & Resources
+- Recall / Discussion Table
+- Possible Variations & Interview Question Angles
+
+END OF SYSTEM DESIGN HLD SUPER PROMPT
+
+**Question:** [Insert the HLD question from LeetCode Discuss here]
+
+
+
+```

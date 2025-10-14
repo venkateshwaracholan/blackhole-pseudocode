@@ -1,0 +1,205 @@
+
+```text
+PROMPT FOR DOCUMENTING & SOLVING REAL INTERVIEW PROBLEMS (FAANG / LINKEDIN / LEETCODE DISCUSS STYLE)
+====================================================================================================
+
+GOAL:
+-----
+Generate a full, revision-ready, FAANG-interview-quality documentation and solution for a given algorithm/data structure problem.
+This prompt should be reusable for solving hundreds of LeetCode and real-world coding interview problems.
+
+The output must be a single Java file containing:
+- Structured problem description (LeetCode-style)
+- Brute force solution
+- Optimal solution(s) with all meaningful algorithmic variants
+- Alternate paradigm summary
+- Brute-to-Optimal & Alternate Solution Comparison Table
+- Complexity comparison table
+- Interview talking points
+- Full commentary and interview discussion
+- Main method with tests
+- Recall-friendly notes and trade-offs
+
+---
+
+REQUIRED OUTPUT STRUCTURE:
+
+1. Problem Name
+   - Concise, clear name suitable for a 100-problem archive (e.g., “AddressMatcherWildcards”).
+   - Alternate one-line alias in parentheses if helpful.
+
+2. Problem Description (LeetCode-style)
+   - Full clean description suitable for a problem page.
+   - Clearly state:
+     - Input format
+     - Output format
+     - Problem example to understand the problem more clearly
+     - Constraints and realistic value ranges
+     - Explicitly list all edge cases:
+       - Empty input
+       - Duplicates
+       - All nulls
+       - Single element
+       - All negatives
+       - Maximum/minimum values
+       - Special/unicode characters
+       - Repeated queries
+       - Very large input sizes
+   - Recap constraints clearly in bullet form at the end.
+
+3. Brute Force Solution
+   - Describe naive idea with reasoning before code.
+   - Include one concise Java method inside the class.
+   - Use var where possible.
+   - Defensive coding: handle nulls and edge cases explicitly.
+   - Include inline examples for recall.
+   - Complexity comments:
+     - Time (both interview O() and absolute form)
+     - Space (both interview O() and absolute form)
+   - Explain limitations and why it is suboptimal.
+
+4. Optimal Solution(s)
+   - Start with conceptual explanation + example trace.
+   - Include intuition, reasoning, and trade-offs.
+   - Include all meaningful algorithmic variants that are conceptually distinct:
+     - DFS vs BFS vs Topological
+     - DP vs Greedy
+     - Two Pointers vs Sliding Window
+     - Binary Search vs Prefix/Suffix
+     - Heap/PriorityQueue vs Sorting
+     - Graph adjacency list vs matrix
+     - Preorder vs Postorder vs Inorder traversal (trees)
+     - Mathematical/combinatorial reformulation
+   - Exclude trivial syntactic variants; include only genuinely distinct approaches.
+   - Provide clean Java implementation(s) for each meaningful variant.
+   - Comments should cover:
+     - Time/space complexity
+     - Edge case handling
+     - Key insight
+
+5. Alternate Paradigm Summary
+   - Short section summarizing why each variant was included and what distinct insight it provides.
+
+6. Brute-to-Optimal & Alternate Solution Comparison Table
+   - A bullet/table section comparing:
+     - Brute vs each optimal variant
+     - Time complexity
+     - Space complexity
+     - Strengths & weaknesses
+     - When to prefer each solution
+
+7. Complexity Comparison Table
+   - Table or bullet section comparing:
+     - Time complexity (interview + absolute) for all solutions
+     - Space complexity for all solutions
+     - When to use each approach
+
+8. Interview Talking Points
+   - A concise 1–2 sentence pitch explaining your approach.
+   - Why the optimal solution was chosen over brute force.
+   - Key trade-offs.
+   - Expected follow-up questions and answers.
+
+9. Follow-up / Scaling / Discussion Points
+   - Scaling to large N/Q
+   - Trade-offs: precomputation vs query time
+   - Memory vs speed
+   - Real-world data handling:
+     - Normalization (trim, lowercase, remove punctuation, Unicode normalization)
+     - Handling duplicates
+     - Handling nulls, empty inputs, extreme limits
+     - Repeated queries and caching
+   - Discuss possible optimizations:
+     - Memoization
+     - Pruning
+     - Bitmasking
+     - Lazy evaluation
+     - Precomputation
+   - Comparative reasoning: why choose one approach over another
+   - Constraints recap as bullet points
+   - Common interviewer probing questions and concise answers
+   - Real-world applicability note
+
+10. Main Method with Tests
+    - Test calls for:
+      - Normal case
+      - Explicit edge cases
+      - Corner cases (empty/null/extreme)
+    - Expected outputs in comments beside each test
+    - Validation commentary (“✅ passed”, “❌ failed” if relevant)
+
+11. Comments for Recall / Discussion Table
+    - Key ideas for each approach (1-liner)
+    - When to use each approach
+    - Trade-offs (time vs space)
+    - Optimization ideas / early exit strategies
+    - Possible follow-up directions
+
+12. Normalization Note (if applicable)
+    - Trim whitespace, lowercase, remove punctuation
+    - Unicode normalization
+    - Standardize abbreviations
+
+13. Advanced Expectations (FAANG completeness)
+    - Defensive coding with input validation
+    - Data structure trade-offs
+    - Mathematical/combinatorial optimizations
+    - Memory vs performance trade-offs
+    - Comparative reasoning for algorithmic choices
+    - Edge-case validation in tests
+    - Domain-specific optimizations
+
+---
+
+STYLE REQUIREMENTS:
+- Single Java class containing all above sections.
+- Clear comment separation using // === headers.
+- Explicit examples and edge cases in comments.
+- Time/space complexity in both interview form (O(n)) and absolute form (e.g., O(2n+logh)).
+- Crisp, professional style — ready for PDF export or interview recall.
+
+---
+
+WHAT GOOGLE EXPECTS IN DISCUSSION:
+- Awareness of trade-offs (clarity over overfitting).
+- Edge case robustness (null, duplicates, empty input).
+- Handling of constraints (scaling, large inputs).
+- Balanced reasoning between code correctness and system scalability.
+- Comparison of meaningful alternate paradigms:
+  - DFS vs BFS  
+  - Recursion vs Iteration  
+  - Sorting vs Hashing  
+  - Greedy vs DP  
+  - Preorder vs Postorder vs Inorder (trees)  
+  - Two Pointers vs Sliding Window  
+  - Binary Search vs Prefix/Suffix  
+  - Heap/PriorityQueue vs Sorting  
+  - Graph adjacency list vs matrix trade-offs
+- Include a short summary of why each variant is meaningful.
+- A ready “interview pitch” summarizing your approach.
+
+---
+
+FINAL DELIVERABLE:
+A single Java class file containing:
+- Problem Name
+- Problem Description
+- Brute Force Solution
+- Optimal Solution(s)
+- Alternate Paradigm Summary
+- Brute-to-Optimal & Alternate Solution Comparison Table
+- Complexity Comparison Table
+- Interview Talking Points
+- Follow-up / Scaling discussion
+- Main method with tests
+- Comments / recall table
+- Normalization note (if applicable)
+
+END OF SUPER PROMPT
+
+
+**Question:** [Insert the DSA question from LeetCode Discuss here]
+
+https://leetcode.com/problems/nested-list-weight-sum/description/
+
+```

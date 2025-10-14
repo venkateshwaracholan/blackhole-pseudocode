@@ -1,0 +1,187 @@
+
+
+```text
+PROMPT FOR AN AI TO ALWAYS GENERATE THE REQUESTED COMMENT BLOCK FORMAT
+========================================================================
+Use this prompt verbatim when you want the AI to produce a comment block for a LeetCode-style solution. **The AI MUST output only a single Javadoc-style comment block** (`/* ... */`) and nothing else. Do not add any surrounding explanation, apology, or meta-text. Produce the comment block exactly in the format and with the rules below. Always generate this content in easy copyable code window
+
+--- INPUT TO THE AI ---
+You will receive a single code block (one file) that implements one or more LeetCode solution methods (any language). Parse the code and produce a single comment block that documents every method and helper in that file following the strict format explained below.
+
+--- REQUIRED OUTPUT (strict) ---
+- Output MUST be a single `/* ... */` comment block (Javadoc style). Nothing before or after it.
+- The comment block must follow the EXACT structure, punctuation and conventions given below.
+- NEVER skip or summarize any real code line: every code line in the input file must appear in the comment block as described.
+- If you cannot infer something, make a **best-effort assumption** and explicitly state it inline in parentheses as `(assumed: ...)` next to the relevant code line or reason.
+- Do NOT paraphrase variable or method names — reproduce them verbatim where referenced.
+
+--- TOP-LEVEL FORMAT (copy this exact example as your style model) ---
+Use the following example as the canonical layout and rules. The output should match this structure for every submission:
+
+/*
+ * <MethodNameWithApproachTags> (<DataStructures+AlgorithmsUsed>)
+ * ONE LINER: <flattened sequence of all code statements and nested-methods, each as `codeSnippet: (reason)` separated by semicolons> → O(<amortized time>), O(<amortized space>) space (absolute: <exact absolute expression, e.g. n+logn, 2n, 2logh+n>)
+ *
+ * Code(Reason):
+ * - <first line of code in file or method def>: (reason why and what it does)
+ * - <second line of code>: (reason)
+ * - <method definition header>:
+ *     - <body line 1>: (reason)
+ *     - <body line 2>: (reason)
+ *     - <nested helper definition header>:
+ *         - <nested line 1>: (reason)
+ *         - ...
+ *     - <return or end-of-method line>: (reason)
+ * - <next method or global line>: (reason)
+ *
+ * Rationale: <one-line (or short paragraph) explaining the core algorithmic idea — why this works>
+ *
+ * Time Complexity: O(<interview-notation>) — <brief reason> (absolute: <exact absolute expression like 2n+logh>)
+ * Space Complexity: O(<interview-notation>) — <brief reason> (absolute: <exact absolute expression like n+h>)
+ *
+ * Examples:
+ * Example 1:
+ * Input: <formatted input as code or array>
+ * Trace: <step-by-step state changes, recursion/loop trace, key variable values> 
+ * Output: <final output and short explanation of how it was produced>
+ *
+ * Example 2:
+ * Input: ...
+ * Trace: ...
+ * Output: ...
+ */
+
+--- DETAILED RULES THE AI MUST FOLLOW (HARD REQUIREMENTS) ---
+1) METHOD NAME & APPROACH TAGS
+   - The top line after `/*` must begin with the canonical method name(s) **including approach suffixes** for every approach implemented in the file.
+     Example concatenation: `maxPathSumRecursiveBottomUp, lowestCommonAncestorBuildParentMapIteQueue`
+   - Immediately after the name(s) include all data-structures and algorithm techniques used in parentheses, e.g.
+     `(RecCallStack + BottomUp, HashMap + Queue + BFS + Iterative, TwoPointers + BinarySearch)`.
+
+2) ONE-LINER (FLATTENED CODE TRACE)
+   - Produce a single long one-liner beginning with `ONE LINER:` that literally flattens the entire code file in chronological execution / textual order.
+   - Every code statement, declaration, method header, initialization, loop header, condition check, assignment, recursion call, helper call, return, and comment line (if present) MUST appear as `codeSnippet: (reason)` separated by semicolons `;`.
+   - Use the exact punctuation: `codeSnippet: (reason);`.
+   - For method signatures or helper definitions include the signature text (e.g., `public int maxPathSum(TreeNode root, int[] max)`) as a snippet.
+   - For multi-line constructs (loops, condition blocks, nested methods), list the header and each inner line in sequence.
+   - Preserve original variable and method names verbatim.
+   - The one-liner must end with the arrow and complexity summary format:
+     `→ O(<amortized time>), O(<amortized space>) space (absolute: <exact absolute expression>)`
+   - The **absolute expression** must be a precise algebraic-style expression (like `n+logn`, `2n`, `2logh+n`, `n+h`, `n*logn+2m`, etc.). Do not use vague phrases like "linear-ish".
+
+3) FULL DETAILED COMMENTS (PER-LINE)
+   - After the one-liner add a `Code(Reason):` section.
+   - Reproduce **every single line of code** from the input (in the same order) as an entry in the `Code(Reason)` section using the exact code text followed by a colon `:` then a parenthetical reason.
+   - Use `-` bullets for top-level file/method lines and indent nested method bodies by 4 spaces (or an indented bullet scheme) exactly as in the example.
+   - For loops and conditional headers include their condition text as the code snippet (e.g., `for (int i=0; i<n; i++) {` or `if (root==null) return 0:`).
+   - Explain both *what* the line does and *why* it is required for the algorithm. Do NOT give vague reasons—be specific.
+   - For helper/nested methods: include their full signature line as an item, then list each inner line as indented items.
+   - If the code uses library/API calls, name the library call and explain its effect and why it is used.
+
+4) RATIONALE (CORE IDEA)
+   - Provide a single `Rationale:` paragraph that concisely explains the central algorithmic insight (why the approach is correct), not a line-by-line repeat.
+
+5) TIME & SPACE COMPLEXITY
+   - Provide two pieces for each:
+     a) Interview-style Big-O (e.g., `O(n)`, `O(n log n)`)
+     b) Absolute expression (e.g., `absolute: 2n+logh`)
+   - For each complexity state a brief reason why (one sentence).
+   - Both time and space must be covered.
+
+6) EXAMPLES (2–3 WORKED)
+   - Provide at least 2 worked examples.
+   - For each: show Input, then a **step-by-step trace** of the important steps, variable values, recursion/loop progression, and final Output with explanation.
+   - Ensure traces map to the actual code lines and variables.
+
+7) ABSOLUTE COMPLEXITY SYNTAX
+   - Absolute complexities must be algebraic expressions using variable names:
+     - Typical variable names allowed: `n` (size), `m` (other size), `h` (height), `k` etc.
+   - Examples of valid absolute forms: `n+logn`, `2n`, `n + 2logh`, `m*n + 2n`.
+
+8) PRESERVE EXACT CODE TEXT
+   - Use the exact code text strings when reproducing code lines.
+   - If the input uses a certain idiom (e.g., `while(l<r)`, `++i`, `i--`), reproduce those exact characters in the explanation snippet.
+   - Do not normalize or "prettify" code — quote it as-is for trace and line-level reproduction.
+
+9) NOTHING OUTSIDE THE BLOCK
+   - Under no circumstances should you add text before or after the `/* ... */` block. No apologies, no “Note:”, no instructions, no Markdown, nothing.
+
+10) IF AMBIGUITY ARISES
+    - If a code effect or complexity cannot be precisely determined statically, state the assumption inline at the first relevant place using `(assumed: ...)` AND still produce the best-guess absolute complexity.
+    - Example: `(assumed: recursion height <= n for worst case)`
+
+11) MULTIPLE METHODS / MULTI-APPROACH FILES
+    - If file contains multiple public approaches or method overloads, list all approach-named method headers in the top `MethodNameWithApproachTags` (comma-separated).
+    - Then, in the `Code(Reason)` section, document each method in file order, each with its own nested breakdown.
+    - One-liner must flatten the entire file in textual order (all methods in sequence).
+
+12) COMPLETENESS & VERBATIMITY
+    - Do not omit any code line, even "trivial" lines (e.g., `int i = 0;`, `return;`, `}`).
+    - For brace-only lines (`}`) you may list them as `}`: (close block) with a reason explaining block end if helpful.
+    - If the file is extremely large (>1000 lines) and cannot be completed due to resource limits, still process as far as possible and clearly annotate the last processed code line as `(stopped here due to output limits)` — but still return a valid comment block.
+
+13) STYLE & PUNCTUATION
+    - Use `*` at beginning of comment lines like a Java block comment `/*` style shown above.
+    - Use `-` for bullets inside `Code(Reason):`.
+    - Use `:` after the code snippet before the parentheses containing the reason.
+    - Use semicolons to separate items in the ONE LINER.
+    - Use the final arrow `→` then complexity summary exactly as shown.
+
+--- EXAMPLE (USE THIS EXACT EXAMPLE PATTERN AS TEMPLATE) ---
+Use the user's example exactly as the canonical example in the prompt (copy it verbatim inside the generated comment):
+
+/*
+ * maxPathSumRecursiveBottomUp => int[] max = new int[]{Integer.MIN_VALUE}: (track global maximum path sum across recursion without globals); maxPathSum(root, max): (start recursion to compute max path sum), return max[0]: (final maximum path sum found); maxPathSum(root, max): if(root==null) return 0: (base case, null node contributes 0 path sum), int left = maxPathSum(root.left, max): (compute maximum path sum of left subtree), int right = maxPathSum(root.right, max): (compute maximum path sum of right subtree), int maxSinglePath = Math.max(root.val, Math.max(root.val+left, root.val+right)): (maximum path sum starting at current node and going downwards to either side or just the node itself), int subPathSum = root.val + left + right: (maximum path sum for a “subpath passing through node: left → node → right”, valid because problem allows such connections), max[0] = Math.max(max[0], Math.max(subPathSum, maxSinglePath)): (update global maximum considering both single-side paths and subpaths passing through node), return maxSinglePath: (return maximum single-side path for parent computation) → O(n), O(h) space.
+ *
+ * Code(Reason):
+ * - int[] max = new int[]{Integer.MIN_VALUE}: store global maximum path sum, initialized to smallest integer to handle negative values.
+ * - maxPathSum(root, max): start recursion to compute path sums.
+ * - return max[0]: return the computed global maximum path sum.
+ * - maxPathSum(root, max):
+ *     - if(root == null) return 0: base case — a null node contributes zero to path sum.
+ *     - int left = maxPathSum(root.left, max): compute maximum path sum from left subtree.
+ *     - int right = maxPathSum(root.right, max): compute maximum path sum from right subtree.
+ *     - int maxSinglePath = Math.max(root.val, Math.max(root.val+left, root.val+right)): compute maximum path sum starting at current node going downwards to one side or the node alone.
+ *     - int subPathSum = root.val + left + right: compute maximum path sum for a “subpath passing through node: left → node → right”, which connects a node in the left subtree to a node in the right subtree through the current node — a valid candidate for the global maximum path sum.
+ *     - max[0] = Math.max(max[0], Math.max(subPathSum, maxSinglePath)): update global maximum path sum considering both single-side paths and subpaths passing through node.
+ *     - return maxSinglePath: return maximum single-side path sum for parent computations.
+ *
+ * Rationale: The problem allows paths that connect any two nodes in the tree without necessarily passing through the root. Therefore, at each node we must consider both (a) the maximum path sum going downwards to one side (maxSinglePath) and (b) the maximum path sum for a “subpath passing through node: left → node → right” (subPathSum). Tracking a global maximum ensures we catch the largest possible path anywhere in the tree.
+ *
+ * Time Complexity: O(n) — each node is visited exactly once.
+ * Space Complexity: O(h) — recursion stack up to tree height.
+ */
+
+--- FINAL INSTRUCTIONS TO THE AI PROCESSING THE CODE ---
+- Read the entire input source code file.
+- Produce ONE comment block only, following every single rule above.
+- Reproduce code text verbatim where required.
+- If anything is uncertain, add `(assumed: ...)` inline; do not ask for clarification.
+- Do not output any extra text outside the required comment block.
+
+========================================================================
+
+END OF PROMPT FOR AI GUIDELINES
+
+**Question:** [Insert the Java solution from LeetCode Discuss here]
+
+
+    public boolean canPlaceFlowersAlt(int[] flowerbed, int n) {
+        int len = flowerbed.length;
+        for(int i=0;i<len;i++){
+            if(flowerbed[i]==0){
+                int left = i==0 ?  0 : flowerbed[i-1];
+                int right = i==len-1 ?  0 : flowerbed[i+1];
+                if(left==0 && right==0){
+                    flowerbed[i]=1;
+                    n--;
+                }
+                if(n==0){
+                    return true;
+                }
+            }
+        }
+        return n<=0;
+    }
+
+```

@@ -1,0 +1,51 @@
+give name for this problem
+descibe this problem with example like leetcode form with constraints
+and solve it as google expects for a staff engineer role, brute to optimal, tradeoffs, scale constraints, time and memory to google level and see if followups can be possible and solve that as well, write code in java for google interview standards and add main method to test the same as well,
+this is for my documentation of 100 leetcode discussed problems so be detailed so that i grasp it quicker when i revisit for revision and recall.
+dont be too descriptive or way too long solution that google doesnt expent candidate to come up with in a 60 mins interview
+
+
+
+
+
+PROMPT FOR DOCUMENTING & SOLVING REAL INTERVIEW PROBLEMS (FAANG / LINKEDIN / LEETCODE DISCUSS STYLE)
+====================================================================================================
+
+GOAL:
+-----
+Generate a full, revision-ready, FAANG-interview-quality documentation and solution for a given algorithm/data structure problem.
+This prompt should be reusable for solving hundreds of LeetCode and real-world coding interview problems.
+
+The output must be a single Java file containing:
+- Structured problem description (LeetCode-style)
+- Brute force solution
+- Optimal solution(s) with all meaningful algorithmic variants
+- Alternate paradigm summary
+- Brute-to-Optimal & Alternate Solution Comparison Table
+- Complexity comparison table
+- Interview talking points
+- Full commentary and interview discussion
+- Main method with tests
+- Recall-friendly notes and trade-offs
+
+
+
+
+giev 4 comments block with one liner like example format
+comments block with one liner for all 4 code(reason) format even in one liners, dont miss a thing
+
+
+
+
+
+so my approach is going to be brute to optimal for anything dsa or sys design, and compare diff approaches and tradeoffs on time and space, functional, non func, design patters for low level, edge case handling, clean readable code without one liners and proper braces or blocks in case of sys design and class structures in case of low level,
+behavioural with star model, i can share my entire story to ai and ask ai to fill thelinkedin, amazon and googliness principles and review it, doc it, repreare from doc and attend
+
+
+
+
+
+
+
+
+

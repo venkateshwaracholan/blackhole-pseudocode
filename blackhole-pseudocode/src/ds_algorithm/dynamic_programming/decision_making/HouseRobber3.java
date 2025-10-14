@@ -6,9 +6,11 @@
 package ds_algorithm.dynamic_programming.decision_making;
 
 import ds_algorithm.Test;
-import ds_algorithm.tree.TreeNode;
-import ds_algorithm.tree.BinaryTree;
-import static ds_algorithm.tree.SerializeAndDeserializeBinaryTree.deSerializeBfs;
+import ds_algorithm.binary_tree.BinaryTree;
+import ds_algorithm.binary_tree.TreeNode;
+
+import static ds_algorithm.binary_tree.SerializeAndDeserializeBinaryTree.deSerializeBfs;
+
 import java.util.HashMap;
 /**
  *
