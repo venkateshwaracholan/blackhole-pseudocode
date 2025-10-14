@@ -1,0 +1,223 @@
+Venkateshwaran Shanmugham
+Staff Software Engineer - Cloudera
+Software developer with 10+ years of experience in developing highly distributed systems, API design & development, microservice architecture, and a technology enthusiast. Proficient in algorithms, data structures, system design, distributed architecture, API design, design patterns and problem-solving.
+
+
+venkateshwaracholan@gmail.com
+
++91 9940522211
+
+Bangalore, India
+
+linkedin.com/in/venkateshwaracholan
+Work Experience (10+ Years)
+Staff Software Engineer
+Remote | Bangalore
+Cloudera
+Apr 2024 – Present
+Designed a generative RAG pipeline with OpenSearch and Azure OpenAI to improve Cloudera data search accuracy and speed.
+Built & productionized AI applications for Cloudera AI Hackathon APAC 2025, integrating them into a unified agent — boosting support engineer productivity by 30%.
+Led architecture and technical vision with mentorship of team members for efficiency and scalability.
+Senior Technical Lead
+Remote | Chennai
+Paytm Payments Bank
+Apr 2023 – Apr 2024
+Led backend development and owned the UPI Reconciliation Engine processing 50–100M transactions/day.
+Drove architecture, grooming, and sprint ownership with measurable deliverables; owned deployments, metrics, and alerts to ensure reliability.
+Staff Software Engineer
+Remote | Chennai
+Cloudera
+Oct 2020 – Dec 2022
+Owned Clues, an internal search service built with Solr, NiFi, Kafka, Spark, HBase, Impala, HDFS.
+Designed integrations, feature development, and architectural revamps for scalability and extensibility.
+Managed, mentored, and ensured technical grooming, ownership, and measurable delivery for the team.
+Senior Software Engineer
+Chennai
+Freshworks
+Mar 2018 – Oct 2020
+Developed backend features for Freshcaller, cloud telephony product with real-time processing.
+Parallelized unit tests on CD/CI pipelines, reducing execution time proportionally to CPU cores speeding it up by 16 times faster
+Member Technical Staff
+Chennai
+Zoho
+Aug 2015 – Dec 2017
+Developed backend features for Zoho Reports, cloud analytics and visualization product.
+Implemented Trash Model for entity management.
+Skills & Proficiencies
+Java
+Kafka
+Spark
+OpenSearch
+MySQL
+Algorithms
+Data Structures
+System Design
+API Design
+Design Patterns
+Architecture
+Honors & Awards
+Winner — Cloudera AI Hackathon 2025 APAC Region for building multiple AI applications to enhance the quality of life for support engineers and integrating them into an AI agent for a unified interface.
+Promoted to Staff Software Engineer at Cloudera (2022) for driving high-impact technical initiatives, leading architectural revamps, and delivering scalable solutions that enhanced system performance and team productivity.
+Special Jury Award — Freshworks Appathon 2019 for designing "FreshGlow", an IoT-integrated solution triggering visual cues for metrics exceeding thresholds, enhancing real-time decision-making.
+Education
+Post Graduate Diploma in Computer Application
+
+Alagappa University, Karaikudi
+
+Jan 2018 – Jan 2019
+
+Bachelor of Engineering - ECE
+
+Anna University, Chennai
+
+Jul 2011 – Apr 2015
+
+Languages
+English — Native or Bilingual Proficiency
+
+Interests
+Gaming
+Exploring Diversity
+Learning
+Imagination
+Social Inventing
+Problem Solving
+Extrovertism
+Crafting
+
+
+Clouddera GENAI Rag:[
+Staff software engineer
+Rag pipeline with opensearch(aws), bedrock(aws) for embedding for search
+flask backend
+kafka spark, bedrock rock ingestion
+Azure open ai for inference
+deployed on AWS
+azure on portal.azure
+datadog, slack alerts, opensearch logs
+won AI hackathon
+initially poc app was handed over to me which used postgres for vector and a basic llm,
+moved to openseacrh, bedrock and azure openai, tehn productionized it in CML with HighAvailability
+
+cloudera data sources and updates
+
+exploration/improvements:
+gpt model in local LLm to replace azure and bedrock 
+scale: cloudera cases 1M, Internal Jiras=1M, apache jiras=2M, docs community, kbs, blogs =1M, slack data=2M, 500chunk size, 20% overlap, total 7M, avg 6 chunks, 42M chunks
+users: internal support engneers(2k) + cloudera customers for self support(20k)
+]
+
+PAYTM reconcillation:[
+Staff software engineer
+transactions from files to kafka
+java based reconcillation on upi data where paytm is psp
+high scale, sharding, replication, dr
+inmemory reconcillation and parking to mysql due to npci can deffer transactions for any cycles.0
+deployed on internal managed nodes
+grafana, pagerduty
+scale: 100-150M transactions per day
+]
+
+cloudera:[
+promoted to Staff software engineer
+Senior Software engineer
+have 2 architecture for this section
+    architecture1: cloudera validation: parse cloudera customer log bundles huge volume to find error patters and misconfiguration, etc
+    architecture2: clues: similar cases from large pool of cases and updates
+
+solr, hbase, kafka, java log processing, source ingestion, java app
+deployed on internal managed nodes, datadog,stasd
+scale
+20Tb data per day on validation
+3M on solr tradititonal faceted search,
+users: internal support engneers(2k)
+]
+
+Freshworks freshcaller:[
+Senior Software engineer
+CLoud telephony with twilio api integ, b2b scale for customers want to use cloud telephony,  
+sqs, ruby app, nodejs assigner to sqs, node worker pollers conneting sockets,
+web sockets to ring in UI,
+mysql database, kibana logs and alerts
+deployed on AWS
+Special Jury Award — Freshworks Appathon 2019 for designing "FreshGlow"
+
+features worked on:
+freshid migratiion from v1 to v2,
+subscribing to auth related events, 
+parallelized unit tests
+agent status migration when agents are live on call
+
+improvements:
+moved twilio service to java for perfomance
+
+scale:
+Concurrent calls (global peak)	10k–50k
+Active agents (global)	100k+
+Active phone numbers	200k–500k
+Monthly call volume	50–200 million minutes
+Regions supported	90+
+]
+
+Zoho reports:[
+Software engineer
+deployed on self managed instances
+
+zoho reports, Bi tool with b2b data from lot of customers,
+sharded mysql, vectorwise, java application for app,
+
+
+worked on
+query engine,
+aggregations,
+custom filtering
+trash model for entites
+scale:
+Active users	20k–50k
+Peak concurrent users	5k–20k
+Total data stored	10–40 billion rows (including enterprise datasets)
+Average dataset per workspace	1–5 million rows (SMB); 10–20 million rows (enterprise)
+Query throughput (peak)	1k–5k queries/sec
+]
+
+
+
+craft a story of an ideal faang engineer from resume and list of details i rememebred, with detailed explanation on the product architecture, believable numbers for scale, projects worked on, challenges faced, solutions proposed and implemented to over come challenges, improvements for overall productivity, mentorship from seniors, mentoring peers and juniors, everything required to address intital introduction, deep dive into porjects, imporvements, and what all uh can thikk of wud be relevent for faaang interview like linkedin, write your own ideal architecture for the projects i have worked on in detailed manner, come up with believeable numbers on scale and impact, think of all behavioral question that may come for faang interview,generate a very large response for my profile for clearing faang innerviews
+ALso mention what realistic infra config numbers we used for each project realistic to the assumed high scale with the respected deployment sources, and infra requirement shdl; be there for all the systems in use like, app, solr, opensearch, mysql, etc dont miss any. also need explanation on the architecture, challenges and solution as i need to understand them better to exaplin it.
+minimum mentoring 6 enginners for staff roles, 
+
+
+Structure Guidelines:
+DOnt USe commnets block, not mention mentored in senoir and soft engg roles, make sure all fields and sections exist,hallucinate date for all field where info isnt provided
+Use formatting emojis and structured tables wherever possible, i copy response to vscode
+📍1. INTRODUCTION NARRATIVE (The Ideal FAANG Engineer Persona), I instead of he,
+📊2. PROJECT DEEP DIVES & ARCHITECTURE EXPLANATIONS[NOTE: for each project, all 12 sections MUST be there for every project without numbering them in front, dont miss anything, hallucinate if i havent provided enuf data]
+    [Context:,
+    data Scale:,
+    user scale in numbers if any or estimate:,
+    Architecture:,
+    architecture explanation of each components:,
+    Architecture INfra details:,
+    Metric, alerts and visualizations:,
+    Challenges & Solutions table(min 6 very detailed and long and detialed):
+        Challenge	
+        Description	
+        Solution	
+        Outcome,
+    Leadership & Mentorship detailed:,
+    Behavioral Learnings detailed:,
+    project Impact / Outcome :,
+    Planned Improvements :]
+📊 3. REALISTIC INFRA SUMMARY TABLE with all realistic required pieces and their configs(DONT miss ANy infra component)
+    Company Wise
+        Component
+        Nodes
+        CPU
+        RAM
+        Storage
+        Notes
+🧭 4. BEHAVIORAL DIMENSIONS FOR FAANG INTERVIEW
+🧩 5. HOW TO TELL THIS STORY IN INTERVIEW FORMAT
+🧩 6. explanation on nontrivial mentions,let this be long, like a key to understanding thing better, coordinations services required or such things, justify the scale and node usage and have all info i can use to learn to justify the above response, let this be long, 
+
+generate a formatted html text in copyable block

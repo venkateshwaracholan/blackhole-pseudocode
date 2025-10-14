@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ds_algorithm.arrays_2d;
+package ds_algorithm.graph;
 
 import ds_algorithm.Test;
 

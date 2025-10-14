@@ -200,6 +200,20 @@ END OF SUPER PROMPT
 
 **Question:** [Insert the DSA question from LeetCode Discuss here]
 
-https://leetcode.com/problems/nested-list-weight-sum/description/
+I recently got a variation of the following Leetcode question at LinkedIn:
+
+https://leetcode.com/problems/nested-list-weight-sum/
+However, instead of multiplying by it's depth to get the sum, they wanted me to multiply by the reverseDepth which is defined as 
+revDepth = maxDepth - currentDepth+1, i.e., if maxDepth == 3, then
+
+at depth == 1, reverseDepth == 3
+at depth == 2, reverseDepth == 2
+at depth == 3, reverseDepth == 1
+In the original Leetcode problem linked above, you can typically solve it using 1 recursion.
+Question: Is there a way to calculate the "reverseDepth" sum still using only 1 recursion?
+
+I was having trouble here, so in the end, I just did 2 separate recursions
+(1) recursion to calculate maxDepth
+(2) recursion to calculate the reverseDepth sum (you can do this easily once you know maxDepth)
 
 ```

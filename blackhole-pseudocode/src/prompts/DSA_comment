@@ -166,22 +166,23 @@ END OF PROMPT FOR AI GUIDELINES
 **Question:** [Insert the Java solution from LeetCode Discuss here]
 
 
-    public boolean canPlaceFlowersAlt(int[] flowerbed, int n) {
-        int len = flowerbed.length;
-        for(int i=0;i<len;i++){
-            if(flowerbed[i]==0){
-                int left = i==0 ?  0 : flowerbed[i-1];
-                int right = i==len-1 ?  0 : flowerbed[i+1];
-                if(left==0 && right==0){
-                    flowerbed[i]=1;
-                    n--;
+    public int depthSumBfsAlt(List<NestedInteger> nestedList){
+        var queue = new LinkedList<NestedInteger>();
+        int sum=0,depth=1;
+        queue.addAll(nestedList);
+        while(!queue.isEmpty()){
+            int size = queue.size();
+            for(int i=0;i<size;i++){
+                NestedInteger ni = queue.poll();
+                if(ni.isInteger()){
+                    sum+=depth*ni.getInteger();
                 }
-                if(n==0){
-                    return true;
+                else{
+                    queue.addAll(ni.getList());
                 }
             }
+            depth++;
         }
-        return n<=0;
+        return sum;
     }
-
 ```

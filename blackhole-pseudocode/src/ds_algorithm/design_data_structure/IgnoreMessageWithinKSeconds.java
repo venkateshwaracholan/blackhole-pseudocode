@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ds_algorithm.combined_data_structures;
+package ds_algorithm.design_data_structure;
 
 /**
  *

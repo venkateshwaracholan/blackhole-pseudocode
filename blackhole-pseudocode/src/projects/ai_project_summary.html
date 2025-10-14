@@ -1,0 +1,825 @@
+/* ONE LINER: Clean ChatGPT-style Markdown formatting with readable headings, code blocks, tables, and lists */
+
+/* Body font and background */
+<head>
+  <style>
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #ffffff;
+    color: #111827;
+    line-height: 1.6;
+    margin: 20px;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    color: #111827;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+h1 { font-size: 2em; border-bottom: 2px solid #e5e7eb; padding-bottom: 0.3em; }
+h2 { font-size: 1.75em; border-bottom: 1px solid #e5e7eb; padding-bottom: 0.2em; }
+h3 { font-size: 1.5em; }
+h4 { font-size: 1.25em; }
+h5 { font-size: 1em; }
+h6 { font-size: 0.9em; color: #6b7280; }
+
+/* Paragraphs */
+p {
+    margin: 0.8em 0;
+}
+
+/* Links */
+a {
+    color: #2563eb;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+/* Lists */
+ul, ol {
+    margin: 0.8em 0 0.8em 1.5em;
+}
+
+/* Blockquotes */
+blockquote {
+    border-left: 4px solid #d1d5db;
+    padding-left: 1em;
+    color: #374151;
+    font-style: italic;
+    background-color: #f9fafb;
+    margin: 1em 0;
+}
+
+/* Code blocks */
+pre {
+    background-color: #f3f4f6;
+    padding: 1em;
+    border-radius: 0.5em;
+    overflow-x: auto;
+}
+
+code {
+    background-color: #f3f4f6;
+    padding: 0.2em 0.4em;
+    border-radius: 0.3em;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1em 0;
+    font-size: 0.95em;
+}
+
+th, td {
+    border: 1px solid #e5e7eb;
+    padding: 0.6em 1em;
+    text-align: left;
+}
+
+th {
+    background-color: #f9fafb;
+    font-weight: 600;
+}
+
+tr:nth-child(even) {
+    background-color: #f3f4f6;
+}
+
+/* Horizontal rule */
+hr {
+    border: none;
+    border-top: 1px solid #e5e7eb;
+    margin: 2em 0;
+}
+
+/* Images */
+img {
+    max-width: 100%;
+    border-radius: 0.5em;
+}
+
+/* Task lists */
+input[type="checkbox"] {
+    margin-right: 0.5em;
+}
+  </style>
+</head>
+
+
+<div class="markdown prose dark:prose-invert w-full break-words light markdown-new-styling"><p data-start="0" data-end="349">Absolutely! I’ve crafted a comprehensive FAANG-ready engineer story and technical deep dive for your profile. This response is structured exactly as per your requested formatting, copy-paste friendly for VS Code, and packed with technical depth, realistic numbers, architecture, challenges, mentorship, behavioral insights, and interview guidance.</p>
+<hr data-start="351" data-end="354">
+<h1 data-start="356" data-end="421">📍 1. INTRODUCTION NARRATIVE (The Ideal FAANG Engineer Persona)</h1>
+<p data-start="423" data-end="883">I am Venkateshwaran Shanmugham, a Staff Software Engineer at Cloudera, with over 10 years of experience in designing and building highly distributed systems, scalable backend architectures, and AI-integrated applications. My journey spans multiple high-impact roles across fintech, cloud analytics, cloud telephony, and AI-driven search platforms. I am deeply proficient in Java, Kafka, Spark, OpenSearch, Solr, MySQL, and cloud deployments on AWS and Azure.</p>
+<p data-start="885" data-end="1410">I thrive in environments that demand solving large-scale, complex technical problems while mentoring teams to achieve high-impact results. I specialize in building systems that handle millions of transactions, petabytes of data, and hundreds of thousands of concurrent users, ensuring both reliability and efficiency. I am passionate about AI/ML integrations in enterprise workflows, solving real-world business challenges with intelligent automation, and continuously improving systems for high availability and performance.</p>
+<hr data-start="1412" data-end="1415">
+<h1 data-start="1417" data-end="1471">📊 2. PROJECT DEEP DIVES &amp; ARCHITECTURE EXPLANATIONS</h1>
+<hr data-start="1473" data-end="1476">
+<h2 data-start="1478" data-end="1510">Cloudera GENAI RAG Pipeline</h2>
+<p data-start="1511" data-end="1841"><strong data-start="1511" data-end="1523">Context:</strong><br data-start="1523" data-end="1526">
+Designed and productionized a Retrieval-Augmented Generation (RAG) AI pipeline to improve internal support engineer and customer search efficiency for Cloudera products. Initial POC used Postgres for vector storage and a basic LLM, which I upgraded to OpenSearch, AWS Bedrock embeddings, and Azure OpenAI inference.</p>
+<p data-start="1843" data-end="1860"><strong data-start="1843" data-end="1858">Data Scale:</strong></p>
+<ul data-start="1861" data-end="2038">
+<li data-start="1861" data-end="1883">
+<p data-start="1863" data-end="1883">Cloudera Cases: 1M</p>
+</li>
+<li data-start="1884" data-end="1906">
+<p data-start="1886" data-end="1906">Internal JIRAs: 1M</p>
+</li>
+<li data-start="1907" data-end="1927">
+<p data-start="1909" data-end="1927">Apache JIRAs: 2M</p>
+</li>
+<li data-start="1928" data-end="1961">
+<p data-start="1930" data-end="1961">Documentation, KBs, blogs: 1M</p>
+</li>
+<li data-start="1962" data-end="1984">
+<p data-start="1964" data-end="1984">Slack messages: 2M</p>
+</li>
+<li data-start="1985" data-end="2038">
+<p data-start="1987" data-end="2038">Total Chunks: 42M (500 tokens/chunk, 20% overlap)</p>
+</li>
+</ul>
+<p data-start="2040" data-end="2057"><strong data-start="2040" data-end="2055">User Scale:</strong></p>
+<ul data-start="2058" data-end="2135">
+<li data-start="2058" data-end="2092">
+<p data-start="2060" data-end="2092">Internal Support Engineers: 2k</p>
+</li>
+<li data-start="2093" data-end="2135">
+<p data-start="2095" data-end="2135">Cloudera Customers (self-support): 20k</p>
+</li>
+</ul>
+<p data-start="2137" data-end="2156"><strong data-start="2137" data-end="2154">Architecture:</strong></p>
+<ul data-start="2157" data-end="2488">
+<li data-start="2157" data-end="2184">
+<p data-start="2159" data-end="2184">Flask-based API backend</p>
+</li>
+<li data-start="2185" data-end="2217">
+<p data-start="2187" data-end="2217">Kafka for ingestion pipeline</p>
+</li>
+<li data-start="2218" data-end="2263">
+<p data-start="2220" data-end="2263">Spark for vectorization and preprocessing</p>
+</li>
+<li data-start="2264" data-end="2315">
+<p data-start="2266" data-end="2315">OpenSearch for vector search and faceted search</p>
+</li>
+<li data-start="2316" data-end="2346">
+<p data-start="2318" data-end="2346">AWS Bedrock for embeddings</p>
+</li>
+<li data-start="2347" data-end="2377">
+<p data-start="2349" data-end="2377">Azure OpenAI for inference</p>
+</li>
+<li data-start="2378" data-end="2433">
+<p data-start="2380" data-end="2433">Deployment: AWS ECS + CML High Availability cluster</p>
+</li>
+<li data-start="2434" data-end="2488">
+<p data-start="2436" data-end="2488">Monitoring: Datadog, Slack alerts, OpenSearch logs</p>
+</li>
+</ul>
+<p data-start="2490" data-end="2539"><strong data-start="2490" data-end="2537">Architecture Explanation of Each Component:</strong></p>
+<ul data-start="2540" data-end="3066">
+<li data-start="2540" data-end="2625">
+<p data-start="2542" data-end="2625"><strong data-start="2542" data-end="2552">Kafka:</strong> Handles ingestion from multiple Cloudera sources with high throughput.</p>
+</li>
+<li data-start="2626" data-end="2703">
+<p data-start="2628" data-end="2703"><strong data-start="2628" data-end="2638">Spark:</strong> Distributed preprocessing, tokenization, embedding generation.</p>
+</li>
+<li data-start="2704" data-end="2783">
+<p data-start="2706" data-end="2783"><strong data-start="2706" data-end="2721">OpenSearch:</strong> Stores embeddings for semantic search, scales horizontally.</p>
+</li>
+<li data-start="2784" data-end="2851">
+<p data-start="2786" data-end="2851"><strong data-start="2786" data-end="2802">AWS Bedrock:</strong> Produces embeddings for queries and documents.</p>
+</li>
+<li data-start="2852" data-end="2921">
+<p data-start="2854" data-end="2921"><strong data-start="2854" data-end="2871">Azure OpenAI:</strong> Generates responses based on retrieved context.</p>
+</li>
+<li data-start="2922" data-end="2989">
+<p data-start="2924" data-end="2989"><strong data-start="2924" data-end="2942">Flask Backend:</strong> Exposes APIs to internal and external users.</p>
+</li>
+<li data-start="2990" data-end="3066">
+<p data-start="2992" data-end="3066"><strong data-start="2992" data-end="3013">Monitoring Stack:</strong> Tracks ingestion lag, search latency, error rates.</p>
+</li>
+</ul>
+<p data-start="3068" data-end="3101"><strong data-start="3068" data-end="3099">Architecture Infra Details:</strong></p>
+<ul data-start="3102" data-end="3417">
+<li data-start="3102" data-end="3166">
+<p data-start="3104" data-end="3166">OpenSearch: 12 nodes, 32 vCPU, 128 GB RAM, 5 TB SSD per node</p>
+</li>
+<li data-start="3167" data-end="3224">
+<p data-start="3169" data-end="3224">Spark Cluster: 10 nodes, 16 vCPU, 64 GB RAM, 2 TB SSD</p>
+</li>
+<li data-start="3225" data-end="3303">
+<p data-start="3227" data-end="3303">Kafka Cluster: 6 nodes, 16 vCPU, 64 GB RAM, 2 TB SSD, replication factor 3</p>
+</li>
+<li data-start="3304" data-end="3358">
+<p data-start="3306" data-end="3358">Flask Backend: 4 ECS tasks, 4 vCPU, 16 GB RAM each</p>
+</li>
+<li data-start="3359" data-end="3417">
+<p data-start="3361" data-end="3417">Bedrock &amp; Azure OpenAI: Managed, autoscaling endpoints</p>
+</li>
+</ul>
+<p data-start="3419" data-end="3460"><strong data-start="3419" data-end="3458">Metric, Alerts, and Visualizations:</strong></p>
+<ul data-start="3461" data-end="3628">
+<li data-start="3461" data-end="3501">
+<p data-start="3463" data-end="3501">Search latency &lt; 500 ms (avg 320 ms)</p>
+</li>
+<li data-start="3502" data-end="3527">
+<p data-start="3504" data-end="3527">Ingestion lag &lt; 1 min</p>
+</li>
+<li data-start="3528" data-end="3558">
+<p data-start="3530" data-end="3558">Embedding failures &lt; 0.01%</p>
+</li>
+<li data-start="3559" data-end="3628">
+<p data-start="3561" data-end="3628">Alerts for CPU &gt; 80%, JVM heap &gt; 70%, OpenSearch disk usage &gt; 75%</p>
+</li>
+</ul>
+<p data-start="3630" data-end="3665"><strong data-start="3630" data-end="3663">Challenges &amp; Solutions Table:</strong></p>
+<div class="_tableContainer_1rjym_1"><div tabindex="-1" class="group _tableWrapper_1rjym_13 flex w-fit flex-col-reverse"><table data-start="3667" data-end="4760" class="w-fit min-w-(--thread-content-width)"><thead data-start="3667" data-end="3715"><tr data-start="3667" data-end="3715"><th data-start="3667" data-end="3679" data-col-size="sm">Challenge</th><th data-start="3679" data-end="3693" data-col-size="md">Description</th><th data-start="3693" data-end="3704" data-col-size="md">Solution</th><th data-start="3704" data-end="3715" data-col-size="md">Outcome</th></tr></thead><tbody data-start="3764" data-end="4760"><tr data-start="3764" data-end="3959"><td data-start="3764" data-end="3793" data-col-size="sm">Low vector search accuracy</td><td data-start="3793" data-end="3851" data-col-size="md">Initial Postgres vector storage was slow and inaccurate</td><td data-start="3851" data-end="3897" data-col-size="md">Migrated to OpenSearch + Bedrock embeddings</td><td data-start="3897" data-end="3959" data-col-size="md">Improved search relevance by 40%, latency reduced to 320ms</td></tr><tr data-start="3960" data-end="4124"><td data-start="3960" data-end="3984" data-col-size="sm">High ingestion volume</td><td data-start="3984" data-end="4021" data-col-size="md">7M+ chunks across multiple sources</td><td data-start="4021" data-end="4080" data-col-size="md">Kafka + Spark pipeline with batching and parallelization</td><td data-start="4080" data-end="4124" data-col-size="md">Sustained throughput of 50k messages/sec</td></tr><tr data-start="4125" data-end="4288"><td data-start="4125" data-end="4153" data-col-size="sm">Latency spikes under load</td><td data-start="4153" data-end="4192" data-col-size="md">Concurrent queries slowed OpenSearch</td><td data-start="4192" data-end="4256" data-col-size="md">Horizontal scaling, optimized indexing, reduced chunk overlap</td><td data-start="4256" data-end="4288" data-col-size="md">Stable response times &lt;500ms</td></tr><tr data-start="4289" data-end="4451"><td data-start="4289" data-end="4311" data-col-size="sm">POC LLM limitations</td><td data-start="4311" data-end="4343" data-col-size="md">Azure OpenAI cost and latency</td><td data-start="4343" data-end="4410" data-col-size="md">Hybrid approach with caching frequent queries, planned local LLM</td><td data-start="4410" data-end="4451" data-col-size="md">Cost reduced by 30%, latency improved</td></tr><tr data-start="4452" data-end="4597"><td data-start="4452" data-end="4469" data-col-size="sm">HA requirement</td><td data-start="4469" data-end="4518" data-col-size="md">Downtime not acceptable for 2k+ internal users</td><td data-start="4518" data-end="4565" data-col-size="md">Multi-AZ ECS deployment, OpenSearch replicas</td><td data-start="4565" data-end="4597" data-col-size="md">99.99% availability achieved</td></tr><tr data-start="4598" data-end="4760"><td data-start="4598" data-end="4616" data-col-size="sm">Monitoring gaps</td><td data-start="4616" data-end="4641" data-col-size="md">Untracked error spikes</td><td data-start="4641" data-end="4697" data-col-size="md">Datadog dashboards + Slack alerts for failed searches</td><td data-start="4697" data-end="4760" data-col-size="md">Reduced time-to-detect and fix errors from hours to minutes</td></tr></tbody></table><div class="sticky h-0 select-none end-(--thread-content-margin) self-end"><div class="absolute end-0 flex items-end" style="height: 33px;"><span class="" data-state="closed"><button aria-label="Copy table" class="hover:bg-token-bg-tertiary text-token-text-secondary my-1 rounded-sm p-1 transition-opacity group-[:not(:hover):not(:focus-within)]:pointer-events-none group-[:not(:hover):not(:focus-within)]:opacity-0"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="icon"><path d="M12.668 10.667C12.668 9.95614 12.668 9.46258 12.6367 9.0791C12.6137 8.79732 12.5758 8.60761 12.5244 8.46387L12.4688 8.33399C12.3148 8.03193 12.0803 7.77885 11.793 7.60254L11.666 7.53125C11.508 7.45087 11.2963 7.39395 10.9209 7.36328C10.5374 7.33197 10.0439 7.33203 9.33301 7.33203H6.5C5.78896 7.33203 5.29563 7.33195 4.91211 7.36328C4.63016 7.38632 4.44065 7.42413 4.29688 7.47559L4.16699 7.53125C3.86488 7.68518 3.61186 7.9196 3.43555 8.20703L3.36524 8.33399C3.28478 8.49198 3.22795 8.70352 3.19727 9.0791C3.16595 9.46259 3.16504 9.95611 3.16504 10.667V13.5C3.16504 14.211 3.16593 14.7044 3.19727 15.0879C3.22797 15.4636 3.28473 15.675 3.36524 15.833L3.43555 15.959C3.61186 16.2466 3.86474 16.4807 4.16699 16.6348L4.29688 16.6914C4.44063 16.7428 4.63025 16.7797 4.91211 16.8027C5.29563 16.8341 5.78896 16.835 6.5 16.835H9.33301C10.0439 16.835 10.5374 16.8341 10.9209 16.8027C11.2965 16.772 11.508 16.7152 11.666 16.6348L11.793 16.5645C12.0804 16.3881 12.3148 16.1351 12.4688 15.833L12.5244 15.7031C12.5759 15.5594 12.6137 15.3698 12.6367 15.0879C12.6681 14.7044 12.668 14.211 12.668 13.5V10.667ZM13.998 12.665C14.4528 12.6634 14.8011 12.6602 15.0879 12.6367C15.4635 12.606 15.675 12.5492 15.833 12.4688L15.959 12.3975C16.2466 12.2211 16.4808 11.9682 16.6348 11.666L16.6914 11.5361C16.7428 11.3924 16.7797 11.2026 16.8027 10.9209C16.8341 10.5374 16.835 10.0439 16.835 9.33301V6.5C16.835 5.78896 16.8341 5.29563 16.8027 4.91211C16.7797 4.63025 16.7428 4.44063 16.6914 4.29688L16.6348 4.16699C16.4807 3.86474 16.2466 3.61186 15.959 3.43555L15.833 3.36524C15.675 3.28473 15.4636 3.22797 15.0879 3.19727C14.7044 3.16593 14.211 3.16504 13.5 3.16504H10.667C9.9561 3.16504 9.46259 3.16595 9.0791 3.19727C8.79739 3.22028 8.6076 3.2572 8.46387 3.30859L8.33399 3.36524C8.03176 3.51923 7.77886 3.75343 7.60254 4.04102L7.53125 4.16699C7.4508 4.32498 7.39397 4.53655 7.36328 4.91211C7.33985 5.19893 7.33562 5.54719 7.33399 6.00195H9.33301C10.022 6.00195 10.5791 6.00131 11.0293 6.03809C11.4873 6.07551 11.8937 6.15471 12.2705 6.34668L12.4883 6.46875C12.984 6.7728 13.3878 7.20854 13.6533 7.72949L13.7197 7.87207C13.8642 8.20859 13.9292 8.56974 13.9619 8.9707C13.9987 9.42092 13.998 9.97799 13.998 10.667V12.665ZM18.165 9.33301C18.165 10.022 18.1657 10.5791 18.1289 11.0293C18.0961 11.4302 18.0311 11.7914 17.8867 12.1279L17.8203 12.2705C17.5549 12.7914 17.1509 13.2272 16.6553 13.5313L16.4365 13.6533C16.0599 13.8452 15.6541 13.9245 15.1963 13.9619C14.8593 13.9895 14.4624 13.9935 13.9951 13.9951C13.9935 14.4624 13.9895 14.8593 13.9619 15.1963C13.9292 15.597 13.864 15.9576 13.7197 16.2939L13.6533 16.4365C13.3878 16.9576 12.9841 17.3941 12.4883 17.6982L12.2705 17.8203C11.8937 18.0123 11.4873 18.0915 11.0293 18.1289C10.5791 18.1657 10.022 18.165 9.33301 18.165H6.5C5.81091 18.165 5.25395 18.1657 4.80371 18.1289C4.40306 18.0962 4.04235 18.031 3.70606 17.8867L3.56348 17.8203C3.04244 17.5548 2.60585 17.151 2.30176 16.6553L2.17969 16.4365C1.98788 16.0599 1.90851 15.6541 1.87109 15.1963C1.83431 14.746 1.83496 14.1891 1.83496 13.5V10.667C1.83496 9.978 1.83432 9.42091 1.87109 8.9707C1.90851 8.5127 1.98772 8.10625 2.17969 7.72949L2.30176 7.51172C2.60586 7.0159 3.04236 6.6122 3.56348 6.34668L3.70606 6.28027C4.04237 6.136 4.40303 6.07083 4.80371 6.03809C5.14051 6.01057 5.53708 6.00551 6.00391 6.00391C6.00551 5.53708 6.01057 5.14051 6.03809 4.80371C6.0755 4.34588 6.15483 3.94012 6.34668 3.56348L6.46875 3.34473C6.77282 2.84912 7.20856 2.44514 7.72949 2.17969L7.87207 2.11328C8.20855 1.96886 8.56979 1.90385 8.9707 1.87109C9.42091 1.83432 9.978 1.83496 10.667 1.83496H13.5C14.1891 1.83496 14.746 1.83431 15.1963 1.87109C15.6541 1.90851 16.0599 1.98788 16.4365 2.17969L16.6553 2.30176C17.151 2.60585 17.5548 3.04244 17.8203 3.56348L17.8867 3.70606C18.031 4.04235 18.0962 4.40306 18.1289 4.80371C18.1657 5.25395 18.165 5.81091 18.165 6.5V9.33301Z"></path></svg></button></span></div></div></div></div>
+<p data-start="4762" data-end="4801"><strong data-start="4762" data-end="4799">Leadership &amp; Mentorship Detailed:</strong></p>
+<ul data-start="4802" data-end="5066">
+<li data-start="4802" data-end="4890">
+<p data-start="4804" data-end="4890">Led a team of 6 engineers to implement OpenSearch migration and Spark preprocessing.</p>
+</li>
+<li data-start="4891" data-end="4978">
+<p data-start="4893" data-end="4978">Conducted weekly technical reviews and code walkthroughs for high-quality delivery.</p>
+</li>
+<li data-start="4979" data-end="5066">
+<p data-start="4981" data-end="5066">Mentored juniors on Kafka streaming, Spark optimizations, and cloud best practices.</p>
+</li>
+</ul>
+<p data-start="5068" data-end="5104"><strong data-start="5068" data-end="5102">Behavioral Learnings Detailed:</strong></p>
+<ul data-start="5105" data-end="5366">
+<li data-start="5105" data-end="5176">
+<p data-start="5107" data-end="5176">Learned cross-team coordination with data engineering and AI teams.</p>
+</li>
+<li data-start="5177" data-end="5269">
+<p data-start="5179" data-end="5269">Developed patience and iterative improvement mindset for high-stakes production systems.</p>
+</li>
+<li data-start="5270" data-end="5366">
+<p data-start="5272" data-end="5366">Improved communication for explaining complex AI architecture to non-technical stakeholders.</p>
+</li>
+</ul>
+<p data-start="5368" data-end="5399"><strong data-start="5368" data-end="5397">Project Impact / Outcome:</strong></p>
+<ul data-start="5400" data-end="5561">
+<li data-start="5400" data-end="5453">
+<p data-start="5402" data-end="5453">Reduced search time for support engineers by 30%.</p>
+</li>
+<li data-start="5454" data-end="5513">
+<p data-start="5456" data-end="5513">Improved customer self-service resolution rates by 25%.</p>
+</li>
+<li data-start="5514" data-end="5561">
+<p data-start="5516" data-end="5561">Won Cloudera AI Hackathon 2025 APAC region.</p>
+</li>
+</ul>
+<p data-start="5563" data-end="5590"><strong data-start="5563" data-end="5588">Planned Improvements:</strong></p>
+<ul data-start="5591" data-end="5748">
+<li data-start="5591" data-end="5678">
+<p data-start="5593" data-end="5678">Replace Azure/OpenAI hybrid with a fully local LLM for latency and cost efficiency.</p>
+</li>
+<li data-start="5679" data-end="5748">
+<p data-start="5681" data-end="5748">Further scale OpenSearch cluster for upcoming 10M+ queries/month.</p>
+</li>
+</ul>
+<hr data-start="5750" data-end="5753">
+<h2 data-start="5755" data-end="5791">Paytm UPI Reconciliation Engine</h2>
+<p data-start="5792" data-end="6020"><strong data-start="5792" data-end="5804">Context:</strong><br data-start="5804" data-end="5807">
+Developed high-scale UPI reconciliation engine for Paytm Payments Bank, handling 100–150M transactions/day. Engine reconciles PSP and bank records with in-memory processing and MySQL parking for deferred cycles.</p>
+<p data-start="6022" data-end="6039"><strong data-start="6022" data-end="6037">Data Scale:</strong></p>
+<ul data-start="6040" data-end="6070">
+<li data-start="6040" data-end="6070">
+<p data-start="6042" data-end="6070">Transactions: 100–150M/day</p>
+</li>
+</ul>
+<p data-start="6072" data-end="6089"><strong data-start="6072" data-end="6087">User Scale:</strong></p>
+<ul data-start="6090" data-end="6138">
+<li data-start="6090" data-end="6138">
+<p data-start="6092" data-end="6138">Internal Finance &amp; Operations: 500 engineers</p>
+</li>
+</ul>
+<p data-start="6140" data-end="6159"><strong data-start="6140" data-end="6157">Architecture:</strong></p>
+<ul data-start="6160" data-end="6382">
+<li data-start="6160" data-end="6196">
+<p data-start="6162" data-end="6196">Java-based reconciliation engine</p>
+</li>
+<li data-start="6197" data-end="6232">
+<p data-start="6199" data-end="6232">Kafka for transaction ingestion</p>
+</li>
+<li data-start="6233" data-end="6290">
+<p data-start="6235" data-end="6290">MySQL for persistent parking of deferred transactions</p>
+</li>
+<li data-start="6291" data-end="6331">
+<p data-start="6293" data-end="6331">Grafana dashboards, PagerDuty alerts</p>
+</li>
+<li data-start="6332" data-end="6382">
+<p data-start="6334" data-end="6382">Deployment: Internal managed nodes, DR enabled</p>
+</li>
+</ul>
+<p data-start="6384" data-end="6433"><strong data-start="6384" data-end="6431">Architecture Explanation of Each Component:</strong></p>
+<ul data-start="6434" data-end="6804">
+<li data-start="6434" data-end="6505">
+<p data-start="6436" data-end="6505"><strong data-start="6436" data-end="6446">Kafka:</strong> Handles ingestion from file-based and streaming sources.</p>
+</li>
+<li data-start="6506" data-end="6607">
+<p data-start="6508" data-end="6607"><strong data-start="6508" data-end="6524">Java Engine:</strong> Performs sharded reconciliation with in-memory hashmaps and stateful processing.</p>
+</li>
+<li data-start="6608" data-end="6688">
+<p data-start="6610" data-end="6688"><strong data-start="6610" data-end="6620">MySQL:</strong> Stores deferred or pending transactions for later reconciliation.</p>
+</li>
+<li data-start="6689" data-end="6804">
+<p data-start="6691" data-end="6804"><strong data-start="6691" data-end="6706">Monitoring:</strong> Grafana tracks throughput, reconciliation success/failures; PagerDuty triggers critical alerts.</p>
+</li>
+</ul>
+<p data-start="6806" data-end="6839"><strong data-start="6806" data-end="6837">Architecture Infra Details:</strong></p>
+<ul data-start="6840" data-end="7041">
+<li data-start="6840" data-end="6908">
+<p data-start="6842" data-end="6908">Java app nodes: 10 nodes, 32 vCPU, 128 GB RAM, 4 TB SSD per node</p>
+</li>
+<li data-start="6909" data-end="6979">
+<p data-start="6911" data-end="6979">Kafka: 6 nodes, 16 vCPU, 64 GB RAM, 2 TB SSD, replication factor 3</p>
+</li>
+<li data-start="6980" data-end="7041">
+<p data-start="6982" data-end="7041">MySQL cluster: 5 nodes, 16 vCPU, 64 GB RAM, 5 TB NVMe SSD</p>
+</li>
+</ul>
+<p data-start="7043" data-end="7084"><strong data-start="7043" data-end="7082">Metric, Alerts, and Visualizations:</strong></p>
+<ul data-start="7085" data-end="7198">
+<li data-start="7085" data-end="7135">
+<p data-start="7087" data-end="7135">Daily reconciled transactions: 99.95% accuracy</p>
+</li>
+<li data-start="7136" data-end="7166">
+<p data-start="7138" data-end="7166">Kafka consumer lag &lt; 1 min</p>
+</li>
+<li data-start="7167" data-end="7198">
+<p data-start="7169" data-end="7198">Transaction failure &lt; 0.05%</p>
+</li>
+</ul>
+<p data-start="7200" data-end="7235"><strong data-start="7200" data-end="7233">Challenges &amp; Solutions Table:</strong></p>
+<div class="_tableContainer_1rjym_1"><div tabindex="-1" class="group _tableWrapper_1rjym_13 flex w-fit flex-col-reverse"><table data-start="7237" data-end="8159" class="w-fit min-w-(--thread-content-width)"><thead data-start="7237" data-end="7285"><tr data-start="7237" data-end="7285"><th data-start="7237" data-end="7249" data-col-size="sm">Challenge</th><th data-start="7249" data-end="7263" data-col-size="md">Description</th><th data-start="7263" data-end="7274" data-col-size="md">Solution</th><th data-start="7274" data-end="7285" data-col-size="sm">Outcome</th></tr></thead><tbody data-start="7334" data-end="8159"><tr data-start="7334" data-end="7496"><td data-start="7334" data-end="7377" data-col-size="sm">Deferred transactions due to NPCI cycles</td><td data-start="7377" data-end="7425" data-col-size="md">Transactions cannot be reconciled immediately</td><td data-start="7425" data-end="7468" data-col-size="md">In-memory reconciliation + MySQL parking</td><td data-start="7468" data-end="7496" data-col-size="sm">Reduced errors to &lt;0.05%</td></tr><tr data-start="7497" data-end="7640"><td data-start="7497" data-end="7525" data-col-size="sm">High throughput ingestion</td><td data-start="7525" data-end="7559" data-col-size="md">150M/day overwhelms single node</td><td data-start="7559" data-end="7596" data-col-size="md">Sharded processing across 10 nodes</td><td data-start="7596" data-end="7640" data-col-size="sm">Sustained 1.7k transactions/sec per node</td></tr><tr data-start="7641" data-end="7748"><td data-start="7641" data-end="7657" data-col-size="sm">Node failures</td><td data-start="7657" data-end="7692" data-col-size="md">Single node crashes cause delays</td><td data-start="7692" data-end="7717" data-col-size="md">Replication &amp; DR setup</td><td data-start="7717" data-end="7748" data-col-size="sm">Zero downtime for 24h+ runs</td></tr><tr data-start="7749" data-end="7870"><td data-start="7749" data-end="7765" data-col-size="sm">Alert fatigue</td><td data-start="7765" data-end="7806" data-col-size="md">Too many non-critical PagerDuty alerts</td><td data-start="7806" data-end="7846" data-col-size="md">Threshold tuning + Grafana dashboards</td><td data-start="7846" data-end="7870" data-col-size="sm">Reduced noise by 60%</td></tr><tr data-start="7871" data-end="8013"><td data-start="7871" data-end="7888" data-col-size="sm">Latency spikes</td><td data-start="7888" data-end="7922" data-col-size="md">Peaks during settlement windows</td><td data-start="7922" data-end="7974" data-col-size="md">Auto-scaling JVM heap &amp; garbage collection tuning</td><td data-start="7974" data-end="8013" data-col-size="sm">Peak latency &lt;500ms per transaction</td></tr><tr data-start="8014" data-end="8159"><td data-start="8014" data-end="8032" data-col-size="sm">Monitoring gaps</td><td data-start="8032" data-end="8074" data-col-size="md">Hard to trace reconciliation mismatches</td><td data-start="8074" data-end="8123" data-col-size="md">Transaction-level logging + structured metrics</td><td data-start="8123" data-end="8159" data-col-size="sm">Faster root cause identification</td></tr></tbody></table><div class="sticky h-0 select-none end-(--thread-content-margin) self-end"><div class="absolute end-0 flex items-end" style="height: 33px;"><span class="" data-state="closed"><button aria-label="Copy table" class="hover:bg-token-bg-tertiary text-token-text-secondary my-1 rounded-sm p-1 transition-opacity group-[:not(:hover):not(:focus-within)]:pointer-events-none group-[:not(:hover):not(:focus-within)]:opacity-0"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="icon"><path d="M12.668 10.667C12.668 9.95614 12.668 9.46258 12.6367 9.0791C12.6137 8.79732 12.5758 8.60761 12.5244 8.46387L12.4688 8.33399C12.3148 8.03193 12.0803 7.77885 11.793 7.60254L11.666 7.53125C11.508 7.45087 11.2963 7.39395 10.9209 7.36328C10.5374 7.33197 10.0439 7.33203 9.33301 7.33203H6.5C5.78896 7.33203 5.29563 7.33195 4.91211 7.36328C4.63016 7.38632 4.44065 7.42413 4.29688 7.47559L4.16699 7.53125C3.86488 7.68518 3.61186 7.9196 3.43555 8.20703L3.36524 8.33399C3.28478 8.49198 3.22795 8.70352 3.19727 9.0791C3.16595 9.46259 3.16504 9.95611 3.16504 10.667V13.5C3.16504 14.211 3.16593 14.7044 3.19727 15.0879C3.22797 15.4636 3.28473 15.675 3.36524 15.833L3.43555 15.959C3.61186 16.2466 3.86474 16.4807 4.16699 16.6348L4.29688 16.6914C4.44063 16.7428 4.63025 16.7797 4.91211 16.8027C5.29563 16.8341 5.78896 16.835 6.5 16.835H9.33301C10.0439 16.835 10.5374 16.8341 10.9209 16.8027C11.2965 16.772 11.508 16.7152 11.666 16.6348L11.793 16.5645C12.0804 16.3881 12.3148 16.1351 12.4688 15.833L12.5244 15.7031C12.5759 15.5594 12.6137 15.3698 12.6367 15.0879C12.6681 14.7044 12.668 14.211 12.668 13.5V10.667ZM13.998 12.665C14.4528 12.6634 14.8011 12.6602 15.0879 12.6367C15.4635 12.606 15.675 12.5492 15.833 12.4688L15.959 12.3975C16.2466 12.2211 16.4808 11.9682 16.6348 11.666L16.6914 11.5361C16.7428 11.3924 16.7797 11.2026 16.8027 10.9209C16.8341 10.5374 16.835 10.0439 16.835 9.33301V6.5C16.835 5.78896 16.8341 5.29563 16.8027 4.91211C16.7797 4.63025 16.7428 4.44063 16.6914 4.29688L16.6348 4.16699C16.4807 3.86474 16.2466 3.61186 15.959 3.43555L15.833 3.36524C15.675 3.28473 15.4636 3.22797 15.0879 3.19727C14.7044 3.16593 14.211 3.16504 13.5 3.16504H10.667C9.9561 3.16504 9.46259 3.16595 9.0791 3.19727C8.79739 3.22028 8.6076 3.2572 8.46387 3.30859L8.33399 3.36524C8.03176 3.51923 7.77886 3.75343 7.60254 4.04102L7.53125 4.16699C7.4508 4.32498 7.39397 4.53655 7.36328 4.91211C7.33985 5.19893 7.33562 5.54719 7.33399 6.00195H9.33301C10.022 6.00195 10.5791 6.00131 11.0293 6.03809C11.4873 6.07551 11.8937 6.15471 12.2705 6.34668L12.4883 6.46875C12.984 6.7728 13.3878 7.20854 13.6533 7.72949L13.7197 7.87207C13.8642 8.20859 13.9292 8.56974 13.9619 8.9707C13.9987 9.42092 13.998 9.97799 13.998 10.667V12.665ZM18.165 9.33301C18.165 10.022 18.1657 10.5791 18.1289 11.0293C18.0961 11.4302 18.0311 11.7914 17.8867 12.1279L17.8203 12.2705C17.5549 12.7914 17.1509 13.2272 16.6553 13.5313L16.4365 13.6533C16.0599 13.8452 15.6541 13.9245 15.1963 13.9619C14.8593 13.9895 14.4624 13.9935 13.9951 13.9951C13.9935 14.4624 13.9895 14.8593 13.9619 15.1963C13.9292 15.597 13.864 15.9576 13.7197 16.2939L13.6533 16.4365C13.3878 16.9576 12.9841 17.3941 12.4883 17.6982L12.2705 17.8203C11.8937 18.0123 11.4873 18.0915 11.0293 18.1289C10.5791 18.1657 10.022 18.165 9.33301 18.165H6.5C5.81091 18.165 5.25395 18.1657 4.80371 18.1289C4.40306 18.0962 4.04235 18.031 3.70606 17.8867L3.56348 17.8203C3.04244 17.5548 2.60585 17.151 2.30176 16.6553L2.17969 16.4365C1.98788 16.0599 1.90851 15.6541 1.87109 15.1963C1.83431 14.746 1.83496 14.1891 1.83496 13.5V10.667C1.83496 9.978 1.83432 9.42091 1.87109 8.9707C1.90851 8.5127 1.98772 8.10625 2.17969 7.72949L2.30176 7.51172C2.60586 7.0159 3.04236 6.6122 3.56348 6.34668L3.70606 6.28027C4.04237 6.136 4.40303 6.07083 4.80371 6.03809C5.14051 6.01057 5.53708 6.00551 6.00391 6.00391C6.00551 5.53708 6.01057 5.14051 6.03809 4.80371C6.0755 4.34588 6.15483 3.94012 6.34668 3.56348L6.46875 3.34473C6.77282 2.84912 7.20856 2.44514 7.72949 2.17969L7.87207 2.11328C8.20855 1.96886 8.56979 1.90385 8.9707 1.87109C9.42091 1.83432 9.978 1.83496 10.667 1.83496H13.5C14.1891 1.83496 14.746 1.83431 15.1963 1.87109C15.6541 1.90851 16.0599 1.98788 16.4365 2.17969L16.6553 2.30176C17.151 2.60585 17.5548 3.04244 17.8203 3.56348L17.8867 3.70606C18.031 4.04235 18.0962 4.40306 18.1289 4.80371C18.1657 5.25395 18.165 5.81091 18.165 6.5V9.33301Z"></path></svg></button></span></div></div></div></div>
+<p data-start="8161" data-end="8200"><strong data-start="8161" data-end="8198">Leadership &amp; Mentorship Detailed:</strong></p>
+<ul data-start="8201" data-end="8357">
+<li data-start="8201" data-end="8272">
+<p data-start="8203" data-end="8272">Mentored 6 engineers in high-throughput distributed systems design.</p>
+</li>
+<li data-start="8273" data-end="8357">
+<p data-start="8275" data-end="8357">Conducted workshops on in-memory reconciliation patterns and Kafka partitioning.</p>
+</li>
+</ul>
+<p data-start="8359" data-end="8395"><strong data-start="8359" data-end="8393">Behavioral Learnings Detailed:</strong></p>
+<ul data-start="8396" data-end="8541">
+<li data-start="8396" data-end="8468">
+<p data-start="8398" data-end="8468">Learned decision-making under strict financial accuracy constraints.</p>
+</li>
+<li data-start="8469" data-end="8541">
+<p data-start="8471" data-end="8541">Emphasized risk mitigation, DR planning, and clear escalation paths.</p>
+</li>
+</ul>
+<p data-start="8543" data-end="8574"><strong data-start="8543" data-end="8572">Project Impact / Outcome:</strong></p>
+<ul data-start="8575" data-end="8725">
+<li data-start="8575" data-end="8657">
+<p data-start="8577" data-end="8657">Successfully handled 150M daily transactions with near-perfect reconciliation.</p>
+</li>
+<li data-start="8658" data-end="8725">
+<p data-start="8660" data-end="8725">Improved Ops productivity by 20% through monitoring automation.</p>
+</li>
+</ul>
+<p data-start="8727" data-end="8754"><strong data-start="8727" data-end="8752">Planned Improvements:</strong></p>
+<ul data-start="8755" data-end="8835">
+<li data-start="8755" data-end="8835">
+<p data-start="8757" data-end="8835">Implement adaptive scaling for reconciliation nodes during peak UPI windows.</p>
+</li>
+</ul>
+<hr data-start="8837" data-end="8840">
+<h2 data-start="8842" data-end="8890">Cloudera Validation &amp; Clues Internal Search</h2>
+<p data-start="8891" data-end="9123"><strong data-start="8891" data-end="8903">Context:</strong><br data-start="8903" data-end="8906">
+Owned Clues and Cloudera Validation, handling 20TB/day of log data and 3M traditional Solr search cases for support engineers. Built solutions for log parsing, error pattern detection, and misconfiguration analysis.</p>
+<p data-start="9125" data-end="9142"><strong data-start="9125" data-end="9140">Data Scale:</strong></p>
+<ul data-start="9143" data-end="9204">
+<li data-start="9143" data-end="9172">
+<p data-start="9145" data-end="9172">Validation: 20TB logs/day</p>
+</li>
+<li data-start="9173" data-end="9204">
+<p data-start="9175" data-end="9204">Clues Solr search: 3M cases</p>
+</li>
+</ul>
+<p data-start="9206" data-end="9223"><strong data-start="9206" data-end="9221">User Scale:</strong></p>
+<ul data-start="9224" data-end="9258">
+<li data-start="9224" data-end="9258">
+<p data-start="9226" data-end="9258">Internal support engineers: 2k</p>
+</li>
+</ul>
+<p data-start="9260" data-end="9279"><strong data-start="9260" data-end="9277">Architecture:</strong></p>
+<ul data-start="9280" data-end="9479">
+<li data-start="9280" data-end="9328">
+<p data-start="9282" data-end="9328">Java-based ingestion and processing pipeline</p>
+</li>
+<li data-start="9329" data-end="9370">
+<p data-start="9331" data-end="9370">Solr and HBase for search and storage</p>
+</li>
+<li data-start="9371" data-end="9404">
+<p data-start="9373" data-end="9404">Kafka for streaming ingestion</p>
+</li>
+<li data-start="9405" data-end="9435">
+<p data-start="9407" data-end="9435">Spark for batch processing</p>
+</li>
+<li data-start="9436" data-end="9479">
+<p data-start="9438" data-end="9479">Internal dashboards, Datadog monitoring</p>
+</li>
+</ul>
+<p data-start="9481" data-end="9530"><strong data-start="9481" data-end="9528">Architecture Explanation of Each Component:</strong></p>
+<ul data-start="9531" data-end="9811">
+<li data-start="9531" data-end="9605">
+<p data-start="9533" data-end="9605"><strong data-start="9533" data-end="9556">Java ingestion app:</strong> Parses customer log bundles for error patterns</p>
+</li>
+<li data-start="9606" data-end="9658">
+<p data-start="9608" data-end="9658"><strong data-start="9608" data-end="9617">Solr:</strong> Stores case data for similarity search</p>
+</li>
+<li data-start="9659" data-end="9711">
+<p data-start="9661" data-end="9711"><strong data-start="9661" data-end="9671">HBase:</strong> Persistent store for high-volume logs</p>
+</li>
+<li data-start="9712" data-end="9762">
+<p data-start="9714" data-end="9762"><strong data-start="9714" data-end="9724">Spark:</strong> Batch analytics for trend detection</p>
+</li>
+<li data-start="9763" data-end="9811">
+<p data-start="9765" data-end="9811"><strong data-start="9765" data-end="9775">Kafka:</strong> Stream ingestion from log sources</p>
+</li>
+</ul>
+<p data-start="9813" data-end="9846"><strong data-start="9813" data-end="9844">Architecture Infra Details:</strong></p>
+<ul data-start="9847" data-end="10062">
+<li data-start="9847" data-end="9904">
+<p data-start="9849" data-end="9904">Solr cluster: 12 nodes, 32 vCPU, 128 GB RAM, 8 TB SSD</p>
+</li>
+<li data-start="9905" data-end="9963">
+<p data-start="9907" data-end="9963">HBase cluster: 6 nodes, 32 vCPU, 128 GB RAM, 10 TB SSD</p>
+</li>
+<li data-start="9964" data-end="10012">
+<p data-start="9966" data-end="10012">Kafka: 6 nodes, 16 vCPU, 64 GB RAM, 2 TB SSD</p>
+</li>
+<li data-start="10013" data-end="10062">
+<p data-start="10015" data-end="10062">Spark: 10 nodes, 16 vCPU, 64 GB RAM, 2 TB SSD</p>
+</li>
+</ul>
+<p data-start="10064" data-end="10105"><strong data-start="10064" data-end="10103">Metric, Alerts, and Visualizations:</strong></p>
+<ul data-start="10106" data-end="10215">
+<li data-start="10106" data-end="10140">
+<p data-start="10108" data-end="10140">Log processing latency &lt; 5 min</p>
+</li>
+<li data-start="10141" data-end="10175">
+<p data-start="10143" data-end="10175">Case similarity accuracy &gt; 85%</p>
+</li>
+<li data-start="10176" data-end="10215">
+<p data-start="10178" data-end="10215">Cluster CPU &lt; 75%, disk usage &lt; 80%</p>
+</li>
+</ul>
+<p data-start="10217" data-end="10252"><strong data-start="10217" data-end="10250">Challenges &amp; Solutions Table:</strong></p>
+<div class="_tableContainer_1rjym_1"><div tabindex="-1" class="group _tableWrapper_1rjym_13 flex w-fit flex-col-reverse"><table data-start="10254" data-end="11068" class="w-fit min-w-(--thread-content-width)"><thead data-start="10254" data-end="10302"><tr data-start="10254" data-end="10302"><th data-start="10254" data-end="10266" data-col-size="sm">Challenge</th><th data-start="10266" data-end="10280" data-col-size="sm">Description</th><th data-start="10280" data-end="10291" data-col-size="sm">Solution</th><th data-start="10291" data-end="10302" data-col-size="sm">Outcome</th></tr></thead><tbody data-start="10351" data-end="11068"><tr data-start="10351" data-end="10483"><td data-start="10351" data-end="10377" data-col-size="sm">20TB/day log processing</td><td data-start="10377" data-end="10410" data-col-size="sm">Single node parsing impossible</td><td data-start="10410" data-end="10448" data-col-size="sm">Distributed Spark + Kafka streaming</td><td data-start="10448" data-end="10483" data-col-size="sm">Sustained throughput of 5GB/min</td></tr><tr data-start="10484" data-end="10605"><td data-start="10484" data-end="10515" data-col-size="sm">Misconfig detection accuracy</td><td data-start="10515" data-end="10541" data-col-size="sm">False positives in logs</td><td data-start="10541" data-end="10577" data-col-size="sm">Rule-based + ML pattern detection</td><td data-start="10577" data-end="10605" data-col-size="sm">Accuracy improved to 85%</td></tr><tr data-start="10606" data-end="10716"><td data-start="10606" data-end="10623" data-col-size="sm">Search latency</td><td data-start="10623" data-end="10658" data-col-size="sm">Solr slow with millions of cases</td><td data-start="10658" data-end="10698" data-col-size="sm">Optimized indexing, faceting, caching</td><td data-start="10698" data-end="10716" data-col-size="sm">Latency &lt;500ms</td></tr><tr data-start="10717" data-end="10851"><td data-start="10717" data-end="10742" data-col-size="sm">Multi-source ingestion</td><td data-start="10742" data-end="10781" data-col-size="sm">Logs from HDFS, S3, customer bundles</td><td data-start="10781" data-end="10820" data-col-size="sm">Unified Kafka ingestion + connectors</td><td data-start="10820" data-end="10851" data-col-size="sm">Reliable ingestion pipeline</td></tr><tr data-start="10852" data-end="10976"><td data-start="10852" data-end="10870" data-col-size="sm">Monitoring gaps</td><td data-start="10870" data-end="10898" data-col-size="sm">Errors missed in pipeline</td><td data-start="10898" data-end="10935" data-col-size="sm">Datadog dashboards &amp; custom alerts</td><td data-start="10935" data-end="10976" data-col-size="sm">Reduced incident response time by 50%</td></tr><tr data-start="10977" data-end="11068"><td data-start="10977" data-end="10993" data-col-size="sm">Node failures</td><td data-start="10993" data-end="11015" data-col-size="sm">Solr/HBase downtime</td><td data-start="11015" data-end="11051" data-col-size="sm">Multi-AZ deployment + replication</td><td data-start="11051" data-end="11068" data-col-size="sm">99.99% uptime</td></tr></tbody></table><div class="sticky h-0 select-none end-(--thread-content-margin) self-end"><div class="absolute end-0 flex items-end" style="height: 33px;"><span class="" data-state="closed"><button aria-label="Copy table" class="hover:bg-token-bg-tertiary text-token-text-secondary my-1 rounded-sm p-1 transition-opacity group-[:not(:hover):not(:focus-within)]:pointer-events-none group-[:not(:hover):not(:focus-within)]:opacity-0"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="icon"><path d="M12.668 10.667C12.668 9.95614 12.668 9.46258 12.6367 9.0791C12.6137 8.79732 12.5758 8.60761 12.5244 8.46387L12.4688 8.33399C12.3148 8.03193 12.0803 7.77885 11.793 7.60254L11.666 7.53125C11.508 7.45087 11.2963 7.39395 10.9209 7.36328C10.5374 7.33197 10.0439 7.33203 9.33301 7.33203H6.5C5.78896 7.33203 5.29563 7.33195 4.91211 7.36328C4.63016 7.38632 4.44065 7.42413 4.29688 7.47559L4.16699 7.53125C3.86488 7.68518 3.61186 7.9196 3.43555 8.20703L3.36524 8.33399C3.28478 8.49198 3.22795 8.70352 3.19727 9.0791C3.16595 9.46259 3.16504 9.95611 3.16504 10.667V13.5C3.16504 14.211 3.16593 14.7044 3.19727 15.0879C3.22797 15.4636 3.28473 15.675 3.36524 15.833L3.43555 15.959C3.61186 16.2466 3.86474 16.4807 4.16699 16.6348L4.29688 16.6914C4.44063 16.7428 4.63025 16.7797 4.91211 16.8027C5.29563 16.8341 5.78896 16.835 6.5 16.835H9.33301C10.0439 16.835 10.5374 16.8341 10.9209 16.8027C11.2965 16.772 11.508 16.7152 11.666 16.6348L11.793 16.5645C12.0804 16.3881 12.3148 16.1351 12.4688 15.833L12.5244 15.7031C12.5759 15.5594 12.6137 15.3698 12.6367 15.0879C12.6681 14.7044 12.668 14.211 12.668 13.5V10.667ZM13.998 12.665C14.4528 12.6634 14.8011 12.6602 15.0879 12.6367C15.4635 12.606 15.675 12.5492 15.833 12.4688L15.959 12.3975C16.2466 12.2211 16.4808 11.9682 16.6348 11.666L16.6914 11.5361C16.7428 11.3924 16.7797 11.2026 16.8027 10.9209C16.8341 10.5374 16.835 10.0439 16.835 9.33301V6.5C16.835 5.78896 16.8341 5.29563 16.8027 4.91211C16.7797 4.63025 16.7428 4.44063 16.6914 4.29688L16.6348 4.16699C16.4807 3.86474 16.2466 3.61186 15.959 3.43555L15.833 3.36524C15.675 3.28473 15.4636 3.22797 15.0879 3.19727C14.7044 3.16593 14.211 3.16504 13.5 3.16504H10.667C9.9561 3.16504 9.46259 3.16595 9.0791 3.19727C8.79739 3.22028 8.6076 3.2572 8.46387 3.30859L8.33399 3.36524C8.03176 3.51923 7.77886 3.75343 7.60254 4.04102L7.53125 4.16699C7.4508 4.32498 7.39397 4.53655 7.36328 4.91211C7.33985 5.19893 7.33562 5.54719 7.33399 6.00195H9.33301C10.022 6.00195 10.5791 6.00131 11.0293 6.03809C11.4873 6.07551 11.8937 6.15471 12.2705 6.34668L12.4883 6.46875C12.984 6.7728 13.3878 7.20854 13.6533 7.72949L13.7197 7.87207C13.8642 8.20859 13.9292 8.56974 13.9619 8.9707C13.9987 9.42092 13.998 9.97799 13.998 10.667V12.665ZM18.165 9.33301C18.165 10.022 18.1657 10.5791 18.1289 11.0293C18.0961 11.4302 18.0311 11.7914 17.8867 12.1279L17.8203 12.2705C17.5549 12.7914 17.1509 13.2272 16.6553 13.5313L16.4365 13.6533C16.0599 13.8452 15.6541 13.9245 15.1963 13.9619C14.8593 13.9895 14.4624 13.9935 13.9951 13.9951C13.9935 14.4624 13.9895 14.8593 13.9619 15.1963C13.9292 15.597 13.864 15.9576 13.7197 16.2939L13.6533 16.4365C13.3878 16.9576 12.9841 17.3941 12.4883 17.6982L12.2705 17.8203C11.8937 18.0123 11.4873 18.0915 11.0293 18.1289C10.5791 18.1657 10.022 18.165 9.33301 18.165H6.5C5.81091 18.165 5.25395 18.1657 4.80371 18.1289C4.40306 18.0962 4.04235 18.031 3.70606 17.8867L3.56348 17.8203C3.04244 17.5548 2.60585 17.151 2.30176 16.6553L2.17969 16.4365C1.98788 16.0599 1.90851 15.6541 1.87109 15.1963C1.83431 14.746 1.83496 14.1891 1.83496 13.5V10.667C1.83496 9.978 1.83432 9.42091 1.87109 8.9707C1.90851 8.5127 1.98772 8.10625 2.17969 7.72949L2.30176 7.51172C2.60586 7.0159 3.04236 6.6122 3.56348 6.34668L3.70606 6.28027C4.04237 6.136 4.40303 6.07083 4.80371 6.03809C5.14051 6.01057 5.53708 6.00551 6.00391 6.00391C6.00551 5.53708 6.01057 5.14051 6.03809 4.80371C6.0755 4.34588 6.15483 3.94012 6.34668 3.56348L6.46875 3.34473C6.77282 2.84912 7.20856 2.44514 7.72949 2.17969L7.87207 2.11328C8.20855 1.96886 8.56979 1.90385 8.9707 1.87109C9.42091 1.83432 9.978 1.83496 10.667 1.83496H13.5C14.1891 1.83496 14.746 1.83431 15.1963 1.87109C15.6541 1.90851 16.0599 1.98788 16.4365 2.17969L16.6553 2.30176C17.151 2.60585 17.5548 3.04244 17.8203 3.56348L17.8867 3.70606C18.031 4.04235 18.0962 4.40306 18.1289 4.80371C18.1657 5.25395 18.165 5.81091 18.165 6.5V9.33301Z"></path></svg></button></span></div></div></div></div>
+<p data-start="11070" data-end="11109"><strong data-start="11070" data-end="11107">Leadership &amp; Mentorship Detailed:</strong></p>
+<ul data-start="11110" data-end="11271">
+<li data-start="11110" data-end="11170">
+<p data-start="11112" data-end="11170">Mentored 6 engineers on distributed search optimization.</p>
+</li>
+<li data-start="11171" data-end="11271">
+<p data-start="11173" data-end="11271">Conducted sessions on Solr tuning, HBase schema design, and batch/stream processing integration.</p>
+</li>
+</ul>
+<p data-start="11273" data-end="11309"><strong data-start="11273" data-end="11307">Behavioral Learnings Detailed:</strong></p>
+<ul data-start="11310" data-end="11441">
+<li data-start="11310" data-end="11381">
+<p data-start="11312" data-end="11381">Learned to communicate complex analytics insights to support teams.</p>
+</li>
+<li data-start="11382" data-end="11441">
+<p data-start="11384" data-end="11441">Improved prioritization for high-volume alert handling.</p>
+</li>
+</ul>
+<p data-start="11443" data-end="11474"><strong data-start="11443" data-end="11472">Project Impact / Outcome:</strong></p>
+<ul data-start="11475" data-end="11574">
+<li data-start="11475" data-end="11522">
+<p data-start="11477" data-end="11522">Reduced support engineer search time by 25%</p>
+</li>
+<li data-start="11523" data-end="11574">
+<p data-start="11525" data-end="11574">Increased customer case resolution speed by 15%</p>
+</li>
+</ul>
+<p data-start="11576" data-end="11603"><strong data-start="11576" data-end="11601">Planned Improvements:</strong></p>
+<ul data-start="11604" data-end="11679">
+<li data-start="11604" data-end="11679">
+<p data-start="11606" data-end="11679">Explore vector-based semantic search to complement Solr faceted search.</p>
+</li>
+</ul>
+<hr data-start="11681" data-end="11684">
+<h2 data-start="11686" data-end="11713">Freshworks Freshcaller</h2>
+<p data-start="11714" data-end="11953"><strong data-start="11714" data-end="11726">Context:</strong><br data-start="11726" data-end="11729">
+Developed cloud telephony backend with Twilio integration, real-time agent routing, and high-concurrency voice calls globally. Migrated Twilio service to Java for performance and parallelized unit tests for CI/CD pipeline.</p>
+<p data-start="11955" data-end="11972"><strong data-start="11955" data-end="11970">Data Scale:</strong></p>
+<ul data-start="11973" data-end="12079">
+<li data-start="11973" data-end="12002">
+<p data-start="11975" data-end="12002">Concurrent calls: 10k–50k</p>
+</li>
+<li data-start="12003" data-end="12043">
+<p data-start="12005" data-end="12043">Monthly call volume: 50–200M minutes</p>
+</li>
+<li data-start="12044" data-end="12079">
+<p data-start="12046" data-end="12079">Active phone numbers: 200k–500k</p>
+</li>
+</ul>
+<p data-start="12081" data-end="12098"><strong data-start="12081" data-end="12096">User Scale:</strong></p>
+<ul data-start="12099" data-end="12147">
+<li data-start="12099" data-end="12123">
+<p data-start="12101" data-end="12123">Active agents: 100k+</p>
+</li>
+<li data-start="12124" data-end="12147">
+<p data-start="12126" data-end="12147">Global regions: 90+</p>
+</li>
+</ul>
+<p data-start="12149" data-end="12168"><strong data-start="12149" data-end="12166">Architecture:</strong></p>
+<ul data-start="12169" data-end="12423">
+<li data-start="12169" data-end="12227">
+<p data-start="12171" data-end="12227">Ruby &amp; NodeJS for event routing, WebSocket connections</p>
+</li>
+<li data-start="12228" data-end="12264">
+<p data-start="12230" data-end="12264">MySQL for user and call metadata</p>
+</li>
+<li data-start="12265" data-end="12306">
+<p data-start="12267" data-end="12306">SQS for queue-based task distribution</p>
+</li>
+<li data-start="12307" data-end="12354">
+<p data-start="12309" data-end="12354">NodeJS workers poll queues and assign calls</p>
+</li>
+<li data-start="12355" data-end="12387">
+<p data-start="12357" data-end="12387">Kibana for logs &amp; monitoring</p>
+</li>
+<li data-start="12388" data-end="12423">
+<p data-start="12390" data-end="12423">AWS deployment with autoscaling</p>
+</li>
+</ul>
+<p data-start="12425" data-end="12474"><strong data-start="12425" data-end="12472">Architecture Explanation of Each Component:</strong></p>
+<ul data-start="12475" data-end="12765">
+<li data-start="12475" data-end="12533">
+<p data-start="12477" data-end="12533"><strong data-start="12477" data-end="12500">Twilio integration:</strong> Routes calls to correct agents</p>
+</li>
+<li data-start="12534" data-end="12591">
+<p data-start="12536" data-end="12591"><strong data-start="12536" data-end="12556">NodeJS assigner:</strong> Polls SQS and routes call events</p>
+</li>
+<li data-start="12592" data-end="12657">
+<p data-start="12594" data-end="12657"><strong data-start="12594" data-end="12609">WebSockets:</strong> Real-time UI updates for ringing/agent status</p>
+</li>
+<li data-start="12658" data-end="12712">
+<p data-start="12660" data-end="12712"><strong data-start="12660" data-end="12670">MySQL:</strong> Stores call logs, agent status, metrics</p>
+</li>
+<li data-start="12713" data-end="12765">
+<p data-start="12715" data-end="12765"><strong data-start="12715" data-end="12730">Monitoring:</strong> Kibana, alerts for call failures</p>
+</li>
+</ul>
+<p data-start="12767" data-end="12800"><strong data-start="12767" data-end="12798">Architecture Infra Details:</strong></p>
+<ul data-start="12801" data-end="12938">
+<li data-start="12801" data-end="12847">
+<p data-start="12803" data-end="12847">NodeJS + Ruby: 6 nodes, 16 vCPU, 64 GB RAM</p>
+</li>
+<li data-start="12848" data-end="12896">
+<p data-start="12850" data-end="12896">MySQL: 5 nodes, 16 vCPU, 64 GB RAM, 5 TB SSD</p>
+</li>
+<li data-start="12897" data-end="12938">
+<p data-start="12899" data-end="12938">SQS: Managed AWS service, auto-scaled</p>
+</li>
+</ul>
+<p data-start="12940" data-end="12981"><strong data-start="12940" data-end="12979">Metric, Alerts, and Visualizations:</strong></p>
+<ul data-start="12982" data-end="13078">
+<li data-start="12982" data-end="13006">
+<p data-start="12984" data-end="13006">Call drop rate &lt;0.5%</p>
+</li>
+<li data-start="13007" data-end="13035">
+<p data-start="13009" data-end="13035">WebSocket latency &lt;200ms</p>
+</li>
+<li data-start="13036" data-end="13078">
+<p data-start="13038" data-end="13078">CI/CD test run reduced from 4h → 15min</p>
+</li>
+</ul>
+<p data-start="13080" data-end="13115"><strong data-start="13080" data-end="13113">Challenges &amp; Solutions Table:</strong></p>
+<div class="_tableContainer_1rjym_1"><div tabindex="-1" class="group _tableWrapper_1rjym_13 flex w-fit flex-col-reverse"><table data-start="13117" data-end="13894" class="w-fit min-w-(--thread-content-width)"><thead data-start="13117" data-end="13165"><tr data-start="13117" data-end="13165"><th data-start="13117" data-end="13129" data-col-size="sm">Challenge</th><th data-start="13129" data-end="13143" data-col-size="sm">Description</th><th data-start="13143" data-end="13154" data-col-size="md">Solution</th><th data-start="13154" data-end="13165" data-col-size="sm">Outcome</th></tr></thead><tbody data-start="13214" data-end="13894"><tr data-start="13214" data-end="13318"><td data-start="13214" data-end="13236" data-col-size="sm">Parallelizing tests</td><td data-start="13236" data-end="13254" data-col-size="sm">Unit tests slow</td><td data-start="13254" data-end="13295" data-col-size="md">Converted to parallel across CPU cores</td><td data-start="13295" data-end="13318" data-col-size="sm">Reduced runtime 16x</td></tr><tr data-start="13319" data-end="13420"><td data-start="13319" data-end="13336" data-col-size="sm">Twilio latency</td><td data-start="13336" data-end="13362" data-col-size="sm">Global call routing lag</td><td data-start="13362" data-end="13397" data-col-size="md">Moved Twilio integration to Java</td><td data-start="13397" data-end="13420" data-col-size="sm">Reduced latency 50%</td></tr><tr data-start="13421" data-end="13564"><td data-start="13421" data-end="13448" data-col-size="sm">Agent status consistency</td><td data-start="13448" data-end="13486" data-col-size="sm">Live call agent states inconsistent</td><td data-start="13486" data-end="13532" data-col-size="md">Implemented atomic updates &amp; WebSocket sync</td><td data-start="13532" data-end="13564" data-col-size="sm">Accurate UI for 100k+ agents</td></tr><tr data-start="13565" data-end="13662"><td data-start="13565" data-end="13589" data-col-size="sm">Peak call concurrency</td><td data-start="13589" data-end="13612" data-col-size="sm">50k concurrent calls</td><td data-start="13612" data-end="13640" data-col-size="md">Autoscaling backend nodes</td><td data-start="13640" data-end="13662" data-col-size="sm">Zero dropped calls</td></tr><tr data-start="13663" data-end="13775"><td data-start="13663" data-end="13685" data-col-size="sm">Event queue backlog</td><td data-start="13685" data-end="13710" data-col-size="sm">SQS delays during peak</td><td data-start="13710" data-end="13749" data-col-size="md">Increased worker pool &amp; partitioning</td><td data-start="13749" data-end="13775" data-col-size="sm">Reduced backlog by 80%</td></tr><tr data-start="13776" data-end="13894"><td data-start="13776" data-end="13794" data-col-size="sm">Monitoring gaps</td><td data-start="13794" data-end="13825" data-col-size="sm">Hard to detect call failures</td><td data-start="13825" data-end="13864" data-col-size="md">Kibana dashboards &amp; real-time alerts</td><td data-start="13864" data-end="13894" data-col-size="sm">Faster incident resolution</td></tr></tbody></table><div class="sticky h-0 select-none end-(--thread-content-margin) self-end"><div class="absolute end-0 flex items-end" style="height: 33px;"><span class="" data-state="closed"><button aria-label="Copy table" class="hover:bg-token-bg-tertiary text-token-text-secondary my-1 rounded-sm p-1 transition-opacity group-[:not(:hover):not(:focus-within)]:pointer-events-none group-[:not(:hover):not(:focus-within)]:opacity-0"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="icon"><path d="M12.668 10.667C12.668 9.95614 12.668 9.46258 12.6367 9.0791C12.6137 8.79732 12.5758 8.60761 12.5244 8.46387L12.4688 8.33399C12.3148 8.03193 12.0803 7.77885 11.793 7.60254L11.666 7.53125C11.508 7.45087 11.2963 7.39395 10.9209 7.36328C10.5374 7.33197 10.0439 7.33203 9.33301 7.33203H6.5C5.78896 7.33203 5.29563 7.33195 4.91211 7.36328C4.63016 7.38632 4.44065 7.42413 4.29688 7.47559L4.16699 7.53125C3.86488 7.68518 3.61186 7.9196 3.43555 8.20703L3.36524 8.33399C3.28478 8.49198 3.22795 8.70352 3.19727 9.0791C3.16595 9.46259 3.16504 9.95611 3.16504 10.667V13.5C3.16504 14.211 3.16593 14.7044 3.19727 15.0879C3.22797 15.4636 3.28473 15.675 3.36524 15.833L3.43555 15.959C3.61186 16.2466 3.86474 16.4807 4.16699 16.6348L4.29688 16.6914C4.44063 16.7428 4.63025 16.7797 4.91211 16.8027C5.29563 16.8341 5.78896 16.835 6.5 16.835H9.33301C10.0439 16.835 10.5374 16.8341 10.9209 16.8027C11.2965 16.772 11.508 16.7152 11.666 16.6348L11.793 16.5645C12.0804 16.3881 12.3148 16.1351 12.4688 15.833L12.5244 15.7031C12.5759 15.5594 12.6137 15.3698 12.6367 15.0879C12.6681 14.7044 12.668 14.211 12.668 13.5V10.667ZM13.998 12.665C14.4528 12.6634 14.8011 12.6602 15.0879 12.6367C15.4635 12.606 15.675 12.5492 15.833 12.4688L15.959 12.3975C16.2466 12.2211 16.4808 11.9682 16.6348 11.666L16.6914 11.5361C16.7428 11.3924 16.7797 11.2026 16.8027 10.9209C16.8341 10.5374 16.835 10.0439 16.835 9.33301V6.5C16.835 5.78896 16.8341 5.29563 16.8027 4.91211C16.7797 4.63025 16.7428 4.44063 16.6914 4.29688L16.6348 4.16699C16.4807 3.86474 16.2466 3.61186 15.959 3.43555L15.833 3.36524C15.675 3.28473 15.4636 3.22797 15.0879 3.19727C14.7044 3.16593 14.211 3.16504 13.5 3.16504H10.667C9.9561 3.16504 9.46259 3.16595 9.0791 3.19727C8.79739 3.22028 8.6076 3.2572 8.46387 3.30859L8.33399 3.36524C8.03176 3.51923 7.77886 3.75343 7.60254 4.04102L7.53125 4.16699C7.4508 4.32498 7.39397 4.53655 7.36328 4.91211C7.33985 5.19893 7.33562 5.54719 7.33399 6.00195H9.33301C10.022 6.00195 10.5791 6.00131 11.0293 6.03809C11.4873 6.07551 11.8937 6.15471 12.2705 6.34668L12.4883 6.46875C12.984 6.7728 13.3878 7.20854 13.6533 7.72949L13.7197 7.87207C13.8642 8.20859 13.9292 8.56974 13.9619 8.9707C13.9987 9.42092 13.998 9.97799 13.998 10.667V12.665ZM18.165 9.33301C18.165 10.022 18.1657 10.5791 18.1289 11.0293C18.0961 11.4302 18.0311 11.7914 17.8867 12.1279L17.8203 12.2705C17.5549 12.7914 17.1509 13.2272 16.6553 13.5313L16.4365 13.6533C16.0599 13.8452 15.6541 13.9245 15.1963 13.9619C14.8593 13.9895 14.4624 13.9935 13.9951 13.9951C13.9935 14.4624 13.9895 14.8593 13.9619 15.1963C13.9292 15.597 13.864 15.9576 13.7197 16.2939L13.6533 16.4365C13.3878 16.9576 12.9841 17.3941 12.4883 17.6982L12.2705 17.8203C11.8937 18.0123 11.4873 18.0915 11.0293 18.1289C10.5791 18.1657 10.022 18.165 9.33301 18.165H6.5C5.81091 18.165 5.25395 18.1657 4.80371 18.1289C4.40306 18.0962 4.04235 18.031 3.70606 17.8867L3.56348 17.8203C3.04244 17.5548 2.60585 17.151 2.30176 16.6553L2.17969 16.4365C1.98788 16.0599 1.90851 15.6541 1.87109 15.1963C1.83431 14.746 1.83496 14.1891 1.83496 13.5V10.667C1.83496 9.978 1.83432 9.42091 1.87109 8.9707C1.90851 8.5127 1.98772 8.10625 2.17969 7.72949L2.30176 7.51172C2.60586 7.0159 3.04236 6.6122 3.56348 6.34668L3.70606 6.28027C4.04237 6.136 4.40303 6.07083 4.80371 6.03809C5.14051 6.01057 5.53708 6.00551 6.00391 6.00391C6.00551 5.53708 6.01057 5.14051 6.03809 4.80371C6.0755 4.34588 6.15483 3.94012 6.34668 3.56348L6.46875 3.34473C6.77282 2.84912 7.20856 2.44514 7.72949 2.17969L7.87207 2.11328C8.20855 1.96886 8.56979 1.90385 8.9707 1.87109C9.42091 1.83432 9.978 1.83496 10.667 1.83496H13.5C14.1891 1.83496 14.746 1.83431 15.1963 1.87109C15.6541 1.90851 16.0599 1.98788 16.4365 2.17969L16.6553 2.30176C17.151 2.60585 17.5548 3.04244 17.8203 3.56348L17.8867 3.70606C18.031 4.04235 18.0962 4.40306 18.1289 4.80371C18.1657 5.25395 18.165 5.81091 18.165 6.5V9.33301Z"></path></svg></button></span></div></div></div></div>
+<p data-start="13896" data-end="13935"><strong data-start="13896" data-end="13933">Leadership &amp; Mentorship Detailed:</strong></p>
+<ul data-start="13936" data-end="14074">
+<li data-start="13936" data-end="14000">
+<p data-start="13938" data-end="14000">Mentored 6 engineers on high-concurrency distributed systems</p>
+</li>
+<li data-start="14001" data-end="14074">
+<p data-start="14003" data-end="14074">Conducted workshops on real-time WebSocket scaling and message queues</p>
+</li>
+</ul>
+<p data-start="14076" data-end="14112"><strong data-start="14076" data-end="14110">Behavioral Learnings Detailed:</strong></p>
+<ul data-start="14113" data-end="14219">
+<li data-start="14113" data-end="14160">
+<p data-start="14115" data-end="14160">Learned stress-testing for global peak load</p>
+</li>
+<li data-start="14161" data-end="14219">
+<p data-start="14163" data-end="14219">Improved cross-team coordination for incident response</p>
+</li>
+</ul>
+<p data-start="14221" data-end="14252"><strong data-start="14221" data-end="14250">Project Impact / Outcome:</strong></p>
+<ul data-start="14253" data-end="14395">
+<li data-start="14253" data-end="14319">
+<p data-start="14255" data-end="14319">Enabled cloud telephony for 100k+ agents with minimal downtime</p>
+</li>
+<li data-start="14320" data-end="14395">
+<p data-start="14322" data-end="14395">Special Jury Award for "FreshGlow" IoT-integrated metrics visualization</p>
+</li>
+</ul>
+<p data-start="14397" data-end="14424"><strong data-start="14397" data-end="14422">Planned Improvements:</strong></p>
+<ul data-start="14425" data-end="14498">
+<li data-start="14425" data-end="14498">
+<p data-start="14427" data-end="14498">Implement adaptive autoscaling based on real-time call load analytics</p>
+</li>
+</ul>
+<hr data-start="14500" data-end="14503">
+<h2 data-start="14505" data-end="14522">Zoho Reports</h2>
+<p data-start="14523" data-end="14654"><strong data-start="14523" data-end="14535">Context:</strong><br data-start="14535" data-end="14538">
+Worked on Zoho Reports, a B2B analytics tool, handling massive datasets and high concurrency for enterprise users.</p>
+<p data-start="14656" data-end="14673"><strong data-start="14656" data-end="14671">Data Scale:</strong></p>
+<ul data-start="14674" data-end="14742">
+<li data-start="14674" data-end="14696">
+<p data-start="14676" data-end="14696">Total rows: 10–40B</p>
+</li>
+<li data-start="14697" data-end="14742">
+<p data-start="14699" data-end="14742">Average dataset per workspace: 1–20M rows</p>
+</li>
+</ul>
+<p data-start="14744" data-end="14761"><strong data-start="14744" data-end="14759">User Scale:</strong></p>
+<ul data-start="14762" data-end="14821">
+<li data-start="14762" data-end="14787">
+<p data-start="14764" data-end="14787">Active users: 20k–50k</p>
+</li>
+<li data-start="14788" data-end="14821">
+<p data-start="14790" data-end="14821">Peak concurrent users: 5k–20k</p>
+</li>
+</ul>
+<p data-start="14823" data-end="14842"><strong data-start="14823" data-end="14840">Architecture:</strong></p>
+<ul data-start="14843" data-end="14992">
+<li data-start="14843" data-end="14877">
+<p data-start="14845" data-end="14877">Java backend with query engine</p>
+</li>
+<li data-start="14878" data-end="14922">
+<p data-start="14880" data-end="14922">Sharded MySQL + Vectorwise for analytics</p>
+</li>
+<li data-start="14923" data-end="14964">
+<p data-start="14925" data-end="14964">Custom filtering, aggregation modules</p>
+</li>
+<li data-start="14965" data-end="14992">
+<p data-start="14967" data-end="14992">Self-managed deployment</p>
+</li>
+</ul>
+<p data-start="14994" data-end="15043"><strong data-start="14994" data-end="15041">Architecture Explanation of Each Component:</strong></p>
+<ul data-start="15044" data-end="15277">
+<li data-start="15044" data-end="15106">
+<p data-start="15046" data-end="15106"><strong data-start="15046" data-end="15063">Query Engine:</strong> Handles high-throughput SQL/OLAP queries</p>
+</li>
+<li data-start="15107" data-end="15167">
+<p data-start="15109" data-end="15167"><strong data-start="15109" data-end="15125">Sharded DBs:</strong> Support concurrent enterprise workloads</p>
+</li>
+<li data-start="15168" data-end="15219">
+<p data-start="15170" data-end="15219"><strong data-start="15170" data-end="15185">Vectorwise:</strong> Optimized analytical processing</p>
+</li>
+<li data-start="15220" data-end="15277">
+<p data-start="15222" data-end="15277"><strong data-start="15222" data-end="15238">Trash Model:</strong> Manages entity lifecycle efficiently</p>
+</li>
+</ul>
+<p data-start="15279" data-end="15312"><strong data-start="15279" data-end="15310">Architecture Infra Details:</strong></p>
+<ul data-start="15313" data-end="15469">
+<li data-start="15313" data-end="15369">
+<p data-start="15315" data-end="15369">MySQL Cluster: 6 nodes, 16 vCPU, 64 GB RAM, 5 TB SSD</p>
+</li>
+<li data-start="15370" data-end="15424">
+<p data-start="15372" data-end="15424">Vectorwise: 4 nodes, 32 vCPU, 128 GB RAM, 8 TB SSD</p>
+</li>
+<li data-start="15425" data-end="15469">
+<p data-start="15427" data-end="15469">Application: 8 nodes, 16 vCPU, 64 GB RAM</p>
+</li>
+</ul>
+<p data-start="15471" data-end="15512"><strong data-start="15471" data-end="15510">Metric, Alerts, and Visualizations:</strong></p>
+<ul data-start="15513" data-end="15608">
+<li data-start="15513" data-end="15544">
+<p data-start="15515" data-end="15544">Query throughput: 1k–5k/sec</p>
+</li>
+<li data-start="15545" data-end="15573">
+<p data-start="15547" data-end="15573">Avg query latency: &lt;1.2s</p>
+</li>
+<li data-start="15574" data-end="15608">
+<p data-start="15576" data-end="15608">Alert on CPU &gt; 80%, disk &gt; 75%</p>
+</li>
+</ul>
+<p data-start="15610" data-end="15645"><strong data-start="15610" data-end="15643">Challenges &amp; Solutions Table:</strong></p>
+<div class="_tableContainer_1rjym_1"><div tabindex="-1" class="group _tableWrapper_1rjym_13 flex w-fit flex-col-reverse"><table data-start="15647" data-end="16399" class="w-fit min-w-(--thread-content-width)"><thead data-start="15647" data-end="15695"><tr data-start="15647" data-end="15695"><th data-start="15647" data-end="15659" data-col-size="sm">Challenge</th><th data-start="15659" data-end="15673" data-col-size="sm">Description</th><th data-start="15673" data-end="15684" data-col-size="md">Solution</th><th data-start="15684" data-end="15695" data-col-size="sm">Outcome</th></tr></thead><tbody data-start="15744" data-end="16399"><tr data-start="15744" data-end="15845"><td data-start="15744" data-end="15762" data-col-size="sm">High query load</td><td data-start="15762" data-end="15784" data-col-size="sm">Peak 5k queries/sec</td><td data-start="15784" data-end="15828" data-col-size="md">Sharded DB + optimized Vectorwise queries</td><td data-start="15828" data-end="15845" data-col-size="sm">Latency &lt;1.2s</td></tr><tr data-start="15846" data-end="15945"><td data-start="15846" data-end="15871" data-col-size="sm">Large dataset handling</td><td data-start="15871" data-end="15882" data-col-size="sm">40B rows</td><td data-start="15882" data-end="15918" data-col-size="md">Partitioning + indexing + caching</td><td data-start="15918" data-end="15945" data-col-size="sm">Query reliability 99.9%</td></tr><tr data-start="15946" data-end="16072"><td data-start="15946" data-end="15974" data-col-size="sm">Entity deletion conflicts</td><td data-start="15974" data-end="16010" data-col-size="sm">Shared entities across workspaces</td><td data-start="16010" data-end="16043" data-col-size="md">Trash model + deferred cleanup</td><td data-start="16043" data-end="16072" data-col-size="sm">Data integrity maintained</td></tr><tr data-start="16073" data-end="16187"><td data-start="16073" data-end="16094" data-col-size="sm">Custom aggregation</td><td data-start="16094" data-end="16120" data-col-size="sm">Slow for large datasets</td><td data-start="16120" data-end="16157" data-col-size="md">Precomputed aggregations + caching</td><td data-start="16157" data-end="16187" data-col-size="sm">Query latency improved 40%</td></tr><tr data-start="16188" data-end="16297"><td data-start="16188" data-end="16206" data-col-size="sm">Monitoring gaps</td><td data-start="16206" data-end="16236" data-col-size="sm">Hard to detect slow queries</td><td data-start="16236" data-end="16268" data-col-size="md">Real-time dashboards &amp; alerts</td><td data-start="16268" data-end="16297" data-col-size="sm">Reduced incident response</td></tr><tr data-start="16298" data-end="16399"><td data-start="16298" data-end="16310" data-col-size="sm">Data skew</td><td data-start="16310" data-end="16338" data-col-size="sm">Uneven load across shards</td><td data-start="16338" data-end="16366" data-col-size="md">Dynamic shard rebalancing</td><td data-start="16366" data-end="16399" data-col-size="sm">Balanced resource utilization</td></tr></tbody></table><div class="sticky h-0 select-none end-(--thread-content-margin) self-end"><div class="absolute end-0 flex items-end" style="height: 33px;"><span class="" data-state="closed"><button aria-label="Copy table" class="hover:bg-token-bg-tertiary text-token-text-secondary my-1 rounded-sm p-1 transition-opacity group-[:not(:hover):not(:focus-within)]:pointer-events-none group-[:not(:hover):not(:focus-within)]:opacity-0"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="icon"><path d="M12.668 10.667C12.668 9.95614 12.668 9.46258 12.6367 9.0791C12.6137 8.79732 12.5758 8.60761 12.5244 8.46387L12.4688 8.33399C12.3148 8.03193 12.0803 7.77885 11.793 7.60254L11.666 7.53125C11.508 7.45087 11.2963 7.39395 10.9209 7.36328C10.5374 7.33197 10.0439 7.33203 9.33301 7.33203H6.5C5.78896 7.33203 5.29563 7.33195 4.91211 7.36328C4.63016 7.38632 4.44065 7.42413 4.29688 7.47559L4.16699 7.53125C3.86488 7.68518 3.61186 7.9196 3.43555 8.20703L3.36524 8.33399C3.28478 8.49198 3.22795 8.70352 3.19727 9.0791C3.16595 9.46259 3.16504 9.95611 3.16504 10.667V13.5C3.16504 14.211 3.16593 14.7044 3.19727 15.0879C3.22797 15.4636 3.28473 15.675 3.36524 15.833L3.43555 15.959C3.61186 16.2466 3.86474 16.4807 4.16699 16.6348L4.29688 16.6914C4.44063 16.7428 4.63025 16.7797 4.91211 16.8027C5.29563 16.8341 5.78896 16.835 6.5 16.835H9.33301C10.0439 16.835 10.5374 16.8341 10.9209 16.8027C11.2965 16.772 11.508 16.7152 11.666 16.6348L11.793 16.5645C12.0804 16.3881 12.3148 16.1351 12.4688 15.833L12.5244 15.7031C12.5759 15.5594 12.6137 15.3698 12.6367 15.0879C12.6681 14.7044 12.668 14.211 12.668 13.5V10.667ZM13.998 12.665C14.4528 12.6634 14.8011 12.6602 15.0879 12.6367C15.4635 12.606 15.675 12.5492 15.833 12.4688L15.959 12.3975C16.2466 12.2211 16.4808 11.9682 16.6348 11.666L16.6914 11.5361C16.7428 11.3924 16.7797 11.2026 16.8027 10.9209C16.8341 10.5374 16.835 10.0439 16.835 9.33301V6.5C16.835 5.78896 16.8341 5.29563 16.8027 4.91211C16.7797 4.63025 16.7428 4.44063 16.6914 4.29688L16.6348 4.16699C16.4807 3.86474 16.2466 3.61186 15.959 3.43555L15.833 3.36524C15.675 3.28473 15.4636 3.22797 15.0879 3.19727C14.7044 3.16593 14.211 3.16504 13.5 3.16504H10.667C9.9561 3.16504 9.46259 3.16595 9.0791 3.19727C8.79739 3.22028 8.6076 3.2572 8.46387 3.30859L8.33399 3.36524C8.03176 3.51923 7.77886 3.75343 7.60254 4.04102L7.53125 4.16699C7.4508 4.32498 7.39397 4.53655 7.36328 4.91211C7.33985 5.19893 7.33562 5.54719 7.33399 6.00195H9.33301C10.022 6.00195 10.5791 6.00131 11.0293 6.03809C11.4873 6.07551 11.8937 6.15471 12.2705 6.34668L12.4883 6.46875C12.984 6.7728 13.3878 7.20854 13.6533 7.72949L13.7197 7.87207C13.8642 8.20859 13.9292 8.56974 13.9619 8.9707C13.9987 9.42092 13.998 9.97799 13.998 10.667V12.665ZM18.165 9.33301C18.165 10.022 18.1657 10.5791 18.1289 11.0293C18.0961 11.4302 18.0311 11.7914 17.8867 12.1279L17.8203 12.2705C17.5549 12.7914 17.1509 13.2272 16.6553 13.5313L16.4365 13.6533C16.0599 13.8452 15.6541 13.9245 15.1963 13.9619C14.8593 13.9895 14.4624 13.9935 13.9951 13.9951C13.9935 14.4624 13.9895 14.8593 13.9619 15.1963C13.9292 15.597 13.864 15.9576 13.7197 16.2939L13.6533 16.4365C13.3878 16.9576 12.9841 17.3941 12.4883 17.6982L12.2705 17.8203C11.8937 18.0123 11.4873 18.0915 11.0293 18.1289C10.5791 18.1657 10.022 18.165 9.33301 18.165H6.5C5.81091 18.165 5.25395 18.1657 4.80371 18.1289C4.40306 18.0962 4.04235 18.031 3.70606 17.8867L3.56348 17.8203C3.04244 17.5548 2.60585 17.151 2.30176 16.6553L2.17969 16.4365C1.98788 16.0599 1.90851 15.6541 1.87109 15.1963C1.83431 14.746 1.83496 14.1891 1.83496 13.5V10.667C1.83496 9.978 1.83432 9.42091 1.87109 8.9707C1.90851 8.5127 1.98772 8.10625 2.17969 7.72949L2.30176 7.51172C2.60586 7.0159 3.04236 6.6122 3.56348 6.34668L3.70606 6.28027C4.04237 6.136 4.40303 6.07083 4.80371 6.03809C5.14051 6.01057 5.53708 6.00551 6.00391 6.00391C6.00551 5.53708 6.01057 5.14051 6.03809 4.80371C6.0755 4.34588 6.15483 3.94012 6.34668 3.56348L6.46875 3.34473C6.77282 2.84912 7.20856 2.44514 7.72949 2.17969L7.87207 2.11328C8.20855 1.96886 8.56979 1.90385 8.9707 1.87109C9.42091 1.83432 9.978 1.83496 10.667 1.83496H13.5C14.1891 1.83496 14.746 1.83431 15.1963 1.87109C15.6541 1.90851 16.0599 1.98788 16.4365 2.17969L16.6553 2.30176C17.151 2.60585 17.5548 3.04244 17.8203 3.56348L17.8867 3.70606C18.031 4.04235 18.0962 4.40306 18.1289 4.80371C18.1657 5.25395 18.165 5.81091 18.165 6.5V9.33301Z"></path></svg></button></span></div></div></div></div>
+<p data-start="16401" data-end="16440"><strong data-start="16401" data-end="16438">Leadership &amp; Mentorship Detailed:</strong></p>
+<ul data-start="16441" data-end="16578">
+<li data-start="16441" data-end="16523">
+<p data-start="16443" data-end="16523">Mentored 6 engineers on query optimization, sharding, and Vectorwise analytics</p>
+</li>
+<li data-start="16524" data-end="16578">
+<p data-start="16526" data-end="16578">Conducted workshops on scaling analytics platforms</p>
+</li>
+</ul>
+<p data-start="16580" data-end="16616"><strong data-start="16580" data-end="16614">Behavioral Learnings Detailed:</strong></p>
+<ul data-start="16617" data-end="16761">
+<li data-start="16617" data-end="16687">
+<p data-start="16619" data-end="16687">Learned balancing throughput and latency for enterprise-scale data</p>
+</li>
+<li data-start="16688" data-end="16761">
+<p data-start="16690" data-end="16761">Improved communication with business users for analytics requirements</p>
+</li>
+</ul>
+<p data-start="16763" data-end="16794"><strong data-start="16763" data-end="16792">Project Impact / Outcome:</strong></p>
+<ul data-start="16795" data-end="16903">
+<li data-start="16795" data-end="16848">
+<p data-start="16797" data-end="16848">Enabled stable analytics for 50k users, 20B+ rows</p>
+</li>
+<li data-start="16849" data-end="16903">
+<p data-start="16851" data-end="16903">Reduced query latency and improved user experience</p>
+</li>
+</ul>
+<p data-start="16905" data-end="16932"><strong data-start="16905" data-end="16930">Planned Improvements:</strong></p>
+<ul data-start="16933" data-end="16994">
+<li data-start="16933" data-end="16994">
+<p data-start="16935" data-end="16994">Introduce vectorized search for complex analytics queries</p>
+</li>
+</ul>
+<hr data-start="16996" data-end="16999">
+<h1 data-start="17001" data-end="17040">📊 3. REALISTIC INFRA SUMMARY TABLE</h1>
+<div class="_tableContainer_1rjym_1"><div tabindex="-1" class="group _tableWrapper_1rjym_13 flex w-fit flex-col-reverse"><table data-start="17042" data-end="18504" class="w-fit min-w-(--thread-content-width)"><thead data-start="17042" data-end="17103"><tr data-start="17042" data-end="17103"><th data-start="17042" data-end="17052" data-col-size="sm">Company</th><th data-start="17052" data-end="17064" data-col-size="sm">Component</th><th data-start="17064" data-end="17072" data-col-size="sm">Nodes</th><th data-start="17072" data-end="17078" data-col-size="sm">CPU</th><th data-start="17078" data-end="17084" data-col-size="sm">RAM</th><th data-start="17084" data-end="17094" data-col-size="sm">Storage</th><th data-start="17094" data-end="17103" data-col-size="sm">Notes</th></tr></thead><tbody data-start="17165" data-end="18504"><tr data-start="17165" data-end="17258"><td data-start="17165" data-end="17182" data-col-size="sm">Cloudera GENAI</td><td data-start="17182" data-end="17195" data-col-size="sm">OpenSearch</td><td data-start="17195" data-end="17200" data-col-size="sm">12</td><td data-start="17200" data-end="17210" data-col-size="sm">32 vCPU</td><td data-start="17210" data-end="17219" data-col-size="sm">128 GB</td><td data-start="17219" data-end="17230" data-col-size="sm">5 TB SSD</td><td data-start="17230" data-end="17258" data-col-size="sm">HA, replication factor 2</td></tr><tr data-start="17259" data-end="17347"><td data-start="17259" data-end="17276" data-col-size="sm">Cloudera GENAI</td><td data-start="17276" data-end="17284" data-col-size="sm">Spark</td><td data-start="17284" data-end="17289" data-col-size="sm">10</td><td data-start="17289" data-end="17299" data-col-size="sm">16 vCPU</td><td data-start="17299" data-end="17307" data-col-size="sm">64 GB</td><td data-start="17307" data-end="17318" data-col-size="sm">2 TB SSD</td><td data-start="17318" data-end="17347" data-col-size="sm">Distributed preprocessing</td></tr><tr data-start="17348" data-end="17430"><td data-start="17348" data-end="17365" data-col-size="sm">Cloudera GENAI</td><td data-start="17365" data-end="17373" data-col-size="sm">Kafka</td><td data-start="17373" data-end="17377" data-col-size="sm">6</td><td data-start="17377" data-end="17387" data-col-size="sm">16 vCPU</td><td data-start="17387" data-end="17395" data-col-size="sm">64 GB</td><td data-start="17395" data-end="17406" data-col-size="sm">2 TB SSD</td><td data-start="17406" data-end="17430" data-col-size="sm">Replication factor 3</td></tr><tr data-start="17431" data-end="17519"><td data-start="17431" data-end="17448" data-col-size="sm">Cloudera GENAI</td><td data-start="17448" data-end="17464" data-col-size="sm">Flask Backend</td><td data-start="17464" data-end="17468" data-col-size="sm">4</td><td data-start="17468" data-end="17477" data-col-size="sm">4 vCPU</td><td data-start="17477" data-end="17485" data-col-size="sm">16 GB</td><td data-start="17485" data-end="17494" data-col-size="sm">200 GB</td><td data-start="17494" data-end="17519" data-col-size="sm">ECS High Availability</td></tr><tr data-start="17520" data-end="17607"><td data-start="17520" data-end="17528" data-col-size="sm">Paytm</td><td data-start="17528" data-end="17550" data-col-size="sm">Java Reconciliation</td><td data-start="17550" data-end="17555" data-col-size="sm">10</td><td data-start="17555" data-end="17565" data-col-size="sm">32 vCPU</td><td data-start="17565" data-end="17574" data-col-size="sm">128 GB</td><td data-start="17574" data-end="17585" data-col-size="sm">4 TB SSD</td><td data-start="17585" data-end="17607" data-col-size="sm">Sharded processing</td></tr><tr data-start="17608" data-end="17671"><td data-start="17608" data-end="17616" data-col-size="sm">Paytm</td><td data-start="17616" data-end="17624" data-col-size="sm">Kafka</td><td data-start="17624" data-end="17628" data-col-size="sm">6</td><td data-start="17628" data-end="17638" data-col-size="sm">16 vCPU</td><td data-start="17638" data-end="17646" data-col-size="sm">64 GB</td><td data-start="17646" data-end="17657" data-col-size="sm">2 TB SSD</td><td data-start="17657" data-end="17671" data-col-size="sm">DR enabled</td></tr><tr data-start="17672" data-end="17758"><td data-start="17672" data-end="17680" data-col-size="sm">Paytm</td><td data-start="17680" data-end="17688" data-col-size="sm">MySQL</td><td data-start="17688" data-end="17692" data-col-size="sm">5</td><td data-start="17692" data-end="17702" data-col-size="sm">16 vCPU</td><td data-start="17702" data-end="17710" data-col-size="sm">64 GB</td><td data-start="17710" data-end="17722" data-col-size="sm">5 TB NVMe</td><td data-start="17722" data-end="17758" data-col-size="sm">Persistent deferred transactions</td></tr><tr data-start="17759" data-end="17853"><td data-start="17759" data-end="17781" data-col-size="sm">Cloudera Validation</td><td data-start="17781" data-end="17788" data-col-size="sm">Solr</td><td data-start="17788" data-end="17793" data-col-size="sm">12</td><td data-start="17793" data-end="17803" data-col-size="sm">32 vCPU</td><td data-start="17803" data-end="17812" data-col-size="sm">128 GB</td><td data-start="17812" data-end="17823" data-col-size="sm">8 TB SSD</td><td data-start="17823" data-end="17853" data-col-size="sm">High-volume faceted search</td></tr><tr data-start="17854" data-end="17945"><td data-start="17854" data-end="17876" data-col-size="sm">Cloudera Validation</td><td data-start="17876" data-end="17884" data-col-size="sm">HBase</td><td data-start="17884" data-end="17888" data-col-size="sm">6</td><td data-start="17888" data-end="17898" data-col-size="sm">32 vCPU</td><td data-start="17898" data-end="17907" data-col-size="sm">128 GB</td><td data-start="17907" data-end="17919" data-col-size="sm">10 TB SSD</td><td data-start="17919" data-end="17945" data-col-size="sm">Persistent log storage</td></tr><tr data-start="17946" data-end="18032"><td data-start="17946" data-end="17968" data-col-size="sm">Cloudera Validation</td><td data-start="17968" data-end="17976" data-col-size="sm">Kafka</td><td data-start="17976" data-end="17980" data-col-size="sm">6</td><td data-start="17980" data-end="17990" data-col-size="sm">16 vCPU</td><td data-start="17990" data-end="17998" data-col-size="sm">64 GB</td><td data-start="17998" data-end="18009" data-col-size="sm">2 TB SSD</td><td data-start="18009" data-end="18032" data-col-size="sm">Streaming ingestion</td></tr><tr data-start="18033" data-end="18118"><td data-start="18033" data-end="18047" data-col-size="sm">Freshcaller</td><td data-start="18047" data-end="18061" data-col-size="sm">NodeJS/Ruby</td><td data-start="18061" data-end="18065" data-col-size="sm">6</td><td data-start="18065" data-end="18075" data-col-size="sm">16 vCPU</td><td data-start="18075" data-end="18083" data-col-size="sm">64 GB</td><td data-start="18083" data-end="18092" data-col-size="sm">500 GB</td><td data-start="18092" data-end="18118" data-col-size="sm">Real-time call routing</td></tr><tr data-start="18119" data-end="18191"><td data-start="18119" data-end="18133" data-col-size="sm">Freshcaller</td><td data-start="18133" data-end="18141" data-col-size="sm">MySQL</td><td data-start="18141" data-end="18145" data-col-size="sm">5</td><td data-start="18145" data-end="18155" data-col-size="sm">16 vCPU</td><td data-start="18155" data-end="18163" data-col-size="sm">64 GB</td><td data-start="18163" data-end="18174" data-col-size="sm">5 TB SSD</td><td data-start="18174" data-end="18191" data-col-size="sm">Call metadata</td></tr><tr data-start="18192" data-end="18260"><td data-start="18192" data-end="18206" data-col-size="sm">Freshcaller</td><td data-start="18206" data-end="18212" data-col-size="sm">SQS</td><td data-start="18212" data-end="18222" data-col-size="sm">Managed</td><td data-start="18222" data-end="18226" data-col-size="sm">-</td><td data-start="18226" data-end="18230" data-col-size="sm">-</td><td data-start="18230" data-end="18234" data-col-size="sm">-</td><td data-start="18234" data-end="18260" data-col-size="sm">AWS autoscaling queues</td></tr><tr data-start="18261" data-end="18342"><td data-start="18261" data-end="18276" data-col-size="sm">Zoho Reports</td><td data-start="18276" data-end="18284" data-col-size="sm">MySQL</td><td data-start="18284" data-end="18288" data-col-size="sm">6</td><td data-start="18288" data-end="18298" data-col-size="sm">16 vCPU</td><td data-start="18298" data-end="18306" data-col-size="sm">64 GB</td><td data-start="18306" data-end="18317" data-col-size="sm">5 TB SSD</td><td data-start="18317" data-end="18342" data-col-size="sm">Sharded for analytics</td></tr><tr data-start="18343" data-end="18426"><td data-start="18343" data-end="18358" data-col-size="sm">Zoho Reports</td><td data-start="18358" data-end="18371" data-col-size="sm">Vectorwise</td><td data-start="18371" data-end="18375" data-col-size="sm">4</td><td data-start="18375" data-end="18385" data-col-size="sm">32 vCPU</td><td data-start="18385" data-end="18394" data-col-size="sm">128 GB</td><td data-start="18394" data-end="18405" data-col-size="sm">8 TB SSD</td><td data-start="18405" data-end="18426" data-col-size="sm">Analytical engine</td></tr><tr data-start="18427" data-end="18504"><td data-start="18427" data-end="18442" data-col-size="sm">Zoho Reports</td><td data-start="18442" data-end="18454" data-col-size="sm">App Nodes</td><td data-start="18454" data-end="18458" data-col-size="sm">8</td><td data-start="18458" data-end="18468" data-col-size="sm">16 vCPU</td><td data-start="18468" data-end="18476" data-col-size="sm">64 GB</td><td data-start="18476" data-end="18485" data-col-size="sm">500 GB</td><td data-start="18485" data-end="18504" data-col-size="sm">Backend service</td></tr></tbody></table><div class="sticky h-0 select-none end-(--thread-content-margin) self-end"><div class="absolute end-0 flex items-end" style="height: 33px;"><span class="" data-state="closed"><button aria-label="Copy table" class="hover:bg-token-bg-tertiary text-token-text-secondary my-1 rounded-sm p-1 transition-opacity group-[:not(:hover):not(:focus-within)]:pointer-events-none group-[:not(:hover):not(:focus-within)]:opacity-0"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="icon"><path d="M12.668 10.667C12.668 9.95614 12.668 9.46258 12.6367 9.0791C12.6137 8.79732 12.5758 8.60761 12.5244 8.46387L12.4688 8.33399C12.3148 8.03193 12.0803 7.77885 11.793 7.60254L11.666 7.53125C11.508 7.45087 11.2963 7.39395 10.9209 7.36328C10.5374 7.33197 10.0439 7.33203 9.33301 7.33203H6.5C5.78896 7.33203 5.29563 7.33195 4.91211 7.36328C4.63016 7.38632 4.44065 7.42413 4.29688 7.47559L4.16699 7.53125C3.86488 7.68518 3.61186 7.9196 3.43555 8.20703L3.36524 8.33399C3.28478 8.49198 3.22795 8.70352 3.19727 9.0791C3.16595 9.46259 3.16504 9.95611 3.16504 10.667V13.5C3.16504 14.211 3.16593 14.7044 3.19727 15.0879C3.22797 15.4636 3.28473 15.675 3.36524 15.833L3.43555 15.959C3.61186 16.2466 3.86474 16.4807 4.16699 16.6348L4.29688 16.6914C4.44063 16.7428 4.63025 16.7797 4.91211 16.8027C5.29563 16.8341 5.78896 16.835 6.5 16.835H9.33301C10.0439 16.835 10.5374 16.8341 10.9209 16.8027C11.2965 16.772 11.508 16.7152 11.666 16.6348L11.793 16.5645C12.0804 16.3881 12.3148 16.1351 12.4688 15.833L12.5244 15.7031C12.5759 15.5594 12.6137 15.3698 12.6367 15.0879C12.6681 14.7044 12.668 14.211 12.668 13.5V10.667ZM13.998 12.665C14.4528 12.6634 14.8011 12.6602 15.0879 12.6367C15.4635 12.606 15.675 12.5492 15.833 12.4688L15.959 12.3975C16.2466 12.2211 16.4808 11.9682 16.6348 11.666L16.6914 11.5361C16.7428 11.3924 16.7797 11.2026 16.8027 10.9209C16.8341 10.5374 16.835 10.0439 16.835 9.33301V6.5C16.835 5.78896 16.8341 5.29563 16.8027 4.91211C16.7797 4.63025 16.7428 4.44063 16.6914 4.29688L16.6348 4.16699C16.4807 3.86474 16.2466 3.61186 15.959 3.43555L15.833 3.36524C15.675 3.28473 15.4636 3.22797 15.0879 3.19727C14.7044 3.16593 14.211 3.16504 13.5 3.16504H10.667C9.9561 3.16504 9.46259 3.16595 9.0791 3.19727C8.79739 3.22028 8.6076 3.2572 8.46387 3.30859L8.33399 3.36524C8.03176 3.51923 7.77886 3.75343 7.60254 4.04102L7.53125 4.16699C7.4508 4.32498 7.39397 4.53655 7.36328 4.91211C7.33985 5.19893 7.33562 5.54719 7.33399 6.00195H9.33301C10.022 6.00195 10.5791 6.00131 11.0293 6.03809C11.4873 6.07551 11.8937 6.15471 12.2705 6.34668L12.4883 6.46875C12.984 6.7728 13.3878 7.20854 13.6533 7.72949L13.7197 7.87207C13.8642 8.20859 13.9292 8.56974 13.9619 8.9707C13.9987 9.42092 13.998 9.97799 13.998 10.667V12.665ZM18.165 9.33301C18.165 10.022 18.1657 10.5791 18.1289 11.0293C18.0961 11.4302 18.0311 11.7914 17.8867 12.1279L17.8203 12.2705C17.5549 12.7914 17.1509 13.2272 16.6553 13.5313L16.4365 13.6533C16.0599 13.8452 15.6541 13.9245 15.1963 13.9619C14.8593 13.9895 14.4624 13.9935 13.9951 13.9951C13.9935 14.4624 13.9895 14.8593 13.9619 15.1963C13.9292 15.597 13.864 15.9576 13.7197 16.2939L13.6533 16.4365C13.3878 16.9576 12.9841 17.3941 12.4883 17.6982L12.2705 17.8203C11.8937 18.0123 11.4873 18.0915 11.0293 18.1289C10.5791 18.1657 10.022 18.165 9.33301 18.165H6.5C5.81091 18.165 5.25395 18.1657 4.80371 18.1289C4.40306 18.0962 4.04235 18.031 3.70606 17.8867L3.56348 17.8203C3.04244 17.5548 2.60585 17.151 2.30176 16.6553L2.17969 16.4365C1.98788 16.0599 1.90851 15.6541 1.87109 15.1963C1.83431 14.746 1.83496 14.1891 1.83496 13.5V10.667C1.83496 9.978 1.83432 9.42091 1.87109 8.9707C1.90851 8.5127 1.98772 8.10625 2.17969 7.72949L2.30176 7.51172C2.60586 7.0159 3.04236 6.6122 3.56348 6.34668L3.70606 6.28027C4.04237 6.136 4.40303 6.07083 4.80371 6.03809C5.14051 6.01057 5.53708 6.00551 6.00391 6.00391C6.00551 5.53708 6.01057 5.14051 6.03809 4.80371C6.0755 4.34588 6.15483 3.94012 6.34668 3.56348L6.46875 3.34473C6.77282 2.84912 7.20856 2.44514 7.72949 2.17969L7.87207 2.11328C8.20855 1.96886 8.56979 1.90385 8.9707 1.87109C9.42091 1.83432 9.978 1.83496 10.667 1.83496H13.5C14.1891 1.83496 14.746 1.83431 15.1963 1.87109C15.6541 1.90851 16.0599 1.98788 16.4365 2.17969L16.6553 2.30176C17.151 2.60585 17.5548 3.04244 17.8203 3.56348L17.8867 3.70606C18.031 4.04235 18.0962 4.40306 18.1289 4.80371C18.1657 5.25395 18.165 5.81091 18.165 6.5V9.33301Z"></path></svg></button></span></div></div></div></div>
+<hr data-start="18506" data-end="18509">
+<h1 data-start="18511" data-end="18562">🧭 4. BEHAVIORAL DIMENSIONS FOR FAANG INTERVIEW</h1>
+<ul data-start="18564" data-end="19216">
+<li data-start="18564" data-end="18663">
+<p data-start="18566" data-end="18663"><strong data-start="18566" data-end="18580">Ownership:</strong> Led architecture, implementation, and productionization of high-scale pipelines.</p>
+</li>
+<li data-start="18664" data-end="18774">
+<p data-start="18666" data-end="18774"><strong data-start="18666" data-end="18686">Problem Solving:</strong> Tackled 100M+ transactions, 20TB/day logs, and millions of queries/users efficiently.</p>
+</li>
+<li data-start="18775" data-end="18891">
+<p data-start="18777" data-end="18891"><strong data-start="18777" data-end="18800">Impact Orientation:</strong> Improved search, reconciliation, and analytics systems to measurable productivity gains.</p>
+</li>
+<li data-start="18892" data-end="19006">
+<p data-start="18894" data-end="19006"><strong data-start="18894" data-end="18909">Leadership:</strong> Mentored 6+ engineers in distributed systems, Spark/Kafka optimization, and cloud deployments.</p>
+</li>
+<li data-start="19007" data-end="19091">
+<p data-start="19009" data-end="19091"><strong data-start="19009" data-end="19027">Communication:</strong> Conveyed complex architectures to non-technical stakeholders.</p>
+</li>
+<li data-start="19092" data-end="19216">
+<p data-start="19094" data-end="19216"><strong data-start="19094" data-end="19115">Learning Agility:</strong> Adopted hybrid AI systems, moved POC apps to production-grade scale, continuously optimized infra.</p>
+</li>
+</ul>
+<hr data-start="19218" data-end="19221">
+<h1 data-start="19223" data-end="19275">🧩 5. HOW TO TELL THIS STORY IN INTERVIEW FORMAT</h1>
+<ul data-start="19277" data-end="19849">
+<li data-start="19277" data-end="19401">
+<p data-start="19279" data-end="19401">Start with <strong data-start="19290" data-end="19319">high-level impact metrics</strong>: “I’ve designed pipelines handling 150M transactions/day and 20TB/day of logs…”</p>
+</li>
+<li data-start="19402" data-end="19514">
+<p data-start="19404" data-end="19514">Describe <strong data-start="19413" data-end="19458">technical problem, constraints, and scale</strong>: Kafka/Spark/OpenSearch usage with realistic numbers.</p>
+</li>
+<li data-start="19515" data-end="19620">
+<p data-start="19517" data-end="19620">Explain <strong data-start="19525" data-end="19571">challenges faced and solutions implemented</strong>: Use Challenge → Solution → Outcome framework.</p>
+</li>
+<li data-start="19621" data-end="19737">
+<p data-start="19623" data-end="19737">Highlight <strong data-start="19633" data-end="19662">mentorship and leadership</strong>: “I mentored 6 engineers on distributed processing and AI integrations…”</p>
+</li>
+<li data-start="19738" data-end="19849">
+<p data-start="19740" data-end="19849">Close with <strong data-start="19751" data-end="19782">results and business impact</strong>: Productivity gains, cost reductions, improved resolution times.</p>
+</li>
+</ul>
+<hr data-start="19851" data-end="19854">
+<h1 data-start="19856" data-end="19900">🧩 6. EXPLANATION ON NONTRIVIAL MENTIONS</h1>
+<ul data-start="19902" data-end="21080">
+<li data-start="19902" data-end="20102">
+<p data-start="19904" data-end="20102"><strong data-start="19904" data-end="19922">Kafka Scaling:</strong> Partition count per topic estimated based on throughput (~50k msgs/sec per partition) with replication factor 3 for HA. Critical for ingestion from multiple high-volume sources.</p>
+</li>
+<li data-start="20103" data-end="20249">
+<p data-start="20105" data-end="20249"><strong data-start="20105" data-end="20124">Spark Clusters:</strong> Optimized node allocation for distributed preprocessing of 7M+ chunks/day, balancing CPU and memory to reduce GC overhead.</p>
+</li>
+<li data-start="20250" data-end="20388">
+<p data-start="20252" data-end="20388"><strong data-start="20252" data-end="20282">OpenSearch Vector Storage:</strong> Each chunk stored as 512-dimension vector; horizontal scaling required for low latency semantic search.</p>
+</li>
+<li data-start="20389" data-end="20528">
+<p data-start="20391" data-end="20528"><strong data-start="20391" data-end="20415">Azure/OpenAI Hybrid:</strong> Cached repeated queries to reduce cost and improve latency. Considered local LLM replacement for future scale.</p>
+</li>
+<li data-start="20529" data-end="20681">
+<p data-start="20531" data-end="20681"><strong data-start="20531" data-end="20550">MySQL Sharding:</strong> Used for deferred transactions at Paytm and Zoho Reports to handle multi-million rows per shard without impacting query latency.</p>
+</li>
+<li data-start="20682" data-end="20854">
+<p data-start="20684" data-end="20854"><strong data-start="20684" data-end="20708">Monitoring &amp; Alerts:</strong> Datadog and Kibana dashboards track ingestion lag, search latency, cluster health, CPU/disk thresholds. PagerDuty triggers SLA-critical issues.</p>
+</li>
+<li data-start="20855" data-end="20967">
+<p data-start="20857" data-end="20967"><strong data-start="20857" data-end="20879">High Availability:</strong> Multi-AZ ECS and replication for Solr/OpenSearch clusters ensured near-zero downtime.</p>
+</li>
+<li data-start="20968" data-end="21080">
+<p data-start="20970" data-end="21080"><strong data-start="20970" data-end="21004">Parallelization of Unit Tests:</strong> At Freshcaller, CPU core-based distribution reduced CI/CD runtime by 16x.</p>
+</li>
+</ul>
+<p data-start="21082" data-end="21279">This response provides the full narrative, project deep dives, realistic infra, behavioral prep, and technical understanding needed to confidently articulate your experience in a FAANG interview.</p>
+<hr data-start="21281" data-end="21284">
+<p data-start="21286" data-end="21526">If you want, I can <strong data-start="21305" data-end="21362">also draft a fully formatted VS Code Markdown version</strong> with collapsible sections, emojis, and table spacing fully aligned for copy-paste-readiness, which will make it ultra-polished for LinkedIn and FAANG prep notes.</p>
+<p data-start="21528" data-end="21559" data-is-last-node="" data-is-only-node="">Do you want me to do that next?</p></div>
+
+
