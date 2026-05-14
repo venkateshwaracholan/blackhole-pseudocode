@@ -278,6 +278,14 @@ END OF SYSTEM DESIGN HLD SUPER PROMPT
 
 **Question:** [Insert the HLD question from LeetCode Discuss here]
 
+Design a flexible in-memory cache with customizable capacity and eviction policies.
 
+The cache should allow users to define:
+
+Capacity: Specify how much data the cache can hold based on memory resources and data size.
+Eviction Policy: Choose strategies for removing items when the cache is full, such as Least Recently Used (LRU) or Lowest Priority.
+This flexibility ensures the cache can be tailored to meet specific requirements, balancing resource usage and performance.
+
+Once the LLD created was agreed with the interviewer, it was extended from HLD perspective for multiple nodes in distributed system setup covering all the challenges and other adhoc scenarios like hot key issue for a write-heavy setup. Also, discussion went around few Redis related internals.
 
 ```

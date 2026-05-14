@@ -91,18 +91,24 @@ Staff software engineer
 Rag pipeline with opensearch(aws), bedrock(aws) for embedding for search
 flask backend
 kafka spark, bedrock rock ingestion
-Azure open ai for inference
+self deployed model for inference
 deployed on AWS
-azure on portal.azure
 datadog, slack alerts, opensearch logs
 won AI hackathon
+important point to talk:
+    prev used mixbread model to embed
+    bedrock model: titan-embed-v2
+    previous inference: 
+    inference: gpt-oss-120b
+    sentance chunking -> semantic chunking
+    knn true,lecene engine, hnsw, dimension 1024, ef_construction 1024, m 32, cosine similarity, 
+
 initially poc app was handed over to me which used postgres for vector and a basic llm,
 moved to openseacrh, bedrock and azure openai, tehn productionized it in CML with HighAvailability
 
 cloudera data sources and updates
 
-exploration/improvements:
-gpt model in local LLm to replace azure and bedrock 
+
 scale: cloudera cases 1M, Internal Jiras=1M, apache jiras=2M, docs community, kbs, blogs =1M, slack data=2M, 500chunk size, 20% overlap, total 7M, avg 6 chunks, 42M chunks
 users: internal support engneers(2k) + cloudera customers for self support(20k)
 ]

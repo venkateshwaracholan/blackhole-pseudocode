@@ -1,0 +1,177 @@
+
+
+
+POC:
+
+
+postgres pgvector
+vector_bge_large_1.5 768 dims , Nomic-text/Nomic Embed v1, mxbai-embed-large-v1 1024 dimensions
+Llama 2 70B
+sentance chunking
+ivf flat indexing
+
+Data Scale:
+
+    Cloudera Cases: 1M
+
+    Internal JIRAs: 1M
+
+    Apache JIRAs: 2M
+
+    Documentation, KBs, blogs: 1M
+
+    Slack messages: 2M
+
+    Total Chunks: 42M (500 tokens/chunk, 20% overlap)
+
+User Scale:
+
+            Internal Support Engineers: 2k
+
+            Cloudera Customers (self-support): 20k
+
+
+public jiras are slow, so we maintain them in onprem edh clusters on hive tables, hue ui and consume using Cloudera JDBC Driver for Apache Hive
+
+
+
+opensearch 2.18 knn search
+bedrock titan-embed-text-v2 1024 dims
+cosinesimil
+hnsw
+Azure open ai for inference
+
+Parameter,One-Liner Explanation & Impact,Typical Value Range,Solid Starting Value for RAG
+M,Max connections per node: Controls graph density; a higher value improves recall but increases memory and build time.,16 to 64,32
+efConstruction,Construction search depth: Controls index quality; a higher value improves recall but increases build time.,100 to 500,250
+efSearch,Query search depth: Controls search accuracy; a higher value improves recall but increases search latency (slower queries).,k to 10×k,4×k
+
+
+Architecture:
+
+            Flask-based API backend
+
+            Kafka for ingestion pipeline
+
+            Spark for vectorization and preprocessing
+
+            OpenSearch for vector search and faceted search
+
+            AWS Bedrock for embeddings
+
+            Azure OpenAI for inference
+
+            Deployment: AWS ECS + CML High Availability cluster
+
+            Monitoring: Datadog, Slack alerts, OpenSearch logs
+
+
+Architecture Infra Details:
+
+            OpenSearch: 12 nodes, 32 vCPU, 128 GB RAM, 5 TB SSD per node
+
+            Spark Cluster: 10 nodes, 16 vCPU, 64 GB RAM, 2 TB SSD (yarn avoids zk)
+
+            Kafka Cluster: 6 nodes, 16 vCPU, 64 GB RAM, 2 TB SSD, replication factor 3, KRaft so no zoo keeper
+
+            Flask Backend: 4 ECS tasks, 4 vCPU, 16 GB RAM each-
+
+            Bedrock & Azure OpenAI: Managed, autoscaling endpoints
+
+
+
+
+configs
+# ====================================================================
+# 1. OpenSearch HNSW CONFIGS (for 42M Chunks, 1024-Dim Vectors)
+#    - Note: Increasing M to 64 slightly boosts recall for 1024D vectors
+#            but increases memory significantly. 
+#            A value of 48 offers a good balance.
+# ====================================================================
+OpenSearch_HNSW_M                  48        # Connectivity: Higher for better recall in high-D space
+OpenSearch_HNSW_efConstruction     600       # Indexing Quality: High value ensures a high-quality graph
+OpenSearch_HNSW_efSearch           100       # Query Quality: Set to 25 * k (25 * 4) for high recall
+OpenSearch_HNSW_k                  4         # Retrieval Count
+
+# ====================================================================
+# 2. KAFKA PRODUCER CONFIGS (High Throughput Ingestion)
+# ====================================================================
+Kafka_Topic_Partitions             50        # Assuming 5 brokers (10 partitions/broker) for parallelism
+Kafka_Topic_ReplicationFactor      3         # Standard fault tolerance
+Kafka_Producer_batch.size          1048576   # 1 MB batch size for network efficiency
+Kafka_Producer_linger.ms           50        # Wait 50ms to accumulate full batch
+
+# ====================================================================
+# 3. KAFKA CONSUMER CONFIGS (Spark Side Bulk Fetch)
+# ====================================================================
+Kafka_Consumer_max.poll.records    10000     # Fetch a large number of records per poll for Spark efficiency
+Kafka_Consumer_fetch.min.bytes     2097152   # 2 MB minimum fetch size to reduce network overhead
+Kafka_Consumer_isolation.level     read_committed # Ensure only committed messages are read
+
+# ====================================================================
+# 4. SPARK DRIVER CONFIGS (Job Coordination)
+# ====================================================================
+Spark_driver_memory                12G       # Increased size for large job metadata/state
+Spark_num_executors                20        # Number of worker nodes to distribute work
+Spark_default_parallelism          200       # (20 executors * 5 cores * 2) to saturate cores
+
+# ====================================================================
+# 5. SPARK EXECUTOR CONFIGS (1024-Dim Embedding Generation)
+#    - Based on 8-Core / 64GB Node: Executor memory is 48GB.
+# ====================================================================
+Spark_executor_memory              48G       # Max heap for 64GB node (reserves 16GB for OS/overhead)
+Spark_executor_cores               5         # Optimal core count for concurrency on 8-core node
+Spark_memory.fraction              0.8       # 80% of heap dedicated to Unified Memory
+Spark_serializer                   org.apache.spark.serializer.KryoSerializer # Faster serialization for large dataframes
+
+
+Leadership & Mentorship Detailed:
+
+            Led a team of 6 engineers to implement OpenSearch migration and Spark preprocessing.
+
+            Conducted weekly technical reviews and code walkthroughs for high-quality delivery.
+
+            Mentored juniors on Kafka streaming, Spark optimizations, and cloud best practices.
+
+        Behavioral Learnings Detailed:
+
+            Learned cross-team coordination with data engineering and AI teams.
+
+            Developed patience and iterative improvement mindset for high-stakes production systems.
+
+            Improved communication for explaining complex AI architecture to non-technical stakeholders.
+
+        Project Impact / Outcome:
+
+        Reduced search time for support engineers by 30%.
+
+        Improved customer self-service resolution rates by 25%.
+
+        Won Cloudera AI Hackathon 2025 APAC region.
+
+        Planned Improvements:
+
+        Replace Azure/OpenAI hybrid with a fully local LLM for latency and cost efficiency.
+
+        Further scale OpenSearch cluster for upcoming 10M+ queries/month.
+
+
+
+clatest projects
+NVIDIA TensorRT-LLM
+multi gpu vm setup to run llm locally
+Tensor Parallelism
+CUDA Toolkit
+convert_checkpoint.py
+trtllm-build
+# Use huggingface-cli to download the model (requires HF_TOKEN set)
+huggingface-cli download meta-llama/Meta-Llama-3.1-70B-Instruct --local-dir ./hf_model
+
+python examples/llama/convert_checkpoint.py \
+    --model_dir ./hf_model \
+    --output_dir ./trt_ckpt \
+    --dtype float16 \
+    --tp_size 10 # Tensor Parallelism for 10 GPUs
+
+
+test automation with queries and expected docs for accuracy tests 2000 queires
